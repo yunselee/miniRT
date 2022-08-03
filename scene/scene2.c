@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:05:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 19:35:11 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 18:32:05 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ static t_mat33	get_transformation_mat(t_vec3 k)
 	t_vec3	w;
 	t_mat33	mat;
 
-	w = vec3_normalize(k);
+	w = v3_normalize(k);
 
-	u = create_vec3(0, 1, 0);
+	u = make_v3(0, 1, 0);
 	if (1.0 == w.z)
-		v = create_vec3(1, 0, 0);
+		v = make_v3(1, 0, 0);
 	else if (-1.0 == w.z)
-		v = create_vec3(-1, 0, 0);
+		v = make_v3(-1, 0, 0);
 	else
 	{
-		u = create_vec3(w.y, -w.x, 0);
-		u = vec3_normalize(u);
-		v = vec3_cross(w, u);
+		u = make_v3(w.y, -w.x, 0);
+		u = v3_normalize(u);
+		v = v3_crs(w, u);
 	}
 	mat = create_mat33(u, v, w);
 	return (mat33_trans(mat));
@@ -53,22 +53,22 @@ static void	transform_lights(t_scene *scene)
 	curr = scene->light;
 	while (curr)
 	{
-		curr->org = vec3_subtract((curr->org), (scene->cam->pos));
-		curr->org = transform_by_mat33((scene->global), (curr->org));
+		curr->o = v3_sub((curr->o), (scene->cam->pos));
+		curr->o = transform_by_mat33((scene->global), (curr->o));
 		curr = curr->next;
 	}
 }
 
 static void	transform_objects(t_scene *scene)
 {
-	t_object_base	*curr;
+	t_obj_base	*curr;
 
 	curr = scene->obj;
 	while (curr)
 	{
-		curr->org = vec3_subtract((curr->org), (scene->cam->pos));
-		curr->org = transform_by_mat33((scene->global), (curr->org));
-		curr->normal = transform_by_mat33((scene->global), (curr->normal));
+		curr->o = v3_sub((curr->o), (scene->cam->pos));
+		curr->o = transform_by_mat33((scene->global), (curr->o));
+		curr->n = transform_by_mat33((scene->global), (curr->n));
 		curr = curr->next;
 	}
 }
@@ -81,7 +81,7 @@ int	transform_to_cam_cord(t_scene *scene)
 	printf("\n");
 	transform_lights(scene);
 	transform_objects(scene);
-	scene->cam->pos = create_vec3(0, 0, 0);
+	scene->cam->pos = make_v3(0, 0, 0);
 	scene->cam->dir = transform_by_mat33((scene->global), (scene->cam->dir));
 	return (TRUE);
 }

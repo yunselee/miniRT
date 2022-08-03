@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:11:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 14:28:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 18:32:05 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 void	print_info_light(t_light *light)
 {
 	printf("[LIGHT]\n");
-	printf("\tpos : [%3.4f, %3.4f, %3.4f]\n", light->org.x \
-											, light->org.y \
-											, light->org.z);
+	printf("\tpos : [%3.4f, %3.4f, %3.4f]\n", light->o.x \
+											, light->o.y \
+											, light->o.z);
 	printf("\tbrightness : %3.4f\n", light->bright);
 	if (light->next)
 		print_info_light(light->next);

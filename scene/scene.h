@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 14:12:14 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 18:32:05 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "color.h"
 
 # ifndef TRUE
-# 	define TRUE (1)
+#  define TRUE (1)
 # endif
 # ifndef FALSE
 #  define FALSE (0)
@@ -39,22 +39,21 @@ enum e_type
 	E_CYLINDER
 };
 
-typedef struct s_object_base	t_object_base;
-struct s_object_base
+typedef struct s_object_base
 {
-	enum e_type		type;
-	t_color			color;
-	double			radius;
-	double			height;
-	t_vec3			org;
-	t_vec3			normal;
-	t_object_base	*next;
-};
+	enum e_type				type;
+	t_color					color;
+	double					r;
+	double					h;
+	t_vec3					o;
+	t_vec3					n;
+	struct s_object_base	*next;
+}							t_obj_base;
 
 typedef struct s_light	t_light;
 struct s_light
 {
-	t_vec3	org;
+	t_vec3	o;
 	double	bright;
 	t_color	color;
 	t_light	*next;
@@ -69,12 +68,12 @@ typedef struct s_cam
 
 typedef struct s_scene
 {
-	double			ambient_ratio;
-	t_color			ambient_color;
-	t_cam			*cam;
-	t_mat33			global;
-	t_light			*light;
-	t_object_base	*obj;
+	double		ambient_ratio;
+	t_color		ambient_color;
+	t_cam		*cam;
+	t_mat33		global;
+	t_light		*light;
+	t_obj_base	*obj;
 }	t_scene;
 
 typedef struct s_image
@@ -87,8 +86,8 @@ typedef struct s_image
 }			t_image;
 
 t_scene	*create_empty_scene(void);
-int	init_scene(t_scene *scene, char *filename);
+int		init_scene(t_scene *scene, char *filename);
 void	free_scene(t_scene *pscene);
-int	transform_to_cam_cord(t_scene *scene);
+int		transform_to_cam_cord(t_scene *scene);
 
 #endif

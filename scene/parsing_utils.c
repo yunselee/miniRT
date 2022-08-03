@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:33:16 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 14:14:12 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 17:33:20 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ int	str_to_color(char *str, t_color *color_out)
 	if (pos_str == NULL)
 		return (FALSE);
 	res = FALSE;
-	if (ft_strsetlen(pos_str) == 3 && \
-		ft_strtoi(pos_str[0], rgb + 0) && \
-		ft_strtoi(pos_str[1], rgb + 1) && \
-		ft_strtoi(pos_str[2], rgb + 2))
+	if (ft_strsetlen(pos_str) == 3 && ft_strtoi(pos_str[0], rgb + 0) && \
+		ft_strtoi(pos_str[1], rgb + 1) && ft_strtoi(pos_str[2], rgb + 2))
 		res = TRUE;
 	ft_freestrset(pos_str);
 	if (res == FALSE)

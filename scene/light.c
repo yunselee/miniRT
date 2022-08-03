@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:11:03 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 14:22:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 18:32:05 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ t_light	*create_light(t_vec3 pos, double b)
 	light = malloc(sizeof(t_light));
 	if (!light)
 		return (NULL);
-	light->org.x = pos.x;
-	light->org.y = pos.y;
-	light->org.z = pos.z;
+	light->o.x = pos.x;
+	light->o.y = pos.y;
+	light->o.z = pos.z;
 	light->bright = b;
 	light->next = NULL;
 	return (light);
@@ -69,7 +69,7 @@ int	case_light(t_scene *scene, char **single_scene)
 		return (FALSE);
 	if (brightness < 0.0 || brightness > 1.0)
 		return (FALSE);
-	light = create_light(pos, brightness);;
+	light = create_light(pos, brightness);
 	if (light == NULL)
 		return (FALSE);
 	if (str_to_color(single_scene[3], &(light->color)) == FALSE)

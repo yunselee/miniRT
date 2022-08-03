@@ -11,31 +11,31 @@ const double	R_S = 0.3;	// spe
 
 static t_color ambient_light(t_color obj_color ,t_color ambient_color, double ambient_ratio);
 
-static double diffuse_helper(t_object_base *objlst, t_light *target_light, t_vec3 normal, t_vec3 intersection);
+static double diffuse_helper(t_obj_base *objlst, t_light *target_light, t_vec3 normal, t_vec3 intersection);
 
-static t_color diffuse_light(t_scene *scene, t_object_base *hit_obj, t_vec3 normal, t_vec3 intersection);
+static t_color diffuse_light(t_scene *scene, t_obj_base *hit_obj, t_vec3 normal, t_vec3 intersection);
 
-static double specular_helper(t_object_base *objlst, t_light *target_light, t_vec3 mirror_ray, t_vec3 intersection)
+static double specular_helper(t_obj_base *objlst, t_light *target_light, t_vec3 mirror_ray, t_vec3 intersection)
 {
-	t_object_base	*target_obj;
+	t_obj_base	*target_obj;
 	t_vec3			ray_to_light;
 	double			dist[2];
 	double			specular;
 	unsigned int	foo;
 
 	dist[0] = INFINITY;
-	ray_to_light = (vec3_subtract(target_light->org, intersection));
+	ray_to_light = (v3_sub(target_light->o, intersection));
 	target_obj = objlst;
 	while (target_obj)
 	{
-		dist[1] = object_intersect(vec3_normalize(ray_to_light), target_obj, &foo, intersection);
+		dist[1] = object_intersect(v3_normalize(ray_to_light), target_obj, &foo, intersection);
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 			dist[0] = dist[1];
 		target_obj = target_obj->next;
 	}
-	if (isnan(dist[0]) == FALSE && dist[0] < vec3_l2norm(ray_to_light))
+	if (isnan(dist[0]) == FALSE && dist[0] < v3_l2norm(ray_to_light))
 		return (0);
-	specular = fmax(0, vec3_dot(vec3_normalize(ray_to_light), mirror_ray));
+	specular = fmax(0, v3_dot(v3_normalize(ray_to_light), mirror_ray));
 	return(specular);
 }
 
@@ -71,18 +71,18 @@ static t_color specular_light(t_scene *scene, t_vec3 mirror_ray, t_vec3 intersec
 		albedo (rd) : obj의 color에 의해서 결정되는 값이다. 즉 target obj에 대한 정보를 알면 알 수 있다.
 */
 // 첫 호출에서 view_point는 cam_pos이다.
-t_color phong_reflection(t_mlx *mlx, t_object_base *hit_obj, t_vec3 intersection, t_vec3 view_point)
+t_color phong_reflection(t_mlx *mlx, t_obj_base *hit_obj, t_vec3 intersection, t_vec3 view_point)
 {
 	t_vec3	normal;
 	t_vec3	mirror_reflect;
 	t_color	radiosity[3];
 	
 	normal = get_normal_vector(hit_obj, intersection, view_point); 
-	intersection = vec3_add(intersection, vec3_scale(normal, EPSILON));
+	intersection = v3_add(intersection, v3_mul(normal, EPSILON));
 
-	mirror_reflect = vec3_subtract(intersection, view_point);
-	mirror_reflect = vec3_add(mirror_reflect, vec3_scale(normal,-2 * vec3_dot(normal, mirror_reflect)));
-	mirror_reflect = vec3_normalize(mirror_reflect);
+	mirror_reflect = v3_sub(intersection, view_point);
+	mirror_reflect = v3_add(mirror_reflect, v3_mul(normal,-2 * v3_dot(normal, mirror_reflect)));
+	mirror_reflect = v3_normalize(mirror_reflect);
 
 	radiosity[0] = ambient_light(hit_obj->color, mlx->scene->ambient_color, mlx->scene->ambient_ratio);
 	radiosity[1] = diffuse_light(mlx->scene, hit_obj, normal, intersection);
@@ -108,31 +108,31 @@ static t_color ambient_light(t_color obj_color ,t_color amb_color, double ra)
 	return (c);
 }
 
-static double diffuse_helper(t_object_base *objlst, t_light *target_light, t_vec3 normal, t_vec3 intersection)
+static double diffuse_helper(t_obj_base *objlst, t_light *target_light, t_vec3 normal, t_vec3 intersection)
 {
-	t_object_base	*target_obj;
+	t_obj_base	*target_obj;
 	t_vec3			ray_to_light;
 	double			dist[2];
 	double			diffuse;
 	unsigned int	foo;
 
 	dist[0] = INFINITY;
-	ray_to_light = (vec3_subtract(target_light->org, intersection));
+	ray_to_light = (v3_sub(target_light->o, intersection));
 	target_obj = objlst;
 	while (target_obj)
 	{
-		dist[1] = object_intersect(vec3_normalize(ray_to_light), target_obj, &foo, intersection);
+		dist[1] = object_intersect(v3_normalize(ray_to_light), target_obj, &foo, intersection);
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 			dist[0] = dist[1];
 		target_obj = target_obj->next;
 	}
-	if (isnan(dist[0]) == FALSE && dist[0] < vec3_l2norm(ray_to_light))
+	if (isnan(dist[0]) == FALSE && dist[0] < v3_l2norm(ray_to_light))
 		return (0);
-	diffuse = fmax(0, vec3_dot(vec3_normalize(ray_to_light), normal)) * target_light->bright;
+	diffuse = fmax(0, v3_dot(v3_normalize(ray_to_light), normal)) * target_light->bright;
 	return(diffuse);
 }
 
-static t_color diffuse_light(t_scene *scene, t_object_base *hit_obj, t_vec3 normal, t_vec3 intersection)
+static t_color diffuse_light(t_scene *scene, t_obj_base *hit_obj, t_vec3 normal, t_vec3 intersection)
 {
 	t_light	*light;
 	t_color color;

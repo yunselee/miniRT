@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:06:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 15:27:24 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 17:27:49 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 #include <math.h>
 #include <stdio.h>
 
-t_vec3	vec3_subtract(t_vec3 a, t_vec3 b)
+t_vec3	v3_sub(t_vec3 a, t_vec3 b)
 {
-	return (create_vec3(a.x - b.x, a.y - b.y, a.z - b.z));
+	return (make_v3(a.x - b.x, a.y - b.y, a.z - b.z));
 }
 
-t_vec3	vec3_scale(t_vec3 a, double const s)
+t_vec3	v3_mul(t_vec3 a, double const s)
 {
 	t_vec3	n;
 
@@ -30,12 +30,12 @@ t_vec3	vec3_scale(t_vec3 a, double const s)
 	return (n);
 }
 
-double	vec3_dot(t_vec3	a, t_vec3 b)
+double	v3_dot(t_vec3	a, t_vec3 b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
-t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
+t_vec3	v3_crs(t_vec3 a, t_vec3 b)
 {
 	double	x;
 	double	y;
@@ -44,10 +44,10 @@ t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
 	x = a.y * b.z - a.z * b.y;
 	y = a.z * b.x - a.x * b.z;
 	z = a.x * b.y - a.y * b.x;
-	return (create_vec3(x, y, z));
+	return (make_v3(x, y, z));
 }
 
-int	is_nullvec3(t_vec3 a)
+int	v3_isnull(t_vec3 a)
 {
 	if (a.x == 0 && a.y == 0 && a.z == 0)
 		return (TRUE);
