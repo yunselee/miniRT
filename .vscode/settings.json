@@ -75,6 +75,7 @@
         "system_error": "c",
         "tuple": "c",
         "typeinfo": "c",
-        "__split_buffer": "c"
+        "__split_buffer": "c",
+        "vector3.h": "c"
     }
 }

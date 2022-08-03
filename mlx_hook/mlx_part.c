@@ -6,35 +6,22 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/01 16:10:16 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 19:58:36 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "mlx_part.h"
 #include "scene.h"
-#include <stdlib.h>
+#include "ray_cast.h"
 
 void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 							unsigned int y, unsigned int color)
 {
-	char *dst;
+	char	*dst;
 
 	dst = img->addr + (y * img->line + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
-}
-
-void	ft_mlx_set_image_background(t_mlx *mlx)
-{
-	unsigned int	x;
-	unsigned int	y;
-
-	y = -1;
-	while (++y < mlx->height)
-	{
-		x = -1;
-		while (++x < mlx->width)
-			ft_mlx_set_pixel_color(mlx->image, x, y, 0xffffff);
-	}
 }
 
 t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
@@ -59,10 +46,9 @@ t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
 								&(mlx->image->line), &(mlx->image->endian));
 	mlx->width = width;
 	mlx->height = height;
-	ft_mlx_set_image_background(mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
 	return (mlx);
 }
+
 void	delete_mlx(t_mlx *mlx)
 {
 	free_scene(mlx->scene);
@@ -71,4 +57,23 @@ void	delete_mlx(t_mlx *mlx)
 	free(mlx->image);
 	free(mlx->mlx);
 	free(mlx);
+}
+
+void	mlx_start(t_scene *scene, \
+					unsigned int width, \
+					unsigned int height, \
+					char *name)
+{
+	t_mlx	*mlx;
+
+	mlx = create_mlx(scene, width, height, name);
+	mlx->image->img = mlx_new_image(mlx->mlx, width, height);
+	mlx->image->addr = mlx_get_data_addr(mlx->image->img, &(mlx->image->bpp), \
+								&(mlx->image->line), &(mlx->image->endian));
+	ray_cast(mlx);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
+	mlx_hook(mlx->win, 17, 0, destroy, mlx);
+	mlx_hook(mlx->win, 2, (1L << 0), keydown, mlx);
+	mlx_hook(mlx->win, 4, (1L << 2), mousedown, mlx);
+	mlx_loop(mlx->mlx);
 }

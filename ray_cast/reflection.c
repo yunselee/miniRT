@@ -6,9 +6,6 @@
 #include "scene.h"
 #include "vector3.h"
 
-const int		ALPHA = 54; // specular reflection parameter 0 to inf
-const double	R_S = 0.3;	// spe
-
 static t_color ambient_light(t_color obj_color ,t_color ambient_color, double ambient_ratio);
 
 static double diffuse_helper(t_obj_base *objlst, t_light *target_light, t_vec3 normal, t_vec3 intersection);
@@ -17,7 +14,7 @@ static t_color diffuse_light(t_scene *scene, t_obj_base *hit_obj, t_vec3 normal,
 
 static double specular_helper(t_obj_base *objlst, t_light *target_light, t_vec3 mirror_ray, t_vec3 intersection)
 {
-	t_obj_base	*target_obj;
+	t_obj_base		*target_obj;
 	t_vec3			ray_to_light;
 	double			dist[2];
 	double			specular;
@@ -54,8 +51,8 @@ static t_color specular_light(t_scene *scene, t_vec3 mirror_ray, t_vec3 intersec
 		{
 			specular = R_S * pow(specular, ALPHA);
 			color.red += fmin(255, round(specular * ((double)light->color.red / 255) * light->color.red));
-			color.green += fmin(255, round(specular * ((double)light->color.green / 255)* light->color.green));
-			color.blue += fmin(255, round(specular * ((double)light->color.blue / 255)* light->color.blue));
+			color.green += fmin(255, round(specular * ((double)light->color.green / 255) * light->color.green));
+			color.blue += fmin(255, round(specular * ((double)light->color.blue / 255) * light->color.blue));
 		}
 		light = light->next;
 	}
@@ -146,8 +143,8 @@ static t_color diffuse_light(t_scene *scene, t_obj_base *hit_obj, t_vec3 normal,
 		if (diffuse > EPSILON)
 		{
 			color.red += fmin(255, round(diffuse * ((double)light->color.red / 255) * hit_obj->color.red));
-			color.green += fmin(255, round(diffuse * ((double)light->color.green / 255)* hit_obj->color.green));
-			color.blue += fmin(255, round(diffuse * ((double)light->color.blue / 255)* hit_obj->color.blue));
+			color.green += fmin(255, round(diffuse * ((double)light->color.green / 255) * hit_obj->color.green));
+			color.blue += fmin(255, round(diffuse * ((double)light->color.blue / 255) * hit_obj->color.blue));
 		}
 		light = light->next;
 	}
