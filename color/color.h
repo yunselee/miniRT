@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_info.h                                       :+:      :+:    :+:   */
+/*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/03 14:30:06 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 14:30:31 by dkim2            ###   ########.fr       */
+/*   Created: 2022/07/30 22:52:54 by dkim2             #+#    #+#             */
+/*   Updated: 2022/08/01 16:08:32 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_INFO_H
-# define PRINT_INFO_H
-# include "scene.h"
+#ifndef COLOR_H
+# define COLOR_H
 
-void	print_info_light(t_light *light);
-void	print_info_camera(t_cam *cam);
-void	print_info_scene(t_scene *scene);
-void	print_info_object(t_object_base *obj);
+typedef struct s_color
+{
+	unsigned char	alpha;
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
+}	t_color;
+
+t_color	hex_color(unsigned int hex_color);
+
+t_color rgb_color(unsigned int r, unsigned int g, unsigned int b);
+
+t_color	color_add(t_color c1, t_color c2);
+
+t_color color_scale(t_color c1, double s);
+
+unsigned int color_to_hex(t_color);
 
 #endif

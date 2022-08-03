@@ -6,21 +6,68 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:31:17 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 12:30:15 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 16:12:59 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx_part.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include "mlx_part.h"
+#include "mlx_keycode.h"
+#include "ray_cast.h"
 
-int keydown(int keycode, t_mlx *mlx)
+static void mlx_renew_image(t_mlx *mlx)
 {
-	if (keycode == 53)
+	mlx_destroy_image(mlx->mlx, mlx->image->img);
+	mlx->image->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
+	mlx->image->addr = mlx_get_data_addr(mlx->image->img, &(mlx->image->bpp), \
+								&(mlx->image->line), &(mlx->image->endian));
+	ray_cast(mlx);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
+}
+
+int	keydown(int keycode, t_mlx *mlx)
+{
+	const int STRIDE = 4;
+	printf("keycode : %d\n", keycode);
+	if (keycode == ESC)
 	{
 		delete_mlx(mlx);
-		// system("leaks miniRT");
 		exit(0);
 	}
+	else if (keycode == RARROW)
+	{
+		printf("->\n");
+		mlx->scene->cam->pos.x += STRIDE;
+	}
+	else if (keycode == LARROW)
+	{
+		printf("<-\n");
+		mlx->scene->cam->pos.x -= STRIDE;
+	}
+	else if (keycode == UARROW)
+	{
+		printf("^\n");
+		mlx->scene->cam->pos.y -= STRIDE;
+	}
+	else if (keycode == DARROW)
+	{
+		printf("v\n");
+		mlx->scene->cam->pos.y += STRIDE;
+	}
+	else if (keycode == KEY_I)
+	{
+		printf("I\n");
+		mlx->scene->cam->pos.z += STRIDE;
+	}
+	else if (keycode == KEY_O)
+	{
+		printf("O\n");
+		mlx->scene->cam->pos.z -= STRIDE;
+	}
+	else
+		return (0);
+	mlx_renew_image(mlx);
 	return (0);
 }
 
@@ -30,4 +77,16 @@ int	destroy(t_mlx *mlx)
 		return (0);
 	delete_mlx(mlx);
 	exit(0);
+}
+
+int mousedown(int button, int x, int y, t_mlx *mlx)
+{
+
+	if (!mlx)
+		return (0);
+	if (button == 1)
+	{
+		printf("[%u, %u] : \n", x, y);	
+	}
+	return (0);
 }

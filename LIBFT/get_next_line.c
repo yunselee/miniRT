@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 02:07:33 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/07 03:52:10 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 14:42:07 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <fcntl.h>
 #include "libft.h"
-
 #define BUFFERSIZE 42
 
 static int	read_by_buffer(int fd, char **saving)
@@ -57,6 +56,7 @@ char	*get_next_line(int fd)
 			if (read_size == 0 && ft_strlen(saving) > 0)
 				line = ft_strdup(saving);
 			free(saving);
+			saving = NULL;
 			return (line);
 		}
 	}
@@ -67,35 +67,3 @@ char	*get_next_line(int fd)
 	saving = temp;
 	return (line);
 }
-
-/*
-void custom_putstr(char *s)
-{
-	while (*s)
-	{
-		if (*s == '\n')
-			write(1, "[\\n]", 4);
-		else
-			write(1, s, 1);
-		s++;
-	}
-}
-
-int main(int argc, char **argv)
-{
-	int fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		return (1);
-	char *line;
-
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			return (0);
-		write(1, "line : <", 8);
-		custom_putstr(line);
-		write(1, ">\n", 2);
-		free(line);
-	}
-}*/

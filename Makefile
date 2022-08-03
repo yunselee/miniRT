@@ -13,30 +13,44 @@ INCS_DIR		= 	-I ./LIBFT \
 					-I ./mlx_hook \
 					-I ./print_info \
 					-I ./scene \
+					-I ./color \
+					-I ./ray_cast
 
 SRCS_DIR		= 	./ \
 					./SRC \
-					./mlx_hook \
+					./ray_cast \
+					./color \
 					./print_info \
-					./scene \
+					./mlx_hook \
+					./scene
 
 SRCS			= 	main.c \
+					\
 					ray.c \
 					object_intersect.c \
-					mlx_event.c \
-					mlx_part.c \
+					cylinder_intersect.c \
+					get_normal_vector.c \
+					ray.c \
+					reflection.c \
+					\
+					color.c \
+					\
 					print_scene.c \
 					print_scene2.c \
+					\
+					mlx_event.c \
+					mlx_part.c \
+					\
 					camera.c \
-					light.c \
 					case_object.c \
+					light.c \
 					parsing_utils.c \
-					scene1.c \
 					read_file.c \
+					scene1.c \
 					scene2.c \
 
 
-OBJS_DIR		= ./objects
+OBJS_DIR		= ./OBJS
 OBJS			= $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 vpath %.c $(SRCS_DIR)
 

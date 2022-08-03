@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   object.c                                           :+:      :+:    :+:   */
+/*   case_object.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:41:42 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/26 15:38:06 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 14:23:35 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <math.h>
 #include "in_parsing.h"
 
-void	ft_addlst_back(t_object_base *objlst, t_object_base *node)
+static void	ft_addlst_back(t_object_base *objlst, t_object_base *node)
 {
 	t_object_base	*last;
 
@@ -36,7 +36,6 @@ void	free_objectlst(t_object_base *objlst)
 	while (curr)
 	{
 		next = curr -> next;
-		free(curr->type);
 		free(curr);
 		curr = next;
 	}
@@ -51,10 +50,12 @@ int	case_plane(t_scene *scene, char **single_scene)
 	new_obj = ft_calloc(1, sizeof(t_object_base));
 	if (!new_obj)
 		return (FALSE);
-	new_obj->type = ft_strdup(T_PLANE);
+	new_obj->type = E_PLANE;
 	if ((str_to_vec3(single_scene[1], &new_obj->org) == FALSE) \
 		|| (str_to_vec3(single_scene[2], &new_obj->normal) == FALSE) \
 		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE))
+		return (FALSE);
+	if (round(vec3_l2norm(new_obj->normal) * 10000) / 10000 != 1.0)
 		return (FALSE);
 	if (scene->obj == NULL)
 		scene->obj = new_obj;
@@ -72,13 +73,14 @@ int	case_sphere(t_scene *scene, char **single_scene)
 	new_obj = ft_calloc(1, sizeof(t_object_base));
 	if (!new_obj)
 		return (FALSE);
-	new_obj->type = ft_strdup(T_SPHERE);
+	new_obj->type = E_SPHERE;
 	if ((str_to_vec3(single_scene[1], &new_obj->org) == FALSE) \
 		|| (ft_strtod(single_scene[2], &new_obj->radius) == FALSE) \
 		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE))
 		return (FALSE);
-	if (new_obj->radius < 0.0)
+	if (new_obj->radius <= 0.0)
 		return (FALSE);
+	new_obj->radius /= 2;
 	if (scene->obj == NULL)
 		scene->obj = new_obj;
 	else
@@ -96,17 +98,18 @@ int	case_cylinder(t_scene *scene, char **single_scene)
 	new_obj = ft_calloc(1, sizeof(t_object_base));
 	if (!new_obj)
 		return (FALSE);
-	new_obj->type = ft_strdup(T_CYLINDER);
+	new_obj->type = E_CYLINDER;
 	if ((str_to_vec3(single_scene[1], &new_obj->org) == FALSE) \
 		|| (str_to_vec3(single_scene[2], &new_obj->normal) == FALSE) \
 		|| (ft_strtod(single_scene[3], &new_obj->radius) == FALSE) \
 		|| (ft_strtod(single_scene[4], &new_obj->height) == FALSE)
 		|| (str_to_color(single_scene[5], &new_obj->color) == FALSE))
 		return (FALSE);
-	if (vec3_l2norm(new_obj->normal) != 1.0)
+	if (round(vec3_l2norm(new_obj->normal) * 10000) / 10000 != 1.0)
 		return (FALSE);
-	if (new_obj->radius < 0.0 || new_obj->height < 0.0)
+	if (new_obj->radius <= 0.0 || new_obj->height <= 0.0)
 		return (FALSE);
+	new_obj->radius /= 2;
 	if (scene->obj == NULL)
 		scene->obj = new_obj;
 	else

@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "math.h": "c",
+        "libft.h": "c",
+        "ray_cast.h": "c",
+        "stdio.h": "c",
+        "__functional_03": "c",
+        "memory_resource": "c",
+        "functional": "c",
+        "memory": "c",
+        "scene.h": "c",
+        "time.h": "c"
+    }
+}

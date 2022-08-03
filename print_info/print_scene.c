@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   print_scene.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:11:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/11 03:21:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 14:28:57 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <math.h>
 #include "scene.h"
 #include "../LIBFT/libft.h"
-#include <stdio.h>
-
-void	print_info_object(t_object_base *obj);
+#include "print_info.h"
 
 void	print_info_light(t_light *light)
 {
@@ -36,7 +36,8 @@ void	print_info_camera(t_cam *cam)
 	printf("\tdir : [%3.4f, %3.4f, %3.4f]\n", cam->dir.x \
 											, cam->dir.y \
 											, cam->dir.z);
-	printf("\tHFOV : %3.4f(deg)\n", cam->hfov);
+	printf("\tHFOV : %3.4f(rad)\n", cam->hfov);
+	printf("\tHFOV : %3.4f(deg)\n", (cam->hfov) * (180 / M_PI));
 }
 
 void	print_info_scene(t_scene *scene)
@@ -45,9 +46,9 @@ void	print_info_scene(t_scene *scene)
 	int	green;
 	int	blue;
 
-	red = (scene->ambient_color >> 16) & 0xff;
-	green = (scene->ambient_color >> 8) & 0xff;
-	blue = (scene->ambient_color) & 0xff;
+	red = scene->ambient_color.red;
+	green = scene->ambient_color.green;
+	blue = scene->ambient_color.blue;
 	print_info_light(scene->light);
 	printf("[AMBIENT]\n");
 	printf("\tratio : %3.4f\n", scene->ambient_ratio);
