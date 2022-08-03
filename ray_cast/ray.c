@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 20:32:07 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 21:00:13 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 	return (color_scale(color, attenuation));
 }
 
-double	get_intersect_distance(t_obj_base *objlst, \
+static double	get_intersect_distance(t_obj_base *objlst, \
 								t_obj_base **intersecting_obj_out, \
 								t_vec3 ray, \
 								t_vec3 offset)
@@ -65,7 +65,7 @@ double	get_intersect_distance(t_obj_base *objlst, \
 	return (dist[0]);
 }
 
-unsigned int	single_ray_cast(t_mlx *mlx, t_vec3 ray, t_vec3 offset)
+static t_color	single_ray_cast(t_mlx *mlx, t_vec3 ray, t_vec3 offset)
 {
 	t_obj_base	*intersect_obj;
 	t_vec3		intersect;
@@ -75,16 +75,14 @@ unsigned int	single_ray_cast(t_mlx *mlx, t_vec3 ray, t_vec3 offset)
 	intersect_obj = NULL;
 	dist = get_intersect_distance(mlx->scene->obj, &intersect_obj, ray, offset);
 	if (dist == INFINITY)
-		return (BACKGROUND);
+		return (rgb_color(0, 0, 0));
 	else
 	{
 		intersect = v3_mul(ray, dist);
-		c = phong_reflection(mlx, intersect_obj, \
-							intersect, mlx->scene->cam->pos);
-		return (color_to_hex(intensity_attenuation(c, intersect, \
-													mlx->scene->cam->pos)));
+		intersect = v3_add(intersect, offset);
+		c = phong_reflection(mlx, intersect_obj, intersect, offset);
+		return (intensity_attenuation(c, intersect, offset));
 	}
-
 }
 
 void	ray_cast(t_mlx *mlx)
@@ -92,7 +90,7 @@ void	ray_cast(t_mlx *mlx)
 	unsigned int	x;
 	unsigned int	y;
 	double			d;
-	unsigned int	color;
+	t_color			color;
 	t_vec3			ray;
 
 	d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
@@ -106,7 +104,7 @@ void	ray_cast(t_mlx *mlx)
 						(int)(y - mlx->height / 2), d);
 			color = single_ray_cast(mlx, v3_normalize(ray), \
 									mlx->scene->cam->pos);
-			ft_mlx_set_pixel_color(mlx->image, x, y, color);
+			ft_mlx_set_pixel_color(mlx->image, x, y, color_to_hex(color));
 			x++;
 		}
 		y++;

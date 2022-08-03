@@ -87,6 +87,7 @@ t_color phong_reflection(t_mlx *mlx, t_obj_base *hit_obj, t_vec3 intersection, t
 	// return (radiosity[0]);
 	// return (radiosity[1]);
 	// return (radiosity[2]);
+	// return (color_add(radiosity[0], radiosity[1]));
 	return (color_add(color_add(radiosity[0], radiosity[1]), radiosity[2]));
 }
 
@@ -116,6 +117,7 @@ static double diffuse_helper(t_obj_base *objlst, t_light *target_light, t_vec3 n
 	dist[0] = INFINITY;
 	ray_to_light = (v3_sub(target_light->o, intersection));
 	target_obj = objlst;
+
 	while (target_obj)
 	{
 		dist[1] = object_intersect(v3_normalize(ray_to_light), target_obj, &foo, intersection);
