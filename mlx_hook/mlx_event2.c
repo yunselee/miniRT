@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene1.c                                           :+:      :+:    :+:   */
+/*   mlx_event2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/07 05:05:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 21:19:09 by dkim2            ###   ########.fr       */
+/*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
+/*   Updated: 2022/08/03 21:48:32 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scene.h"
-#include "../LIBFT/libft.h"
-#include <stdlib.h>
-#include "in_parsing.h"
+#include "mlx_part.h"
 
-t_scene	*create_empty_scene(void)
+void move_pos(t_mlx *mlx, int stride)
 {
-	return (ft_calloc(1, sizeof(t_scene)));
-}
-
-void	free_scene(t_scene *pscene)
-{
-	free(pscene->cam);
-	free_lightlst(pscene->light);
-	free_objectlst(pscene->obj);
-	free(pscene);
+	
 }

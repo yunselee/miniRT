@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:05:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 20:48:54 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 21:24:32 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void	transform_lights(t_scene *scene)
 	curr = scene->light;
 	while (curr)
 	{
-		// curr->o = v3_sub((curr->o), (scene->cam->pos));
 		curr->o = transform_by_mat33((scene->global), (curr->o));
 		curr = curr->next;
 	}
@@ -65,7 +64,6 @@ static void	transform_objects(t_scene *scene)
 	curr = scene->obj;
 	while (curr)
 	{
-		// curr->o = v3_sub((curr->o), (scene->cam->pos));
 		curr->o = transform_by_mat33((scene->global), (curr->o));
 		curr->n = transform_by_mat33((scene->global), (curr->n));
 		curr = curr->next;
@@ -81,7 +79,6 @@ int	transform_to_cam_cord(t_scene *scene)
 	transform_lights(scene);
 	transform_objects(scene);
 	scene->cam->pos = transform_by_mat33((scene->global), (scene->cam->pos));
-	// scene->cam->pos = v3_sub((scene->cam->pos), (scene->cam->pos));
 	scene->cam->dir = transform_by_mat33((scene->global), (scene->cam->dir));
 	return (TRUE);
 }

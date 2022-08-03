@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 19:54:29 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 21:48:38 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,18 @@
 # include "scene.h"
 
 # define BACKGROUND (0X222222)
+
+enum e_target
+{
+	E_LIGHT = 0,
+	E_CAM,
+	E_OBJ
+};
+
+typedef struct s_selected
+{
+	t_obj_base *obj;
+}	t_selected;
 
 typedef struct s_mlx
 {
