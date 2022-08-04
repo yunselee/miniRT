@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 18:32:05 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/04 17:37:12 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,6 @@
 # endif
 
 # define EPSILON (0.000001)
-
-typedef struct s_ray	t_ray;
-struct s_ray
-{
-	t_vec3	org;
-	t_vec3	dir;
-	t_ray	*next;
-};
 
 enum e_type
 {

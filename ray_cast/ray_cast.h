@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:07:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 20:08:15 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/04 17:37:07 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 
 # define R_S (0.3)
 # define ALPHA (54)
+
+typedef struct s_ray
+{
+	t_vec3	org;
+	t_vec3	dir;
+}	t_ray;
+
+t_ray	make_ray(t_vec3 org, t_vec3 dir);
 
 double	solve_quadratic_equation(double a, double b, double c);
 
