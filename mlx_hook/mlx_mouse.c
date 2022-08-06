@@ -66,9 +66,9 @@ int	mousemove(int x, int y, t_mlx *mlx)
 		axis = v3_normalize(make_v3(-dy, dx, 0));
 		mlx->last[0] = x;
 		mlx->last[1] = y;
-		transform.r1 = rotate_vec3_deg(axis, 3, make_v3(1, 0, 0));
-		transform.r2 = rotate_vec3_deg(axis, 3, make_v3(0, 1, 0));
-		transform.r3 = rotate_vec3_deg(axis, 3, make_v3(0, 0, 1));
+		transform.r1 = rotate_vec3_deg(axis, -3, make_v3(1, 0, 0));
+		transform.r2 = rotate_vec3_deg(axis, -3, make_v3(0, 1, 0));
+		transform.r3 = rotate_vec3_deg(axis, -3, make_v3(0, 0, 1));
 		transform_to_cam_cord(mlx->scene, mat33_trans(transform));
 	}
 	mlx_renew_image(mlx);

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 14:11:15 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 14:36:17 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
 								&(mlx->image->line), &(mlx->image->endian));
 	mlx->width = width;
 	mlx->height = height;
+	mlx->edit = 0;
 	return (mlx);
 }
 
