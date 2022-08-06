@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 14:23:54 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 15:13:25 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ static t_color diffuse_light(t_scene *scene, t_obj_base *hit_obj, t_vec3 normal,
 		diffuse = diffuse_helper(scene->obj, light, normal, intersection);
 		if (diffuse > EPSILON)
 		{
-			color.red += fmin(255, round(diffuse * ((double)light->color.red / 255) * hit_obj->color.red));
-			color.green += fmin(255, round(diffuse * ((double)light->color.green / 255) * hit_obj->color.green));
-			color.blue += fmin(255, round(diffuse * ((double)light->color.blue / 255) * hit_obj->color.blue));
+			color.red += fmin(255 - color.red, round(diffuse * ((double)light->color.red / 255) * hit_obj->color.red));
+			color.green += fmin(255 - color.green, round(diffuse * ((double)light->color.green / 255) * hit_obj->color.green));
+			color.blue += fmin(255 - color.blue, round(diffuse * ((double)light->color.blue / 255) * hit_obj->color.blue));
 		}
 		light = light->next;
 	}
@@ -154,9 +154,9 @@ static t_color specular_light(t_scene *scene, t_vec3 mirror_ray, t_vec3 intersec
 		if (specular > EPSILON)
 		{
 			specular = R_S * pow(specular, ALPHA);
-			color.red += fmin(255, round(specular * ((double)light->color.red / 255) * light->color.red));
-			color.green += fmin(255, round(specular * ((double)light->color.green / 255) * light->color.green));
-			color.blue += fmin(255, round(specular * ((double)light->color.blue / 255) * light->color.blue));
+			color.red += fmin(255 - color.red, round(specular * ((double)light->color.red / 255) * light->color.red));
+			color.green += fmin(255 - color.green, round(specular * ((double)light->color.green / 255) * light->color.green));
+			color.blue += fmin(255 - color.blue, round(specular * ((double)light->color.blue / 255) * light->color.blue));
 		}
 		light = light->next;
 	}
