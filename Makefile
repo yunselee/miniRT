@@ -29,10 +29,6 @@ SRCS_DIR		= 	./ \
 SRCS			= 	main.c \
 					\
 					ray.c \
-					object_intersect.c \
-					cylinder_intersect.c \
-					get_normal_vector.c \
-					ray.c \
 					reflection.c \
 					\
 					color.c \
@@ -44,7 +40,6 @@ SRCS			= 	main.c \
 					mlx_part.c \
 					\
 					camera.c \
-					case_object.c \
 					light.c \
 					parsing_utils.c \
 					read_file.c \
@@ -55,6 +50,8 @@ SRCS			= 	main.c \
 					objs_base.c \
 					sphere.c \
 					plain.c \
+					case_object.c \
+					init_object.c \
 
 
 OBJS_DIR		= ./OBJS
