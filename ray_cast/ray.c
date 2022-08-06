@@ -18,6 +18,7 @@
 #include "ray_cast.h"
 #include <stdio.h>
 #include <time.h>
+#include "objects.h"
 
 static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 {
@@ -39,19 +40,19 @@ static double	get_intersect_distance(t_obj_base *objlst, \
 								t_vec3 ray, \
 								t_vec3 offset)
 {
-	t_vec3			dir;
-	t_obj_base		*target_obj;
-	unsigned int	color[2];
-	double			dist[2];
+	const t_vec3				dir = ray;
+	t_obj_base	*target_obj;
+	t_obj_base			*intersect_obj;
+	unsigned int		color[2];
+	double				dist[2];
 
 	dist[0] = INFINITY;
 	color[0] = BACKGROUND;
+	intersect_obj = NULL;
 	target_obj = objlst;
-	dir = v3_normalize(ray);
-	*intersecting_obj_out = NULL;
 	while (target_obj)
 	{
-		dist[1] = object_intersect(dir, target_obj, &color[1], offset);
+		dist[1] = intersect(dir, target_obj, &color[1], offset);
 		if ((dist[1] != NAN) && (dist[1] < dist[0]))
 		{
 			dist[0] = dist[1];
@@ -89,11 +90,10 @@ void	ray_cast(t_mlx *mlx)
 {
 	unsigned int	x;
 	unsigned int	y;
-	double			d;
-	t_color			color;
+	const double	d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
+	t_color	color;
 	t_vec3			ray;
 
-	d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
 	y = 0;
 	while (y < mlx->height)
 	{

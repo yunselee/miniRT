@@ -25,7 +25,7 @@ static double specular_helper(t_obj_base *objlst, t_light *target_light, t_vec3 
 	target_obj = objlst;
 	while (target_obj)
 	{
-		dist[1] = object_intersect(v3_normalize(ray_to_light), target_obj, &foo, intersection);
+		dist[1] = intersect(v3_normalize(ray_to_light), target_obj, &foo, intersection);
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 			dist[0] = dist[1];
 		target_obj = target_obj->next;
@@ -120,7 +120,7 @@ static double diffuse_helper(t_obj_base *objlst, t_light *target_light, t_vec3 n
 
 	while (target_obj)
 	{
-		dist[1] = object_intersect(v3_normalize(ray_to_light), target_obj, &foo, intersection);
+		dist[1] = intersect(v3_normalize(ray_to_light), target_obj, &foo, intersection);
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 			dist[0] = dist[1];
 		target_obj = target_obj->next;

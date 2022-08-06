@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "in_parsing.h"
+#include "objects.h"
 
 static void	ft_addlst_back(t_obj_base *objlst, t_obj_base *node)
 {
@@ -61,6 +62,7 @@ int	case_plane(t_scene *scene, char **single_scene)
 		scene->obj = new_obj;
 	else
 		ft_addlst_back((scene->obj), new_obj);
+	new_obj->vtable_ = get_plain();
 	return (TRUE);
 }
 
@@ -86,6 +88,7 @@ int	case_sphere(t_scene *scene, char **single_scene)
 	else
 		ft_addlst_back((scene->obj), new_obj);
 	new_obj->n = make_v3(0, 0, 0);
+	new_obj->vtable_ = get_sphere();
 	return (TRUE);
 }
 
@@ -114,5 +117,6 @@ int	case_cylinder(t_scene *scene, char **single_scene)
 		scene->obj = new_obj;
 	else
 		ft_addlst_back((scene->obj), new_obj);
+	new_obj->vtable_ = get_cylinder();
 	return (TRUE);
 }

@@ -17,25 +17,6 @@
 # include "vector3.h"
 # include "color.h"
 
-# define R_S (0.3)
-# define ALPHA (54)
-
-double	solve_quadratic_equation(double a, double b, double c);
-
-double	object_intersect(t_vec3 ray, \
-							t_obj_base *obj, \
-							unsigned int *pcolor, \
-							t_vec3 offset);
-
-double	intersect_cylinder(t_vec3 ray, \
-							t_obj_base *obj, \
-							unsigned int *pcolor, \
-							t_vec3 offset);
-
-t_vec3	get_normal_vector(t_obj_base *obj, \
-							t_vec3 intersection, \
-							t_vec3 cam_pos);
-
 void	ray_cast(t_mlx *mlx);
 
 t_color	phong_reflection(t_mlx *mlx, \
