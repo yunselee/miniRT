@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/04 17:38:25 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 14:23:54 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ t_color phong_reflection(t_mlx *mlx, t_obj_base *hit_obj, t_vec3 intersection, t
 	t_vec3	mirror_reflect;
 	t_color	radiosity[3];
 	
+	if (mlx->edit != FALSE)
+	{
+		radiosity[0] = ambient_light(hit_obj->color, mlx->scene->ambient_color, 0.8);
+		return (radiosity[0]);
+	}
 	normal = get_normal_vector(hit_obj, intersection, view_point); 
 	intersection = v3_add(intersection, v3_mul(normal, EPSILON));
 
@@ -63,26 +68,27 @@ static t_color ambient_light(t_color obj_color ,t_color amb_color, double ra)
 
 static double diffuse_helper(t_obj_base *objlst, t_light *target_light, t_vec3 normal, t_vec3 intersection)
 {
-	t_obj_base		*target_obj;
-	t_vec3			ray_to_light;
+	t_obj_base	*target_obj;
+	t_vec3			dir_to_light;
 	double			dist[2];
 	double			diffuse;
-	unsigned int	foo;
+	t_ray			ray_to_light;
 
 	dist[0] = INFINITY;
-	ray_to_light = (v3_sub(target_light->o, intersection));
+	dir_to_light = (v3_sub(target_light->o, intersection));
+	ray_to_light.dir = v3_normalize(dir_to_light);
+	ray_to_light.org = intersection;
 	target_obj = objlst;
-
 	while (target_obj)
 	{
-		dist[1] = object_intersect(v3_normalize(ray_to_light), target_obj, &foo, intersection);
+		dist[1] = intersect(ray_to_light, target_obj, NULL);
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 			dist[0] = dist[1];
 		target_obj = target_obj->next;
 	}
-	if (isnan(dist[0]) == FALSE && dist[0] < v3_l2norm(ray_to_light))
+	if (isnan(dist[0]) == FALSE && dist[0] < v3_l2norm(dir_to_light))
 		return (0);
-	diffuse = fmax(0, v3_dot(v3_normalize(ray_to_light), normal)) * target_light->bright;
+	diffuse = fmax(0, v3_dot(v3_normalize(dir_to_light), normal)) * target_light->bright;
 	return(diffuse);
 }
 
@@ -111,24 +117,26 @@ static t_color diffuse_light(t_scene *scene, t_obj_base *hit_obj, t_vec3 normal,
 static double specular_helper(t_obj_base *objlst, t_light *target_light, t_vec3 mirror_ray, t_vec3 intersection)
 {
 	t_obj_base		*target_obj;
-	t_vec3			ray_to_light;
+	t_vec3			dir_to_light;
+	t_ray			ray_to_light;
 	double			dist[2];
 	double			specular;
-	unsigned int	foo;
 
 	dist[0] = INFINITY;
-	ray_to_light = (v3_sub(target_light->o, intersection));
+	dir_to_light = (v3_sub(target_light->o, intersection));
+	ray_to_light.dir = v3_normalize(dir_to_light);
+	ray_to_light.org = intersection;
 	target_obj = objlst;
 	while (target_obj)
 	{
-		dist[1] = object_intersect(v3_normalize(ray_to_light), target_obj, &foo, intersection);
+		dist[1] = intersect(ray_to_light, target_obj, NULL);
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 			dist[0] = dist[1];
 		target_obj = target_obj->next;
 	}
-	if (isnan(dist[0]) == FALSE && dist[0] < v3_l2norm(ray_to_light))
+	if (isnan(dist[0]) == FALSE && dist[0] < v3_l2norm(dir_to_light))
 		return (0);
-	specular = fmax(0, v3_dot(v3_normalize(ray_to_light), mirror_ray));
+	specular = fmax(0, v3_dot(v3_normalize(dir_to_light), mirror_ray));
 	return(specular);
 }
 

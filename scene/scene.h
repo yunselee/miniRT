@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/04 17:37:12 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 14:24:11 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SCENE_H
 # include "../Libft_vector/matrix33.h"
 # include "color.h"
+#include "objects.h"
 
 # ifndef TRUE
 #  define TRUE (1)
@@ -23,24 +24,6 @@
 # endif
 
 # define EPSILON (0.000001)
-
-enum e_type
-{
-	E_PLANE = 0,
-	E_SPHERE,
-	E_CYLINDER
-};
-
-typedef struct s_object_base
-{
-	enum e_type				type;
-	t_color					color;
-	double					r;
-	double					h;
-	t_vec3					o;
-	t_vec3					n;
-	struct s_object_base	*next;
-}							t_obj_base;
 
 typedef struct s_light	t_light;
 struct s_light
@@ -80,6 +63,6 @@ typedef struct s_image
 t_scene	*create_empty_scene(void);
 int		init_scene(t_scene *scene, char *filename);
 void	free_scene(t_scene *pscene);
-int		transform_to_cam_cord(t_scene *scene);
+int		transform_to_cam_cord(t_scene *scene, t_mat33 transform);
 
 #endif

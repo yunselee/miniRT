@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 19:57:10 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 14:24:38 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,33 @@
 #include "print_info.h"
 #include "ray_cast.h"
 
+static t_mat33	get_transformation_mat(t_vec3 k)
+{
+	t_vec3	u;
+	t_vec3	v;
+	t_vec3	w;
+	t_mat33	mat;
+
+	w = v3_normalize(k);
+	u = make_v3(0, 1, 0);
+	if (1.0 == w.z)
+		v = make_v3(1, 0, 0);
+	else if (-1.0 == w.z)
+		v = make_v3(-1, 0, 0);
+	else
+	{
+		u = make_v3(w.y, -w.x, 0);
+		u = v3_normalize(u);
+		v = v3_crs(w, u);
+	}
+	mat = create_mat33(u, v, w);
+	return (mat33_trans(mat));
+}
+
 int	main(int argc, char **argv)
 {
 	t_scene	*global_scene;
+	t_mat33	transform;
 
 	if (argc != 2 || argv == NULL)
 	{
@@ -39,9 +63,10 @@ int	main(int argc, char **argv)
 	}
 	printf("GLOBAL COORDINATE\n");
 	print_info_scene(global_scene);
-	transform_to_cam_cord(global_scene);
+	transform = get_transformation_mat(global_scene->cam->dir);
+	transform_to_cam_cord(global_scene, transform);
 	printf("CAMERA COORDINATE\n");
 	print_info_scene(global_scene);
-	mlx_start(global_scene, 800, 600, argv[1]);
+	mlx_start(global_scene, 1920, 1080, argv[1]);
 	free_scene(global_scene);
 }

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/04 17:39:05 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 14:23:17 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "ray_cast.h"
 #include <stdio.h>
 #include <time.h>
+#include "objects.h"
 
 t_ray	make_ray(t_vec3 org, t_vec3 dir)
 {
@@ -47,17 +48,19 @@ static double	get_intersect_distance(t_obj_base *objlst, \
 								t_obj_base **intersecting_obj_out, \
 								t_ray ray)
 {
-	t_obj_base		*target_obj;
-	unsigned int	color[2];
-	double			dist[2];
+	t_obj_base			*target_obj;
+	t_obj_base			*intersect_obj;
+	unsigned int		color[2];
+	double				dist[2];
 
 	dist[0] = INFINITY;
 	color[0] = BACKGROUND;
+	intersect_obj = NULL;
 	target_obj = objlst;
-	*intersecting_obj_out = NULL;
+
 	while (target_obj)
 	{
-		dist[1] = object_intersect(ray.dir, target_obj, &color[1], ray.org);
+		dist[1] = intersect(ray, target_obj, &color[1]);
 		if ((dist[1] != NAN) && (dist[1] < dist[0]))
 		{
 			dist[0] = dist[1];
@@ -91,31 +94,40 @@ static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 	}
 }
 
+static void ft_fill_pixel(t_mlx *mlx, int x, int y,  unsigned int color)
+{
+	unsigned int	s[2];
+
+	s[0] = -1;
+	while (++s[0] < (mlx->edit + 1))
+	{
+		s[1] = -1;
+		while (++s[1] < (mlx->edit + 1))
+		ft_mlx_set_pixel_color(mlx->image, x + s[0], y + s[1], color);
+	}
+}
+
 void	ray_cast(t_mlx *mlx)
 {
-	unsigned int	x;
-	unsigned int	y;
+	unsigned int	pixel[2];
 	double			d;
 	t_color			color;
 	t_ray			ray;
 
-	clock_t	start;
-	start = clock();
 	d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
-	y = 0;
-	while (y < mlx->height)
+	pixel[1] = 0;
+	while (pixel[1] < mlx->height - mlx->edit)
 	{
-		x = 0;
-		while (x < mlx->width)
+		pixel[0] = 0;
+		while (pixel[0] < mlx->width - mlx->edit)
 		{
-			ray.dir = v3_normalize(make_v3((int)(x - mlx->width / 2), \
-											(int)(y - mlx->height / 2), d));
+			ray.dir = v3_normalize(make_v3((int)(pixel[0] - mlx->width / 2), \
+											(int)(pixel[1] - mlx->height / 2), d));
 			ray.org = mlx->scene->cam->pos;
 			color = single_ray_cast(mlx, ray);
-			ft_mlx_set_pixel_color(mlx->image, x, y, color_to_hex(color));
-			x++;
+			ft_fill_pixel(mlx, pixel[0], pixel[1], color_to_hex(color));
+			pixel[0] += (mlx->edit + 1);
 		}
-		y++;
+		pixel[1] += (mlx->edit + 1);
 	}
-	printf("%lu ms\n", (clock() - start) / 1000);
 }

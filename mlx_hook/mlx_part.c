@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 19:58:36 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 14:11:15 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ void	mlx_start(t_scene *scene, \
 	ray_cast(mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
 	mlx_hook(mlx->win, 17, 0, destroy, mlx);
-	mlx_hook(mlx->win, 2, (1L << 0), keydown, mlx);
-	mlx_hook(mlx->win, 4, (1L << 2), mousedown, mlx);
+	mlx_hook(mlx->win, 2, 0, keydown, mlx);
+	mlx_hook(mlx->win, 4, 0, mousedown, mlx);
+	mlx_hook(mlx->win, 5, 0, mouseup, mlx);
+	mlx_hook(mlx->win, 6, 0, mousemove, mlx);
 	mlx_loop(mlx->mlx);
 }
