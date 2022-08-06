@@ -25,21 +25,21 @@ double	solve_quadratic_equation(double a, double b, double c)
 	return (solution / (2 * a));
 }
 
-static double	obj_interstion(t_vec3 ray, \
+static double	obj_interstion(t_ray ray, \
 								t_obj_base *obj, \
-								unsigned int *pcolor, \
-								t_vec3 offset)
+								unsigned int *pcolor_or_null)
 {
 	double	distance;
 	t_vec3	obj_org;
 
-	obj_org = v3_sub(obj->o, offset);
-	distance = solve_quadratic_equation(v3_dot(ray, ray), \
-					-2 * v3_dot(obj_org, ray), \
+	obj_org = v3_sub(obj->o, ray.org);
+	distance = solve_quadratic_equation(v3_dot(ray.dir, ray.dir), \
+					-2 * v3_dot(obj_org, ray.dir), \
 					v3_dot(obj_org, obj_org) - pow(obj->r, 2));
 	if (distance == NAN)
 		return (NAN);
-	*pcolor = color_to_hex(obj->color);
+	if (pcolor_or_null != NULL)
+		*pcolor_or_null = color_to_hex(obj->color);
 	return (distance);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 19:54:29 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 14:06:25 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ typedef struct s_mlx
 	unsigned int	height;
 	t_image			*image;
 	t_scene			*scene;
+	unsigned int	edit;
+	unsigned int	clicked;
+	int				last[2];
 }					t_mlx;
 
 t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
@@ -41,8 +44,11 @@ void	mlx_start(t_scene *scene, unsigned int width, \
 					unsigned int height, char *name);
 
 /*===MLX EVENT====*/
+void	mlx_renew_image(t_mlx *mlx);
 int		destroy(t_mlx *mlx);
 int		keydown(int keycode, t_mlx *mlx);
 int		mousedown(int button, int x, int y, t_mlx *mlx);
+int		mouseup(int button, int x, int y, t_mlx *mlx);
+int		mousemove(int x, int y, t_mlx *mlx);
 
 #endif

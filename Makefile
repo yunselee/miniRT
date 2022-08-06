@@ -29,10 +29,6 @@ SRCS_DIR		= 	./ \
 SRCS			= 	main.c \
 					\
 					ray.c \
-					object_intersect.c \
-					cylinder_intersect.c \
-					get_normal_vector.c \
-					ray.c \
 					reflection.c \
 					\
 					color.c \
@@ -41,6 +37,8 @@ SRCS			= 	main.c \
 					print_scene2.c \
 					\
 					mlx_event.c \
+					mlx_mouse.c \
+					mlx_keyboard.c \
 					mlx_part.c \
 					\
 					camera.c \

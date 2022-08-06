@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:07:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 20:08:15 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 13:55:20 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 # include "mlx_part.h"
 # include "vector3.h"
 # include "color.h"
+# include "objects.h"
+
+# define R_S (0.3)
+# define ALPHA (54)
+
 
 void	ray_cast(t_mlx *mlx);
 

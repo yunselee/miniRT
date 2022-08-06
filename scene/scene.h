@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 18:32:05 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 14:09:53 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@
 # endif
 
 # define EPSILON (0.000001)
-
-typedef struct s_ray	t_ray;
-struct s_ray
-{
-	t_vec3	org;
-	t_vec3	dir;
-	t_ray	*next;
-};
 
 typedef struct s_light	t_light;
 struct s_light
@@ -71,6 +63,6 @@ typedef struct s_image
 t_scene	*create_empty_scene(void);
 int		init_scene(t_scene *scene, char *filename);
 void	free_scene(t_scene *pscene);
-int		transform_to_cam_cord(t_scene *scene);
+int		transform_to_cam_cord(t_scene *scene, t_mat33 transform);
 
 #endif

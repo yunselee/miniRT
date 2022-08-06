@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylinder_intersect.c                               :+:      :+:    :+:   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:11:12 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 18:31:52 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 14:01:46 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,49 +18,51 @@
 
 double	solve_quadratic_equation(double a, double b, double c);
 
-static double	above_cylinder(t_vec3 ray, t_obj_base *obj, \
-								unsigned int *pcolor, t_vec3 offset)
+static double	above_cylinder(t_ray ray, t_obj_base *obj, \
+								unsigned int *pcolor_or_null)
 {
 	t_vec3	center;
 	t_vec3	intersection;
 	double	dist;
 
-	center = v3_sub(obj->o, offset);
+	center = v3_sub(obj->o, ray.org);
 	center = v3_add(center, v3_mul(obj->n, obj->h));
-	if (v3_dot(ray, obj->n) == 0)
+	if (v3_dot(ray.dir, obj->n) == 0)
 		return (NAN);
-	dist = v3_dot(center, obj->n) / v3_dot(ray, obj->n);
+	dist = v3_dot(center, obj->n) / v3_dot(ray.dir, obj->n);
 	if (dist <= 0)
 		return (NAN);
-	intersection = v3_mul(ray, dist);
+	intersection = v3_mul(ray.dir, dist);
 	if (v3_l2norm(v3_sub(intersection, center)) > obj->r)
 		return (NAN);
-	*pcolor = color_to_hex(obj->color);
+	if (pcolor_or_null != NULL)
+		*pcolor_or_null = color_to_hex(obj->color);
 	return (v3_l2norm(intersection));
 }
 
-static double	below_cylinder(t_vec3 ray, t_obj_base *obj, \
-								unsigned int *pcolor, t_vec3 offset)
+static double	below_cylinder(t_ray ray, t_obj_base *obj, \
+								unsigned int *pcolor_or_null)
 {
-	const t_vec3	center = v3_sub(obj->o, offset);
-	const double	dist = v3_dot(center, obj->n) / v3_dot(ray, obj->n);
-	const t_vec3	intersection = v3_mul(ray, dist);
+	const t_vec3	center = v3_sub(obj->o, ray.org);
+	const double	dist = v3_dot(center, obj->n) / v3_dot(ray.dir, obj->n);
+	const t_vec3	intersection = v3_mul(ray.dir, dist);
 
-	if (v3_dot(ray, obj->n) == 0)
+	if (v3_dot(ray.dir, obj->n) == 0)
 		return (NAN);
 	if (dist <= 0)
 		return (NAN);
 	if (v3_l2norm(v3_sub(intersection, center)) > obj->r)
 		return (NAN);
-	*pcolor = color_to_hex(obj->color);
+	if (pcolor_or_null != NULL)
+		*pcolor_or_null = color_to_hex(obj->color);
 	return (v3_l2norm(intersection));
 }
 
-static double	outside_cylinder(t_vec3 ray, t_obj_base *obj, \
-								unsigned int *pcolor, t_vec3 offset)
+static double	outside_cylinder(t_ray ray, t_obj_base *obj, \
+								unsigned int *pcolor_or_null)
 {
-	const t_vec3	obj_org = v3_sub(obj->o, offset);
-	const t_vec3	ray_proj = v3_normalize(v3_crs(obj->n, v3_crs(ray, obj->n)));
+	const t_vec3	obj_org = v3_sub(obj->o, ray.org);
+	const t_vec3	ray_proj = v3_normalize(v3_crs(obj->n, v3_crs(ray.dir, obj->n)));
 	const t_vec3	org_proj  = v3_crs(obj->n, v3_crs(obj_org, obj->n));
 	double	height;
 	double		distance ;
@@ -70,24 +72,25 @@ static double	outside_cylinder(t_vec3 ray, t_obj_base *obj, \
 					v3_dot(org_proj, org_proj) - pow(obj->r, 2));;
 	if (distance == NAN)
 		return (NAN);
-	distance /= v3_dot(ray, ray_proj);
-	height = v3_dot(v3_sub(v3_mul(ray, distance), obj_org), obj->n);
+	distance /= v3_dot(ray.dir, ray_proj);
+	height = v3_dot(v3_sub(v3_mul(ray.dir, distance), obj_org), obj->n);
 	if (height == 0 || height == obj->h)
 		return (NAN);
 	else if (height < 0)
-		return (below_cylinder(ray, obj, pcolor, offset));
+		return (below_cylinder(ray, obj, pcolor_or_null));
 	else if (height > obj->h)
-		return (above_cylinder(ray, obj, pcolor, offset));
-	*pcolor = color_to_hex(obj->color);
+		return (above_cylinder(ray, obj, pcolor_or_null));
+	if (pcolor_or_null != NULL)
+		*pcolor_or_null = color_to_hex(obj->color);
 	return (distance);
 }
 
 
-static double	obj_interstion(t_vec3 ray, t_obj_base *obj, \
-							unsigned int *pcolor, t_vec3 offset)
+static double	obj_interstion(t_ray ray, t_obj_base *obj, \
+							unsigned int *pcolor_or_null)
 {
-	const t_vec3	obj_org = v3_sub(obj->o, offset);
-	const t_vec3	cam_from_cy = v3_sub(ray, obj_org);
+	const t_vec3	obj_org = v3_sub(obj->o, ray.org);
+	const t_vec3	cam_from_cy = v3_sub(ray.dir, obj_org);
 	const t_vec3 cam_from_cy_proj = v3_crs(obj->n, v3_crs(cam_from_cy, obj->n));
 	const double	dist = v3_l2norm(cam_from_cy_proj);
 	const double	height = v3_dot(cam_from_cy, obj->n);
@@ -99,11 +102,11 @@ static double	obj_interstion(t_vec3 ray, t_obj_base *obj, \
 		if (height == 0 || height == obj->h)
 			return (NAN);
 		else if (height < 0)
-			return (below_cylinder(ray, obj, pcolor, offset));
+			return (below_cylinder(ray, obj, pcolor_or_null));
 		else if (height > obj->h)
-			return (above_cylinder(ray, obj, pcolor, offset));
+			return (above_cylinder(ray, obj, pcolor_or_null));
 	}
-	return (outside_cylinder(ray, obj, pcolor, offset));
+	return (outside_cylinder(ray, obj, pcolor_or_null));
 }
 
 /*

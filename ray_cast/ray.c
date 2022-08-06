@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 21:00:13 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 14:10:49 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,9 @@ static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 
 static double	get_intersect_distance(t_obj_base *objlst, \
 								t_obj_base **intersecting_obj_out, \
-								t_vec3 ray, \
-								t_vec3 offset)
+								t_ray ray)
 {
-	const t_vec3				dir = ray;
-	t_obj_base	*target_obj;
+	t_obj_base			*target_obj;
 	t_obj_base			*intersect_obj;
 	unsigned int		color[2];
 	double				dist[2];
@@ -52,7 +50,7 @@ static double	get_intersect_distance(t_obj_base *objlst, \
 	target_obj = objlst;
 	while (target_obj)
 	{
-		dist[1] = intersect(dir, target_obj, &color[1], offset);
+		dist[1] = intersect(ray, target_obj, &color[1]);
 		if ((dist[1] != NAN) && (dist[1] < dist[0]))
 		{
 			dist[0] = dist[1];
@@ -66,7 +64,7 @@ static double	get_intersect_distance(t_obj_base *objlst, \
 	return (dist[0]);
 }
 
-static t_color	single_ray_cast(t_mlx *mlx, t_vec3 ray, t_vec3 offset)
+static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 {
 	t_obj_base	*intersect_obj;
 	t_vec3		intersect;
@@ -74,39 +72,52 @@ static t_color	single_ray_cast(t_mlx *mlx, t_vec3 ray, t_vec3 offset)
 	double		dist;
 
 	intersect_obj = NULL;
-	dist = get_intersect_distance(mlx->scene->obj, &intersect_obj, ray, offset);
+	dist = get_intersect_distance(mlx->scene->obj, &intersect_obj, ray);
 	if (dist == INFINITY)
 		return (rgb_color(0, 0, 0));
 	else
 	{
-		intersect = v3_mul(ray, dist);
-		intersect = v3_add(intersect, offset);
-		c = phong_reflection(mlx, intersect_obj, intersect, offset);
-		return (intensity_attenuation(c, intersect, offset));
+		intersect = v3_mul(ray.dir, dist);
+		intersect = v3_add(intersect, ray.org);
+		c = phong_reflection(mlx, intersect_obj, intersect, ray.org);
+		return (intensity_attenuation(c, intersect, ray.org));
+	}
+}
+
+static void ft_fill_pixel(t_mlx *mlx, int x, int y,  unsigned int color)
+{
+	unsigned int	s[2];
+
+	s[0] = -1;
+	while (++s[0] < (mlx->edit + 1))
+	{
+		s[1] = -1;
+		while (++s[1] < (mlx->edit + 1))
+		ft_mlx_set_pixel_color(mlx->image, x + s[0], y + s[1], color);
 	}
 }
 
 void	ray_cast(t_mlx *mlx)
 {
-	unsigned int	x;
-	unsigned int	y;
-	const double	d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
-	t_color	color;
-	t_vec3			ray;
+	unsigned int	pixel[2];
+	double			d;
+	t_color			color;
+	t_ray			ray;
 
-	y = 0;
-	while (y < mlx->height)
+	d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
+	pixel[1] = 0;
+	while (pixel[1] < mlx->height - mlx->edit)
 	{
-		x = 0;
-		while (x < mlx->width)
+		pixel[0] = 0;
+		while (pixel[0] < mlx->width - mlx->edit)
 		{
-			ray = make_v3((int)(x - mlx->width / 2), \
-						(int)(y - mlx->height / 2), d);
-			color = single_ray_cast(mlx, v3_normalize(ray), \
-									mlx->scene->cam->pos);
-			ft_mlx_set_pixel_color(mlx->image, x, y, color_to_hex(color));
-			x++;
+			ray.dir = v3_normalize(make_v3((int)(pixel[0] - mlx->width / 2), \
+											(int)(pixel[1] - mlx->height / 2), d));
+			ray.org = mlx->scene->cam->pos;
+			color = single_ray_cast(mlx, ray);
+			ft_fill_pixel(mlx, pixel[0], pixel[1], color_to_hex(color));
+			pixel[0] += (mlx->edit + 1);
 		}
-		y++;
+		pixel[1] += (mlx->edit + 1);
 	}
 }
