@@ -28,13 +28,12 @@ double	solve_quadratic_equation(double a, double b, double c)
 static double	obj_interstion(t_ray ray, \
 								const t_obj_base *obj)
 {
-	double	distance;
-	t_vec3	obj_org;
-
-	obj_org = v3_sub(obj->o, ray.org);
-	distance = solve_quadratic_equation(v3_dot(ray.dir, ray.dir), \
+	const t_vec3	obj_org = v3_sub(obj->o, ray.org);;
+	const double	distance = solve_quadratic_equation( \
+					v3_dot(ray.dir, ray.dir), \
 					-2 * v3_dot(obj_org, ray.dir), \
 					v3_dot(obj_org, obj_org) - pow(obj->r, 2));
+	
 	if (distance == NAN)
 		return (NAN);
 	return (distance);
@@ -43,9 +42,8 @@ static double	obj_interstion(t_ray ray, \
 static t_vec3	obj_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
 								t_vec3 cam_pos)
 {
-	t_vec3	normal;
+	const t_vec3	normal = v3_normalize(v3_sub(point, obj->o));
 
-	normal = v3_normalize(v3_sub(point, obj->o));
 	if (v3_l2norm(v3_sub(cam_pos, obj->o)) < obj->r)
 		return (v3_mul(normal, -1));
 	return (normal);
