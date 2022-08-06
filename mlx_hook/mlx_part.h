@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 14:21:44 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 15:56:45 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_mlx
 	unsigned int	height;
 	t_image			*image;
 	t_scene			*scene;
+	t_obj_base		*selected_obj;
 	unsigned int	edit;
 	unsigned int	clicked;
 	int				last[2];

@@ -1,9 +1,8 @@
 #include "objects.h"
 
-double intersect(t_ray ray, const t_obj_base *obj, \
-						unsigned int *pcolor)
+double intersect(t_ray ray, const t_obj_base *obj)
 {
-	return obj->vtable_->obj_interstion(ray, obj, pcolor);
+	return obj->vtable_->obj_interstion(ray, obj);
 }
 
 t_vec3	get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos)

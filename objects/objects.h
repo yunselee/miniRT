@@ -35,14 +35,13 @@ typedef struct s_scene	t_scene;
 
 struct objs_vtable_
 {
-	double (*obj_interstion)(t_ray ray, const t_obj_base *obj, \
-						unsigned int *out_color);
+	double (*obj_interstion)(t_ray ray, const t_obj_base *obj);
 	t_vec3	(*obj_get_normal_vector)(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
 };
 
 
 // wrapper function
-double intersect(t_ray ray, const t_obj_base *obj, unsigned int *out_color);
+double intersect(t_ray ray, const t_obj_base *obj);
 // wrapper function
 t_vec3	get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
 

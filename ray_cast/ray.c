@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 15:39:36 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 16:43:19 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,23 @@ static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 	return (color_scale(color, attenuation));
 }
 
-static double	get_intersect_distance(t_obj_base *objlst, \
+double	get_intersect_distance(t_obj_base *objlst, \
 								t_obj_base **intersecting_obj_out, \
 								t_ray ray)
 {
 	t_obj_base			*target_obj;
 	t_obj_base			*intersect_obj;
-	unsigned int		color[2];
 	double				dist[2];
 
 	dist[0] = INFINITY;
-	color[0] = BACKGROUND;
 	intersect_obj = NULL;
 	target_obj = objlst;
 	while (target_obj)
 	{
-		dist[1] = intersect(ray, target_obj, &color[1]);
+		dist[1] = intersect(ray, target_obj);
 		if ((dist[1] != NAN) && (dist[1] < dist[0]))
 		{
 			dist[0] = dist[1];
-			color[0] = color[1];
 			*intersecting_obj_out = target_obj;
 		}
 		target_obj = target_obj->next;

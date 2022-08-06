@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 13:47:27 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 13:59:30 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 16:39:54 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 
 
 static double	obj_interstion(t_ray ray, \
-								const t_obj_base *obj, \
-								unsigned int *out_pcolor_or_null)
+								const t_obj_base *obj)
 {
 	double	dist;
 	t_vec3	obj_org;
@@ -29,8 +28,6 @@ static double	obj_interstion(t_ray ray, \
 	dist = v3_dot(obj_org, obj->n) / v3_dot(ray.dir, obj->n);
 	if (dist <= 0)
 		return (NAN);
-	if (out_pcolor_or_null != NULL)
-		*out_pcolor_or_null = color_to_hex(obj->color);
 	return (dist);
 }
 

@@ -26,8 +26,7 @@ double	solve_quadratic_equation(double a, double b, double c)
 }
 
 static double	obj_interstion(t_ray ray, \
-								const t_obj_base *obj, \
-								unsigned int *out_pcolor_or_null)
+								const t_obj_base *obj)
 {
 	double	distance;
 	t_vec3	obj_org;
@@ -38,8 +37,6 @@ static double	obj_interstion(t_ray ray, \
 					v3_dot(obj_org, obj_org) - pow(obj->r, 2));
 	if (distance == NAN)
 		return (NAN);
-	if (out_pcolor_or_null != NULL)
-		*out_pcolor_or_null = color_to_hex(obj->color);
 	return (distance);
 }
 
