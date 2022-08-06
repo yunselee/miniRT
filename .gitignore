@@ -1,2 +1,4 @@
 ./OBJS/*
-./miniRT
+miniRT
+*.o
+*.a
