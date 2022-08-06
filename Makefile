@@ -40,6 +40,7 @@ SRCS			= 	main.c \
 					\
 					mlx_event.c \
 					mlx_mouse.c \
+					mlx_keyboard_move.c \
 					mlx_keyboard.c \
 					mlx_part.c \
 					\

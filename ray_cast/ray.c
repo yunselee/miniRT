@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 16:43:19 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 19:49:46 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "objects.h"
+#include "print_info.h"
 
 static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 {
@@ -70,7 +71,7 @@ static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 
 	intersect_obj = NULL;
 	dist = get_intersect_distance(mlx->scene->obj, &intersect_obj, ray);
-	if (dist == INFINITY)
+	if (isinf(dist) == TRUE)
 		return (rgb_color(0, 0, 0));
 	else
 	{

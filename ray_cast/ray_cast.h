@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:07:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 16:43:06 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 19:49:31 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # define R_S (0.3)
 # define ALPHA (54)
+
 
 double	get_intersect_distance(t_obj_base *objlst, \
 								t_obj_base **intersecting_obj_out, \
