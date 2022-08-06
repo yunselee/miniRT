@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 17:42:29 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 19:54:29 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 							unsigned int y, unsigned int color);
 
 void	ft_mlx_set_image_background(t_mlx *mlx);
+
+void	mlx_start(t_scene *scene, unsigned int width, \
+					unsigned int height, char *name);
+
 /*===MLX EVENT====*/
 int		destroy(t_mlx *mlx);
 int		keydown(int keycode, t_mlx *mlx);

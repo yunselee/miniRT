@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 19:46:13 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/03 21:00:13 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 	return (color_scale(color, attenuation));
 }
 
-unsigned int	single_ray_cast(t_mlx *mlx, t_vec3 ray, t_vec3 offset)
+static double	get_intersect_distance(t_obj_base *objlst, \
+								t_obj_base **intersecting_obj_out, \
+								t_vec3 ray, \
+								t_vec3 offset)
 {
 	const t_vec3				dir = ray;
 	t_obj_base	*target_obj;
@@ -46,7 +49,7 @@ unsigned int	single_ray_cast(t_mlx *mlx, t_vec3 ray, t_vec3 offset)
 	dist[0] = INFINITY;
 	color[0] = BACKGROUND;
 	intersect_obj = NULL;
-	target_obj = mlx->scene->obj;
+	target_obj = objlst;
 	while (target_obj)
 	{
 		dist[1] = intersect(dir, target_obj, &color[1], offset);
@@ -54,19 +57,32 @@ unsigned int	single_ray_cast(t_mlx *mlx, t_vec3 ray, t_vec3 offset)
 		{
 			dist[0] = dist[1];
 			color[0] = color[1];
-			intersect_obj = target_obj;
+			*intersecting_obj_out = target_obj;
 		}
 		target_obj = target_obj->next;
 	}
-	if (intersect_obj == NULL)
-		return (BACKGROUND);
+	if (*intersecting_obj_out == NULL)
+		return (INFINITY);
+	return (dist[0]);
+}
+
+static t_color	single_ray_cast(t_mlx *mlx, t_vec3 ray, t_vec3 offset)
+{
+	t_obj_base	*intersect_obj;
+	t_vec3		intersect;
+	t_color		c;
+	double		dist;
+
+	intersect_obj = NULL;
+	dist = get_intersect_distance(mlx->scene->obj, &intersect_obj, ray, offset);
+	if (dist == INFINITY)
+		return (rgb_color(0, 0, 0));
 	else
 	{
-		t_vec3	intersect;
-		t_color c;
-		intersect = v3_mul(ray, dist[0]);
-		c = phong_reflection(mlx, intersect_obj, intersect, mlx->scene->cam->pos);
-		return (color_to_hex(intensity_attenuation(c, intersect, mlx->scene->cam->pos)));
+		intersect = v3_mul(ray, dist);
+		intersect = v3_add(intersect, offset);
+		c = phong_reflection(mlx, intersect_obj, intersect, offset);
+		return (intensity_attenuation(c, intersect, offset));
 	}
 }
 
@@ -75,7 +91,7 @@ void	ray_cast(t_mlx *mlx)
 	unsigned int	x;
 	unsigned int	y;
 	const double	d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
-	unsigned int	color;
+	t_color	color;
 	t_vec3			ray;
 
 	y = 0;
@@ -88,7 +104,7 @@ void	ray_cast(t_mlx *mlx)
 						(int)(y - mlx->height / 2), d);
 			color = single_ray_cast(mlx, v3_normalize(ray), \
 									mlx->scene->cam->pos);
-			ft_mlx_set_pixel_color(mlx->image, x, y, color);
+			ft_mlx_set_pixel_color(mlx->image, x, y, color_to_hex(color));
 			x++;
 		}
 		y++;
