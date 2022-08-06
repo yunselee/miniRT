@@ -22,23 +22,28 @@ struct objs_vtable_ *get_plain();
 struct objs_vtable_ *get_sphere();
 
 
-static void	ft_addlst_back(t_obj_base *objlst, t_obj_base *node)
+static void	ft_addlst_back(t_obj_base **objlst, t_obj_base *node)
 {
 	t_obj_base	*last;
 
-	last = objlst;
+	node->next = NULL;
+	if(*objlst == NULL)
+	{
+		*objlst = node;
+		return ;
+	}
+	last = *objlst;
 	while (last->next)
 		last = last->next;
 	last->next = node;
-	last->next->next = NULL;
 }
 
-void	free_objectlst(t_obj_base *objlst)
+void	free_objectlst(t_obj_base *out_objlst)
 {
 	t_obj_base	*curr;
 	t_obj_base	*next;
 
-	curr = objlst;
+	curr = out_objlst;
 	while (curr)
 	{
 		next = curr -> next;
@@ -47,7 +52,7 @@ void	free_objectlst(t_obj_base *objlst)
 	}
 }
 
-int	case_plane(t_scene *scene, char **single_scene)
+int	case_plane(t_scene *out_scene, char **single_scene)
 {
 	t_obj_base	*new_obj;
 
@@ -63,15 +68,12 @@ int	case_plane(t_scene *scene, char **single_scene)
 		return (FALSE);
 	if (round(v3_l2norm(new_obj->n) * 10000) / 10000 != 1.0)
 		return (FALSE);
-	if (scene->obj == NULL)
-		scene->obj = new_obj;
-	else
-		ft_addlst_back((scene->obj), new_obj);
+	ft_addlst_back(&(out_scene->obj), new_obj);
 	new_obj->vtable_ = get_plain();
 	return (TRUE);
 }
 
-int	case_sphere(t_scene *scene, char **single_scene)
+int	case_sphere(t_scene *out_scene, char **single_scene)
 {
 	t_obj_base	*new_obj;
 
@@ -88,16 +90,13 @@ int	case_sphere(t_scene *scene, char **single_scene)
 	if (new_obj->r <= 0.0)
 		return (FALSE);
 	new_obj->r /= 2;
-	if (scene->obj == NULL)
-		scene->obj = new_obj;
-	else
-		ft_addlst_back((scene->obj), new_obj);
+	ft_addlst_back(&(out_scene->obj), new_obj);
 	new_obj->n = make_v3(0, 0, 0);
 	new_obj->vtable_ = get_sphere();
 	return (TRUE);
 }
 
-int	case_cylinder(t_scene *scene, char **single_scene)
+int	case_cylinder(t_scene *out_scene, char **single_scene)
 {
 	t_obj_base	*new_obj;
 
@@ -118,10 +117,7 @@ int	case_cylinder(t_scene *scene, char **single_scene)
 	if (new_obj->r <= 0.0 || new_obj->h <= 0.0)
 		return (FALSE);
 	new_obj->r /= 2;
-	if (scene->obj == NULL)
-		scene->obj = new_obj;
-	else
-		ft_addlst_back((scene->obj), new_obj);
+	ft_addlst_back(&(out_scene->obj), new_obj);
 	new_obj->vtable_ = get_cylinder();
 	return (TRUE);
 }
