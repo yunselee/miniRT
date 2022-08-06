@@ -17,8 +17,8 @@
 
 
 static double	obj_interstion(t_ray ray, \
-								t_obj_base *obj, \
-								unsigned int *pcolor_or_null)
+								const t_obj_base *obj, \
+								unsigned int *out_pcolor_or_null)
 {
 	double	dist;
 	t_vec3	obj_org;
@@ -29,14 +29,14 @@ static double	obj_interstion(t_ray ray, \
 	dist = v3_dot(obj_org, obj->n) / v3_dot(ray.dir, obj->n);
 	if (dist <= 0)
 		return (NAN);
-	if (pcolor_or_null != NULL)
-		*pcolor_or_null = color_to_hex(obj->color);
+	if (out_pcolor_or_null != NULL)
+		*out_pcolor_or_null = color_to_hex(obj->color);
 	return (dist);
 }
 
 
 
-static t_vec3	obj_get_normal_vector(t_obj_base *obj, t_vec3 point, t_vec3 cam_pos)
+static t_vec3	obj_get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos)
 {
 	t_vec3	org_to_cam;
 
