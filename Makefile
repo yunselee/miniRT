@@ -30,6 +30,8 @@ SRCS			= 	main.c \
 					\
 					ray.c \
 					reflection.c \
+					diffuse_reflection.c \
+					specular_reflection.c \
 					\
 					color.c \
 					\

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 14:37:35 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 15:39:36 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,6 @@
 #include <stdio.h>
 #include <time.h>
 #include "objects.h"
-
-t_ray	make_ray(t_vec3 org, t_vec3 dir)
-{
-	t_ray	ray;
-
-	ray.org = org;
-	ray.dir = dir;
-	return (ray);
-}
 
 static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 {
@@ -57,7 +48,6 @@ static double	get_intersect_distance(t_obj_base *objlst, \
 	color[0] = BACKGROUND;
 	intersect_obj = NULL;
 	target_obj = objlst;
-
 	while (target_obj)
 	{
 		dist[1] = intersect(ray, target_obj, &color[1]);
@@ -94,7 +84,7 @@ static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 	}
 }
 
-static void ft_fill_pixel(t_mlx *mlx, int x, int y,  unsigned int color)
+static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
 {
 	unsigned int	s[2];
 
@@ -103,7 +93,7 @@ static void ft_fill_pixel(t_mlx *mlx, int x, int y,  unsigned int color)
 	{
 		s[1] = -1;
 		while (++s[1] < (mlx->edit + 1))
-		ft_mlx_set_pixel_color(mlx->image, x + s[0], y + s[1], color);
+			ft_mlx_set_pixel_color(mlx->image, x + s[0], y + s[1], color);
 	}
 }
 
@@ -122,7 +112,7 @@ void	ray_cast(t_mlx *mlx)
 		while (pixel[0] < mlx->width - mlx->edit)
 		{
 			ray.dir = v3_normalize(make_v3((int)(pixel[0] - mlx->width / 2), \
-											(int)(pixel[1] - mlx->height / 2), d));
+										(int)(pixel[1] - mlx->height / 2), d));
 			ray.org = mlx->scene->cam->pos;
 			color = single_ray_cast(mlx, ray);
 			ft_fill_pixel(mlx, pixel[0], pixel[1], color_to_hex(color));
