@@ -61,7 +61,7 @@ typedef struct s_image
 }			t_image;
 
 t_scene	*create_empty_scene(void);
-int		init_scene(t_scene *scene, char *filename);
+int		init_scene(t_scene *scene, const char *filename);
 void	free_scene(t_scene *pscene);
 int		transform_to_cam_cord(t_scene *scene, t_mat33 transform);
 

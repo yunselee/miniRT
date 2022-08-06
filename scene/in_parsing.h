@@ -14,11 +14,6 @@
 # define IN_PARSING_H
 # include "scene.h"
 
-// void	ft_addlst_back(t_object_base *objlst, t_object_base *node);
-void	free_objectlst(t_obj_base *objlst);
-int		case_plane(t_scene *scene, char **single_scene);
-int		case_sphere(t_scene *scene, char **single_scene);
-int		case_cylinder(t_scene *scene, char **single_scene);
 t_light	*create_light(t_vec3 pos, double b);
 void	free_lightlst(t_light *light);
 int		case_light(t_scene *scene, char **single_scene);

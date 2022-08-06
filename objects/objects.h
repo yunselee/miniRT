@@ -31,6 +31,9 @@ typedef struct s_object_base
 	const struct objs_vtable_ *vtable_;
 }				t_obj_base;
 
+typedef struct s_scene	t_scene;
+
+
 struct objs_vtable_
 {
 	double (*obj_interstion)(t_ray ray, t_obj_base *obj, \
@@ -44,8 +47,7 @@ double intersect(t_ray ray, t_obj_base *obj, unsigned int *out_color);
 // wrapper function
 t_vec3	get_normal_vector(t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
 
-struct objs_vtable_ *get_cylinder();
-struct objs_vtable_ *get_sphere();
-struct objs_vtable_ *get_plain();
+int init_object(t_scene *out_scene, char **single_scene);
+void	free_objectlst(t_obj_base *objlst);
 
 #endif

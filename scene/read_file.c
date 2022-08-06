@@ -16,8 +16,9 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include "in_parsing.h"
+#include "objects.h"
 
-static int	parse_scene(t_scene *scene, char *line)
+static int	parse_scene(t_scene *out_scene, char *line)
 {
 	char	**single_scene;
 	int		res;
@@ -27,18 +28,13 @@ static int	parse_scene(t_scene *scene, char *line)
 	if (!single_scene)
 		return (FALSE);
 	res = FALSE;
+	res = init_object(out_scene, single_scene);
 	if (ft_strncmp(single_scene[0], "A", 2) == 0)
-		res = case_ambient(scene, single_scene);
+		res = case_ambient(out_scene, single_scene);
 	else if (ft_strncmp(single_scene[0], "C", 2) == 0)
-		res = case_camera(scene, single_scene);
+		res = case_camera(out_scene, single_scene);
 	else if (ft_strncmp(single_scene[0], "L", 2) == 0)
-		res = case_light(scene, single_scene);
-	else if (ft_strncmp(single_scene[0], "sp", 3) == 0)
-		res = case_sphere(scene, single_scene);
-	else if (ft_strncmp(single_scene[0], "pl", 3) == 0)
-		res = case_plane(scene, single_scene);
-	else if (ft_strncmp(single_scene[0], "cy", 3) == 0)
-		res = case_cylinder(scene, single_scene);
+		res = case_light(out_scene, single_scene);
 	i = 0;
 	while (single_scene[i])
 		free (single_scene[i++]);
@@ -59,7 +55,7 @@ static void	terminate_gnl(int fd)
 	close(fd);
 }
 
-static int	check_scene(t_scene *scene)
+static int	check_scene(const t_scene *scene)
 {
 	if (scene->ambient_ratio == 0)
 	{
@@ -84,12 +80,12 @@ static int	check_scene(t_scene *scene)
 	return (TRUE);
 }
 
-int	init_scene(t_scene *scene, char *filename)
+int	init_scene(t_scene *out_scene, const char *filename)
 {
 	int		fd;
 	char	*line;
 
-	if (scene == NULL)
+	if (out_scene == NULL)
 		return (FALSE);
 	if (ft_strncmp(&filename[ft_strlen(filename) - 3], ".rt", 4))
 		return (FALSE);
@@ -101,7 +97,7 @@ int	init_scene(t_scene *scene, char *filename)
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		if (ft_strncmp(line, "", 1) && !parse_scene(scene, line))
+		if (ft_strncmp(line, "", 1) && !parse_scene(out_scene, line))
 		{
 			free(line);
 			terminate_gnl(fd);
@@ -110,5 +106,5 @@ int	init_scene(t_scene *scene, char *filename)
 		free(line);
 	}
 	close(fd);
-	return (check_scene(scene));
+	return (check_scene(out_scene));
 }
