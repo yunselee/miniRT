@@ -14,6 +14,7 @@
 # define SCENE_H
 # include "../Libft_vector/matrix33.h"
 # include "color.h"
+#include "objects.h"
 
 # ifndef TRUE
 #  define TRUE (1)
@@ -31,24 +32,6 @@ struct s_ray
 	t_vec3	dir;
 	t_ray	*next;
 };
-
-enum e_type
-{
-	E_PLANE = 0,
-	E_SPHERE,
-	E_CYLINDER
-};
-
-typedef struct s_object_base
-{
-	enum e_type				type;
-	t_color					color;
-	double					r;
-	double					h;
-	t_vec3					o;
-	t_vec3					n;
-	struct s_object_base	*next;
-}							t_obj_base;
 
 typedef struct s_light	t_light;
 struct s_light

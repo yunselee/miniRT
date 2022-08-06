@@ -14,7 +14,8 @@ INCS_DIR		= 	-I ./LIBFT \
 					-I ./print_info \
 					-I ./scene \
 					-I ./color \
-					-I ./ray_cast
+					-I ./ray_cast \
+					-I ./objects
 
 SRCS_DIR		= 	./ \
 					./SRC \
@@ -22,7 +23,8 @@ SRCS_DIR		= 	./ \
 					./color \
 					./print_info \
 					./mlx_hook \
-					./scene
+					./scene \
+					./objects
 
 SRCS			= 	main.c \
 					\
@@ -48,6 +50,11 @@ SRCS			= 	main.c \
 					read_file.c \
 					scene1.c \
 					scene2.c \
+					\
+					cylinder.c \
+					objs_base.c \
+					sphere.c \
+					plain.c \
 
 
 OBJS_DIR		= ./OBJS
