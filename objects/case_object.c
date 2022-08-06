@@ -11,11 +11,16 @@
 /* ************************************************************************** */
 
 #include "scene.h"
-#include "../LIBFT/libft.h"
+#include "libft.h"
 #include <stdlib.h>
 #include <math.h>
 #include "in_parsing.h"
 #include "objects.h"
+
+struct objs_vtable_ *get_cylinder();
+struct objs_vtable_ *get_plain();
+struct objs_vtable_ *get_sphere();
+
 
 static void	ft_addlst_back(t_obj_base *objlst, t_obj_base *node)
 {

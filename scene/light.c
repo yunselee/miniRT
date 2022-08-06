@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../LIBFT/libft.h"
+#include "libft.h"
 #include "scene.h"
 #include <stdlib.h>
 #include "in_parsing.h"
