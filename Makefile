@@ -4,12 +4,13 @@ CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra  -g
 # -g -fsanitize=address
 
-LIBS = ./LIBFT/libft.a
-LIBV = ./Libft_vector/libvector.a
+LIBS = ./library/LIBFT/libft.a
+LIBV = ./library/Libft_vector/libvector.a
+MLX = -Llibrary/mlx -lmlx -framework OpenGL -framework AppKit
 
-INCS_DIR		= 	-I ./LIBFT \
-					-I ./mlx \
-					-I ./Libft_vector \
+INCS_DIR		= 	-I ./library/LIBFT \
+					-I ./library/mlx \
+					-I ./library/Libft_vector \
 					-I ./mlx_hook \
 					-I ./print_info \
 					-I ./scene \
@@ -18,7 +19,6 @@ INCS_DIR		= 	-I ./LIBFT \
 					-I ./objects
 
 SRCS_DIR		= 	./ \
-					./SRC \
 					./ray_cast \
 					./color \
 					./print_info \
@@ -30,6 +30,8 @@ SRCS			= 	main.c \
 					\
 					ray.c \
 					reflection.c \
+					diffuse_reflection.c \
+					specular_reflection.c \
 					\
 					color.c \
 					\
@@ -38,6 +40,8 @@ SRCS			= 	main.c \
 					\
 					mlx_event.c \
 					mlx_mouse.c \
+					mlx_mouse_wheel.c \
+					mlx_keyboard_move.c \
 					mlx_keyboard.c \
 					mlx_part.c \
 					\
@@ -66,7 +70,7 @@ RM				= rm -f
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBS) $(LIBV)
-	$(CC) $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit -lm  $^ -o $@
+	$(CC) $(CFLAGS) $(MLX) -lm  $^ -o $@
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INCS_DIR) -c $^ -o $@
@@ -76,22 +80,21 @@ $(OBJS_DIR):
 
 # libft
 $(LIBS):
-	$(MAKE) -C ./LIBFT all
+	$(MAKE) -C ./library/LIBFT all
 ${LIBV} :
-	@make -C ./Libft_vector all
+	@make -C ./library/Libft_vector all
 
 # clean, fclean, re
 clean :
-	@make -C ./LIBFT clean
-	@make -C ./Libft_vector clean
+	@make -C ./library/LIBFT clean
+	@make -C ./library/Libft_vector clean
 	$(RM) -r $(OBJS_DIR)
 
 fclean : clean
-	@make -C ./LIBFT fclean
-	@make -C ./Libft_vector fclean
+	@make -C ./library/LIBFT fclean
+	@make -C ./library/Libft_vector fclean
 	${RM} ${NAME}
 
 re: fclean all
-
 
 .PHONY: all, $(NAME), clean, fclean, re

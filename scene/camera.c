@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <math.h>
-#include "../LIBFT/libft.h"
+#include "libft.h"
 #include "scene.h"
 #include "in_parsing.h"
 

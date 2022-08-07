@@ -1,7 +1,6 @@
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
-
 #include "vector3.h"
 #include "color.h"
 
@@ -36,16 +35,19 @@ typedef struct s_scene	t_scene;
 
 
 struct objs_vtable_
-{ 
+{
 	double (*obj_interstion)(t_ray ray, const t_obj_base *obj);
 	t_vec3	(*obj_get_normal_vector)(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
+	void (*obj_print_info)(const t_obj_base *obj);
 };
 
 
 // wrapper function
-double intersect(t_ray ray, t_obj_base *obj, unsigned int *out_color);
+double intersect(t_ray ray, const t_obj_base *obj);
 // wrapper function
-t_vec3	get_normal_vector(t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
+t_vec3	get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
+// wrapper function
+void print_info(const t_obj_base *obj);
 
 int init_object(t_scene *out_scene, char **single_scene);
 void	free_objectlst(t_obj_base *objlst);

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:11:12 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 14:01:46 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 16:41:01 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 
 double	solve_quadratic_equation(double a, double b, double c);
 
-static double	above_cylinder(t_ray ray, t_obj_base *obj, \
-								unsigned int *pcolor_or_null)
+static double	above_cylinder(t_ray ray, const t_obj_base *obj)
 {
 	t_vec3	center;
 	t_vec3	intersection;
@@ -35,13 +34,10 @@ static double	above_cylinder(t_ray ray, t_obj_base *obj, \
 	intersection = v3_mul(ray.dir, dist);
 	if (v3_l2norm(v3_sub(intersection, center)) > obj->r)
 		return (NAN);
-	if (pcolor_or_null != NULL)
-		*pcolor_or_null = color_to_hex(obj->color);
 	return (v3_l2norm(intersection));
 }
 
-static double	below_cylinder(t_ray ray, t_obj_base *obj, \
-								unsigned int *pcolor_or_null)
+static double	below_cylinder(t_ray ray, const t_obj_base *obj)
 {
 	const t_vec3	center = v3_sub(obj->o, ray.org);
 	const double	dist = v3_dot(center, obj->n) / v3_dot(ray.dir, obj->n);
@@ -53,13 +49,10 @@ static double	below_cylinder(t_ray ray, t_obj_base *obj, \
 		return (NAN);
 	if (v3_l2norm(v3_sub(intersection, center)) > obj->r)
 		return (NAN);
-	if (pcolor_or_null != NULL)
-		*pcolor_or_null = color_to_hex(obj->color);
 	return (v3_l2norm(intersection));
 }
 
-static double	outside_cylinder(t_ray ray, t_obj_base *obj, \
-								unsigned int *pcolor_or_null)
+static double	outside_cylinder(t_ray ray, const t_obj_base *obj)
 {
 	const t_vec3	obj_org = v3_sub(obj->o, ray.org);
 	const t_vec3	ray_proj = v3_normalize(v3_crs(obj->n, v3_crs(ray.dir, obj->n)));
@@ -77,17 +70,14 @@ static double	outside_cylinder(t_ray ray, t_obj_base *obj, \
 	if (height == 0 || height == obj->h)
 		return (NAN);
 	else if (height < 0)
-		return (below_cylinder(ray, obj, pcolor_or_null));
+		return (below_cylinder(ray, obj));
 	else if (height > obj->h)
-		return (above_cylinder(ray, obj, pcolor_or_null));
-	if (pcolor_or_null != NULL)
-		*pcolor_or_null = color_to_hex(obj->color);
+		return (above_cylinder(ray, obj));
 	return (distance);
 }
 
 
-static double	obj_interstion(t_ray ray, t_obj_base *obj, \
-							unsigned int *pcolor_or_null)
+static double	obj_interstion(t_ray ray, const t_obj_base *obj)
 {
 	const t_vec3	obj_org = v3_sub(obj->o, ray.org);
 	const t_vec3	cam_from_cy = v3_sub(ray.dir, obj_org);
@@ -102,11 +92,11 @@ static double	obj_interstion(t_ray ray, t_obj_base *obj, \
 		if (height == 0 || height == obj->h)
 			return (NAN);
 		else if (height < 0)
-			return (below_cylinder(ray, obj, pcolor_or_null));
+			return (below_cylinder(ray, obj));
 		else if (height > obj->h)
-			return (above_cylinder(ray, obj, pcolor_or_null));
+			return (above_cylinder(ray, obj));
 	}
-	return (outside_cylinder(ray, obj, pcolor_or_null));
+	return (outside_cylinder(ray, obj));
 }
 
 /*
@@ -114,7 +104,7 @@ o_to_p : org_of_object to intersect point
 cam_to_p : cam_position to intersect point
 o_n : normal vector of object
 */
-static t_vec3	obj_get_normal_vector(t_obj_base *obj, t_vec3 point, \
+static t_vec3	obj_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
 									t_vec3 cam_pos)
 {
 	const t_vec3	o_n  = obj->n;;
@@ -142,9 +132,36 @@ static t_vec3	obj_get_normal_vector(t_obj_base *obj, t_vec3 point, \
 	return (normal);
 }
 
+
+
+static void	obj_print_info(const t_obj_base *obj)
+{
+	int	red;
+	int	green;
+	int	blue;
+
+	red = obj->color.red;
+	green = obj->color.green;
+	blue = obj->color.blue;
+	printf("\ttype : CYLINDER\n");
+	printf("\torg : [%3.4f, %3.4f, %3.4f]\n", obj->o.x \
+											, obj->o.y \
+											, obj->o.z);
+	printf("\tnormal : [%3.4f, %3.4f, %3.4f]\n", obj->n.x \
+												, obj->n.y \
+												, obj->n.z);
+	printf("\tradius : %3.4f\n", obj->r);
+	printf("\theight : %3.4f\n", obj->h);
+	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", red, green, blue);
+	printf(" : r: %d g: %d b: %d\n\n", red, green, blue);
+}
+
+
+
 struct objs_vtable_ *get_cylinder()
 {
-	static struct objs_vtable_ cylinder[] = { { obj_interstion, obj_get_normal_vector } };
+
+	static struct objs_vtable_ cylinder[] = { { obj_interstion, obj_get_normal_vector, obj_print_info} };
 
 	return cylinder;
 }

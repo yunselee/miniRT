@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../LIBFT/libft.h"
+#include "libft.h"
 #include "scene.h"
 
 int	str_to_vec3(char *str, t_vec3 *vec_out)

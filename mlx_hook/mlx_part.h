@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 14:21:44 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/07 13:36:04 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,11 @@
 
 enum e_target
 {
-	E_LIGHT = 0,
+	E_NONE = 0,
+	E_LIGHT,
 	E_CAM,
 	E_OBJ
 };
-
-typedef struct s_selected
-{
-	t_obj_base *obj;
-}	t_selected;
 
 typedef struct s_mlx
 {
@@ -37,7 +33,9 @@ typedef struct s_mlx
 	unsigned int	height;
 	t_image			*image;
 	t_scene			*scene;
+	t_obj_base		*selected_obj;
 	unsigned int	edit;
+	enum e_target	target_scene;
 	unsigned int	clicked;
 	int				last[2];
 }					t_mlx;
@@ -58,8 +56,15 @@ void	mlx_start(t_scene *scene, unsigned int width, \
 /*===MLX EVENT====*/
 void	mlx_renew_image(t_mlx *mlx);
 int		destroy(t_mlx *mlx);
+
+//	keydown && move
 int		keydown(int keycode, t_mlx *mlx);
+int		mlx_move_obj(t_mlx *mlx, int keycode);
+int		mlx_move_light(t_mlx *mlx, int keycode);
+int		mlx_move_cam(t_mlx *mlx, int keycode);
+
 int		mousedown(int button, int x, int y, t_mlx *mlx);
+int		mlx_mouse_wheel(t_mlx *mlx, int keycode);
 int		mouseup(int button, int x, int y, t_mlx *mlx);
 int		mousemove(int x, int y, t_mlx *mlx);
 

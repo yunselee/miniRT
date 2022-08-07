@@ -6,11 +6,12 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 14:36:17 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 16:19:43 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "libft.h"
 #include "mlx_part.h"
 #include "scene.h"
 #include "ray_cast.h"
@@ -29,7 +30,7 @@ t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
 {
 	t_mlx	*mlx;
 
-	mlx = malloc(sizeof(t_mlx));
+	mlx = ft_calloc(1, sizeof(t_mlx));
 	if (NULL == mlx)
 		return (NULL);
 	mlx->image = malloc(sizeof(t_image));
@@ -46,7 +47,6 @@ t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
 								&(mlx->image->line), &(mlx->image->endian));
 	mlx->width = width;
 	mlx->height = height;
-	mlx->edit = 0;
 	return (mlx);
 }
 

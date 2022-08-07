@@ -76,6 +76,11 @@
         "tuple": "c",
         "typeinfo": "c",
         "__split_buffer": "c",
-        "vector3.h": "c"
+        "vector3.h": "c",
+        "objects.h": "c",
+        "color.h": "c",
+        "mlx_part.h": "c",
+        "mlx_keycode.h": "c",
+        "transform.h": "c"
     }
 }
