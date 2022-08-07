@@ -37,6 +37,7 @@ struct objs_vtable_
 {
 	double (*obj_interstion)(t_ray ray, const t_obj_base *obj);
 	t_vec3	(*obj_get_normal_vector)(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
+	void (*obj_print_info)(const t_obj_base *obj);
 };
 
 
@@ -44,6 +45,8 @@ struct objs_vtable_
 double intersect(t_ray ray, const t_obj_base *obj);
 // wrapper function
 t_vec3	get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
+// wrapper function
+void print_info(const t_obj_base *obj);
 
 int init_object(t_scene *out_scene, char **single_scene);
 void	free_objectlst(t_obj_base *objlst);
