@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 21:22:56 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/07 15:52:45 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	set_edit_scene(t_mlx *mlx, int keycode)
 		printf("mode : LIGHT\n");
 	else if (keycode == KEY_O)
 		printf("mode : OBJECTS\n");
+	mlx_renew_image(mlx);
 	return (TRUE);
 }
 
@@ -77,7 +78,7 @@ int	keydown(int keycode, t_mlx *mlx)
 	}
 	else if (mlx->edit == 0 && keycode == KEY_E)
 		return (chage_to_editmode(mlx));
-	else if (keycode == KEY_R)
+	else if (mlx->edit != 0 && keycode == KEY_R)
 		return (change_to_rendermode(mlx));
 	else if (mlx->target_scene == E_NONE)
 		return (set_edit_scene(mlx, keycode));
@@ -85,6 +86,9 @@ int	keydown(int keycode, t_mlx *mlx)
 	{
 		mlx->target_scene = E_NONE;
 		printf("SCENE EDITING DONE!\n");
+		printf("Select scene to edit -> C : cam L : light O : objs\n");
+		printf("or press R to render\n");
+		mlx_renew_image(mlx);
 		return (1);
 	}
 	else
