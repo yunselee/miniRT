@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:20:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 15:34:56 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 17:14:55 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static double	specular_helper(t_obj_base *objlst, \
 	target_obj = objlst;
 	while (target_obj)
 	{
-		dist[1] = intersect(ray_to_light, target_obj, NULL);
+		dist[1] = intersect(ray_to_light, target_obj);
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 			dist[0] = dist[1];
 		target_obj = target_obj->next;

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 15:41:30 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/06 21:23:36 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ t_color	phong_reflection(t_mlx *mlx, \
 	}
 	normal = get_normal_vector(hit_obj, intersection, view_point);
 	intersection = v3_add(intersection, v3_mul(normal, EPSILON));
-	mirror_reflect = v3_sub(intersection, view_point);
-	mirror_reflect = v3_add(mirror_reflect, \
-						v3_mul(normal, -2 * v3_dot(normal, mirror_reflect)));
-	mirror_reflect = v3_normalize(mirror_reflect);
 	radiosity[0] = ambient_light(hit_obj->color, \
 									mlx->scene->ambient_color, \
 									mlx->scene->ambient_ratio);
 	radiosity[1] = diffuse_light(mlx->scene, hit_obj, normal, intersection);
+	mirror_reflect = v3_sub(intersection, view_point);
+	mirror_reflect = v3_add(mirror_reflect, \
+						v3_mul(normal, -2 * v3_dot(normal, mirror_reflect)));
+	mirror_reflect = v3_normalize(mirror_reflect);
 	radiosity[2] = specular_light(mlx->scene, mirror_reflect, intersection);
 	return (color_add(color_add(radiosity[0], radiosity[1]), radiosity[2]));
 }
