@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:52:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 21:11:26 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/07 13:19:46 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ int	mlx_move_light(t_mlx *mlx, int keycode)
 
 int	mlx_move_obj(t_mlx *mlx, int keycode)
 {
-	if (keycode == KEY_Q && mlx->selected_obj->type != E_SPHERE)
+	if (mlx->selected_obj == NULL)
+		return (FALSE);
+	else if (keycode == KEY_Q && mlx->selected_obj->type != E_SPHERE)
 		mlx->selected_obj->n = rotate_vec3_deg(make_v3(0, 0, 1), -1, \
 												mlx->selected_obj->n);
 	else if (keycode == KEY_E && mlx->selected_obj->type != E_SPHERE)

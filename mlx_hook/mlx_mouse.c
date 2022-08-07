@@ -14,6 +14,7 @@
 	wheel down  : 4
 	wheel up    : 5
 */
+
 int	mousedown(int button, int x, int y, t_mlx *mlx)
 {
 	t_ray	ray;
@@ -25,6 +26,8 @@ int	mousedown(int button, int x, int y, t_mlx *mlx)
 	mlx->clicked = button;
 	if (button == 1 && mlx->target_scene == E_OBJ)
 	{
+		mlx->last[0] = x;
+		mlx->last[1] = y;
 		d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
 		ray.dir = make_v3(x - (int)mlx->width / 2 , y - (int)mlx->height / 2 , d);
 		ray.dir = v3_normalize(ray.dir);
@@ -38,29 +41,15 @@ int	mousedown(int button, int x, int y, t_mlx *mlx)
 			print_info_single_object(mlx->selected_obj);
 		}
 	}
-	else if (button == 2)
+	else if (button == 4 || button == 5)
 	{
-		mlx->last[0] = x;
-		mlx->last[1] = y;
+		if (mlx_mouse_wheel(mlx, button) == FALSE)
+			return (FALSE);
 	}
-	else if (button == 4)
-	{
-		mlx->scene->cam->hfov *= (180 / M_PI);
-		if (mlx->scene->cam->hfov < 160)
-			mlx->scene->cam->hfov += 5;
-		printf("FOV : %.2f(deg)\n", (mlx->scene->cam->hfov));
-		mlx->scene->cam->hfov /= (180 / M_PI);	
-	}
-	else if (button == 5)
-	{
-		mlx->scene->cam->hfov *= (180 / M_PI);
-		if (mlx->scene->cam->hfov > 20)
-			mlx->scene->cam->hfov -= 5;
-		printf("FOV : %.2f(deg)\n", (mlx->scene->cam->hfov));
-		mlx->scene->cam->hfov /= (180 / M_PI);	
-	}
+	else
+		return (0);
 	mlx_renew_image(mlx);
-	return (1);
+	return (TRUE);
 }
 
 int	mouseup(int button, int x, int y, t_mlx *mlx)
@@ -79,25 +68,29 @@ int	mousemove(int x, int y, t_mlx *mlx)
 	
 	if (mlx->edit == FALSE)
 		return (0);
-	else if (mlx->clicked == 2 && mlx->selected_obj == NULL)
+	else if (mlx->clicked == 1 && mlx->target_scene == E_CAM)
 	{
 		dx = x - mlx->last[0];
 		dy = y - mlx->last[1];
-		if (dx == 0 && dy == 0)
-			return (0);
-		axis = v3_normalize(make_v3(-dy, dx, 0));
 		mlx->last[0] = x;
 		mlx->last[1] = y;
+		if (dx == 0 && dy == 0)
+			return (0);
+		axis = v3_normalize(make_v3(-dy, 0, 0));
+		if (fabs(dx) > fabs(dy))
+			axis = v3_normalize(make_v3(0, dx, 0));
 		if (mlx->selected_obj == NULL)
 		{
-			transform.r1 = rotate_vec3_deg(axis, -1, make_v3(1, 0, 0));
-			transform.r2 = rotate_vec3_deg(axis, -1, make_v3(0, 1, 0));
-			transform.r3 = rotate_vec3_deg(axis, -1, make_v3(0, 0, 1));
+			transform.r1 = rotate_vec3_deg(axis, -3, make_v3(1, 0, 0));
+			transform.r2 = rotate_vec3_deg(axis, -3, make_v3(0, 1, 0));
+			transform.r3 = rotate_vec3_deg(axis, -3, make_v3(0, 0, 1));
 			transform_to_cam_cord(mlx->scene, mat33_trans(transform));
 		}
 		else
 			mlx->selected_obj->n = rotate_vec3_deg(axis, -3, mlx->selected_obj->n);
 	}
+	else
+		return (0);	
 	mlx_renew_image(mlx);
 	return (1);
 }
