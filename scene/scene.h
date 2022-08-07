@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 14:24:11 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/07 18:29:21 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define SCENE_H
 # include "../Libft_vector/matrix33.h"
 # include "color.h"
-#include "objects.h"
+# include "objects.h"
 
 # ifndef TRUE
 #  define TRUE (1)

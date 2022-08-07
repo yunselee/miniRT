@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light_souce.c                                      :+:      :+:    :+:   */
+/*   light_source.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 18:25:18 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 18:26:01 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/07 18:30:27 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "ray_cast.h"
 
 static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
@@ -48,14 +49,14 @@ static void	mlx_draw_circle(t_mlx *mlx, int x, int y, int rad)
 
 void	render_lightsource(t_mlx *mlx, double depth)
 {
-	t_vec3	cam_to_light;
+	t_vec3			cam_to_light;
 	unsigned int	x;
 	unsigned int	y;
-	double	dist;
-	t_light	*light;
+	double			dist;
+	t_light			*light;
 
 	light = mlx->scene->light;
-	while(light)
+	while (light)
 	{
 		cam_to_light = v3_sub(light->o, mlx->scene->cam->pos);
 		dist = v3_l2norm(cam_to_light);
@@ -65,7 +66,8 @@ void	render_lightsource(t_mlx *mlx, double depth)
 			x = round(cam_to_light.x) + mlx->width / 2;
 			y = round(cam_to_light.y) + mlx->height / 2;
 			if (x < mlx->width && y < mlx->height)
-				mlx_draw_circle(mlx, x, y, fmin(fmax(depth / dist, 5), mlx->height / 4));
+				mlx_draw_circle(mlx, x, y, \
+						fmin(fmax(depth / dist, 5), mlx->height / 4));
 		}
 		light = light->next;
 	}

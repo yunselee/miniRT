@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:05:07 by dkim2             #+#    #+#             */
-/*   Updated: 2022/07/09 19:44:07 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/07 18:29:10 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int	init_scene(t_scene *out_scene, const char *filename)
 			break ;
 		if (ft_strncmp(line, "", 1) && !parse_scene(out_scene, line))
 		{
-			printf("%s\n", line);
 			free(line);
 			terminate_gnl(fd);
 			return (FALSE);

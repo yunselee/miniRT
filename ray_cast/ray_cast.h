@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:07:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 18:26:13 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/07 18:28:03 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@
 # define R_S (0.3)
 # define ALPHA (54)
 
-
 double	get_intersect_distance(t_obj_base *objlst, \
 								t_obj_base **intersecting_obj_out, \
 								t_ray ray);
 
 void	render_lightsource(t_mlx *mlx, double depth);
-	
+
 void	ray_cast(t_mlx *mlx);
 
 t_color	phong_reflection(t_mlx *mlx, \

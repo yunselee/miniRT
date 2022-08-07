@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:05:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 14:24:30 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/07 18:28:30 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 #include "../LIBFT/libft.h"
 #include "../Libft_vector/transform.h"
 #include <stdio.h>
-
-// static void	put_mat33(t_mat33 m)
-// {
-// 	printf("⎡% 3.3f % 3.3f % 3.3f⎤\n", m.r1.x, m.r2.x, m.r3.x);
-// 	printf("⎢% 3.3f % 3.3f % 3.3f⎥\n", m.r1.y, m.r2.y, m.r3.y);
-// 	printf("⎣% 3.3f % 3.3f % 3.3f⎦\n", m.r1.z, m.r2.z, m.r3.z);
-// }
 
 static void	transform_lights(t_light *light, t_mat33 transform)
 {
