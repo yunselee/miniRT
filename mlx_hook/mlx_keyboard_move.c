@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:52:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 13:19:46 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/07 18:52:29 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	mlx_move_obj(t_mlx *mlx, int keycode)
 												mlx->selected_obj->n);
 	else if (move_pos(&(mlx->selected_obj->o), keycode) == FALSE)
 		return (FALSE);
+	print_info(mlx->selected_obj);
 	mlx_renew_image(mlx);
 	return (TRUE);
 }

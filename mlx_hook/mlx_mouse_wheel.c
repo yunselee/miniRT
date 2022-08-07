@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 13:24:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 13:53:09 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/07 18:50:34 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,23 @@ static void	wheel_camera(t_mlx *mlx, int keycode)
 	mlx->scene->cam->hfov /= (180 / M_PI);
 }
 
-static int	wheel_object(t_mlx *mlx, int keycode)
+static int	wheel_object(t_obj_base *obj, int keycode)
 {
 	double	stride;
 	
 	stride = 0.05;
-	if (mlx->selected_obj == NULL)
+	if (obj == NULL)
 		return (FALSE);
 	if (keycode == 5)
 		stride = 1 - stride;
 	else
 		stride = 1 + stride;
-	if (mlx->selected_obj->h > EPSILON && mlx->selected_obj->r > EPSILON)
+	if (obj->h > EPSILON || obj->r > EPSILON)
 	{
-		mlx->selected_obj->h *= stride;
-		mlx->selected_obj->r *= stride;
+		obj->h *= stride;
+		obj->r *= stride;
 	}
+	print_info(obj);
 	return (TRUE);
 }
 
@@ -55,12 +56,8 @@ int mlx_mouse_wheel(t_mlx *mlx, int keycode)
 		return (FALSE);
 	else if (mlx->target_scene == E_CAM)
 		wheel_camera(mlx, keycode);
-	else if (mlx->target_scene == E_LIGHT)
-	{
-
-	}
 	else if (mlx->target_scene == E_OBJ)
-		return (wheel_object(mlx, keycode));
+		return (wheel_object(mlx->selected_obj, keycode));
 	else
 		return (FALSE);
 	return (TRUE);
