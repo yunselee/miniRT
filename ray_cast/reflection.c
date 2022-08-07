@@ -33,8 +33,8 @@ t_color phong_reflection(t_mlx *mlx, t_obj_base *hit_obj, t_vec3 intersection, t
 	t_vec3	normal;
 	t_vec3	mirror_reflect;
 	t_color	radiosity[3];
-	
-	if (mlx->edit != FALSE)
+
+	// if (mlx->edit != FALSE)
 	{
 		radiosity[0] = ambient_light(hit_obj->color, mlx->scene->ambient_color, 0.8);
 		return (radiosity[0]);

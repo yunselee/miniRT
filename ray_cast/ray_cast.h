@@ -21,12 +21,6 @@
 # define R_S (0.3)
 # define ALPHA (54)
 
-#define R_S 0.5
-#define ALPHA 54
-
-#define R_S 0.5
-#define ALPHA 54
-
 void	ray_cast(t_mlx *mlx);
 
 t_color	phong_reflection(t_mlx *mlx, \

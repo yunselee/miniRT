@@ -75,6 +75,28 @@ static void	info_cylinder(t_obj_base *obj)
 	printf(" : r: %d g: %d b: %d\n\n", red, green, blue);
 }
 
+static void	info_cone(t_obj_base *obj)
+{
+	int	red;
+	int	green;
+	int	blue;
+
+	red = obj->color.red;
+	green = obj->color.green;
+	blue = obj->color.blue;
+	printf("\ttype : CONE\n");
+	printf("\torg : [%3.4f, %3.4f, %3.4f]\n", obj->o.x \
+											, obj->o.y \
+											, obj->o.z);
+	printf("\tnormal : [%3.4f, %3.4f, %3.4f]\n", obj->n.x \
+												, obj->n.y \
+												, obj->n.z);
+	printf("\tAngle : %3.4f\n", obj->r);
+	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", red, green, blue);
+	printf(" : r: %d g: %d b: %d\n\n", red, green, blue);
+}
+
+
 void	print_info_object(t_obj_base *obj)
 {
 	if (obj == NULL)
@@ -85,6 +107,8 @@ void	print_info_object(t_obj_base *obj)
 		info_sphere(obj);
 	else if (obj->type == E_CYLINDER)
 		info_cylinder(obj);
+	else if (obj->type == E_CONE)
+		info_cone(obj);
 	if (obj->next)
 		print_info_object(obj->next);
 }

@@ -9,7 +9,8 @@ enum e_type
 {
 	E_PLANE = 0,
 	E_SPHERE,
-	E_CYLINDER
+	E_CYLINDER,
+	E_CONE
 };
 
 typedef struct s_ray
@@ -35,10 +36,9 @@ typedef struct s_scene	t_scene;
 
 
 struct objs_vtable_
-{
-	double (*obj_interstion)(t_ray ray, t_obj_base *obj, \
-						unsigned int *out_color);
-	t_vec3	(*obj_get_normal_vector)(t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
+{ 
+	double (*obj_interstion)(t_ray ray, const t_obj_base *obj);
+	t_vec3	(*obj_get_normal_vector)(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
 };
 
 
