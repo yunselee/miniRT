@@ -44,10 +44,15 @@ struct objs_vtable_
 
 // wrapper function
 double intersect(t_ray ray, const t_obj_base *obj);
+<<<<<<< HEAD
 // wrapper function
 t_vec3	get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
 // wrapper function
 void print_info(const t_obj_base *obj);
+=======
+// wrapper function
+t_vec3	get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
+>>>>>>> cone
 
 int init_object(t_scene *out_scene, char **single_scene);
 void	free_objectlst(t_obj_base *objlst);

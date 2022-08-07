@@ -9,11 +9,17 @@ double	solve_quadratic_equation(double a, double b, double c)
 	double	solution;
 	double	discriminant;
 
+	if (a < 0)
+	{
+		a = -a;
+		b = -b;
+		c = -c;
+	}
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
 		solution = -1;
 	else if (discriminant == 0)
-		solution = -b;
+		solution = -b / (2 * a);
 	else
 	{
 		solution = -b - sqrt(discriminant);
