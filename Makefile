@@ -29,6 +29,7 @@ SRCS_DIR		= 	./ \
 SRCS			= 	main.c \
 					\
 					ray.c \
+					light_source.c \
 					reflection.c \
 					diffuse_reflection.c \
 					specular_reflection.c \

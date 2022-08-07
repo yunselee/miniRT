@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdio.h>
 #include "libft.h"
 #include "ray_cast.h"
 #include "objects.h"

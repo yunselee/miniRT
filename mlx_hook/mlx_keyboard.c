@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 15:52:45 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/07 17:48:23 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ int	keydown(int keycode, t_mlx *mlx)
 		return (chage_to_editmode(mlx));
 	else if (mlx->edit != 0 && keycode == KEY_R)
 		return (change_to_rendermode(mlx));
-	else if (mlx->target_scene == E_NONE)
+	else if (mlx->edit != 0 && mlx->target_scene == E_NONE)
 		return (set_edit_scene(mlx, keycode));
-	else if (keycode == ENTER)
+	else if (mlx->edit != 0 && keycode == ENTER)
 	{
 		mlx->target_scene = E_NONE;
 		printf("SCENE EDITING DONE!\n");

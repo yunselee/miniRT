@@ -6,11 +6,12 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 13:47:27 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 17:34:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/07 17:43:37 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
+#include <stdio.h>
 #include "libft.h"
 #include "ray_cast.h"
 #include "objects.h"

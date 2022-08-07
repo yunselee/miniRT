@@ -6,11 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/08/07 14:59:56 by dkim2            ###   ########.fr       */
-=======
-/*   Updated: 2022/08/07 17:08:30 by dkim2            ###   ########.fr       */
->>>>>>> cone
+/*   Updated: 2022/08/07 18:25:43 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,53 +95,6 @@ static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
 	}
 }
 
-static void	render_lightsource(t_mlx *mlx, double cam_to_virtual_plane);
-static void	mlx_draw_circle(t_mlx *mlx, int x, int y, int rad)
-{
-	int	i;
-	int	j;
-
-	i = y - rad;
-	while (i < y + rad)
-	{
-		j = x - rad;
-		while (j < x + rad)
-		{
-			if ((x - j) * (x - j) + (y - i) * (y - i) < (rad * rad * 0.8))
-				ft_fill_pixel(mlx, j, i, 0xffffff);
-			else if ((x - j) * (x - j) + (y - i) * (y - i) < (rad * rad))
-				ft_fill_pixel(mlx, j, i, 0x000000);
-			j++;
-		}
-		i++;
-	}
-}
-
-static void	render_lightsource(t_mlx *mlx, double depth)
-{
-	t_vec3	cam_to_light;
-	unsigned int	x;
-	unsigned int	y;
-	double	dist;
-	t_light	*light;
-
-	light = mlx->scene->light;
-	while(light)
-	{
-		cam_to_light = v3_sub(light->o, mlx->scene->cam->pos);
-		dist = v3_l2norm(cam_to_light);
-		cam_to_light = v3_mul(cam_to_light, depth / cam_to_light.z);
-		x = round(cam_to_light.x) + mlx->width / 2;
-		y = round(cam_to_light.y) + mlx->height / 2;
-		if (x < mlx->width || y < mlx->height)
-		{
-			printf("depth %f dist %f res %f\n", depth, dist, depth / dist);
-			mlx_draw_circle(mlx, x, y, fmax(depth / dist, 10));
-		}
-		light = light->next;
-	}
-}
-
 void	ray_cast(t_mlx *mlx)
 {
 	unsigned int	pixel[2];
@@ -169,6 +118,6 @@ void	ray_cast(t_mlx *mlx)
 		}
 		pixel[1] += (mlx->edit + 1);
 	}
-	if (mlx->edit != 0 && mlx->target_scene == E_LIGHT)
+	if (mlx->edit != 0 && mlx->target_scene != E_NONE)
 		render_lightsource(mlx, d);
 }
