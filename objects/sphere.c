@@ -2,6 +2,7 @@
 #include "libft.h"
 #include "ray_cast.h"
 #include "objects.h"
+#include <stdio.h>
 
 // discriminant : 이차방정식의 판별식
 double	solve_quadratic_equation(double a, double b, double c)

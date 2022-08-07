@@ -38,7 +38,7 @@ int	mousedown(int button, int x, int y, t_mlx *mlx)
 		else
 		{
 			printf("selected object : \n");
-			print_info_single_object(mlx->selected_obj);
+			print_info(mlx->selected_obj);
 		}
 	}
 	else if (button == 4 || button == 5)

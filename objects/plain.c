@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "ray_cast.h"
 #include "objects.h"
+#include <stdio.h>
 
 static double	obj_interstion(t_ray ray, \
 								const t_obj_base *obj)

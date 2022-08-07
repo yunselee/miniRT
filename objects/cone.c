@@ -2,9 +2,9 @@
 #include "libft.h"
 #include "ray_cast.h"
 #include "objects.h"
+#include <stdio.h>
 
 double	solve_quadratic_equation(double a, double b, double c);
-
 
 static double	obj_interstion(t_ray ray, const t_obj_base *obj)
 {
@@ -38,9 +38,31 @@ static t_vec3	obj_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
     return (normal);
 }
 
+static void	obj_print_info(const t_obj_base *obj)
+{
+	int	red;
+	int	green;
+	int	blue;
+
+	red = obj->color.red;
+	green = obj->color.green;
+	blue = obj->color.blue;
+	printf("\ttype : CONE\n");
+	printf("\torg : [%3.4f, %3.4f, %3.4f]\n", obj->o.x \
+											, obj->o.y \
+											, obj->o.z);
+	printf("\tnormal : [%3.4f, %3.4f, %3.4f]\n", obj->n.x \
+												, obj->n.y \
+												, obj->n.z);
+	printf("\tAngle : %3.4f\n", obj->r);
+	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", red, green, blue);
+	printf(" : r: %d g: %d b: %d\n\n", red, green, blue);
+}
+
+
 struct objs_vtable_ *get_cone()
 {
-	static struct objs_vtable_ cone[] = { { obj_interstion, obj_get_normal_vector } };
+	static struct objs_vtable_ cone[] = { { obj_interstion, obj_get_normal_vector, obj_print_info } };
 
 	return cone;
 }
