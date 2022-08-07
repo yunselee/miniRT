@@ -99,6 +99,7 @@ int	init_scene(t_scene *out_scene, const char *filename)
 			break ;
 		if (ft_strncmp(line, "", 1) && !parse_scene(out_scene, line))
 		{
+			printf("%s\n", line);
 			free(line);
 			terminate_gnl(fd);
 			return (FALSE);

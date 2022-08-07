@@ -8,7 +8,8 @@ enum e_type
 {
 	E_PLANE = 0,
 	E_SPHERE,
-	E_CYLINDER
+	E_CYLINDER,
+	E_CONE
 };
 
 typedef struct s_ray

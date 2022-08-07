@@ -1,7 +1,7 @@
 NAME			= miniRT
 
 CC				= gcc
-CFLAGS			= -Wall -Werror -Wextra 
+CFLAGS			= -Wall -Werror -Wextra  -g
 # -g -fsanitize=address
 
 LIBS = ./library/LIBFT/libft.a
@@ -58,6 +58,7 @@ SRCS			= 	main.c \
 					plain.c \
 					case_object.c \
 					init_object.c \
+					cone.c
 
 
 OBJS_DIR		= ./OBJS
@@ -65,7 +66,6 @@ OBJS			= $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 vpath %.c $(SRCS_DIR)
 
 RM				= rm -f
-
 
 all: $(NAME)
 
