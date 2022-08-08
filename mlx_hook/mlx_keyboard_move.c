@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:52:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 16:09:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 19:42:36 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,13 @@ int	mlx_move_obj(t_mlx *mlx, int keycode)
 	print_info(mlx->selected_obj);
 	mlx_renew_image(mlx);
 	return (TRUE);
+}
+
+void	mlx_switch_light(t_mlx *mlx)
+{
+	mlx->selected_light = mlx->selected_light->next;
+	if (mlx->selected_light == NULL)
+		mlx->selected_light = mlx->scene->light;
+	printf("light changed\n");
+	print_single_light(mlx->selected_light);
 }

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:11:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 18:32:05 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 19:26:06 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,28 @@
 #include "../LIBFT/libft.h"
 #include "print_info.h"
 
-void	print_info_light(const t_light *light)
+void	print_single_light(const t_light *light)
 {
 	printf("[LIGHT]\n");
 	printf("\tpos : [%3.4f, %3.4f, %3.4f]\n", light->o.x \
 											, light->o.y \
 											, light->o.z);
 	printf("\tbrightness : %3.4f\n", light->bright);
-	if (light->next)
-		print_info_light(light->next);
+	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", light->color.red, \
+												light->color.green, \
+												light->color.blue);
+	printf(" : r: %d g: %d b: %d\n", light->color.red, \
+										light->color.green, \
+										light->color.blue);
+}
+
+void	print_info_light(const t_light *light)
+{
+	if (light != NULL)
+	{
+		print_single_light(light);
+		light = light->next;
+	}
 }
 
 void	print_info_camera(const t_cam *cam)

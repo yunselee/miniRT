@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 16:24:27 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 20:00:26 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "mlx_keycode.h"
 #include "ray_cast.h"
 #include "transform.h"
+#include "print_info.h"
 
 static int	chage_to_editmode(t_mlx *mlx)
 {
@@ -31,6 +32,8 @@ static int	change_to_rendermode(t_mlx *mlx)
 {
 	mlx->edit = 0;
 	mlx->target_scene = E_NONE;
+	mlx->selected_light = NULL;
+	mlx->selected_obj = NULL;
 	printf("REDERING.....\n");
 	mlx_renew_image(mlx);
 	printf("DONE\n");
@@ -53,11 +56,7 @@ static int	set_edit_scene(t_mlx *mlx, int keycode)
 	{
 		printf("mode : LIGHT\n");
 		mlx->selected_light = mlx->scene->light;
-		printf("\tbrightness : \033[2;38;2;%d;%d;%dm%.2f\033[0m\n", \
-				mlx->selected_light->color.red, \
-				mlx->selected_light->color.green, \
-				mlx->selected_light->color.blue, \
-				mlx->selected_light->bright);
+		print_single_light(mlx->selected_light);
 	}
 	else if (keycode == KEY_O)
 		printf("mode : OBJECTS\n");
@@ -93,25 +92,12 @@ int	keydown(int keycode, t_mlx *mlx)
 	else if (mlx->edit != 0 && keycode == ENTER)
 	{
 		mlx->target_scene = E_NONE;
-		printf("SCENE EDITING DONE!\n");
-		printf("Select scene to edit -> C : cam L : light O : objs\n");
-		printf("or press R to render\n");
+		printf("SCENE EDITING DONE! press R to render\n");
+		printf("or Select scene to edit -> C : cam L : light O : objs\n");
 		mlx_renew_image(mlx);
 		return (1);
 	}
 	else if (mlx->edit != 0 && mlx->target_scene == E_LIGHT && keycode == SPACE)
-	{
-		mlx->selected_light = mlx->selected_light->next;
-		if (mlx->selected_light == NULL)
-			mlx->selected_light = mlx->scene->light;
-		printf("light changed\n");
-		printf("\tbrightness : \033[2;38;2;%d;%d;%dm%.2f\033[0m\n", \
-				mlx->selected_light->color.red, \
-				mlx->selected_light->color.green, \
-				mlx->selected_light->color.blue, \
-				mlx->selected_light->bright);
-		return (1);
-	}
-	else
-		return (move_target_scene(mlx, keycode));
+		mlx_switch_light(mlx);
+	return (move_target_scene(mlx, keycode));
 }

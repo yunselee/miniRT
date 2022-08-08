@@ -81,6 +81,7 @@
         "color.h": "c",
         "mlx_part.h": "c",
         "mlx_keycode.h": "c",
-        "transform.h": "c"
+        "transform.h": "c",
+        "print_info.h": "c"
     }
 }

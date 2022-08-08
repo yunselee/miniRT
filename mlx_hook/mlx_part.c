@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/06 16:19:43 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 19:34:35 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
 {
 	t_mlx	*mlx;
 
-	mlx = ft_calloc(1, sizeof(t_mlx));
+	mlx = malloc(sizeof(t_mlx));
 	if (NULL == mlx)
 		return (NULL);
 	mlx->image = malloc(sizeof(t_image));
@@ -47,11 +47,18 @@ t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
 								&(mlx->image->line), &(mlx->image->endian));
 	mlx->width = width;
 	mlx->height = height;
+	mlx->selected_obj = NULL;
+	mlx->selected_light = NULL;
+	mlx->edit = 0;
+	mlx->target_scene = E_NONE;
+	mlx->clicked = 0;
 	return (mlx);
 }
 
 void	delete_mlx(t_mlx *mlx)
 {
+	mlx->selected_obj = NULL;
+	mlx->selected_light = NULL;
 	free_scene(mlx->scene);
 	mlx_destroy_image(mlx->mlx, mlx->image->img);
 	mlx_destroy_window(mlx->mlx, mlx->win);
@@ -74,9 +81,9 @@ void	mlx_start(t_scene *scene, \
 	ray_cast(mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
 	mlx_hook(mlx->win, 17, 0, destroy, mlx);
-	mlx_hook(mlx->win, 2, 0, keydown, mlx);
-	mlx_hook(mlx->win, 4, 0, mousedown, mlx);
-	mlx_hook(mlx->win, 5, 0, mouseup, mlx);
-	mlx_hook(mlx->win, 6, 0, mousemove, mlx);
+	mlx_hook(mlx->win, 2, (1L << 0), keydown, mlx);
+	mlx_hook(mlx->win, 4, (1L << 2), mousedown, mlx);
+	mlx_hook(mlx->win, 5, (1L << 3), mouseup, mlx);
+	mlx_hook(mlx->win, 6, (1L << 6), mousemove, mlx);
 	mlx_loop(mlx->mlx);
 }
