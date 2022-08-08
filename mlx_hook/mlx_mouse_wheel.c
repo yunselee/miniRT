@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 13:24:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 16:24:14 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 19:07:36 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	wheel_camera(t_mlx *mlx, int keycode)
 static int	wheel_object(t_obj_base *obj, int keycode)
 {
 	double	stride;
-	
+
 	stride = 0.05;
 	if (obj == NULL)
 		return (FALSE);
@@ -53,7 +53,7 @@ static int	wheel_object(t_obj_base *obj, int keycode)
 static int	wheel_light(t_light *light, int keycode)
 {
 	double	stride;
-	
+
 	stride = 0.05;
 	if (light == NULL)
 		return (FALSE);
@@ -74,7 +74,7 @@ static int	wheel_light(t_light *light, int keycode)
 	return (TRUE);
 }
 
-int mlx_mouse_wheel(t_mlx *mlx, int keycode)
+int	mlx_mouse_wheel(t_mlx *mlx, int keycode)
 {
 	if (keycode < 4)
 		return (FALSE);
