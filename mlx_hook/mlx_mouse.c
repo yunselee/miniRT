@@ -68,7 +68,7 @@ int	mousemove(int x, int y, t_mlx *mlx)
 	
 	if (mlx->edit == FALSE)
 		return (0);
-	else if (mlx->clicked == 1 && mlx->target_scene == E_CAM)
+	else if (mlx->clicked == 1)
 	{
 		dx = x - mlx->last[0];
 		dy = y - mlx->last[1];
@@ -79,14 +79,14 @@ int	mousemove(int x, int y, t_mlx *mlx)
 		axis = v3_normalize(make_v3(-dy, 0, 0));
 		if (fabs(dx) > fabs(dy))
 			axis = v3_normalize(make_v3(0, dx, 0));
-		if (mlx->selected_obj == NULL)
+		if (mlx->target_scene == E_CAM)
 		{
 			transform.r1 = rotate_vec3_deg(axis, -3, make_v3(1, 0, 0));
 			transform.r2 = rotate_vec3_deg(axis, -3, make_v3(0, 1, 0));
 			transform.r3 = rotate_vec3_deg(axis, -3, make_v3(0, 0, 1));
 			transform_to_cam_cord(mlx->scene, mat33_trans(transform));
 		}
-		else
+		else if (mlx->target_scene == E_OBJ && mlx->selected_obj != NULL)
 			mlx->selected_obj->n = rotate_vec3_deg(axis, -3, mlx->selected_obj->n);
 	}
 	else

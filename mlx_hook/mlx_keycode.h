@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:57:31 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 20:03:23 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 14:48:01 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define ESC (53)
 # define ENTER (36)
+# define SPACE (49)
 # define LARROW (123)
 # define RARROW (124)
 # define UARROW (126)
