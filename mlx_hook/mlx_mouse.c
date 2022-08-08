@@ -89,8 +89,6 @@ int	mousemove(int x, int y, t_mlx *mlx)
 		else if (mlx->target_scene == E_OBJ && mlx->selected_obj != NULL)
 			mlx->selected_obj->n = rotate_vec3_deg(axis, -3, mlx->selected_obj->n);
 	}
-	else
-		mlx->selected_obj->n = rotate_vec3_deg(axis, -3, mlx->selected_obj->n);
 	print_info_camera(mlx->scene->cam);
 	mlx_renew_image(mlx);
 	return (1);
