@@ -14,6 +14,7 @@
 #include "mlx_keycode.h"
 #include "transform.h"
 #include <stdio.h>
+#include "print_info.h"
 
 static int	move_pos(t_vec3 *pos, int keycode)
 {
@@ -54,6 +55,7 @@ int	mlx_move_cam(t_mlx *mlx, int keycode)
 	}
 	else if (move_pos(&(mlx->scene->cam->pos), keycode) == FALSE)
 		return (FALSE);
+	print_info_camera(mlx->scene->cam);
 	mlx_renew_image(mlx);
 	return (TRUE);
 }
@@ -62,6 +64,7 @@ int	mlx_move_light(t_mlx *mlx, int keycode)
 {
 	if (move_pos(&(mlx->scene->light->o), keycode) == FALSE)
 		return (FALSE);
+	print_info_light(mlx->scene->light);
 	mlx_renew_image(mlx);
 	return (TRUE);
 }

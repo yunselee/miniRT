@@ -16,7 +16,7 @@
 #include "../LIBFT/libft.h"
 #include "print_info.h"
 
-void	print_info_light(t_light *light)
+void	print_info_light(const t_light *light)
 {
 	printf("[LIGHT]\n");
 	printf("\tpos : [%3.4f, %3.4f, %3.4f]\n", light->o.x \
@@ -27,7 +27,7 @@ void	print_info_light(t_light *light)
 		print_info_light(light->next);
 }
 
-void	print_info_camera(t_cam *cam)
+void	print_info_camera(const t_cam *cam)
 {
 	printf("[CAMERA]\n");
 	printf("\tpos : [%3.4f, %3.4f, %3.4f]\n", cam->pos.x \
@@ -40,7 +40,7 @@ void	print_info_camera(t_cam *cam)
 	printf("\tHFOV : %3.4f(deg)\n", (cam->hfov) * (180 / M_PI));
 }
 
-void	print_info_scene(t_scene *scene)
+void	print_info_scene(const t_scene *scene)
 {
 	int	red;
 	int	green;

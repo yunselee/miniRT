@@ -15,9 +15,9 @@
 #include "scene.h"
 #include "print_info.h"
 
-void	print_info_object(t_obj_base *objlst)
+void	print_info_object(const t_obj_base *objlst)
 {
-	t_obj_base	*obj;
+	const t_obj_base	*obj;
 
 	obj = objlst;
 	while (obj)

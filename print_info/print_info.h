@@ -14,10 +14,9 @@
 # define PRINT_INFO_H
 # include "scene.h"
 
-void	print_info_light(t_light *light);
-void	print_info_camera(t_cam *cam);
-void	print_info_scene(t_scene *scene);
-void	print_info_object(t_obj_base *obj);
-void	print_info_single_object(t_obj_base *obj);
+void	print_info_light(const t_light *light);
+void	print_info_camera(const t_cam *cam);
+void	print_info_scene(const t_scene *scene);
+void	print_info_object(const t_obj_base *obj);
 
 #endif
