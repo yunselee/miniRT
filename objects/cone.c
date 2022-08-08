@@ -33,12 +33,12 @@ static t_vec3	obj_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
 	t_vec3	o_to_point;
 	t_vec3	normal;
 
-	o_to_cam = v3_sub(cam_pos, obj->o);
+	o_to_cam = v3_normalize(v3_sub(cam_pos, obj->o));
 	o_to_point = v3_sub(point, obj->o);
 	normal = v3_normalize(v3_crs(o_to_point, v3_crs(o_to_point, obj->n)));
 	if (v3_dot(o_to_point, obj->n) < 0)
 		normal = v3_mul(normal, -1);
-	if (v3_dot(o_to_cam, obj->n) > cos(obj->r * M_PI / 180))
+	if (fabs(v3_dot(o_to_cam, obj->n)) > cos(obj->r * M_PI / 180))
 		return (v3_mul(normal, -1));
 	return (normal);
 }
