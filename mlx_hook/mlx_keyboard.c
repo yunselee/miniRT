@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 20:23:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 20:39:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,11 @@ static int	move_target_scene(t_mlx *mlx, int keycode)
 
 int	keydown(int keycode, t_mlx *mlx)
 {
+	system("leaks miniRT");
 	if (keycode == ESC)
 	{
 		delete_mlx(mlx);
-		// system("leaks miniRT");
+		system("leaks miniRT");
 		exit(0);
 	}
 	else if (mlx->edit == 0 && keycode == KEY_E)

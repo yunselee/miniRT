@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 19:34:35 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 20:50:48 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	delete_mlx(t_mlx *mlx)
 	mlx->selected_light = NULL;
 	free_scene(mlx->scene);
 	mlx_destroy_image(mlx->mlx, mlx->image->img);
+	mlx_clear_window(mlx->mlx, mlx->win);
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	free(mlx->image);
 	free(mlx->mlx);
@@ -75,9 +76,6 @@ void	mlx_start(t_scene *scene, \
 	t_mlx	*mlx;
 
 	mlx = create_mlx(scene, width, height, name);
-	mlx->image->img = mlx_new_image(mlx->mlx, width, height);
-	mlx->image->addr = mlx_get_data_addr(mlx->image->img, &(mlx->image->bpp), \
-								&(mlx->image->line), &(mlx->image->endian));
 	ray_cast(mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
 	mlx_hook(mlx->win, 17, 0, destroy, mlx);
