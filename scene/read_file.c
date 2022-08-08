@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:05:07 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 18:46:30 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 20:11:42 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,8 @@ int	init_scene(t_scene *out_scene, const char *filename)
 	int		fd;
 	char	*line;
 
-	if (out_scene == NULL)
-		return (FALSE);
-	if (ft_strncmp(&filename[ft_strlen(filename) - 3], ".rt", 4))
+	if (out_scene == NULL || \
+		ft_strncmp(&filename[ft_strlen(filename) - 3], ".rt", 4))
 		return (FALSE);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -99,7 +98,7 @@ int	init_scene(t_scene *out_scene, const char *filename)
 			break ;
 		if (ft_strncmp(line, "", 1) && !parse_scene(out_scene, line))
 		{
-			printf("err line : %s\n", line);
+			printf("error line : %s\n", line);
 			free(line);
 			terminate_gnl(fd);
 			return (FALSE);

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:31:17 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 20:03:28 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 20:23:43 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int	destroy(t_mlx *mlx)
 	if (!mlx)
 		return (0);
 	delete_mlx(mlx);
+	// system("leaks miniRT");
 	exit(0);
 }

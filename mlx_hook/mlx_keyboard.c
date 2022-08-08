@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 20:00:26 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 20:23:38 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	keydown(int keycode, t_mlx *mlx)
 	if (keycode == ESC)
 	{
 		delete_mlx(mlx);
+		// system("leaks miniRT");
 		exit(0);
 	}
 	else if (mlx->edit == 0 && keycode == KEY_E)

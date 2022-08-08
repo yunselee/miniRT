@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 19:00:49 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/08 19:54:48 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/08 20:09:31 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_vec3	get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos);
 void	print_info(const t_obj_base *obj);
 
 int		init_object(t_scene *out_scene, char **single_scene);
+
 void	free_objectlst(t_obj_base *objlst);
 
 #endif

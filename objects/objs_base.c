@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objs_base.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 19:20:20 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/08 19:56:24 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/08 20:09:38 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_vec3	plain_get_normal_vector(const t_obj_base *obj, \
 											t_vec3 point, t_vec3 cam_pos);
 t_vec3	sphere_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
 								t_vec3 cam_pos);
-
 
 double	intersect(t_ray ray, const t_obj_base *obj)
 {

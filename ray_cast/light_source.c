@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 18:25:18 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 16:11:42 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 20:18:28 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,24 @@ static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
 	}
 }
 
-static void	mlx_draw_circle(t_mlx *mlx, int x, int y, int rad, t_color color)
+static void	mlx_draw_circle(t_mlx *mlx, int p[2], t_color color, int rad)
 {
 	int		i;
 	int		j;
-	double	rad_square;
+	double	r_square;
 
-	rad_square = rad * rad;
-	i = y - rad - 1;
-	while (++i < y + rad)
+	r_square = rad * rad;
+	i = p[1] - rad - 1;
+	while (++i < p[1] + rad)
 	{
-		j = x - rad - 1;
-		while (++j < x + rad)
+		j = p[0] - rad - 1;
+		while (++j < p[0] + rad)
 		{
 			if (i < 0 || j < 0 || i >= (int)mlx->height || j >= (int)mlx->width)
 				continue ;
-			else if ((x - j) * (x - j) + (y - i) * (y - i) < (rad_square * 0.8))
+			else if (pow(p[0] - j, 2) + pow((p[1] - i), 2) < (r_square * 0.8))
 				ft_fill_pixel(mlx, j, i, color_to_hex(color));
-			else if ((x - j) * (x - j) + (y - i) * (y - i) < rad_square)
+			else if (pow(p[0] - j, 2) + pow((p[1] - i), 2) < r_square)
 				ft_fill_pixel(mlx, j, i, 0x000000);
 		}
 	}
@@ -51,11 +51,10 @@ static void	mlx_draw_circle(t_mlx *mlx, int x, int y, int rad, t_color color)
 
 void	render_lightsource(t_mlx *mlx, double depth)
 {
-	t_vec3			cam_to_light;
-	unsigned int	x;
-	unsigned int	y;
-	double			dist;
-	t_light			*light;
+	t_vec3		cam_to_light;
+	int			point[2];
+	double		dist;
+	t_light		*light;
 
 	light = mlx->scene->light;
 	while (light)
@@ -65,11 +64,11 @@ void	render_lightsource(t_mlx *mlx, double depth)
 		if (cam_to_light.z > EPSILON && dist > (1 - EPSILON))
 		{
 			cam_to_light = v3_mul(cam_to_light, depth / cam_to_light.z);
-			x = round(cam_to_light.x) + mlx->width / 2;
-			y = round(cam_to_light.y) + mlx->height / 2;
-			if (x < mlx->width && y < mlx->height)
-				mlx_draw_circle(mlx, x, y, \
-				light->bright * fmin(fmax(depth / dist, 5), mlx->height / 4), light->color);
+			point[0] = round(cam_to_light.x) + mlx->width / 2;
+			point[1] = round(cam_to_light.y) + mlx->height / 2;
+			if (point[0] < (int)mlx->width && point[1] < (int)mlx->height)
+				mlx_draw_circle(mlx, point, light->color, \
+				light->bright * fmin(fmax(depth / dist, 5), mlx->height / 4));
 		}
 		light = light->next;
 	}
