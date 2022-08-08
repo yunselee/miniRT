@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 13:24:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 18:50:34 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 16:24:14 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,30 @@ static int	wheel_object(t_obj_base *obj, int keycode)
 	return (TRUE);
 }
 
+static int	wheel_light(t_light *light, int keycode)
+{
+	double	stride;
+	
+	stride = 0.05;
+	if (light == NULL)
+		return (FALSE);
+	if (keycode == 5)
+		stride = -0.1;
+	else
+		stride = 0.1;
+	if (light->bright + stride > 0 \
+		&& light->bright + stride < 1)
+	{
+		light->bright += stride;
+		printf("\tbrightness : \033[2;38;2;%d;%d;%dm%.2f\033[0m\n", \
+				light->color.red, \
+				light->color.green, \
+				light->color.blue, \
+				light->bright);
+	}
+	return (TRUE);
+}
+
 int mlx_mouse_wheel(t_mlx *mlx, int keycode)
 {
 	if (keycode < 4)
@@ -58,6 +82,8 @@ int mlx_mouse_wheel(t_mlx *mlx, int keycode)
 		wheel_camera(mlx, keycode);
 	else if (mlx->target_scene == E_OBJ)
 		return (wheel_object(mlx->selected_obj, keycode));
+	else if (mlx->target_scene == E_LIGHT)
+		return (wheel_light(mlx->selected_light, keycode));
 	else
 		return (FALSE);
 	return (TRUE);

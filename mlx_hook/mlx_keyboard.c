@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 17:48:23 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 16:24:27 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,15 @@ static int	set_edit_scene(t_mlx *mlx, int keycode)
 	if (keycode == KEY_C)
 		printf("mode : CAMERA\n");
 	else if (keycode == KEY_L)
+	{
 		printf("mode : LIGHT\n");
+		mlx->selected_light = mlx->scene->light;
+		printf("\tbrightness : \033[2;38;2;%d;%d;%dm%.2f\033[0m\n", \
+				mlx->selected_light->color.red, \
+				mlx->selected_light->color.green, \
+				mlx->selected_light->color.blue, \
+				mlx->selected_light->bright);
+	}
 	else if (keycode == KEY_O)
 		printf("mode : OBJECTS\n");
 	mlx_renew_image(mlx);
@@ -89,6 +97,19 @@ int	keydown(int keycode, t_mlx *mlx)
 		printf("Select scene to edit -> C : cam L : light O : objs\n");
 		printf("or press R to render\n");
 		mlx_renew_image(mlx);
+		return (1);
+	}
+	else if (mlx->edit != 0 && mlx->target_scene == E_LIGHT && keycode == SPACE)
+	{
+		mlx->selected_light = mlx->selected_light->next;
+		if (mlx->selected_light == NULL)
+			mlx->selected_light = mlx->scene->light;
+		printf("light changed\n");
+		printf("\tbrightness : \033[2;38;2;%d;%d;%dm%.2f\033[0m\n", \
+				mlx->selected_light->color.red, \
+				mlx->selected_light->color.green, \
+				mlx->selected_light->color.blue, \
+				mlx->selected_light->bright);
 		return (1);
 	}
 	else

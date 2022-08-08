@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:52:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 18:52:29 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 16:09:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	mlx_move_cam(t_mlx *mlx, int keycode)
 
 int	mlx_move_light(t_mlx *mlx, int keycode)
 {
-	if (move_pos(&(mlx->scene->light->o), keycode) == FALSE)
+	if (move_pos(&(mlx->selected_light->o), keycode) == FALSE)
 		return (FALSE);
 	print_info_light(mlx->scene->light);
 	mlx_renew_image(mlx);
