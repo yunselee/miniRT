@@ -20,7 +20,7 @@ double	solve_quadratic_equation(double a, double b, double c)
 	if (discriminant < 0)
 		solution = -1;
 	else if (discriminant == 0)
-		solution = -b / (2 * a);
+		solution = -b;
 	else
 	{
 		solution = -b - sqrt(discriminant);
