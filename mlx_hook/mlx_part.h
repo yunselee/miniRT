@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 13:36:04 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 15:55:40 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_mlx
 	t_image			*image;
 	t_scene			*scene;
 	t_obj_base		*selected_obj;
+	t_light			*selected_light;
 	unsigned int	edit;
 	enum e_target	target_scene;
 	unsigned int	clicked;
