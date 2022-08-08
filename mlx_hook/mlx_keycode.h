@@ -58,4 +58,10 @@
 # define KEY_9 (25)
 # define KEY_0 (29)
 
+# define MOUSE_LEFT        (1)
+# define MOUSE_RIGHT       (2)
+# define MOUSE_WHELL_CLICK (3)
+# define MOUSE_WHELL_DOWN  (4)
+# define MOUSE_WHELL_UP    (5)
+
 #endif

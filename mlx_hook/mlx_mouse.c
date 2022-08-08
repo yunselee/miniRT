@@ -8,11 +8,12 @@
 #include "print_info.h"
 
 /*
-	left        : 1
-	right       : 2
-	wheel click : 3
-	wheel down  : 4
-	wheel up    : 5
+	# define MOUSE_LEFT        (1)
+# define MOUSE_RIGHT       (2)
+# define MOUSE_WHELL_CLICK (3)
+# define MOUSE_WHELL_DOWN  (4)
+# define MOUSE_WHELL_UP    (5)
+
 */
 
 int	mousedown(int button, int x, int y, t_mlx *mlx)
@@ -20,11 +21,12 @@ int	mousedown(int button, int x, int y, t_mlx *mlx)
 	t_ray	ray;
 	double	d;
 
+	printf("mouse clicked\n");
 	if (!mlx || x < 0 || y < 0 || (unsigned int)x > mlx->width \
 		|| (unsigned int)y > mlx->height || mlx->edit == FALSE || mlx->target_scene == E_NONE)
 		return (FALSE);
 	mlx->clicked = button;
-	if (button == 1 && mlx->target_scene == E_OBJ)
+	if (button == MOUSE_LEFT && mlx->target_scene == E_OBJ)
 	{
 		mlx->last[0] = x;
 		mlx->last[1] = y;
@@ -38,10 +40,10 @@ int	mousedown(int button, int x, int y, t_mlx *mlx)
 		else
 		{
 			printf("selected object : \n");
-			mlx->selected_obj->vtable_->obj_print_info(mlx->selected_obj);
+			print_info(mlx->selected_obj);
 		}
 	}
-	else if (button == 4 || button == 5)
+	else if (button == MOUSE_WHELL_DOWN || button == MOUSE_WHELL_UP)
 	{
 		if (mlx_mouse_wheel(mlx, button) == FALSE)
 			return (FALSE);
@@ -55,7 +57,10 @@ int	mousedown(int button, int x, int y, t_mlx *mlx)
 int	mouseup(int button, int x, int y, t_mlx *mlx)
 {
 	if (x > 0 && y > 0 && button > 0)
+	{
 		mlx->clicked = 0;
+		printf("mouse outed\n");
+	}
 	return (FALSE);
 }
 
@@ -68,8 +73,10 @@ int	mousemove(int x, int y, t_mlx *mlx)
 	
 	if (mlx->edit == FALSE)
 		return (0);
-	else if (mlx->clicked == 1)
+	else if (mlx->clicked != 1)
 	{
+		return FALSE;
+	}
 		dx = x - mlx->last[0];
 		dy = y - mlx->last[1];
 		mlx->last[0] = x;
@@ -88,7 +95,6 @@ int	mousemove(int x, int y, t_mlx *mlx)
 		}
 		else if (mlx->target_scene == E_OBJ && mlx->selected_obj != NULL)
 			mlx->selected_obj->n = rotate_vec3_deg(axis, -3, mlx->selected_obj->n);
-	}
 	print_info_camera(mlx->scene->cam);
 	mlx_renew_image(mlx);
 	return (1);
