@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plain.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 13:47:27 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 17:43:37 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 19:56:37 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static void	obj_print_info(const t_obj_base *obj)
 	printf(" : r: %d g: %d b: %d\n\n", red, green, blue);
 }
 
-
-static t_vec3	obj_get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos)
+t_vec3	plain_get_normal_vector(const t_obj_base *obj, \
+											t_vec3 point, t_vec3 cam_pos)
 {
 	t_vec3	org_to_cam;
 
@@ -64,10 +64,11 @@ static t_vec3	obj_get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 
 		return (v3_mul(obj->n, -1));
 }
 
-struct objs_vtable_ *get_plain()
+struct s_obj_vtable_	*get_plain(void)
 {
-	static struct objs_vtable_ plain[] = { { obj_interstion, obj_get_normal_vector, obj_print_info} };
+	static struct s_obj_vtable_	plain[5];
 
-	return plain;
+	plain->obj_interstion = obj_interstion;
+	plain->obj_print_info = obj_print_info;
+	return (plain);
 }
-

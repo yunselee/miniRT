@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cone.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/08 18:52:30 by yunselee          #+#    #+#             */
+/*   Updated: 2022/08/08 19:52:09 by yunselee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <math.h>
 #include <stdio.h>
 #include "libft.h"
@@ -8,16 +20,15 @@ double	solve_quadratic_equation(double a, double b, double c);
 
 static double	obj_interstion(t_ray ray, const t_obj_base *obj)
 {
-//todo cos_squre into obj obj->r * M_PI / 180
-	double cos_squre = pow(cos(obj->r * M_PI / 180), 2);
-	t_vec3 op = v3_sub(obj->o, ray.org);
-	double a = pow(v3_dot(obj->n, ray.dir), 2)\
-					- cos_squre;
-	double b = 2 * (v3_dot(op, obj->n) * v3_dot(obj->n, ray.dir) \
+	const double	cos_squre = pow(cos(obj->r * M_PI / 180), 2);
+	const t_vec3	op = v3_sub(obj->o, ray.org);
+	const double	a = pow(v3_dot(obj->n, ray.dir), 2) - cos_squre;
+	const double	b = 2 * (v3_dot(op, obj->n) * v3_dot(obj->n, ray.dir) \
 							- cos_squre * v3_dot(ray.dir, op));
-	double c = pow(v3_dot(op, obj->n), 2) \
+	const double	c = pow(v3_dot(op, obj->n), 2) \
 					- cos_squre * v3_dot(op, op);
-	return solve_quadratic_equation(a,-b,c);  
+
+	return (solve_quadratic_equation(a, -b, c));
 }
 
 /*
@@ -26,7 +37,7 @@ cam_to_p : cam_position to intersect point
 o_n : normal vector of object
 TODO 안밖처처리리
 */
-static t_vec3	obj_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
+t_vec3	cone_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
 									t_vec3 cam_pos)
 {
 	t_vec3	o_to_cam;
@@ -64,9 +75,13 @@ static void	obj_print_info(const t_obj_base *obj)
 	printf(" : r: %d g: %d b: %d\n\n", red, green, blue);
 }
 
-struct objs_vtable_ *get_cone()
+struct s_obj_vtable_	*get_cone(void)
 {
-	static struct objs_vtable_ cone[] =  { { obj_interstion, obj_get_normal_vector, obj_print_info} };
+	static struct s_obj_vtable_	cone[5];
 
-	return cone;
+	cone->obj_interstion = obj_interstion;
+	cone->obj_print_info = obj_print_info;
+	return (cone);
 }
+
+//cone->obj_get_normal_vector = obj_get_normal_vector;

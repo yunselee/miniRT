@@ -1,52 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sphere.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/08 18:58:54 by yunselee          #+#    #+#             */
+/*   Updated: 2022/08/08 19:55:13 by yunselee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <math.h>
 #include <stdio.h>
 #include "libft.h"
 #include "ray_cast.h"
 #include "objects.h"
 
-// discriminant : 이차방정식의 판별식
-double	solve_quadratic_equation(double a, double b, double c)
-{
-	double	solution;
-	double	discriminant;
-
-	if (a < 0)
-	{
-		a = -a;
-		b = -b;
-		c = -c;
-	}
-	discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
-		solution = -1;
-	else if (discriminant == 0)
-		solution = -b;
-	else
-	{
-		solution = -b - sqrt(discriminant);
-		if (solution <= 0)
-			solution = -b + sqrt(discriminant);
-	}
-	if (solution <= 0)
-		return (NAN);
-	return (solution / (2 * a));
-}
+double	solve_quadratic_equation(double a, double b, double c);
 
 static double	obj_interstion(t_ray ray, \
 								const t_obj_base *obj)
 {
-	const t_vec3	obj_org = v3_sub(obj->o, ray.org);;
-	const double	distance = solve_quadratic_equation( \
+	const t_vec3	obj_org = v3_sub(obj->o, ray.org);
+	const double	distance = solve_quadratic_equation(\
 					v3_dot(ray.dir, ray.dir), \
 					-2 * v3_dot(obj_org, ray.dir), \
 					v3_dot(obj_org, obj_org) - pow(obj->r, 2));
-	
+
 	if (distance == NAN)
 		return (NAN);
 	return (distance);
 }
 
-static t_vec3	obj_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
+t_vec3	sphere_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
 								t_vec3 cam_pos)
 {
 	const t_vec3	normal = v3_normalize(v3_sub(point, obj->o));
@@ -74,9 +60,11 @@ static void	obj_print_info(const t_obj_base *obj)
 	printf(" : r: %d g: %d b: %d\n\n", red, green, blue);
 }
 
-struct objs_vtable_ *get_sphere()
+struct s_obj_vtable_	*get_sphere(void)
 {
-	static struct objs_vtable_ sphere[] = { { obj_interstion, obj_get_normal_vector, obj_print_info} };
+	static struct s_obj_vtable_	sphere[5];
 
-	return sphere;
+	sphere->obj_interstion = obj_interstion;
+	sphere->obj_print_info = obj_print_info;
+	return (sphere);
 }

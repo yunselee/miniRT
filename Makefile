@@ -59,7 +59,8 @@ SRCS			= 	main.c \
 					plain.c \
 					case_object.c \
 					init_object.c \
-					cone.c
+					cone.c \
+					object_ect.c
 
 
 OBJS_DIR		= ./OBJS

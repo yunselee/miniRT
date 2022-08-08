@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 22:56:50 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 20:00:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 18:47:30 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,5 @@ t_color	color_scale(t_color c1, double s)
 
 unsigned int	color_to_hex(t_color c)
 {
-	unsigned int	hex_color;
-
-	hex_color = c.blue + (c.green << 8) + (c.red << 16);
-	return (hex_color);
+	return ((unsigned int)c.blue + (c.green << 8) + (c.red << 16));
 }

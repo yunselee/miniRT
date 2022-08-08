@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:11:12 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 17:43:40 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 19:55:35 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,72 +17,16 @@
 #include "libft.h"
 #include "objects.h"
 
-double	solve_quadratic_equation(double a, double b, double c);
-
-static double	above_cylinder(t_ray ray, const t_obj_base *obj)
-{
-	t_vec3	center;
-	t_vec3	intersection;
-	double	dist;
-
-	center = v3_sub(obj->o, ray.org);
-	center = v3_add(center, v3_mul(obj->n, obj->h));
-	if (v3_dot(ray.dir, obj->n) == 0)
-		return (NAN);
-	dist = v3_dot(center, obj->n) / v3_dot(ray.dir, obj->n);
-	if (dist <= 0)
-		return (NAN);
-	intersection = v3_mul(ray.dir, dist);
-	if (v3_l2norm(v3_sub(intersection, center)) > obj->r)
-		return (NAN);
-	return (v3_l2norm(intersection));
-}
-
-static double	below_cylinder(t_ray ray, const t_obj_base *obj)
-{
-	const t_vec3	center = v3_sub(obj->o, ray.org);
-	const double	dist = v3_dot(center, obj->n) / v3_dot(ray.dir, obj->n);
-	const t_vec3	intersection = v3_mul(ray.dir, dist);
-
-	if (v3_dot(ray.dir, obj->n) == 0)
-		return (NAN);
-	if (dist <= 0)
-		return (NAN);
-	if (v3_l2norm(v3_sub(intersection, center)) > obj->r)
-		return (NAN);
-	return (v3_l2norm(intersection));
-}
-
-static double	outside_cylinder(t_ray ray, const t_obj_base *obj)
-{
-	const t_vec3	obj_org = v3_sub(obj->o, ray.org);
-	const t_vec3	ray_proj = v3_normalize(v3_crs(obj->n, v3_crs(ray.dir, obj->n)));
-	const t_vec3	org_proj  = v3_crs(obj->n, v3_crs(obj_org, obj->n));
-	double	height;
-	double		distance ;
-	
-	distance = solve_quadratic_equation(v3_dot(ray_proj, ray_proj), \
-					-2 * v3_dot(org_proj, ray_proj), \
-					v3_dot(org_proj, org_proj) - pow(obj->r, 2));;
-	if (distance == NAN)
-		return (NAN);
-	distance /= v3_dot(ray.dir, ray_proj);
-	height = v3_dot(v3_sub(v3_mul(ray.dir, distance), obj_org), obj->n);
-	if (height == 0 || height == obj->h)
-		return (NAN);
-	else if (height < 0)
-		return (below_cylinder(ray, obj));
-	else if (height > obj->h)
-		return (above_cylinder(ray, obj));
-	return (distance);
-}
-
+double	above_cylinder(t_ray ray, const t_obj_base *obj);
+double	below_cylinder(t_ray ray, const t_obj_base *obj);
+double	outside_cylinder(t_ray ray, const t_obj_base *obj);
 
 static double	obj_interstion(t_ray ray, const t_obj_base *obj)
 {
 	const t_vec3	obj_org = v3_sub(obj->o, ray.org);
 	const t_vec3	cam_from_cy = v3_sub(ray.dir, obj_org);
-	const t_vec3 cam_from_cy_proj = v3_crs(obj->n, v3_crs(cam_from_cy, obj->n));
+	const t_vec3	cam_from_cy_proj = v3_crs(obj->n, \
+										v3_crs(cam_from_cy, obj->n));
 	const double	dist = v3_l2norm(cam_from_cy_proj);
 	const double	height = v3_dot(cam_from_cy, obj->n);
 
@@ -105,13 +49,13 @@ o_to_p : org_of_object to intersect point
 cam_to_p : cam_position to intersect point
 o_n : normal vector of object
 */
-static t_vec3	obj_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
+t_vec3	cylinder_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
 									t_vec3 cam_pos)
 {
-	const t_vec3	o_n  = obj->n;;
-	const t_vec3	cam_to_p  = v3_sub(point, cam_pos);
-	t_vec3	normal;
-	t_vec3	o_to_p;
+	const t_vec3	o_n = obj->n;
+	const t_vec3	cam_to_p = v3_sub(point, cam_pos);
+	t_vec3			normal;
+	t_vec3			o_to_p;
 
 	o_to_p = v3_sub(point, obj->o);
 	if (v3_dot(o_to_p, o_n) <= EPSILON && v3_dot(o_to_p, o_n) >= -EPSILON)
@@ -132,8 +76,6 @@ static t_vec3	obj_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
 		normal = v3_mul(normal, -1);
 	return (normal);
 }
-
-
 
 static void	obj_print_info(const t_obj_base *obj)
 {
@@ -157,12 +99,11 @@ static void	obj_print_info(const t_obj_base *obj)
 	printf(" : r: %d g: %d b: %d\n\n", red, green, blue);
 }
 
-
-
-struct objs_vtable_ *get_cylinder()
+struct s_obj_vtable_	*get_cylinder(void)
 {
+	static struct s_obj_vtable_	cylinder[5];
 
-	static struct objs_vtable_ cylinder[] = { { obj_interstion, obj_get_normal_vector, obj_print_info} };
-
-	return cylinder;
+	cylinder->obj_interstion = obj_interstion;
+	cylinder->obj_print_info = obj_print_info;
+	return (cylinder);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   case_object.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:41:42 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 17:33:55 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 19:54:48 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@
 #include "in_parsing.h"
 #include "objects.h"
 
-struct objs_vtable_ *get_cylinder();
-struct objs_vtable_ *get_plain();
-struct objs_vtable_ *get_sphere();
-struct objs_vtable_ *get_cone();
-
+struct s_obj_vtable_	*get_cylinder(void);
+struct s_obj_vtable_	*get_plain(void);
+struct s_obj_vtable_	*get_sphere(void);
+struct s_obj_vtable_	*get_cone(void);
 
 static void	ft_addlst_back(t_obj_base **objlst, t_obj_base *node)
 {
 	t_obj_base	*last;
 
 	node->next = NULL;
-	if(*objlst == NULL)
+	if (*objlst == NULL)
 	{
 		*objlst = node;
 		return ;
@@ -37,20 +36,6 @@ static void	ft_addlst_back(t_obj_base **objlst, t_obj_base *node)
 	while (last->next)
 		last = last->next;
 	last->next = node;
-}
-
-void	free_objectlst(t_obj_base *out_objlst)
-{
-	t_obj_base	*curr;
-	t_obj_base	*next;
-
-	curr = out_objlst;
-	while (curr)
-	{
-		next = curr -> next;
-		free(curr);
-		curr = next;
-	}
 }
 
 int	case_plane(t_scene *out_scene, char **single_scene)
@@ -62,7 +47,7 @@ int	case_plane(t_scene *out_scene, char **single_scene)
 	new_obj = ft_calloc(1, sizeof(t_obj_base));
 	if (!new_obj)
 		return (FALSE);
-	new_obj->type = E_PLANE;
+	new_obj->type = E_PLAIN;
 	if ((str_to_vec3(single_scene[1], &new_obj->o) == FALSE) \
 		|| (str_to_vec3(single_scene[2], &new_obj->n) == FALSE) \
 		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE))
@@ -132,9 +117,8 @@ co 50.0,0.0,20.6 0.0,0.0,1.0 14.2 21.42 10,0,255
 0.0,0.0,1.0
 r : 0~180
 ∗ R,G,B colors in range [0,255]: 10, 0, 255
-
 */
-int case_cone(t_scene *out_scene, char **single_scene)
+int	case_cone(t_scene *out_scene, char **single_scene)
 {
 	t_obj_base	*new_obj;
 
@@ -156,5 +140,4 @@ int case_cone(t_scene *out_scene, char **single_scene)
 	ft_addlst_back(&(out_scene->obj), new_obj);
 	new_obj->vtable_ = get_cone();
 	return (TRUE);
-
 }
