@@ -1,0 +1,1 @@
+norminette */*.c */*.h *.c 
