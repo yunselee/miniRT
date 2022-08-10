@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkim2 <dkim2@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/28 15:17:54 by dkim2             #+#    #+#              #
-#    Updated: 2022/05/21 01:21:17 by dkim2            ###   ########.fr        #
+#    Updated: 2022/08/10 15:03:41 by yunselee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -O2
 
 AR = ar
 ARFLAGS = -rs
