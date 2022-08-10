@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 21:05:16 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 22:21:57 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	main(int argc, char **argv)
 	{
 		printf("\033[3;31mFail to read file\033[0m\n");
 		free_scene(global_scene);
+		system("leaks miniRT");
 		return (1);
 	}
 	print_info_scene(global_scene);
@@ -66,4 +67,5 @@ int	main(int argc, char **argv)
 	transform_to_cam_cord(global_scene, transform);
 	mlx_start(global_scene, 1920 / 2, 1080 / 2, argv[1]);
 	free_scene(global_scene);
+	system("leaks miniRT");
 }

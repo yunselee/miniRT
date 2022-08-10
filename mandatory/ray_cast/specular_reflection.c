@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:20:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 17:33:24 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 22:21:24 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static double	specular_helper(t_obj_base *objlst, \
 			dist[0] = dist[1];
 		target_obj = target_obj->next;
 	}
-	if (isnan(dist[0]) == FALSE && dist[0] < v3_l2norm(dir_to_light))
+	if (isnan(dist[0]) == FALSE && dist[0] < v3_l2norm(dir_to_light) + EPSILON)
 		return (0);
 	specular = fmax(0, v3_dot(v3_normalize(dir_to_light), mirror_ray));
 	return (specular);
