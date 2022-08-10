@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 20:50:48 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/08 21:04:20 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ void	delete_mlx(t_mlx *mlx)
 	mlx->selected_light = NULL;
 	free_scene(mlx->scene);
 	mlx_destroy_image(mlx->mlx, mlx->image->img);
-	mlx_clear_window(mlx->mlx, mlx->win);
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	free(mlx->image);
-	free(mlx->mlx);
 	free(mlx);
 }
 
