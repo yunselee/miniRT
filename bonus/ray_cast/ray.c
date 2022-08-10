@@ -6,7 +6,7 @@
 /*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 17:29:39 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/10 20:05:18 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
 	unsigned int	s[2];
 
 	s[0] = -1;
-	while (++s[0] < (mlx->edit + 1))
+	while (++s[0] < (mlx->edit + 1) && s[0] + x < mlx->width)
 	{
 		s[1] = -1;
-		while (++s[1] < (mlx->edit + 1))
+		while (++s[1] < (mlx->edit + 1) && s[1] + y < mlx->height)
 			ft_mlx_set_pixel_color(mlx->image, x + s[0], y + s[1], color);
 	}
 }
@@ -104,12 +104,12 @@ void	ray_cast(t_mlx *mlx)
 	t_ray			ray;
 
 	d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
-	pixel[1] = 0;
 	time_check_start_sub();
-	while (pixel[1] < mlx->height - mlx->edit)
+	pixel[1] = 0;
+	while (pixel[1] < mlx->height)
 	{
 		pixel[0] = 0;
-		while (pixel[0] < mlx->width - mlx->edit)
+		while (pixel[0] < mlx->width)
 		{
 			ray.dir = v3_normalize(make_v3((int)(pixel[0] - mlx->width / 2), \
 										(int)(pixel[1] - mlx->height / 2), d));
