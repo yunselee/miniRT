@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 13:47:27 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 19:31:04 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 22:54:56 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	obj_print_info(const t_obj_base *obj)
 												, obj->tangential.z);
 	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", red, green, blue);
 	printf(" : r: %d g: %d b: %d\n", red, green, blue);
-	printf("\tspecular factors : Rs : %.2f alpha : %d\n\n", obj->rs, obj->alpha);
+	printf("\tspecular factors : Rs : %.2f alpha : %d\n\n", obj->rs, obj->ns);
 }
 
 t_vec3	plain_get_normal_vector(const t_obj_base *obj, \

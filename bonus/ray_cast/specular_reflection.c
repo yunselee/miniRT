@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:20:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 22:10:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 22:54:57 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_color	specular_light(t_scene *scene, t_obj_base *hit_obj, \
 	while (light)
 	{
 		specular = specular_helper(scene->obj, light, mirror_ray, intersection);
-		specular = (hit_obj->rs) * pow(specular, hit_obj->alpha);
+		specular = (hit_obj->rs) * pow(specular, hit_obj->ns);
 		if (specular > EPSILON)
 		{
 			color_temp.red = round((double)light->color.red / 255 \
