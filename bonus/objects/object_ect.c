@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:58:22 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/10 16:26:10 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 22:14:54 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ double	outside_cylinder(t_ray ray, const t_obj_base *obj)
 t_vec3	get_tangential(const t_vec3 *unit_normal)
 {
 	if (unit_normal->y == 1)
-		return ((t_vec3){1, 0, 0});
+		return (make_v3(1, 0, 0));
 	else if (unit_normal->y == -1)
-		return ((t_vec3){-1, 0, 0});
+		return (make_v3(-1, 0, 0));
 	else
-		return (v3_normalize(v3_crs((t_vec3){0, 1, 0}, *unit_normal)));
+		return (v3_normalize(v3_crs(make_v3(0, 1, 0), *unit_normal)));
 }

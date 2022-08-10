@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:07:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 16:56:04 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 22:10:04 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ double	get_intersect_distance(t_obj_base *objlst, \
 
 void	render_lightsource(t_mlx *mlx, double depth);
 
+t_color	single_ray_cast(t_mlx *mlx, t_ray ray);
+
 void	ray_cast(t_mlx *mlx);
 
 t_color	phong_reflection(t_mlx *mlx, \
@@ -37,6 +39,7 @@ t_color	diffuse_light(t_scene *scene, \
 						t_vec3 intersection);
 
 t_color	specular_light(t_scene *scene, \
+					t_obj_base *hit_obj, \
 					t_vec3 mirror_ray, \
 					t_vec3 intersection);
 

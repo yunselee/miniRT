@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:59:19 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/10 17:45:14 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 20:56:30 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	init_object(t_scene *out_scene, char **single_scene)
 	else
 		return (res);
 	if ((obj == NULL) \
-		|| round(v3_l2norm(obj->n) * 10000) / 10000 != 1.0)
+		|| round(v3_l2norm(obj->n) * 10000) / 10000 != 1.0
+		|| obj->rs < 0 || obj->rs >= 1 || obj->alpha <= 1)
 	{
 		free(obj);
 		return (FALSE);

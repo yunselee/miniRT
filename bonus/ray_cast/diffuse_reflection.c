@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:22:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 17:32:40 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 22:15:26 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static double	diffuse_helper(t_obj_base *objlst, \
 			dist[0] = dist[1];
 		target_obj = target_obj->next;
 	}
-	if (isnan(dist[0]) == FALSE && dist[0] < v3_l2norm(dir_to_light))
+	if (isnan(dist[0]) == FALSE && dist[0] < v3_l2norm(dir_to_light) + EPSILON)
 		return (0);
 	diffuse = fmax(0, v3_dot(v3_normalize(dir_to_light), normal));
 	diffuse *= target_light->bright;
@@ -54,6 +54,7 @@ t_color	diffuse_light(t_scene *scene, \
 	t_color	color_temp;
 	double	diffuse;
 
+	intersection = v3_add(intersection, v3_mul(normal, EPSILON));
 	color = rgb_color(0, 0, 0);
 	light = scene->light;
 	while (light != NULL)
@@ -67,7 +68,7 @@ t_color	diffuse_light(t_scene *scene, \
 									* hit_obj->color.green);
 			color_temp.blue = round((double)light->color.blue / 255 \
 									* hit_obj->color.blue);
-			color_temp = color_scale(color_temp, diffuse);
+			color_temp = color_scale(color_temp, diffuse * (1 - hit_obj->rs));
 			color = color_add(color, color_temp);
 		}
 		light = light->next;

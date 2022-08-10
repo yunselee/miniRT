@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 18:29:21 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 19:15:04 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #  define FALSE (0)
 # endif
 
-# define EPSILON (0.000001)
+# define EPSILON (1e-6)
 
 typedef struct s_light	t_light;
 struct s_light

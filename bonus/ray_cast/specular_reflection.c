@@ -6,13 +6,16 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:20:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 16:44:32 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 22:10:38 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <stdlib.h>
 #include "ray_cast.h"
+#include "scene.h"
+
+#include <stdio.h>
 
 static double	specular_helper(t_obj_base *objlst, \
 								t_light *target_light, \
@@ -26,7 +29,7 @@ static double	specular_helper(t_obj_base *objlst, \
 	double			specular;
 
 	dist[0] = INFINITY;
-	dir_to_light = (v3_sub(target_light->o, intersection));
+	dir_to_light = v3_sub(target_light->o, intersection);
 	ray_to_light.dir = v3_normalize(dir_to_light);
 	ray_to_light.org = intersection;
 	target_obj = objlst;
@@ -37,13 +40,14 @@ static double	specular_helper(t_obj_base *objlst, \
 			dist[0] = dist[1];
 		target_obj = target_obj->next;
 	}
-	if (isnan(dist[0]) == FALSE && dist[0] < v3_l2norm(dir_to_light))
+	if (isnan(dist[0]) == FALSE && dist[0] < v3_l2norm(dir_to_light) + EPSILON)
 		return (0);
 	specular = fmax(0, v3_dot(v3_normalize(dir_to_light), mirror_ray));
 	return (specular);
 }
 
-t_color	specular_light(t_scene *scene, t_vec3 mirror_ray, t_vec3 intersection)
+t_color	specular_light(t_scene *scene, t_obj_base *hit_obj, \
+						t_vec3 mirror_ray, t_vec3 intersection)
 {
 	t_light	*light;
 	t_color	color;
@@ -55,9 +59,9 @@ t_color	specular_light(t_scene *scene, t_vec3 mirror_ray, t_vec3 intersection)
 	while (light)
 	{
 		specular = specular_helper(scene->obj, light, mirror_ray, intersection);
+		specular = (hit_obj->rs) * pow(specular, hit_obj->alpha);
 		if (specular > EPSILON)
 		{
-			specular = scene->obj->rs * pow(specular, scene->obj->alpha);
 			color_temp.red = round((double)light->color.red / 255 \
 									* light->color.red);
 			color_temp.green = round((double)light->color.green / 255 \

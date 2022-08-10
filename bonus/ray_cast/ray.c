@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 18:25:43 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 22:15:55 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 	double		attenuation;
 
 	a[0] = 1;
-	a[1] = 1;
+	a[1] = 0;
 	a[2] = 0;
 	dist = v3_l2norm(v3_sub(pos1, pos2)) / unit;
 	attenuation = fmin(1, 1 / (a[0] + a[1] * dist + a[2] * dist * dist));
@@ -50,7 +50,7 @@ double	get_intersect_distance(t_obj_base *objlst, \
 	while (target_obj)
 	{
 		dist[1] = intersect(ray, target_obj);
-		if ((dist[1] != NAN) && (dist[1] < dist[0]))
+		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 		{
 			dist[0] = dist[1];
 			*intersecting_obj_out = target_obj;
@@ -59,10 +59,12 @@ double	get_intersect_distance(t_obj_base *objlst, \
 	}
 	if (*intersecting_obj_out == NULL)
 		return (INFINITY);
+	if (dist[0] < EPSILON)
+		return (NAN);
 	return (dist[0]);
 }
 
-static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
+t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 {
 	t_obj_base	*intersect_obj;
 	t_vec3		intersect;
@@ -71,11 +73,11 @@ static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 
 	intersect_obj = NULL;
 	dist = get_intersect_distance(mlx->scene->obj, &intersect_obj, ray);
-	if (isinf(dist) == TRUE)
+	if (isinf(dist) == TRUE || isnan(dist) == TRUE)
 		return (rgb_color(0, 0, 0));
 	else
 	{
-		intersect = v3_mul(ray.dir, dist);
+		intersect = v3_mul(ray.dir, dist - EPSILON);
 		intersect = v3_add(intersect, ray.org);
 		c = phong_reflection(mlx, intersect_obj, intersect, ray.org);
 		return (intensity_attenuation(c, intersect, ray.org));

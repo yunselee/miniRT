@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:11:12 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 16:19:58 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 19:30:58 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ static void	obj_print_info(const t_obj_base *obj)
 	printf("\tradius : %3.4f\n", obj->r);
 	printf("\theight : %3.4f\n", obj->h);
 	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", red, green, blue);
-	printf(" : r: %d g: %d b: %d\n\n", red, green, blue);
+	printf(" : r: %d g: %d b: %d\n", red, green, blue);
+	printf("\tspecular factors : Rs : %.2f alpha : %d\n\n", obj->rs, obj->alpha);
 }
 
 struct s_obj_vtable_	*get_cylinder(void)

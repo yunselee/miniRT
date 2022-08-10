@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:58:54 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/10 16:24:53 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 19:31:08 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static void	obj_print_info(const t_obj_base *obj)
 												, obj->tangential.y \
 												, obj->tangential.z);
 	printf ("\t\033[38;2;%d;%d;%dmcolor\033[0m", red, green, blue);
-	printf(" : r: %d g: %d b: %d\n\n", red, green, blue);
+	printf(" : r: %d g: %d b: %d\n", red, green, blue);
+	printf("\tspecular factors : Rs : %.2f alpha : %d\n\n", obj->rs, obj->alpha);
 }
 
 struct s_obj_vtable_	*get_sphere(void)
