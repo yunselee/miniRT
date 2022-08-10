@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_part.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 20:50:48 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 14:48:33 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "mlx_part.h"
 #include "scene.h"
 #include "ray_cast.h"
+#include "timer.h"
 
 void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 							unsigned int y, unsigned int color)
@@ -64,7 +65,6 @@ void	delete_mlx(t_mlx *mlx)
 	mlx_clear_window(mlx->mlx, mlx->win);
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	free(mlx->image);
-	free(mlx->mlx);
 	free(mlx);
 }
 
@@ -83,5 +83,6 @@ void	mlx_start(t_scene *scene, \
 	mlx_hook(mlx->win, 4, (1L << 2), mousedown, mlx);
 	mlx_hook(mlx->win, 5, (1L << 3), mouseup, mlx);
 	mlx_hook(mlx->win, 6, (1L << 6), mousemove, mlx);
+	time_check_end_all();
 	mlx_loop(mlx->mlx);
 }

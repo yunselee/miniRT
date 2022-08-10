@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 20:42:26 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 15:00:01 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../LIBFT/libft.h"
+#include "vector3.h"
+#include "libft.h"
 #include <math.h>
 #include <mlx.h>
 #include <stdio.h>
@@ -19,6 +20,7 @@
 #include "mlx_part.h"
 #include "print_info.h"
 #include "ray_cast.h"
+#include "timer.h"
 
 static t_mat33	get_transformation_mat(t_vec3 k)
 {
@@ -48,6 +50,7 @@ int	main(int argc, char **argv)
 	t_scene	*global_scene;
 	t_mat33	transform;
 
+	time_check_start_all();
 	if (argc != 2 || argv == NULL)
 	{
 		printf("ERR : usage : ./miniRT <FILENAME>\n");

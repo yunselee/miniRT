@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 18:25:43 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 17:29:39 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
 #include <time.h>
 #include "objects.h"
 #include "print_info.h"
+#include "timer.h"
 
 static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 {
-	const int	unit = 100;
+	const int	unit = 128;
 	double		dist;
 	double		a[3];
 	double		attenuation;
@@ -104,6 +105,7 @@ void	ray_cast(t_mlx *mlx)
 
 	d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
 	pixel[1] = 0;
+	time_check_start_sub();
 	while (pixel[1] < mlx->height - mlx->edit)
 	{
 		pixel[0] = 0;
@@ -120,4 +122,5 @@ void	ray_cast(t_mlx *mlx)
 	}
 	if (mlx->edit != 0 && mlx->target_scene != E_NONE)
 		render_lightsource(mlx, d);
+	time_check_end_sub("ray");
 }
