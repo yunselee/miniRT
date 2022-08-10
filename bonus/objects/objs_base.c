@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objs_base.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 19:20:20 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/08 20:09:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 15:07:53 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double	intersect(t_ray ray, const t_obj_base *obj)
 
 t_vec3	get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos)
 {
-	const t_vec3	a = {0, 0, 0};
+	const t_vec3	a = {0, 0, 0, 0};
 
 	if (obj->type == E_CONE)
 		return (cone_get_normal_vector(obj, point, cam_pos));
