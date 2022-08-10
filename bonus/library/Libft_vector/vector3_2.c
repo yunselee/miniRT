@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector3_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:06:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 16:33:04 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/10 22:36:58 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 #include <smmintrin.h>
 
 
-	//const t_vec3	c = {a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w};
-	//return (c);
+//const t_vec3	c = {a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w};
+//return (c);
 t_vec3	v3_sub(t_vec3 a, t_vec3 b)
 {
 	const __m128			cc = *((__m128*)&a);
