@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:52:30 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/08 19:52:09 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:19:46 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ static void	obj_print_info(const t_obj_base *obj)
 	printf("\tnormal : [%3.4f, %3.4f, %3.4f]\n", obj->n.x \
 												, obj->n.y \
 												, obj->n.z);
+	printf("\ttangential : [%3.4f, %3.4f, %3.4f]\n", obj->tangential.x \
+												, obj->tangential.y \
+												, obj->tangential.z);
 	printf("\tangle : %3.4f\n", obj->r);
 	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", red, green, blue);
 	printf(" : r: %d g: %d b: %d\n\n", red, green, blue);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   case_object.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:41:42 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 19:54:48 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:44:53 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,90 +22,81 @@ struct s_obj_vtable_	*get_plain(void);
 struct s_obj_vtable_	*get_sphere(void);
 struct s_obj_vtable_	*get_cone(void);
 
-static void	ft_addlst_back(t_obj_base **objlst, t_obj_base *node)
-{
-	t_obj_base	*last;
-
-	node->next = NULL;
-	if (*objlst == NULL)
-	{
-		*objlst = node;
-		return ;
-	}
-	last = *objlst;
-	while (last->next)
-		last = last->next;
-	last->next = node;
-}
-
-int	case_plane(t_scene *out_scene, char **single_scene)
-{
-	t_obj_base	*new_obj;
-
-	if (ft_strsetlen(single_scene) != 4)
-		return (FALSE);
-	new_obj = ft_calloc(1, sizeof(t_obj_base));
-	if (!new_obj)
-		return (FALSE);
-	new_obj->type = E_PLAIN;
-	if ((str_to_vec3(single_scene[1], &new_obj->o) == FALSE) \
-		|| (str_to_vec3(single_scene[2], &new_obj->n) == FALSE) \
-		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE))
-		return (FALSE);
-	if (round(v3_l2norm(new_obj->n) * 10000) / 10000 != 1.0)
-		return (FALSE);
-	ft_addlst_back(&(out_scene->obj), new_obj);
-	new_obj->vtable_ = get_plain();
-	return (TRUE);
-}
-
-int	case_sphere(t_scene *out_scene, char **single_scene)
-{
-	t_obj_base	*new_obj;
-
-	if (ft_strsetlen(single_scene) != 4)
-		return (FALSE);
-	new_obj = ft_calloc(1, sizeof(t_obj_base));
-	if (!new_obj)
-		return (FALSE);
-	new_obj->type = E_SPHERE;
-	if ((str_to_vec3(single_scene[1], &new_obj->o) == FALSE) \
-		|| (ft_strtod(single_scene[2], &new_obj->r) == FALSE) \
-		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE))
-		return (FALSE);
-	if (new_obj->r <= 0.0)
-		return (FALSE);
-	new_obj->r /= 2;
-	ft_addlst_back(&(out_scene->obj), new_obj);
-	new_obj->n = make_v3(0, 0, 0);
-	new_obj->vtable_ = get_sphere();
-	return (TRUE);
-}
-
-int	case_cylinder(t_scene *out_scene, char **single_scene)
+t_obj_base	*case_plane(char **single_scene)
 {
 	t_obj_base	*new_obj;
 
 	if (ft_strsetlen(single_scene) != 6)
-		return (FALSE);
+		return (NULL);
 	new_obj = ft_calloc(1, sizeof(t_obj_base));
 	if (!new_obj)
-		return (FALSE);
+		return (NULL);
+	new_obj->type = E_PLAIN;
+	if ((str_to_vec3(single_scene[1], &new_obj->o) == FALSE) \
+		|| (str_to_vec3(single_scene[2], &new_obj->n) == FALSE) \
+		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE) \
+		|| (ft_strtod(single_scene[4], &new_obj->rs) == FALSE) \
+		|| (ft_strtoi(single_scene[5], &new_obj->alpha) == FALSE))
+	{
+		free(new_obj);
+		return (NULL);
+	}
+	new_obj->vtable_ = get_plain();
+	return (new_obj);
+}
+
+t_obj_base	*case_sphere(char **single_scene)
+{
+	t_obj_base	*new_obj;
+
+	if (ft_strsetlen(single_scene) != 6)
+		return (NULL);
+	new_obj = ft_calloc(1, sizeof(t_obj_base));
+	if (!new_obj)
+		return (NULL);
+	new_obj->type = E_SPHERE;
+	if ((str_to_vec3(single_scene[1], &new_obj->o) == FALSE) \
+		|| (ft_strtod(single_scene[2], &new_obj->r) == FALSE) \
+		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE)
+		|| (ft_strtod(single_scene[4], &new_obj->rs) == FALSE) \
+		|| (ft_strtoi(single_scene[5], &new_obj->alpha) == FALSE) \
+		|| (new_obj->r <= 0.0))
+	{
+		free(new_obj);
+		return (NULL);
+	}
+	new_obj->r /= 2;
+	new_obj->n = make_v3(0, 0, 1);
+	new_obj->vtable_ = get_sphere();
+	return (new_obj);
+}
+
+t_obj_base	*case_cylinder(char **single_scene)
+{
+	t_obj_base	*new_obj;
+
+	if (ft_strsetlen(single_scene) != 8)
+		return (NULL);
+	new_obj = ft_calloc(1, sizeof(t_obj_base));
+	if (!new_obj)
+		return (NULL);
 	new_obj->type = E_CYLINDER;
 	if ((str_to_vec3(single_scene[1], &new_obj->o) == FALSE) \
 		|| (str_to_vec3(single_scene[2], &new_obj->n) == FALSE) \
 		|| (ft_strtod(single_scene[3], &new_obj->r) == FALSE) \
 		|| (ft_strtod(single_scene[4], &new_obj->h) == FALSE)
-		|| (str_to_color(single_scene[5], &new_obj->color) == FALSE))
-		return (FALSE);
-	if (round(v3_l2norm(new_obj->n) * 10000) / 10000 != 1.0)
-		return (FALSE);
-	if (new_obj->r <= 0.0 || new_obj->h <= 0.0)
-		return (FALSE);
+		|| (str_to_color(single_scene[5], &new_obj->color) == FALSE)
+		|| (ft_strtod(single_scene[6], &new_obj->rs) == FALSE) \
+		|| (ft_strtoi(single_scene[7], &new_obj->alpha) == FALSE) \
+		|| (new_obj->r <= 0.0 || new_obj->h <= 0.0))
+	{
+		free(new_obj);
+		return (NULL);
+	}
 	new_obj->r /= 2;
-	ft_addlst_back(&(out_scene->obj), new_obj);
+	new_obj->tangential = get_tangential(&(new_obj->n));
 	new_obj->vtable_ = get_cylinder();
-	return (TRUE);
+	return (new_obj);
 }
 
 // cone
@@ -118,26 +109,27 @@ co 50.0,0.0,20.6 0.0,0.0,1.0 14.2 21.42 10,0,255
 r : 0~180
 ∗ R,G,B colors in range [0,255]: 10, 0, 255
 */
-int	case_cone(t_scene *out_scene, char **single_scene)
+t_obj_base	*case_cone(char **single_scene)
 {
 	t_obj_base	*new_obj;
 
-	if (ft_strsetlen(single_scene) != 5)
-		return (FALSE);
+	if (ft_strsetlen(single_scene) != 7)
+		return (NULL);
 	new_obj = ft_calloc(1, sizeof(t_obj_base));
 	if (!new_obj)
-		return (FALSE);
+		return (NULL);
 	new_obj->type = E_CONE;
 	if ((str_to_vec3(single_scene[1], &new_obj->o) == FALSE) \
 		|| (str_to_vec3(single_scene[2], &new_obj->n) == FALSE) \
 		|| (ft_strtod(single_scene[3], &new_obj->r) == FALSE) \
-		|| (str_to_color(single_scene[4], &new_obj->color) == FALSE))
-		return (FALSE);
-	if (round(v3_l2norm(new_obj->n) * 10000) / 10000 != 1.0)
-		return (FALSE);
-	if (new_obj->r <= 0.0)
-		return (FALSE);
-	ft_addlst_back(&(out_scene->obj), new_obj);
+		|| (str_to_color(single_scene[4], &new_obj->color) == FALSE)
+		|| (ft_strtod(single_scene[5], &new_obj->rs) == FALSE) \
+		|| (ft_strtoi(single_scene[6], &new_obj->alpha) == FALSE) \
+		|| new_obj->r <= 0.0)
+	{
+		free(new_obj);
+		return (NULL);
+	}
 	new_obj->vtable_ = get_cone();
-	return (TRUE);
+	return (new_obj);
 }

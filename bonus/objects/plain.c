@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plain.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 13:47:27 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 19:56:37 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:24:48 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,12 @@ static void	obj_print_info(const t_obj_base *obj)
 	printf("\torg : [%3.4f, %3.4f, %3.4f]\n", obj->o.x \
 											, obj->o.y \
 											, obj->o.z);
-	printf("\tnormal : [%3.4f, %3.4f, %3.4f]\n", obj->o.x \
-												, obj->o.y \
-												, obj->o.z);
+	printf("\tnormal : [%3.4f, %3.4f, %3.4f]\n", obj->n.x \
+												, obj->n.y \
+												, obj->n.z);
+	printf("\ttangential : [%3.4f, %3.4f, %3.4f]\n", obj->tangential.x \
+												, obj->tangential.y \
+												, obj->tangential.z);
 	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", red, green, blue);
 	printf(" : r: %d g: %d b: %d\n\n", red, green, blue);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_ect.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:58:22 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/08 19:44:51 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:26:10 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,14 @@ double	outside_cylinder(t_ray ray, const t_obj_base *obj)
 	else if (height > obj->h)
 		return (above_cylinder(ray, obj));
 	return (distance);
+}
+
+t_vec3	get_tangential(const t_vec3 *unit_normal)
+{
+	if (unit_normal->y == 1)
+		return ((t_vec3){1, 0, 0});
+	else if (unit_normal->y == -1)
+		return ((t_vec3){-1, 0, 0});
+	else
+		return (v3_normalize(v3_crs((t_vec3){0, 1, 0}, *unit_normal)));
 }

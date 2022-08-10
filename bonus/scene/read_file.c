@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:05:07 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 20:11:42 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 17:49:23 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ static int	parse_scene(t_scene *out_scene, char *line)
 	if (!single_scene)
 		return (FALSE);
 	res = FALSE;
-	res = init_object(out_scene, single_scene);
 	if (ft_strncmp(single_scene[0], "A", 2) == 0)
 		res = case_ambient(out_scene, single_scene);
 	else if (ft_strncmp(single_scene[0], "C", 2) == 0)
 		res = case_camera(out_scene, single_scene);
 	else if (ft_strncmp(single_scene[0], "L", 2) == 0)
 		res = case_light(out_scene, single_scene);
+	else
+		res = init_object(out_scene, single_scene);
 	i = 0;
 	while (single_scene[i])
 		free (single_scene[i++]);
@@ -42,10 +43,12 @@ static int	parse_scene(t_scene *out_scene, char *line)
 	return (res);
 }
 
-static void	terminate_gnl(int fd)
+static void	terminate_gnl(int fd, char *last_line)
 {
 	char	*line;
 
+	printf("error line : %s\n", last_line);
+	free(last_line);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -80,30 +83,37 @@ static int	check_scene(const t_scene *scene)
 	return (TRUE);
 }
 
+static int	check_filename(const char *filename)
+{
+	if (ft_strncmp(&filename[ft_strlen(filename) - 3], ".rt", 4))
+		return (FALSE);
+	return (TRUE);
+}
+
 int	init_scene(t_scene *out_scene, const char *filename)
 {
 	int		fd;
 	char	*line;
 
-	if (out_scene == NULL || \
-		ft_strncmp(&filename[ft_strlen(filename) - 3], ".rt", 4))
+	line = NULL;
+	if (out_scene == NULL || !check_filename(filename))
 		return (FALSE);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (FALSE);
 	while (TRUE)
 	{
+		free(line);
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		if (ft_strncmp(line, "", 1) && !parse_scene(out_scene, line))
+		else if (line[0] == '#')
+			continue ;
+		else if (ft_strncmp(line, "", 1) && !parse_scene(out_scene, line))
 		{
-			printf("error line : %s\n", line);
-			free(line);
-			terminate_gnl(fd);
+			terminate_gnl(fd, line);
 			return (FALSE);
 		}
-		free(line);
 	}
 	close(fd);
 	return (check_scene(out_scene));

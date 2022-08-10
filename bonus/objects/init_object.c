@@ -3,37 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   init_object.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:59:19 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/08 19:56:47 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:45:14 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <math.h>
 #include "objects.h"
 #include "scene.h"
 #include "libft.h"
-#include <stdlib.h>
 
-int	case_plane(t_scene *scene, char **single_scene);
-int	case_sphere(t_scene *scene, char **single_scene);
-int	case_cylinder(t_scene *scene, char **single_scene);
-int	case_cone(t_scene *out_scene, char **single_scene);
+t_obj_base	*case_plane(char **single_scene);
+t_obj_base	*case_sphere(char **single_scene);
+t_obj_base	*case_cylinder(char **single_scene);
+t_obj_base	*case_cone(char **single_scene);
+
+static void	ft_addlst_back(t_obj_base **objlst, t_obj_base *node)
+{
+	t_obj_base	*last;
+
+	node->next = NULL;
+	if (*objlst == NULL)
+	{
+		*objlst = node;
+		return ;
+	}
+	last = *objlst;
+	while (last->next)
+		last = last->next;
+	last->next = node;
+}
 
 int	init_object(t_scene *out_scene, char **single_scene)
 {
-	int	res;
+	int			res;
+	t_obj_base	*obj;
 
 	res = FALSE;
 	if (ft_strncmp(single_scene[0], "sp", 3) == 0)
-		res = case_sphere(out_scene, single_scene);
+		obj = case_sphere(single_scene);
 	else if (ft_strncmp(single_scene[0], "pl", 3) == 0)
-		res = case_plane(out_scene, single_scene);
+		obj = case_plane(single_scene);
 	else if (ft_strncmp(single_scene[0], "cy", 3) == 0)
-		res = case_cylinder(out_scene, single_scene);
+		obj = case_cylinder(single_scene);
 	else if (ft_strncmp(single_scene[0], "co", 3) == 0)
-		res = case_cone(out_scene, single_scene);
-	return (res);
+		obj = case_cone(single_scene);
+	else
+		return (res);
+	if ((obj == NULL) \
+		|| round(v3_l2norm(obj->n) * 10000) / 10000 != 1.0)
+	{
+		free(obj);
+		return (FALSE);
+	}
+	obj->tangential = get_tangential(&(obj->n));
+	ft_addlst_back(&(out_scene->obj), obj);
+	return (TRUE);
 }
 
 void	free_objectlst(t_obj_base *out_objlst)
