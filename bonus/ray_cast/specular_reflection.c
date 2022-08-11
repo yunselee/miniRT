@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:20:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 16:31:02 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 02:29:30 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 static float	specular_helper(t_quadrics *objlst, \
 								t_light *target_light, \
 								t_vec3 mirror_ray, \
-								t_vec3 intersection)
+								t_vec3 hit_point)
 {
 	t_quadrics		*target_obj;
 	t_vec3			dir_to_light;
@@ -29,9 +29,9 @@ static float	specular_helper(t_quadrics *objlst, \
 	float			specular;
 
 	dist[0] = INFINITY;
-	dir_to_light = v3_sub(target_light->o, intersection);
+	dir_to_light = v3_sub(target_light->o, hit_point);
 	ray_to_light.dir = v3_normalize(dir_to_light);
-	ray_to_light.org = intersection;
+	ray_to_light.org = hit_point;
 	target_obj = objlst;
 	while (target_obj)
 	{
@@ -47,7 +47,7 @@ static float	specular_helper(t_quadrics *objlst, \
 }
 
 t_color	specular_light(t_scene *scene, t_quadrics *hit_obj, \
-						t_vec3 mirror_ray, t_vec3 intersection)
+						t_vec3 mirror_ray, t_vec3 hit_point)
 {
 	t_light	*light;
 	t_color	color;
@@ -58,7 +58,7 @@ t_color	specular_light(t_scene *scene, t_quadrics *hit_obj, \
 	light = scene->light;
 	while (light)
 	{
-		specular = specular_helper(scene->quads, light, mirror_ray, intersection);
+		specular = specular_helper(scene->quads, light, mirror_ray, hit_point);
 		specular = (hit_obj->spec_rs) * pow(specular, hit_obj->spec_ns);
 		if (specular > EPSILON)
 		{

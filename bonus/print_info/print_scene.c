@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:11:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 15:28:52 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 01:43:43 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,5 @@ void	print_info_scene(const t_scene *scene)
 	printf(" : r: %d g: %d b: %d\n", red, green, blue);
 	print_info_camera(scene->cam);
 	printf("[OBJECTS]\n");
-	// print_info_object(scene->obj);
 	print_info_quads(scene->quads);
 }

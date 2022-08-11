@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 15:24:32 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 02:03:41 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_mlx
 	unsigned int	height;
 	t_image			*image;
 	t_scene			*scene;
-	// t_obj_base		*selected_obj;
+	t_quadrics		*selected_quad;
 	t_light			*selected_light;
 	unsigned int	edit;
 	enum e_target	target_scene;

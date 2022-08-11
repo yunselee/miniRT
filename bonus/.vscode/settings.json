@@ -8,6 +8,8 @@
         "scene.h": "c",
         "quadrics.h": "c",
         "transform.h": "c",
-        "matrix44.h": "c"
+        "matrix44.h": "c",
+        "mlx_part.h": "c",
+        "stdio.h": "c"
     }
 }

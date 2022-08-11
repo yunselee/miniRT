@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:32:17 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 13:53:04 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 03:37:06 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ static char	**preprocess(const char *str, int *minus)
 	if (num == NULL)
 		return (NULL);
 	if (ft_isdigit(num[0][0]) == 0)
+	{
+		free_strset(num);
 		return (NULL);
+	}
 	return (num);
 }
 

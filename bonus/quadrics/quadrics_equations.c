@@ -6,21 +6,13 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 13:12:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 22:08:14 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 04:24:34 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "quadrics.h"
 #include <math.h>
 #include <stdio.h>
-
-// static void print_mat44(const t_mat44 *M)
-// {
-// 	printf("|% .3f % .3f % .3f % .3f|\n", M->col1.x, M->col2.x, M->col3.x, M->col4.x);
-// 	printf("|% .3f % .3f % .3f % .3f|\n", M->col1.y, M->col2.y, M->col3.y, M->col4.y);
-// 	printf("|% .3f % .3f % .3f % .3f|\n", M->col1.z, M->col2.z, M->col3.z, M->col4.z);
-// 	printf("|% .3f % .3f % .3f % .3f|\n", M->col1.w, M->col2.w, M->col3.w, M->col4.w);
-// }
 
 //(a)t^2 + (2b)t + (c) = 0
 static t_sols	solve_quadratic_half_eq(float a, float b, float c)
@@ -29,21 +21,22 @@ static t_sols	solve_quadratic_half_eq(float a, float b, float c)
 	float	discriminant;
 
 	sol.sol2 = NAN;
+	sol.sol1 = NAN;
 	if (a < EPSILON && a > -EPSILON)
 	{
-		// printf("  A = 0\n");
-		if (b == 0)
-			sol.sol1 = NAN;
-		else
+		if (b != 0)
 			sol.sol1 = -c / (2 * b);
 	}
 	else
 	{
+		if (a < 0)
+		{
+			a = -a;
+			b = -b;
+			c = -c;
+		}
 		discriminant = b * b - a * c;
-		// printf("D = %f\n", discriminant);
-		if (discriminant < 0)
-			sol.sol1 = NAN;
-		else if (discriminant >= 0)
+		if (discriminant >= 0)
 			sol.sol1 = (-b - sqrtf(discriminant)) / a;
 		if (discriminant > 0)
 			sol.sol2 = (-b + sqrtf(discriminant)) / a;
@@ -65,13 +58,25 @@ static float	find_plane_intersection(const t_quadrics *Q, const t_ray *R)
 	return (dist);
 }
 
+static float	z_range_check_or_nan(const t_quadrics *Q, \
+										const t_ray *R, \
+										float sol)
+{
+	t_vec3	intersection;
+
+	intersection = v3_sub(v3_add(v3_mul(R->dir, sol), R->org), Q->org);
+	if (v3_dot(intersection, Q->dir) >= Q->range_z[0] - EPSILON \
+			&& v3_dot(intersection, Q->dir) <= Q->range_z[1] + EPSILON)
+		return (sol);
+	return (NAN);
+}
+
 float	find_intersection(const t_quadrics *Q, const t_ray *R)
 {
 	t_sols	sols;
 	t_vec4	ray_org;
 	float	coefs[3];
-	t_vec3	intersection;
-	
+
 	ray_org = v4_sub(make_v4(R->org.x, R->org.y, R->org.z, 1), Q->org);
 	ray_org.w = 1;
 	if (Q->type == Q_PLANE)
@@ -82,16 +87,12 @@ float	find_intersection(const t_quadrics *Q, const t_ray *R)
 	sols = solve_quadratic_half_eq(coefs[0], coefs[1], coefs[2]);
 	if (sols.sol1 > EPSILON && isnan(sols.sol1) == FALSE)
 	{
-		intersection = v3_sub(v3_add(v3_mul(R->dir, sols.sol1), R->org), Q->org);
-		if (v3_dot(intersection, Q->dir) >= Q->range_z[0] - EPSILON\
-			&& v3_dot(intersection, Q->dir) <= Q->range_z[1] + EPSILON)
+		if (isnan(z_range_check_or_nan(Q, R, sols.sol1)) == FALSE)
 			return (sols.sol1);
 	}
 	if (sols.sol2 > EPSILON && isnan(sols.sol2) == FALSE)
 	{
-		intersection = v3_sub(v3_add(v3_mul(R->dir, sols.sol2), R->org), Q->org);
-		if (v3_dot(intersection, Q->dir) >= Q->range_z[0] -EPSILON \
-			&& v3_dot(intersection, Q->dir) <= Q->range_z[1] +EPSILON)
+		if (isnan(z_range_check_or_nan(Q, R, sols.sol2)) == FALSE)
 			return (sols.sol2);
 	}
 	return (NAN);

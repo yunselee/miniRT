@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:33:16 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 19:43:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 03:40:32 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,20 @@ int	str_to_vec3(char *str, t_vec3 *vec_out)
 	int		res;
 	float	a[3];
 
+	if (str[ft_strlen(str) - 1] == ',')
+		return (FALSE);
 	pos_str = ft_split(str, ",");
 	if (pos_str == NULL)
 		return (FALSE);
-	res = FALSE;
-	if (ft_strsetlen(pos_str) == 3)
-		res = TRUE;
-	if (ft_strtof(pos_str[0], a))
-		res = TRUE;
-	if (ft_strtof(pos_str[1], a + 1))
-		res = TRUE;
-	if (ft_strtof(pos_str[2], a + 2))
-		res = TRUE;
+	res = 1;
+	if ((ft_strsetlen(pos_str) != 3) \
+		|| (ft_strtof(pos_str[0], a) == FALSE) \
+		|| (ft_strtof(pos_str[1], a + 1) == FALSE) \
+		|| (ft_strtof(pos_str[2], a + 2) == FALSE))
+	{
+		ft_freestrset(pos_str);
+		return (FALSE);
+	}
 	vec_out->x = a[0];
 	vec_out->y = a[1];
 	vec_out->z = a[2];
@@ -45,6 +47,8 @@ int	str_to_color(char *str, t_color *color_out)
 	int		rgb[3];
 	int		res;
 
+	if (str[ft_strlen(str) - 1] == ',')
+		return (FALSE);
 	pos_str = ft_split(str, ",");
 	if (pos_str == NULL)
 		return (FALSE);

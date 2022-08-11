@@ -1,7 +1,7 @@
 NAME			= miniRT
 
 CC				= gcc
-CFLAGS			= -Wall -Werror -Wextra -O2
+CFLAGS			= -Wall -Werror -Wextra -O2 -g 
 # -g -fsanitize=address
 
 LIBS = ./library/LIBFT/libft.a
@@ -61,6 +61,7 @@ SRCS			= 	main.c \
 					timer.c \
 					\
 					quadrics.c \
+					quadrics_helper.c \
 					quadrics_equations.c
 
 

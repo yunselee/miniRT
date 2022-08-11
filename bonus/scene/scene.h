@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 15:33:05 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 02:19:04 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ typedef struct s_cam
 	float	hfov;
 }	t_cam;
 
-typedef struct quadrics	t_quadrics;
+typedef struct s_quadrics	t_quadrics;
 typedef struct s_scene
 {
-	float		ambient_ratio;
-	t_color		ambient_color;
-	t_cam		*cam;
-	t_mat33		global;
-	t_light		*light;
-	t_obj_base	*obj;
-	t_quadrics	*quads;
+	float				ambient_ratio;
+	t_color				ambient_color;
+	t_cam				*cam;
+	t_mat33				global;
+	t_light				*light;
+	t_obj_base			*obj;
+	struct s_quadrics	*quads;
 }	t_scene;
 
 typedef struct s_image
@@ -61,7 +61,7 @@ typedef struct s_image
 	int		bpp;
 	int		line;
 	int		endian;
-}			t_image;
+}	t_image;
 
 t_scene	*create_empty_scene(void);
 int		init_scene(t_scene *scene, const char *filename);
