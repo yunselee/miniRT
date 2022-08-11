@@ -61,7 +61,10 @@ static char	**preprocess(const char *str, int *minus)
 	if (num == NULL)
 		return (NULL);
 	if (ft_isdigit(num[0][0]) == 0)
+	{
+		free_strset(num);
 		return (NULL);
+	}
 	return (num);
 }
 
