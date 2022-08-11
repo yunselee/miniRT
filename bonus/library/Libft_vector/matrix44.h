@@ -6,12 +6,14 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 12:17:35 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 16:01:58 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 05:17:42 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector3.h"
-#include "transform.h"
+#ifndef MATRIX44_H
+# define MATRIX44_H
+# include "vector3.h"
+# include "transform.h"
 
 typedef struct	s_mat44
 {
@@ -30,3 +32,5 @@ t_mat44	mul_mat44(t_mat44 a, t_mat44 b);
 float	quadratic_form(t_vec4 v1, t_mat44 m, t_vec4 v2);
 
 t_mat44 rotation_mat44(t_vec3 axis, double deg);
+
+#endif
