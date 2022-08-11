@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 21:36:30 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 21:54:23 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ int	init_quadrics(t_scene *outscene, char **single_scene)
 		quadric = case_quad_sphere(single_scene);
 	// else if (ft_strncmp(single_scene[0], "cy", 3) == 0)
 	// 	quadric = case_cylinder(single_scene);
-	else if (ft_strncmp(single_scene[0], "qd", 3) == 0)
-		quadric = case_quadrics(single_scene);
+	// else if (ft_strncmp(single_scene[0], "qd", 3) == 0)
+	// 	quadric = case_quadrics(single_scene);
 	else
 		return (FALSE);
 	//...
@@ -158,6 +158,7 @@ t_quadrics	*case_quad_plane(char **single_scene)
 		free(newquad);
 		return (NULL);
 	}
+	newquad->type = Q_PLANE;
 	newquad->coefs.col3.w = 1;
 	newquad->coefs.col4.z = 1;
 	return (newquad);
@@ -180,6 +181,7 @@ t_quadrics	*case_quad_sphere(char **single_scene)
 		free(newquad);
 		return (NULL);
 	}
+	newquad->type = Q_QUADRICS;
 	newquad->dir = make_v3(0, 0, 1);
 	newquad->coefs.col4.w /= 2;
 	newquad->range_z[0] = -newquad->coefs.col4.w;
@@ -219,7 +221,7 @@ t_quadrics	*case_quad_sphere(char **single_scene)
 // 	return (newquad);
 // }
 
-t_quadrics	*case_quadrics(char **single_scene)
-{
+// t_quadrics	*case_quadrics(char **single_scene)
+// {
 	
-}
+// }

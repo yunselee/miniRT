@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:20:28 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 15:30:40 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 21:57:10 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	print_single_quadrics(const t_quadrics *Q)
 	red = Q->color.red;
 	green = Q->color.green;
 	blue = Q->color.blue;
+	if (Q->type == Q_PLANE)
+		printf("type : PLANE\n");
+	else
+		printf("type : QUADRICS\n");
 	printf("\torg : [%3.4f, %3.4f, %3.4f]\n", Q->org.x \
 											, Q->org.y \
 											, Q->org.z);

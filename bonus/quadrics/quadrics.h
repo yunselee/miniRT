@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:48:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 16:26:44 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 21:54:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,14 @@
 # include "matrix44.h"
 # include "ray_cast.h"
 
+typedef enum e_qtype
+{
+	Q_PLANE = 0,
+	Q_QUADRICS
+}	t_qtype;
 struct quadrics
 {
+	t_qtype	type;
 	t_mat44	coefs;
 	t_vec4	org;
 	t_vec4	dir;
