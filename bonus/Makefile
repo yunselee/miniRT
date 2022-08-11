@@ -1,8 +1,8 @@
 NAME			= miniRT
 
 CC				= gcc
-CFLAGS			= -Wall -Werror -Wextra -O2
-# -g -fsanitize=address
+CFLAGS			=  -Wall -Werror -Wextra -O2
+# -g -fsanitize=address  -Wall -Werror -Wextra
 
 LIBS = ./library/LIBFT/libft.a
 LIBV = ./library/Libft_vector/libvector.a
@@ -36,6 +36,7 @@ SRCS			= 	main.c \
 					reflection.c \
 					diffuse_reflection.c \
 					specular_reflection.c \
+					ray_thread.c \
 					\
 					color.c \
 					\
@@ -66,7 +67,6 @@ SRCS			= 	main.c \
 					object_ect.c \
 					\
 					timer.c \
-
 
 OBJS_DIR		= ./OBJS
 OBJS			= $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
