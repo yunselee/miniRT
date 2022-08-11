@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:05:07 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 17:49:23 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 03:40:49 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include "in_parsing.h"
 #include "objects.h"
+#include "quadrics.h"
 
 static int	parse_scene(t_scene *out_scene, char *line)
 {
@@ -35,7 +36,7 @@ static int	parse_scene(t_scene *out_scene, char *line)
 	else if (ft_strncmp(single_scene[0], "L", 2) == 0)
 		res = case_light(out_scene, single_scene);
 	else
-		res = init_object(out_scene, single_scene);
+		res = init_quadrics(out_scene, single_scene);
 	i = 0;
 	while (single_scene[i])
 		free (single_scene[i++]);
@@ -75,7 +76,7 @@ static int	check_scene(const t_scene *scene)
 		printf("no light\n");
 		return (FALSE);
 	}
-	if (scene->obj == NULL)
+	if (scene->quads == NULL)
 	{
 		printf("no obj\n");
 		return (FALSE);

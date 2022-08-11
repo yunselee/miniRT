@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 19:00:49 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/10 22:52:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 21:27:27 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ typedef struct s_object_base
 {
 	enum e_type					type;
 	t_color						color;
-	double						r;
-	double						h;
-	double						rs;
+	float						r;
+	float						h;
+	float						rs;
 	int							ns;
-	t_vec3						o;
+	t_vec4						o;
 	t_vec3						n;
 	t_vec3						tangential;
 	struct s_object_base		*next;

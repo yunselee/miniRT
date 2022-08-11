@@ -1,5 +1,15 @@
 {
     "files.associations": {
-        "__locale": "cpp"
+        "__locale": "cpp",
+        "vector3.h": "c",
+        "objects.h": "c",
+        "libft.h": "c",
+        "in_parsing.h": "c",
+        "scene.h": "c",
+        "quadrics.h": "c",
+        "transform.h": "c",
+        "matrix44.h": "c",
+        "mlx_part.h": "c",
+        "stdio.h": "c"
     }
 }

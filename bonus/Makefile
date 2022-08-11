@@ -1,7 +1,7 @@
 NAME			= miniRT
 
 CC				= gcc
-CFLAGS			= -Wall -Werror -Wextra -O2
+CFLAGS			= -Wall -Werror -Wextra -O2 -g 
 # -g -fsanitize=address
 
 LIBS = ./library/LIBFT/libft.a
@@ -18,6 +18,7 @@ INCS_DIR		= 	-I ./library/LIBFT \
 					-I ./ray_cast \
 					-I ./objects \
 					-I ./timer \
+					-I ./quadrics
 
 SRCS_DIR		= 	./ \
 					./ray_cast \
@@ -27,6 +28,7 @@ SRCS_DIR		= 	./ \
 					./scene \
 					./objects \
 					./timer \
+					./quadrics
 
 
 SRCS			= 	main.c \
@@ -56,16 +58,11 @@ SRCS			= 	main.c \
 					scene1.c \
 					scene2.c \
 					\
-					cylinder.c \
-					objs_base.c \
-					sphere.c \
-					plain.c \
-					case_object.c \
-					init_object.c \
-					cone.c \
-					object_ect.c \
-					\
 					timer.c \
+					\
+					quadrics.c \
+					quadrics_helper.c \
+					quadrics_equations.c
 
 
 OBJS_DIR		= ./OBJS

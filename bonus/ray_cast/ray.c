@@ -6,28 +6,27 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 22:30:37 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 16:31:11 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 #include "../Libft_vector/vector3.h"
 #include "scene.h"
 #include "mlx_part.h"
 #include "ray_cast.h"
-#include <stdio.h>
-#include <time.h>
-#include "objects.h"
+#include "quadrics.h"
 #include "print_info.h"
 #include "timer.h"
 
 static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 {
 	const int	unit = 128;
-	double		dist;
-	double		a[3];
-	double		attenuation;
+	float		dist;
+	float		a[3];
+	float		attenuation;
 
 	a[0] = 1;
 	a[1] = 0;
@@ -37,20 +36,20 @@ static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 	return (color_scale(color, attenuation));
 }
 
-double	get_intersect_distance(t_obj_base *objlst, \
-								t_obj_base **intersecting_obj_out, \
+float	get_intersect_distance(t_quadrics *objlst, \
+								t_quadrics **intersecting_obj_out, \
 								t_ray ray)
 {
-	t_obj_base			*target_obj;
-	t_obj_base			*intersect_obj;
-	double				dist[2];
+	t_quadrics			*target_obj;
+	t_quadrics			*intersect_obj;
+	float				dist[2];
 
 	dist[0] = INFINITY;
 	intersect_obj = NULL;
 	target_obj = objlst;
 	while (target_obj)
 	{
-		dist[1] = intersect(ray, target_obj);
+		dist[1] = find_intersection(target_obj, &ray);
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 		{
 			dist[0] = dist[1];
@@ -67,13 +66,13 @@ double	get_intersect_distance(t_obj_base *objlst, \
 
 t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 {
-	t_obj_base	*intersect_obj;
+	t_quadrics	*intersect_obj;
 	t_vec3		intersect;
 	t_color		c;
-	double		dist;
+	float		dist;
 
 	intersect_obj = NULL;
-	dist = get_intersect_distance(mlx->scene->obj, &intersect_obj, ray);
+	dist = get_intersect_distance(mlx->scene->quads, &intersect_obj, ray);
 	if (isinf(dist) == TRUE || isnan(dist) == TRUE)
 		return (rgb_color(0, 0, 0));
 	else
@@ -101,11 +100,11 @@ static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
 void	ray_cast(t_mlx *mlx)
 {
 	unsigned int	pixel[2];
-	double			d;
+	float			d;
 	t_color			color;
 	t_ray			ray;
 
-	d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
+	d = ((float)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
 	time_check_start_sub();
 	pixel[1] = 0;
 	while (pixel[1] < mlx->height)

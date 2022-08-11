@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 22:30:18 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 01:53:50 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
 								&(mlx->image->line), &(mlx->image->endian));
 	mlx->width = width;
 	mlx->height = height;
-	mlx->selected_obj = NULL;
+	mlx->selected_quad = NULL;
 	mlx->selected_light = NULL;
 	mlx->edit = 0;
 	mlx->target_scene = E_NONE;
@@ -58,7 +58,7 @@ t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
 
 void	delete_mlx(t_mlx *mlx)
 {
-	mlx->selected_obj = NULL;
+	mlx->selected_quad = NULL;
 	mlx->selected_light = NULL;
 	free_scene(mlx->scene);
 	mlx_destroy_image(mlx->mlx, mlx->image->img);

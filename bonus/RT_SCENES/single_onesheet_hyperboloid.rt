@@ -1,0 +1,11 @@
+
+L			10,0,10		1 	255,255,255
+
+A    0.2					255,255,255
+
+C    20,0,2         -1,0,0      45
+
+
+# |TYPE||origin| |direction(unit)| 	|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
+#Hyperboloid	of	One	Sheet
+ qd	    0,0,0		1,0,0		       1       1       -1      0       -1       -4		8		100,110,200			0.5						100

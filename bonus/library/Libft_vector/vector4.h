@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene1.c                                           :+:      :+:    :+:   */
+/*   vector4.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/07 05:05:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 22:26:43 by dkim2            ###   ########.fr       */
+/*   Created: 2022/08/11 12:17:04 by dkim2             #+#    #+#             */
+/*   Updated: 2022/08/11 12:42:18 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
-#include "scene.h"
-#include "in_parsing.h"
-#include "quadrics.h"
-
-t_scene	*create_empty_scene(void)
+typedef struct	s_vec4
 {
-	return (ft_calloc(1, sizeof(t_scene)));
-}
+	float	x;
+	float	y;
+	float	z;
+	float	w;	
+}	t_vec4;
 
-void	free_scene(t_scene *pscene)
-{
-	free(pscene->cam);
-	free_lightlst(pscene->light);
-	free_quadlist(pscene->quads);
-	free(pscene);
-}
+
+float	v4_l2norm(t_vec4 v);
+t_vec4	v4_normalize(t_vec4 a);
+
+t_vec4	v4_add(t_vec4 a, t_vec4 b);
+t_vec4	v4_sub(t_vec4 a, t_vec4 b);
+t_vec4	v4_mul(t_vec4 a, double const scaler);
+double	v4_dot(t_vec4 a, t_vec4 b);
+t_vec4	v4_crs(t_vec4 a, t_vec4 b);
+int		v4_isnull(t_vec4 a);
