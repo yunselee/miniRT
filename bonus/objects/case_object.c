@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:41:42 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 22:54:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 13:48:21 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_obj_base	*case_plane(char **single_scene)
 	if ((str_to_vec3(single_scene[1], &new_obj->o) == FALSE) \
 		|| (str_to_vec3(single_scene[2], &new_obj->n) == FALSE) \
 		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE) \
-		|| (ft_strtod(single_scene[4], &new_obj->rs) == FALSE) \
+		|| (ft_strtof(single_scene[4], &new_obj->rs) == FALSE) \
 		|| (ft_strtoi(single_scene[5], &new_obj->ns) == FALSE))
 	{
 		free(new_obj);
@@ -56,9 +56,9 @@ t_obj_base	*case_sphere(char **single_scene)
 		return (NULL);
 	new_obj->type = E_SPHERE;
 	if ((str_to_vec3(single_scene[1], &new_obj->o) == FALSE) \
-		|| (ft_strtod(single_scene[2], &new_obj->r) == FALSE) \
+		|| (ft_strtof(single_scene[2], &new_obj->r) == FALSE) \
 		|| (str_to_color(single_scene[3], &new_obj->color) == FALSE) \
-		|| (ft_strtod(single_scene[4], &new_obj->rs) == FALSE) \
+		|| (ft_strtof(single_scene[4], &new_obj->rs) == FALSE) \
 		|| (ft_strtoi(single_scene[5], &new_obj->ns) == FALSE) \
 		|| (new_obj->r <= 0.0))
 	{
@@ -83,10 +83,10 @@ t_obj_base	*case_cylinder(char **single_scene)
 	new_obj->type = E_CYLINDER;
 	if ((str_to_vec3(single_scene[1], &new_obj->o) == FALSE) \
 		|| (str_to_vec3(single_scene[2], &new_obj->n) == FALSE) \
-		|| (ft_strtod(single_scene[3], &new_obj->r) == FALSE) \
-		|| (ft_strtod(single_scene[4], &new_obj->h) == FALSE) \
+		|| (ft_strtof(single_scene[3], &new_obj->r) == FALSE) \
+		|| (ft_strtof(single_scene[4], &new_obj->h) == FALSE) \
 		|| (str_to_color(single_scene[5], &new_obj->color) == FALSE) \
-		|| (ft_strtod(single_scene[6], &new_obj->rs) == FALSE) \
+		|| (ft_strtof(single_scene[6], &new_obj->rs) == FALSE) \
 		|| (ft_strtoi(single_scene[7], &new_obj->ns) == FALSE) \
 		|| (new_obj->r <= 0.0 || new_obj->h <= 0.0))
 	{
@@ -121,9 +121,9 @@ t_obj_base	*case_cone(char **single_scene)
 	new_obj->type = E_CONE;
 	if ((str_to_vec3(single_scene[1], &new_obj->o) == FALSE) \
 		|| (str_to_vec3(single_scene[2], &new_obj->n) == FALSE) \
-		|| (ft_strtod(single_scene[3], &new_obj->r) == FALSE) \
+		|| (ft_strtof(single_scene[3], &new_obj->r) == FALSE) \
 		|| (str_to_color(single_scene[4], &new_obj->color) == FALSE) \
-		|| (ft_strtod(single_scene[5], &new_obj->rs) == FALSE) \
+		|| (ft_strtof(single_scene[5], &new_obj->rs) == FALSE) \
 		|| (ft_strtoi(single_scene[6], &new_obj->ns) == FALSE) \
 		|| new_obj->r <= 0.0)
 	{

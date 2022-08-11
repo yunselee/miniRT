@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 22:30:49 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 21:06:38 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@
 #include "print_info.h"
 #include "ray_cast.h"
 #include "timer.h"
+#include "quadrics.h"
+
+
+static void print_mat33(const t_mat33 *M)
+{
+	printf("|% .3f % .3f % .3f|\n", M->r1.x, M->r2.x, M->r3.x);
+	printf("|% .3f % .3f % .3f|\n", M->r1.y, M->r2.y, M->r3.y);
+	printf("|% .3f % .3f % .3f|\n", M->r1.z, M->r2.z, M->r3.z);
+	printf("|% .3f % .3f % .3f|\n", M->r1.w, M->r2.w, M->r3.w);
+}
 
 static t_mat33	get_transformation_mat(t_vec3 k)
 {
@@ -67,7 +77,61 @@ int	main(int argc, char **argv)
 	}
 	print_info_scene(global_scene);
 	transform = get_transformation_mat(global_scene->cam->dir);
+	print_mat33(&transform);
 	transform_to_cam_cord(global_scene, transform);
+	printf("||=====CAM CORD=====||\n");
+	print_info_scene(global_scene);
+	{
+		t_ray	ray;
+		ray.dir = global_scene->cam->dir;
+		ray.org = global_scene->cam->pos;
+		ray.org.w = 1;
+		printf("ray dir: <% .3f % .3f % .3f % .3f>\n", ray.dir.x, ray.dir.y, ray.dir.z, ray.dir.w);
+		printf("ray org: <% .3f % .3f % .3f % .3f>\n", ray.org.x, ray.org.y, ray.org.z, ray.org.w);
+
+		float t = find_intersection(global_scene->quads, &ray);
+		printf("<%f>\n", t);
+		t_vec3	intersect = v3_mul(ray.dir, t);
+		printf("hit temp: <% .3f % .3f % .3f % .3f>\n", intersect.x, intersect.y, intersect.z, intersect.w);
+		intersect = v3_add(v3_mul(ray.dir, t), ray.org);
+		printf("hit : <% .3f % .3f % .3f % .3f>\n", intersect.x, intersect.y, intersect.z, intersect.w);
+		intersect.w = 1;
+		t_vec3	nor = quad_normal_vector(global_scene->quads, intersect, ray.org);
+		printf("normal : <% .3f % .3f % .3f % .3f>\n", nor.x, nor.y, nor.z, nor.w);
+		t_color color = diffuse_light(global_scene, global_scene->quads, nor, intersect);
+		printf("color : %d %d %d\n", color.red, color.green, color.blue);
+
+
+		ray.dir = v3_normalize(make_v3(1,0,5));
+		printf("ray dir: <% .3f % .3f % .3f % .3f>\n", ray.dir.x, ray.dir.y, ray.dir.z, ray.dir.w);
+		printf("ray org: <% .3f % .3f % .3f % .3f>\n", ray.org.x, ray.org.y, ray.org.z, ray.org.w);
+		t = find_intersection(global_scene->quads, &ray);
+		printf("<%f>\n", t);
+		intersect = v3_mul(ray.dir, t);
+		printf("hit temp: <% .3f % .3f % .3f % .3f>\n", intersect.x, intersect.y, intersect.z, intersect.w);
+		intersect = v3_add(v3_mul(ray.dir, t), ray.org);
+		printf("hit : <% .3f % .3f % .3f % .3f>\n", intersect.x, intersect.y, intersect.z, intersect.w);
+		intersect.w = 1;
+		nor = quad_normal_vector(global_scene->quads, intersect, ray.org);
+		printf("normal : <% .3f % .3f % .3f % .3f>\n", nor.x, nor.y, nor.z, nor.w);
+		color = diffuse_light(global_scene, global_scene->quads, nor, intersect);
+		printf("color : %d %d %d\n", color.red, color.green, color.blue);
+
+		ray.dir = v3_normalize(make_v3(-1,0,5));
+		printf("ray dir: <% .3f % .3f % .3f % .3f>\n", ray.dir.x, ray.dir.y, ray.dir.z, ray.dir.w);
+		printf("ray org: <% .3f % .3f % .3f % .3f>\n", ray.org.x, ray.org.y, ray.org.z, ray.org.w);
+		t = find_intersection(global_scene->quads, &ray);
+		printf("<%f>\n", t);
+		intersect = v3_mul(ray.dir, t);
+		printf("hit temp: <% .3f % .3f % .3f % .3f>\n", intersect.x, intersect.y, intersect.z, intersect.w);
+		intersect = v3_add(v3_mul(ray.dir, t), ray.org);
+		printf("hit : <% .3f % .3f % .3f % .3f>\n", intersect.x, intersect.y, intersect.z, intersect.w);
+		intersect.w = 1;
+		nor = quad_normal_vector(global_scene->quads, intersect, ray.org);
+		printf("normal : <% .3f % .3f % .3f % .3f>\n", nor.x, nor.y, nor.z, nor.w);
+		color = diffuse_light(global_scene, global_scene->quads, nor, intersect);
+		printf("color : %d %d %d\n", color.red, color.green, color.blue);
+	}
 	mlx_start(global_scene, 1920 / 2, 1080 / 2, argv[1]);
 	free_scene(global_scene);
 	system("leaks miniRT");

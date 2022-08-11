@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 21:42:11 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 17:27:39 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 17:40:33 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,16 @@ t_mat33	subtract_mat33(t_mat33 m1, t_mat33 m2)
 t_mat33	mul_mat33(t_mat33 m1, t_mat33 m2)
 {
 	t_mat33	new;
-	t_mat33	temp;
 
-	temp = mat33_trans(m1);
-	new.r1 = make_v3(v3_dot(temp.r1, m2.r1), \
-						v3_dot(temp.r1, m2.r2), \
-						v3_dot(temp.r1, m2.r3));
-	new.r2 = make_v3(v3_dot(temp.r2, m2.r1), \
-						v3_dot(temp.r2, m2.r2), \
-						v3_dot(temp.r2, m2.r3));
-	new.r3 = make_v3(v3_dot(temp.r3, m2.r1), \
-						v3_dot(temp.r3, m2.r2), \
-						v3_dot(temp.r3, m2.r3));
+	m1 = mat33_trans(m1);
+	new.r1 = make_v3(v3_dot(m1.r1, m2.r1), \
+						v3_dot(m1.r1, m2.r2), \
+						v3_dot(m1.r1, m2.r3));
+	new.r2 = make_v3(v3_dot(m1.r2, m2.r1), \
+						v3_dot(m1.r2, m2.r2), \
+						v3_dot(m1.r2, m2.r3));
+	new.r3 = make_v3(v3_dot(m1.r3, m2.r1), \
+						v3_dot(m1.r3, m2.r2), \
+						v3_dot(m1.r3, m2.r3));
 	return (new);
 }

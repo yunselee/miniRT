@@ -1,0 +1,27 @@
+#|TYPE| |pos|    |brightness(ratio)| |color|
+#	L   -10,6,3     		0.5        255,0,0
+
+#	L   -10,-6,3    		0.5        0,0,255
+
+#	L   -20,0,3 			0.5        0,255,0
+L	5,5,0				0.5			255,255,255	
+
+#|TYPE| |ratio| 	|color|
+	A	  0.2      255,255,255
+
+#|TYPE| |origin| |direction(unit)| |HFOV|
+	C    5,0,0     -1,0,0 			 90
+
+#|TYPE| |origin| |direction(unit)|   |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
+#   pl    0,0,0      -1,0,0   		123,0,255				0.5					100
+
+#|TYPE| |origin| |diameter|   |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
+  sp	0,0,0 	2 		255,0,0			0.5						74
+#   sp	0,6,0 	2 		255,0,0			0.5						100
+#   sp	0,-6,0 	2 		255,0,0			0.5						100
+
+#|TYPE| |origin| |direction(unit)| |diameter| |height|   |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
+#	cy 	0,2,-5   	0,0.6,0.8 			3  		10  	123,255,123		0.5						100
+
+#|TYPE| |origin| |direction(unit)| |diameter| |height|  |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
+#	co 	  0,0,0        0.0,0,1        3    		10     255,0,255 			0.5						100

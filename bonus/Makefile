@@ -18,6 +18,7 @@ INCS_DIR		= 	-I ./library/LIBFT \
 					-I ./ray_cast \
 					-I ./objects \
 					-I ./timer \
+					-I ./quadrics
 
 SRCS_DIR		= 	./ \
 					./ray_cast \
@@ -27,6 +28,7 @@ SRCS_DIR		= 	./ \
 					./scene \
 					./objects \
 					./timer \
+					./quadrics
 
 
 SRCS			= 	main.c \
@@ -66,6 +68,9 @@ SRCS			= 	main.c \
 					object_ect.c \
 					\
 					timer.c \
+					\
+					quadrics.c \
+					quadrics_equations.c
 
 
 OBJS_DIR		= ./OBJS

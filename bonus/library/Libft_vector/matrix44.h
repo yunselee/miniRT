@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene1.c                                           :+:      :+:    :+:   */
+/*   matrix44.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/07 05:05:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 15:35:01 by dkim2            ###   ########.fr       */
+/*   Created: 2022/08/11 12:17:35 by dkim2             #+#    #+#             */
+/*   Updated: 2022/08/11 16:01:58 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
-#include "scene.h"
-#include "in_parsing.h"
-#include "quadrics.h"
+#include "vector3.h"
+#include "transform.h"
 
-t_scene	*create_empty_scene(void)
+typedef struct	s_mat44
 {
-	return (ft_calloc(1, sizeof(t_scene)));
-}
+	t_vec4	col1;
+	t_vec4	col2;
+	t_vec4	col3;
+	t_vec4	col4;
+}	t_mat44;
 
-void	free_scene(t_scene *pscene)
-{
-	free(pscene->cam);
-	free_lightlst(pscene->light);
-	free_objectlst(pscene->obj);
-	free_quadlist(pscene->quads);
-	free(pscene);
-}
+t_mat44	create_mat44(t_vec4 v1, t_vec4 v2, t_vec4 v3, t_vec4 v4);
+
+t_mat44	trans_mat44(t_mat44 a);
+
+t_mat44	mul_mat44(t_mat44 a, t_mat44 b);
+
+float	quadratic_form(t_vec4 v1, t_mat44 m, t_vec4 v2);
+
+t_mat44 rotation_mat44(t_vec3 axis, double deg);
