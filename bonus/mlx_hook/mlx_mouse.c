@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:48:44 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 02:50:36 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 05:43:53 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	mousemove(int x, int y, t_mlx *mlx)
 	mlx->last[1] = y;
 	if (dx == 0 && dy == 0)
 		return (0);
-	axis = v3_normalize(make_v3(-dy, 0, 0));
+	axis = v3_normalize(make_v3(-dy, dx, 0));
 	if (fabs(dx) > fabs(dy))
 		axis = v3_normalize(make_v3(0, dx, 0));
 	if (mlx->target_scene == E_CAM)

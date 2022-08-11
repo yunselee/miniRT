@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 05:04:53 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 05:38:30 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ float	get_intersect_distance(t_quadrics *objlst, \
 	return (dist[0]);
 }
 
-
 static void	init_thread_local_object(t_thread_local_object *tlo, t_mlx *mlx)
 {
 	int	i;
@@ -62,27 +61,28 @@ static void	init_thread_local_object(t_thread_local_object *tlo, t_mlx *mlx)
 	while (i < THREAD_NUM)
 	{
 		(tlo + i)->mlx = mlx;
-		(tlo + i)->x = mlx->width/2 * (i/2);
-		(tlo + i)->y = mlx->height/2 * (i%2);
+		(tlo + i)->x = mlx->width / 2 * (i / 2);
+		(tlo + i)->y = mlx->height / 2 * (i % 2);
 		i++;
 	}
 }
 
-static void ray_multithread(t_mlx *mlx)
+static void	ray_multithread(t_mlx *mlx)
 {
 	static pthread_t				thread_data[THREAD_NUM];
 	static t_thread_local_object	tlo[THREAD_NUM];
-	int i;
+	int								i;
 
 	init_thread_local_object(tlo, mlx);
 	i = 0;
-	while(i < THREAD_NUM)
+	while (i < THREAD_NUM)
 	{
-		pthread_create((thread_data + i), NULL, thread_routine, (void *)(tlo + i));
+		pthread_create((thread_data + i), NULL, \
+						thread_routine, (void *)(tlo + i));
 		i++;
 	}
 	i = 0;
-	while(i < THREAD_NUM)
+	while (i < THREAD_NUM)
 	{
 		pthread_join(thread_data[i], NULL);
 		i++;
@@ -95,9 +95,7 @@ void	ray_cast(t_mlx *mlx)
 
 	d = ((float)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
 	time_check_start_sub();
-
 	ray_multithread(mlx);
-
 	if (mlx->edit != 0 && mlx->target_scene != E_NONE)
 		render_lightsource(mlx, d);
 	time_check_end_sub("ray");

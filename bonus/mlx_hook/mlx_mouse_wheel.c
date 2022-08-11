@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 13:24:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 05:23:17 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 05:43:00 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	wheel_object(t_quadrics *obj, int keycode)
 {
 	double	stride;
 	t_mat44	mat;
-	
+
 	stride = 0.05;
 	if (obj == NULL || obj->type == Q_PLANE)
 		return (FALSE);

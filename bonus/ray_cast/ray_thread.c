@@ -57,23 +57,23 @@ static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 	}
 }
 
-void *thread_routine(void *ptr)
+void	*thread_routine(void *ptr)
 {
 	const t_thread_local_object	*tlo = ptr;
-	t_mlx					*mlx;
-	double			d;
-	unsigned int	pixel[2];
-	t_color			color;
-	t_ray			ray;
+	t_mlx						*mlx;
+	double						d;
+	unsigned int				pixel[2];
+	t_color						color;
+	t_ray						ray;
 
 	mlx = tlo->mlx;
 	assert(mlx);
 	d = ((double)tlo->mlx->width / 2) / tan(tlo->mlx->scene->cam->hfov / 2);
 	pixel[1] = 0;
-	while (pixel[1] < mlx->height/2)
+	while (pixel[1] < mlx->height / 2)
 	{
 		pixel[0] = 0;
-		while (pixel[0] < mlx->width/2)
+		while (pixel[0] < mlx->width / 2)
 		{
 			ray.dir = v3_normalize(make_v3((int)(tlo->x + pixel[0] - mlx->width / 2), \
 										(int)(tlo->y + pixel[1] - mlx->height / 2), d));
@@ -84,5 +84,5 @@ void *thread_routine(void *ptr)
 		}
 		pixel[1] += (mlx->edit + 1);
 	}
-	return NULL;
+	return (NULL);
 }

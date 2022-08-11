@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 01:46:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 04:27:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 05:42:50 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,5 @@ void	rotate_quadrics(t_quadrics *Q, t_vec3 axis, float deg)
 	rotation.col2 = rotate_vec3_deg(axis, deg, make_v3(0, 1, 0));
 	rotation.col3 = rotate_vec3_deg(axis, deg, make_v3(0, 0, 1));
 	rotation.col4 = make_v4(0, 0, 0, 1);
-
 	Q->coefs = mul_mat44(trans_mat44(rotation), mul_mat44(Q->coefs, rotation));
 }
