@@ -58,15 +58,6 @@ SRCS			= 	main.c \
 					scene1.c \
 					scene2.c \
 					\
-					cylinder.c \
-					objs_base.c \
-					sphere.c \
-					plain.c \
-					case_object.c \
-					init_object.c \
-					cone.c \
-					object_ect.c \
-					\
 					timer.c \
 					\
 					quadrics.c \

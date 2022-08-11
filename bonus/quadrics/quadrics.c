@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 21:54:23 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 22:28:56 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ int	init_quadrics(t_scene *outscene, char **single_scene)
 		quadric = case_quad_sphere(single_scene);
 	// else if (ft_strncmp(single_scene[0], "cy", 3) == 0)
 	// 	quadric = case_cylinder(single_scene);
-	// else if (ft_strncmp(single_scene[0], "qd", 3) == 0)
-	// 	quadric = case_quadrics(single_scene);
+	else if (ft_strncmp(single_scene[0], "qd", 3) == 0)
+		quadric = case_quadrics(single_scene);
 	else
 		return (FALSE);
 	//...
@@ -221,7 +221,34 @@ t_quadrics	*case_quad_sphere(char **single_scene)
 // 	return (newquad);
 // }
 
-// t_quadrics	*case_quadrics(char **single_scene)
-// {
+t_quadrics	*case_quadrics(char **single_scene)
+{
+	t_quadrics	*newquad;
+	float		coef[5];
 	
-// }
+	if (ft_strsetlen(single_scene) != 13)
+		return (NULL);
+	newquad = ft_calloc(1, sizeof(t_quadrics));
+	if ((str_to_vec3(single_scene[1], &newquad->org) == FALSE) \
+	|| (str_to_vec3(single_scene[2], &newquad->dir) == FALSE) \
+	|| (ft_strtof(single_scene[3], coef + 0) == FALSE) \
+	|| (ft_strtof(single_scene[4], coef + 1) == FALSE) \
+	|| (ft_strtof(single_scene[5], coef + 2) == FALSE) \
+	|| (ft_strtof(single_scene[6], coef + 3) == FALSE) \
+	|| (ft_strtof(single_scene[7], coef + 4) == FALSE) \
+	|| (ft_strtof(single_scene[8], newquad->range_z) == FALSE) \
+	|| (ft_strtof(single_scene[9], newquad->range_z + 1) == FALSE) \
+	|| (str_to_color(single_scene[10], &newquad->color) == FALSE) \
+	|| (ft_strtof(single_scene[11], &newquad->spec_rs) == FALSE) \
+	|| (ft_strtoi(single_scene[12], &newquad->spec_ns) == FALSE))
+	{
+		free(newquad);
+		return (NULL);
+	}
+	newquad->coefs.col1 = make_v4(coef[0], 0, 0, 0);
+	newquad->coefs.col2 = make_v4(0, coef[1], 0, 0);
+	newquad->coefs.col3 = make_v4(0, 0, coef[2], coef[3]);
+	newquad->coefs.col4 = make_v4(0, 0, coef[3], coef[4]);
+	newquad->type = Q_QUADRICS;
+	return (newquad);
+}

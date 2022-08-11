@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:48:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 21:54:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 22:18:54 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			init_quadrics(t_scene *outscene, char **singlescene);
 void		free_quadlist(t_quadrics *quad_list);
 t_quadrics	*case_quad_plane(char **single_scene);
 t_quadrics	*case_quad_sphere(char **single_scene);
-t_quadrics	*case_quad_cylinder(char **single_scene);
+t_quadrics	*case_quadrics(char **single_scene);
 
 float	find_intersection(const t_quadrics *Q, const t_ray *R);
 t_vec3	quad_normal_vector(const t_quadrics *Q, t_vec4 point, t_vec4 viewpoint);

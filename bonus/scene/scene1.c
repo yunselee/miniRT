@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:05:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 15:35:01 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 22:26:43 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	free_scene(t_scene *pscene)
 {
 	free(pscene->cam);
 	free_lightlst(pscene->light);
-	free_objectlst(pscene->obj);
 	free_quadlist(pscene->quads);
 	free(pscene);
 }
