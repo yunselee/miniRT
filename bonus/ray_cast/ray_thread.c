@@ -39,13 +39,13 @@ static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
 
 static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 {
-	t_obj_base	*intersect_obj;
+	t_quadrics	*intersect_obj;
 	t_vec3		intersect;
 	t_color		c;
 	double		dist;
 
 	intersect_obj = NULL;
-	dist = get_intersect_distance(mlx->scene->obj, &intersect_obj, ray);
+	dist = get_intersect_distance(mlx->scene->quads, &intersect_obj, ray);
 	if (isinf(dist) == TRUE || isnan(dist) == TRUE)
 		return (rgb_color(0, 0, 0));
 	else

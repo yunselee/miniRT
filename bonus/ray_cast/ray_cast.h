@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:07:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 05:04:06 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 05:05:10 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ typedef struct s_thread_local_object
 	int		y;
 }t_thread_local_object;
 
-double	get_intersect_distance(t_obj_base *objlst, \
-								t_obj_base **intersecting_obj_out, \
+float	get_intersect_distance(t_quadrics *objlst, \
+								t_quadrics **intersecting_obj_out, \
 								t_ray ray);
 
 void	render_lightsource(t_mlx *mlx, double depth);
