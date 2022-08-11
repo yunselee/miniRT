@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 21:30:19 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 21:36:30 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ int	init_quadrics(t_scene *outscene, char **single_scene)
 		quadric = case_quad_plane(single_scene);
 	else if (ft_strncmp(single_scene[0], "sp", 3) == 0)
 		quadric = case_quad_sphere(single_scene);
-	else if (ft_strncmp(single_scene[0], "cy", 3) == 0)
-		quadric = case_cylinder(single_scene);
+	// else if (ft_strncmp(single_scene[0], "cy", 3) == 0)
+	// 	quadric = case_cylinder(single_scene);
 	else if (ft_strncmp(single_scene[0], "qd", 3) == 0)
 		quadric = case_quadrics(single_scene);
 	else
@@ -192,31 +192,34 @@ t_quadrics	*case_quad_sphere(char **single_scene)
 }
 
 
-t_quadrics	*case_quad_cylinder(char **single_scene)
-{
-	t_quadrics	*newquad;
+// t_quadrics	*case_quad_cylinder(char **single_scene)
+// {
+// 	t_quadrics	*newquad;
 
-	if (ft_strsetlen(single_scene) != 6)
-		return (NULL);
-	newquad = ft_calloc(1, sizeof(t_quadrics));
-	if ((str_to_vec3(single_scene[1], &newquad->org) == FALSE) \
-		|| (ft_strtof(single_scene[2], &newquad->coefs.col4.w) == FALSE) \
-		|| (str_to_color(single_scene[3], &newquad->color) == FALSE) \
-		|| (ft_strtof(single_scene[4], &newquad->spec_rs) == FALSE) \
-		|| (ft_strtoi(single_scene[5], &newquad->spec_ns) == FALSE))
-	{
-		free(newquad);
-		return (NULL);
-	}
-	newquad->dir = make_v3(0, 0, 1);
-	newquad->coefs.col4.w /= 2;
-	newquad->range_z[0] = -newquad->coefs.col4.w;
-	newquad->range_z[1] = newquad->coefs.col4.w;
-	newquad->coefs.col4.w *= -newquad->coefs.col4.w;
-	newquad->coefs.col1.x = 1;
-	newquad->coefs.col2.y = 1;
-	newquad->coefs.col3.z = 1;
-	return (newquad);
-}
+// 	if (ft_strsetlen(single_scene) != 6)
+// 		return (NULL);
+// 	newquad = ft_calloc(1, sizeof(t_quadrics));
+// 	if ((str_to_vec3(single_scene[1], &newquad->org) == FALSE) \
+// 		|| (ft_strtof(single_scene[2], &newquad->coefs.col4.w) == FALSE) \
+// 		|| (str_to_color(single_scene[3], &newquad->color) == FALSE) \
+// 		|| (ft_strtof(single_scene[4], &newquad->spec_rs) == FALSE) \
+// 		|| (ft_strtoi(single_scene[5], &newquad->spec_ns) == FALSE))
+// 	{
+// 		free(newquad);
+// 		return (NULL);
+// 	}
+// 	newquad->dir = make_v3(0, 0, 1);
+// 	newquad->coefs.col4.w /= 2;
+// 	newquad->range_z[0] = -newquad->coefs.col4.w;
+// 	newquad->range_z[1] = newquad->coefs.col4.w;
+// 	newquad->coefs.col4.w *= -newquad->coefs.col4.w;
+// 	newquad->coefs.col1.x = 1;
+// 	newquad->coefs.col2.y = 1;
+// 	newquad->coefs.col3.z = 1;
+// 	return (newquad);
+// }
 
 t_quadrics	*case_quadrics(char **single_scene)
+{
+	
+}

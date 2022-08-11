@@ -17,8 +17,8 @@ L	5,5,0				0.5			255,255,255
 
 #|TYPE| |origin| |diameter|   |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
   sp	0,0,0 	2 		255,0,0			0.5						74
-#   sp	0,6,0 	2 		255,0,0			0.5						100
-#   sp	0,-6,0 	2 		255,0,0			0.5						100
+  sp	0,6,0 	2 		255,0,0			0.5						100
+  sp	0,-6,0 	2 		255,0,0			0.5						100
 
 #|TYPE| |origin| |direction(unit)| |diameter| |height|   |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
 #	cy 	0,2,-5   	0,0.6,0.8 			3  		10  	123,255,123		0.5						100
