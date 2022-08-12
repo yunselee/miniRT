@@ -80,7 +80,7 @@ int	keydown(int keycode, t_mlx *mlx)
 {
 	if (keycode == ESC)
 	{
-		delete_mlx(mlx);
+		destroy_mlx(mlx);
 		exit(0);
 	}
 	else if (mlx->edit == 0 && keycode == KEY_E)

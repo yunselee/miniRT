@@ -46,13 +46,12 @@ typedef struct s_mlx
 	unsigned int	edit;
 	unsigned int	height;
 	unsigned int	clicked;
-	int				last[2];
 }					t_mlx;
 
-t_mlx	*create_mlx(unsigned int width, \
+void	init_mlx(unsigned int width, \
 					unsigned int height, char *filename );
 
-void	delete_mlx(t_mlx *mlx);
+void	destroy_mlx();
 
 void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 							unsigned int y, unsigned int color);
@@ -77,5 +76,6 @@ int		mlx_mouse_wheel(t_mlx *mlx, int keycode);
 int		mouseup(int button, int x, int y, t_mlx *mlx);
 int		mousemove(int x, int y, t_mlx *mlx);
 void	mlx_switch_light(t_mlx *mlx);
+t_mlx	*get_mlx();
 
 #endif

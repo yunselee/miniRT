@@ -30,6 +30,6 @@ int	destroy(t_mlx *mlx)
 {
 	if (!mlx)
 		return (0);
-	delete_mlx(mlx);
+	destroy_mlx(mlx);
 	exit(0);
 }
