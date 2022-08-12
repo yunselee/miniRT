@@ -55,7 +55,7 @@ static int	set_edit_scene(t_mlx *mlx, int keycode)
 	else if (keycode == KEY_L)
 	{
 		printf("mode : LIGHT\n");
-		mlx->selected_light = mlx->scene->light;
+		mlx->selected_light = get_scene()->light;
 		print_single_light(mlx->selected_light);
 	}
 	else if (keycode == KEY_O)

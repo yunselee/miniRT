@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "scene.h"
 
-int	str_to_vec3(char *str, t_vec3 *vec_out)
+int	str_to_vec3(char *str, t_vec3 *out_vec)
 {
 	char	**pos_str;
 	int		res;
@@ -33,15 +33,15 @@ int	str_to_vec3(char *str, t_vec3 *vec_out)
 		ft_freestrset(pos_str);
 		return (FALSE);
 	}
-	vec_out->x = a[0];
-	vec_out->y = a[1];
-	vec_out->z = a[2];
-	vec_out->w = 0;
+	out_vec->x = a[0];
+	out_vec->y = a[1];
+	out_vec->z = a[2];
+	out_vec->w = 0;
 	ft_freestrset(pos_str);
 	return (res);
 }
 
-int	str_to_color(char *str, t_color *color_out)
+int	str_to_color(char *str, t_color *out_color)
 {
 	char	**pos_str;
 	int		rgb[3];
@@ -63,8 +63,8 @@ int	str_to_color(char *str, t_color *color_out)
 		|| (0 > rgb[1] || 255 < rgb[1]) \
 		|| (0 > rgb[2] || 255 < rgb[2]))
 		return (FALSE);
-	color_out->red = rgb[0];
-	color_out->green = rgb[1];
-	color_out->blue = rgb[2];
+	out_color->red = rgb[0];
+	out_color->green = rgb[1];
+	out_color->blue = rgb[2];
 	return (res);
 }

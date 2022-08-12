@@ -40,12 +40,12 @@ t_color	phong_reflection(t_mlx *mlx, \
 							t_vec3 intersection, \
 							t_vec3 view_point);
 
-t_color	diffuse_light(t_scene *scene, \
+t_color	diffuse_light(const t_scene *scene, \
 						t_quadrics *hit_obj, \
 						t_vec3 normal, \
 						t_vec3 intersection);
 
-t_color	specular_light(t_scene *scene, \
+t_color	specular_light(const t_scene *scene, \
 					t_quadrics *hit_obj, \
 					t_vec3 mirror_ray, \
 					t_vec3 intersection);

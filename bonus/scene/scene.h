@@ -53,18 +53,11 @@ typedef struct s_scene
 	t_quadrics	*quads;
 }	t_scene;
 
-typedef struct s_image
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line;
-	int		endian;
-}	t_image;
 
-t_scene	*create_empty_scene(void);
-int		init_scene(t_scene *scene, const char *filename);
-void	free_scene(t_scene *pscene);
+//t_scene	*create_empty_scene(void);
+int		scene_init(const char *filename);
+void	scene_destroy(void);
 int		transform_to_cam_cord(t_scene *scene, t_mat33 transform);
+t_scene *get_scene();
 
 #endif

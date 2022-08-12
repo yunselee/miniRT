@@ -26,7 +26,7 @@
 #define THREAD_NUM 4
 
 float	get_intersect_distance(t_quadrics *objlst, \
-								t_quadrics **intersecting_obj_out, \
+								t_quadrics **out_intersecting_obj, \
 								t_ray ray)
 {
 	t_quadrics			*target_obj;
@@ -42,11 +42,11 @@ float	get_intersect_distance(t_quadrics *objlst, \
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 		{
 			dist[0] = dist[1];
-			*intersecting_obj_out = target_obj;
+			*out_intersecting_obj = target_obj;
 		}
 		target_obj = target_obj->next;
 	}
-	if (*intersecting_obj_out == NULL)
+	if (*out_intersecting_obj == NULL)
 		return (INFINITY);
 	if (dist[0] < EPSILON)
 		return (NAN);
@@ -93,7 +93,7 @@ void	ray_cast(t_mlx *mlx)
 {
 	double			d;
 
-	d = ((float)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
+	d = ((float)mlx->width / 2) / tan(get_scene()->cam->hfov / 2);
 	time_check_start_sub();
 	ray_multithread(mlx);
 	if (mlx->edit != 0 && mlx->target_scene != E_NONE)

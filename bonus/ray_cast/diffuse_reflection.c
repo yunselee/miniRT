@@ -44,7 +44,7 @@ static float	diffuse_helper(t_quadrics *objlst, \
 	return (diffuse);
 }
 
-t_color	diffuse_light(t_scene *scene, \
+t_color	diffuse_light(const t_scene *scene, \
 					t_quadrics *hit_obj, \
 					t_vec3 normal, \
 					t_vec3 intersection)

@@ -18,7 +18,7 @@
 #include <stdio.h>
 
 static float	specular_helper(t_quadrics *objlst, \
-								t_light *target_light, \
+								const t_light *target_light, \
 								t_vec3 mirror_ray, \
 								t_vec3 hit_point)
 {
@@ -46,10 +46,10 @@ static float	specular_helper(t_quadrics *objlst, \
 	return (specular);
 }
 
-t_color	specular_light(t_scene *scene, t_quadrics *hit_obj, \
+t_color	specular_light(const t_scene *scene, t_quadrics *hit_obj, \
 						t_vec3 mirror_ray, t_vec3 hit_point)
 {
-	t_light	*light;
+	const t_light	*light;
 	t_color	color;
 	t_color	color_temp;
 	float	specular;

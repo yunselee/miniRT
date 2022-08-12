@@ -56,10 +56,10 @@ void	render_lightsource(t_mlx *mlx, double depth)
 	double		dist;
 	t_light		*light;
 
-	light = mlx->scene->light;
+	light = get_scene()->light;
 	while (light)
 	{
-		cam_to_light = v3_sub(light->o, mlx->scene->cam->pos);
+		cam_to_light = v3_sub(light->o, get_scene()->cam->pos);
 		dist = v3_l2norm(cam_to_light);
 		if (cam_to_light.z > EPSILON && dist > (1 - EPSILON))
 		{

@@ -50,21 +50,22 @@ t_color	phong_reflection(t_mlx *mlx, \
 						t_vec3 hit_point, \
 						t_vec3 view_point)
 {
+	const t_scene *scene = get_scene();
 	t_vec3	normal;
 	t_vec3	mirror_ray;
 	t_color	radiosity[3];
 
 	if (mlx->edit != FALSE)
-		return (ambient_light(hit_obj, mlx->scene->ambient_color, \
+		return (ambient_light(hit_obj, scene->ambient_color, \
 								0.8, hit_point));
 	normal = quad_normal_vector(hit_obj, hit_point, view_point);
 	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
 	radiosity[0] = ambient_light(hit_obj, \
-								mlx->scene->ambient_color, \
-								mlx->scene->ambient_ratio, \
+								scene->ambient_color, \
+								scene->ambient_ratio, \
 								hit_point);
-	radiosity[1] = diffuse_light(mlx->scene, hit_obj, normal, hit_point);
+	radiosity[1] = diffuse_light(scene, hit_obj, normal, hit_point);
 	mirror_ray = get_mirror_ray(normal, v3_sub(hit_point, view_point));
-	radiosity[2] = specular_light(mlx->scene, hit_obj, mirror_ray, hit_point);
+	radiosity[2] = specular_light(scene, hit_obj, mirror_ray, hit_point);
 	return (color_add(color_add(radiosity[0], radiosity[1]), radiosity[2]));
 }

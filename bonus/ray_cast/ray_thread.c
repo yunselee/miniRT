@@ -45,7 +45,7 @@ static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 	double		dist;
 
 	intersect_obj = NULL;
-	dist = get_intersect_distance(mlx->scene->quads, &intersect_obj, ray);
+	dist = get_intersect_distance(get_scene()->quads, &intersect_obj, ray);
 	if (isinf(dist) == TRUE || isnan(dist) == TRUE)
 		return (rgb_color(0, 0, 0));
 	else
@@ -68,7 +68,7 @@ void	*thread_routine(void *ptr)
 
 	mlx = tlo->mlx;
 	assert(mlx);
-	d = ((double)tlo->mlx->width / 2) / tan(tlo->mlx->scene->cam->hfov / 2);
+	d = ((double)tlo->mlx->width / 2) / tan(get_scene()->cam->hfov / 2);
 	pixel[1] = 0;
 	while (pixel[1] < mlx->height / 2)
 	{
@@ -77,7 +77,7 @@ void	*thread_routine(void *ptr)
 		{
 			ray.dir = v3_normalize(make_v3((int)(tlo->x + pixel[0] - mlx->width / 2), \
 										(int)(tlo->y + pixel[1] - mlx->height / 2), d));
-			ray.org = mlx->scene->cam->pos;
+			ray.org = get_scene()->cam->pos;
 			color = single_ray_cast(mlx, ray);
 			ft_fill_pixel(mlx, tlo->x + pixel[0], tlo->y + pixel[1], color_to_hex(color));
 			pixel[0] += (mlx->edit + 1);

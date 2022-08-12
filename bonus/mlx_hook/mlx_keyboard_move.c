@@ -39,24 +39,26 @@ static int	move_pos(t_vec3 *pos, int keycode)
 int	mlx_move_cam(t_mlx *mlx, int keycode)
 {
 	t_mat33		transform;
+	t_scene		*scene;
 
+	scene = get_scene();
 	if (keycode == KEY_Q)
 	{
 		transform.r1 = rotate_vec3_deg(make_v3(0, 0, 1), 1, make_v3(1, 0, 0));
 		transform.r2 = rotate_vec3_deg(make_v3(0, 0, 1), 1, make_v3(0, 1, 0));
 		transform.r3 = make_v3(0, 0, 1);
-		transform_to_cam_cord(mlx->scene, mat33_trans(transform));
+		transform_to_cam_cord(scene, mat33_trans(transform));
 	}
 	else if (keycode == KEY_E)
 	{
 		transform.r1 = rotate_vec3_deg(make_v3(0, 0, 1), -1, make_v3(1, 0, 0));
 		transform.r2 = rotate_vec3_deg(make_v3(0, 0, 1), -1, make_v3(0, 1, 0));
 		transform.r3 = make_v3(0, 0, 1);
-		transform_to_cam_cord(mlx->scene, mat33_trans(transform));
+		transform_to_cam_cord(scene, mat33_trans(transform));
 	}
-	else if (move_pos(&(mlx->scene->cam->pos), keycode) == FALSE)
+	else if (move_pos(&(scene->cam->pos), keycode) == FALSE)
 		return (FALSE);
-	print_info_camera(mlx->scene->cam);
+	print_info_camera(scene->cam);
 	mlx_renew_image(mlx);
 	return (TRUE);
 }
@@ -105,7 +107,7 @@ void	mlx_switch_light(t_mlx *mlx)
 {
 	mlx->selected_light = mlx->selected_light->next;
 	if (mlx->selected_light == NULL)
-		mlx->selected_light = mlx->scene->light;
+		mlx->selected_light = get_scene()->light;
 	printf("light changed\n");
 	print_single_light(mlx->selected_light);
 }

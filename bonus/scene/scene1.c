@@ -16,15 +16,24 @@
 #include "in_parsing.h"
 #include "quadrics.h"
 
-t_scene	*create_empty_scene(void)
+// t_scene	*create_empty_scene(void)
+// {
+// 	return (ft_calloc(1, sizeof(t_scene)));
+// }
+
+void	scene_destroy()
 {
-	return (ft_calloc(1, sizeof(t_scene)));
+	t_scene *scene;
+
+	scene = get_scene();
+	free(scene->cam);
+	free_lightlst(scene->light);
+	free_quadlist(scene->quads);
 }
 
-void	free_scene(t_scene *pscene)
+t_scene *get_scene()
 {
-	free(pscene->cam);
-	free_lightlst(pscene->light);
-	free_quadlist(pscene->quads);
-	free(pscene);
+	static t_scene scene;
+
+	return &scene;
 }

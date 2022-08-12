@@ -21,26 +21,26 @@
 
 static int	parse_scene(t_scene *out_scene, char *line)
 {
-	char	**single_scene;
+	char	**element;
 	int		res;
 	int		i;
 
-	single_scene = ft_split(line, " \t\v\r\f\n");
-	if (!single_scene)
+	element = ft_split(line, " \t\v\r\f\n");
+	if (!element)
 		return (FALSE);
 	res = FALSE;
-	if (ft_strncmp(single_scene[0], "A", 2) == 0)
-		res = case_ambient(out_scene, single_scene);
-	else if (ft_strncmp(single_scene[0], "C", 2) == 0)
-		res = case_camera(out_scene, single_scene);
-	else if (ft_strncmp(single_scene[0], "L", 2) == 0)
-		res = case_light(out_scene, single_scene);
+	if (ft_strncmp(element[0], "A", 2) == 0)
+		res = case_ambient(out_scene, element);
+	else if (ft_strncmp(element[0], "C", 2) == 0)
+		res = case_camera(out_scene, element);
+	else if (ft_strncmp(element[0], "L", 2) == 0)
+		res = case_light(out_scene, element);
 	else
-		res = init_quadrics(out_scene, single_scene);
+		res = init_quadrics(out_scene, element);
 	i = 0;
-	while (single_scene[i])
-		free (single_scene[i++]);
-	free(single_scene);
+	while (element[i])
+		free (element[i++]);
+	free(element);
 	return (res);
 }
 
@@ -91,13 +91,15 @@ static int	check_filename(const char *filename)
 	return (TRUE);
 }
 
-int	init_scene(t_scene *out_scene, const char *filename)
+int	scene_init(const char *filename)
 {
 	int		fd;
 	char	*line;
+	t_scene *scene;
 
+	scene = get_scene();
 	line = NULL;
-	if (out_scene == NULL || !check_filename(filename))
+	if (scene == NULL || !check_filename(filename))
 		return (FALSE);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -110,12 +112,12 @@ int	init_scene(t_scene *out_scene, const char *filename)
 			break ;
 		else if (line[0] == '#')
 			continue ;
-		else if (ft_strncmp(line, "", 1) && !parse_scene(out_scene, line))
+		else if (ft_strncmp(line, "", 1) && !parse_scene(scene, line))
 		{
 			terminate_gnl(fd, line);
 			return (FALSE);
 		}
 	}
 	close(fd);
-	return (check_scene(out_scene));
+	return (check_scene(scene));
 }

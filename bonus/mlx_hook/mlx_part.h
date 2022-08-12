@@ -25,12 +25,20 @@ enum e_target
 	E_OBJ
 };
 
+typedef struct s_image
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line;
+	int		endian;
+}	t_image;
+
 typedef struct s_mlx
 {
 	void			*mlx;
 	void			*win;
 	t_image			*image;
-	t_scene			*scene;
 	t_quadrics		*selected_quad;
 	t_light			*selected_light;
 	enum e_target	target_scene;
@@ -41,7 +49,7 @@ typedef struct s_mlx
 	int				last[2];
 }					t_mlx;
 
-t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
+t_mlx	*create_mlx(unsigned int width, \
 					unsigned int height, char *filename );
 
 void	delete_mlx(t_mlx *mlx);
@@ -51,7 +59,7 @@ void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 
 void	ft_mlx_set_image_background(t_mlx *mlx);
 
-void	mlx_start(t_scene *scene, unsigned int width, \
+void	mlx_start(unsigned int width, \
 					unsigned int height, char *name);
 
 /*===MLX EVENT====*/

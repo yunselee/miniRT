@@ -17,19 +17,21 @@
 #include "matrix44.h"
 #include "print_info.h"
 
-static void	wheel_camera(t_mlx *mlx, int keycode)
+static void	wheel_camera(int keycode)
 {
 	int	stride;
+	t_scene *scene;
 
+	scene = get_scene();
 	stride = 5;
-	mlx->scene->cam->hfov *= (180 / M_PI);
+	scene->cam->hfov *= (180 / M_PI);
 	if (keycode == 5)
 		stride = -5;
-	if (mlx->scene->cam->hfov + stride > 20 \
-		&& mlx->scene->cam->hfov + stride < 160)
-		mlx->scene->cam->hfov += stride;
-	printf("FOV : %.2f(deg)\n", (mlx->scene->cam->hfov));
-	mlx->scene->cam->hfov /= (180 / M_PI);
+	if (scene->cam->hfov + stride > 20 \
+		&& scene->cam->hfov + stride < 160)
+		scene->cam->hfov += stride;
+	printf("FOV : %.2f(deg)\n", (scene->cam->hfov));
+	scene->cam->hfov /= (180 / M_PI);
 }
 
 static int	wheel_object(t_quadrics *obj, int keycode)
@@ -88,7 +90,7 @@ int	mlx_mouse_wheel(t_mlx *mlx, int keycode)
 	if (keycode < 4)
 		return (FALSE);
 	else if (mlx->target_scene == E_CAM)
-		wheel_camera(mlx, keycode);
+		wheel_camera(keycode);
 	else if (mlx->target_scene == E_OBJ)
 		return (wheel_object(mlx->selected_quad, keycode));
 	else if (mlx->target_scene == E_LIGHT)

@@ -22,15 +22,16 @@
 
 static t_quadrics	*select_object(t_mlx *mlx, int x, int y)
 {
+	const t_scene *scene = get_scene();
 	t_ray	ray;
 	double	d;
 
 	mlx->selected_quad = NULL;
-	d = ((double)mlx->width / 2) / tan(mlx->scene->cam->hfov / 2);
+	d = ((double)mlx->width / 2) / tan(scene->cam->hfov / 2);
 	ray.dir = make_v3(x - (int)mlx->width / 2, y - (int)mlx->height / 2, d);
 	ray.dir = v3_normalize(ray.dir);
-	ray.org = mlx->scene->cam->pos;
-	get_intersect_distance(mlx->scene->quads, &(mlx->selected_quad), ray);
+	ray.org = scene->cam->pos;
+	get_intersect_distance(scene->quads, &(mlx->selected_quad), ray);
 	return (mlx->selected_quad);
 }
 
@@ -91,7 +92,7 @@ int	mousemove(int x, int y, t_mlx *mlx)
 	if (fabs(dx) > fabs(dy))
 		axis = v3_normalize(make_v3(0, dx, 0));
 	if (mlx->target_scene == E_CAM)
-		transform_to_cam_cord(mlx->scene, \
+		transform_to_cam_cord(get_scene(), \
 			mat33_trans(rotation_mat33(axis, -3)));
 	else if (mlx->target_scene == E_OBJ && mlx->selected_quad != NULL)
 	{
@@ -101,7 +102,7 @@ int	mousemove(int x, int y, t_mlx *mlx)
 									mlx->selected_quad->tan);
 		rotate_quadrics(mlx->selected_quad, axis, -3);
 	}
-	print_info_camera(mlx->scene->cam);
+	print_info_camera(get_scene()->cam);
 	mlx_renew_image(mlx);
 	return (1);
 }

@@ -26,7 +26,7 @@ void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 	*(unsigned int *)dst = color;
 }
 
-t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
+t_mlx	*create_mlx(unsigned int width, \
 					unsigned int height, char *filename )
 {
 	t_mlx	*mlx;
@@ -40,7 +40,6 @@ t_mlx	*create_mlx(t_scene *scene, unsigned int width, \
 		free(mlx);
 		return (NULL);
 	}
-	mlx->scene = scene;
 	mlx->mlx = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx, width, height, filename);
 	mlx->image->img = mlx_new_image(mlx->mlx, width, height);
@@ -60,7 +59,7 @@ void	delete_mlx(t_mlx *mlx)
 {
 	mlx->selected_quad = NULL;
 	mlx->selected_light = NULL;
-	free_scene(mlx->scene);
+	scene_destroy();
 	mlx_destroy_image(mlx->mlx, mlx->image->img);
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	free(mlx->image);
@@ -68,14 +67,13 @@ void	delete_mlx(t_mlx *mlx)
 	system("leaks miniRT");
 }
 
-void	mlx_start(t_scene *scene, \
-					unsigned int width, \
+void	mlx_start(unsigned int width, \
 					unsigned int height, \
 					char *name)
 {
 	t_mlx	*mlx;
 
-	mlx = create_mlx(scene, width, height, name);
+	mlx = create_mlx(width, height, name);
 	ray_cast(mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
 	mlx_hook(mlx->win, 17, 0, destroy, mlx);

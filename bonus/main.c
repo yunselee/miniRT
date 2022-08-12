@@ -45,7 +45,6 @@ static t_mat33	get_transformation_mat(t_vec3 k)
 
 int	main(int argc, char **argv)
 {
-	t_scene	*global_scene;
 	t_mat33	transform;
 
 	time_check_start_all();
@@ -55,18 +54,17 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	printf("\033[1;33m==============MINI_RT SCENE INFOs==============\033[0m\n");
-	global_scene = create_empty_scene();
-	if (init_scene(global_scene, argv[1]) == FALSE)
+	if (scene_init(argv[1]) == FALSE)
 	{
 		printf("\033[3;31mError\n\tFail to read file\033[0m\n");
-		free_scene(global_scene);
+		scene_destroy();
 		return (1);
 	}
-	print_info_scene(global_scene);
-	transform = get_transformation_mat(global_scene->cam->dir);
-	transform_to_cam_cord(global_scene, transform);
-	print_info_scene(global_scene);
-	mlx_start(global_scene, 1920 / 2, 1080 / 2, argv[1]);
-	free_scene(global_scene);
+	print_info_scene();
+	transform = get_transformation_mat(get_scene()->cam->dir);
+	transform_to_cam_cord(get_scene(), transform);
+	print_info_scene();
+	mlx_start(1920, 1080, argv[1]);
+	scene_destroy();
 	return (0);
 }

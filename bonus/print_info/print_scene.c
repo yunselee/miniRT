@@ -53,15 +53,13 @@ void	print_info_camera(const t_cam *cam)
 	printf("\tHFOV : %3.4f(deg)\n", (cam->hfov) * (180 / M_PI));
 }
 
-void	print_info_scene(const t_scene *scene)
+void	print_info_scene()
 {
-	int	red;
-	int	green;
-	int	blue;
+	const t_scene *scene = get_scene();
+	const int	red = scene->ambient_color.red;
+	const int	green = scene->ambient_color.green;
+	const int	blue = scene->ambient_color.blue;
 
-	red = scene->ambient_color.red;
-	green = scene->ambient_color.green;
-	blue = scene->ambient_color.blue;
 	print_info_light(scene->light);
 	printf("[AMBIENT]\n");
 	printf("\tratio : %3.4f\n", scene->ambient_ratio);
