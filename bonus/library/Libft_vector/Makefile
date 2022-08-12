@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+         #
+#    By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 07:53:55 by dkim2             #+#    #+#              #
-#    Updated: 2022/08/10 14:55:13 by yunselee         ###   ########.fr        #
+#    Updated: 2022/08/11 12:52:50 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,9 @@ CFLAGS = -Wall -Wextra -Werror -O2
 AR = ar
 ARFLAGS = -rs
 
-SRCS = vector3_1.c vector3_2.c \
+SRCS = vector3_1.c vector3_2.c vector4_1.c vector4_2.c\
 		quaternion_1.c quaternion_2.c \
-		matrix33.c transform.c
+		matrix33.c matrix44.c transform.c
 OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)

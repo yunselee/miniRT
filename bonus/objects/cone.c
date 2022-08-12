@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:52:30 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/10 19:30:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/10 22:54:58 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	obj_print_info(const t_obj_base *obj)
 	printf("\tangle : %3.4f\n", obj->r);
 	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", red, green, blue);
 	printf(" : r: %d g: %d b: %d\n", red, green, blue);
-	printf("\tspecular factors : Rs : %.2f alpha : %d\n\n", obj->rs, obj->alpha);
+	printf("\tspecular factors : Rs : %.2f alpha : %d\n\n", obj->rs, obj->ns);
 }
 
 struct s_obj_vtable_	*get_cone(void)

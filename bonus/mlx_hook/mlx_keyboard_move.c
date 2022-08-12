@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:52:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 19:42:36 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 14:04:33 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "transform.h"
 #include <stdio.h>
 #include "print_info.h"
+#include "quadrics.h"
 
 static int	move_pos(t_vec3 *pos, int keycode)
 {
@@ -64,24 +65,38 @@ int	mlx_move_light(t_mlx *mlx, int keycode)
 {
 	if (move_pos(&(mlx->selected_light->o), keycode) == FALSE)
 		return (FALSE);
-	print_info_light(mlx->scene->light);
+	print_info_light(mlx->selected_light);
 	mlx_renew_image(mlx);
 	return (TRUE);
 }
 
 int	mlx_move_obj(t_mlx *mlx, int keycode)
 {
-	if (mlx->selected_obj == NULL)
+	const t_vec3	axis = make_v3(0, 0, 1);
+
+	if (mlx->selected_quad == NULL)
 		return (FALSE);
-	else if (keycode == KEY_Q && mlx->selected_obj->type != E_SPHERE)
-		mlx->selected_obj->n = rotate_vec3_deg(make_v3(0, 0, 1), -1, \
-												mlx->selected_obj->n);
-	else if (keycode == KEY_E && mlx->selected_obj->type != E_SPHERE)
-		mlx->selected_obj->n = rotate_vec3_deg(make_v3(0, 0, 1), 1, \
-												mlx->selected_obj->n);
-	else if (move_pos(&(mlx->selected_obj->o), keycode) == FALSE)
+	else if (keycode == KEY_C)
+		mlx->selected_quad->disruption ^= 0b1;
+	else if (keycode == KEY_Q)
+	{
+		mlx->selected_quad->dir = rotate_vec3_deg(axis, -1, \
+								mlx->selected_quad->dir);
+		mlx->selected_quad->tan = rotate_vec3_deg(axis, -1, \
+								mlx->selected_quad->tan);
+		rotate_quadrics(mlx->selected_quad, axis, -1);
+	}
+	else if (keycode == KEY_E)
+	{
+		mlx->selected_quad->dir = rotate_vec3_deg(axis, 1, \
+								mlx->selected_quad->dir);
+		mlx->selected_quad->tan = rotate_vec3_deg(axis, 1, \
+								mlx->selected_quad->tan);
+		rotate_quadrics(mlx->selected_quad, axis, 1);
+	}
+	else if (move_pos(&(mlx->selected_quad->org), keycode) == FALSE)
 		return (FALSE);
-	print_info(mlx->selected_obj);
+	print_single_quadrics(mlx->selected_quad);
 	mlx_renew_image(mlx);
 	return (TRUE);
 }

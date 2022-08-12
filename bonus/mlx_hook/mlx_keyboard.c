@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 21:06:37 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 23:53:30 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	change_to_rendermode(t_mlx *mlx)
 	mlx->edit = 0;
 	mlx->target_scene = E_NONE;
 	mlx->selected_light = NULL;
-	mlx->selected_obj = NULL;
+	mlx->selected_quad = NULL;
 	printf("REDERING.....\n");
 	mlx_renew_image(mlx);
 	printf("DONE\n");

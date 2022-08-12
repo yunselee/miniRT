@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene1.c                                           :+:      :+:    :+:   */
+/*   color_type.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/07 05:05:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 22:26:43 by dkim2            ###   ########.fr       */
+/*   Created: 2022/08/12 12:28:37 by dkim2             #+#    #+#             */
+/*   Updated: 2022/08/12 12:29:07 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
-#include "scene.h"
-#include "in_parsing.h"
-#include "quadrics.h"
+#ifndef COLOR_TYPE_H
+# define COLOR_TYPE_H
 
-t_scene	*create_empty_scene(void)
+typedef struct s_color
 {
-	return (ft_calloc(1, sizeof(t_scene)));
-}
+	unsigned char	alpha;
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
+}	t_color;
 
-void	free_scene(t_scene *pscene)
-{
-	free(pscene->cam);
-	free_lightlst(pscene->light);
-	free_quadlist(pscene->quads);
-	free(pscene);
-}
+#endif

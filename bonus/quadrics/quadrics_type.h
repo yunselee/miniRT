@@ -1,23 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   transform.h                                        :+:      :+:    :+:   */
+/*   quadrics_type.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/08 04:50:53 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 16:02:08 by dkim2            ###   ########.fr       */
+/*   Created: 2022/08/12 12:24:30 by dkim2             #+#    #+#             */
+/*   Updated: 2022/08/12 12:29:17 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TRANSFORM_H
-# define TRANSFORM_H
-# include "matrix33.h"
-# include "quaternion.h"
+#ifndef QUADRICS_TYPE_H
+# define QUADRICS_TYPE_H
+# include "color_type.h"
+# include "matrix44.h"
 
-t_vec3	transform_by_mat33(t_mat33 T, t_vec3 x);
-t_mat33	rotation_mat33(t_vec3	axis, double deg);
-t_vec3	rotate_vec3_rad(t_vec3 axis, double rad, t_vec3 x);
-t_vec3	rotate_vec3_deg(t_vec3 axis, double deg, t_vec3 x);
+typedef enum e_qtype
+{
+	Q_PLANE = 0,
+	Q_QUADRICS
+}	t_qtype;
+
+typedef struct s_quadrics
+{
+	t_qtype				type;
+	t_mat44				coefs;
+	t_vec4				org;
+	t_vec4				dir;
+	t_vec4				tan;
+	t_color				color;
+	float				spec_rs;
+	int					spec_ns;
+	float				range_z[2];
+	int					disruption;
+	struct s_quadrics	*next;
+}	t_quadrics;
+
 
 #endif

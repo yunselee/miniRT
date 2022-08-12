@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 04:53:04 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 18:53:14 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/11 16:01:15 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ t_vec3	transform_by_mat33(t_mat33 A, t_vec3 x)
 	y.x = v3_dot(t.r1, x);
 	y.y = v3_dot(t.r2, x);
 	y.z = v3_dot(t.r3, x);
+	y.w = x.w;
 	return (y);
 }
 
-t_mat33	rotation_matrix(t_vec3	axis, double deg)
+t_mat33	rotation_mat33(t_vec3	axis, double deg)
 {
 	t_mat33	rotation;
 

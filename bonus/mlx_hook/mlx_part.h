@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 19:41:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 12:21:58 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_mlx
 	void			*win;
 	t_image			*image;
 	t_scene			*scene;
-	t_obj_base		*selected_obj;
+	t_quadrics		*selected_quad;
 	t_light			*selected_light;
 	enum e_target	target_scene;
 	unsigned int	width;

@@ -1,0 +1,12 @@
+# |TYPE||origin| |direction(unit)| 	|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
+#Hyperbolic	Paraboloid
+ qd	        0,0,-30		0,0,1		   6		2		-3		0	  -6		0		30		200,200,200			0.5						100
+
+# |TYPE|	|pos|		|brightness(ratio)|		|color|
+	L	  0,0,30				0.6			   255,255,255
+
+# |TYPE| |ratio| 	|color|
+	A	  0.2      255,255,255
+
+# |TYPE| |origin| |direction(unit)| |HFOV|
+C    5,0,10    	 0,0,-1			 90
