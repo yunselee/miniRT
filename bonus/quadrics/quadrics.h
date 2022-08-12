@@ -6,35 +6,15 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:48:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 02:47:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 12:26:52 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef QUADRICS_H
 # define QUADRICS_H
+# include "quadrics_type.h"
 # include "scene.h"
-# include "color.h"
-# include "matrix44.h"
 # include "ray_cast.h"
-
-typedef enum e_qtype
-{
-	Q_PLANE = 0,
-	Q_QUADRICS
-}	t_qtype;
-struct s_quadrics
-{
-	t_qtype				type;
-	t_mat44				coefs;
-	t_vec4				org;
-	t_vec4				dir;
-	t_vec4				tan;
-	t_color				color;
-	float				spec_rs;
-	int					spec_ns;
-	float				range_z[2];
-	struct s_quadrics	*next;
-};
 
 typedef struct s_float_sol
 {

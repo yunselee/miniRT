@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:52:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 02:48:11 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 14:04:33 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	mlx_move_light(t_mlx *mlx, int keycode)
 {
 	if (move_pos(&(mlx->selected_light->o), keycode) == FALSE)
 		return (FALSE);
-	print_info_light(mlx->scene->light);
+	print_info_light(mlx->selected_light);
 	mlx_renew_image(mlx);
 	return (TRUE);
 }
@@ -76,6 +76,8 @@ int	mlx_move_obj(t_mlx *mlx, int keycode)
 
 	if (mlx->selected_quad == NULL)
 		return (FALSE);
+	else if (keycode == KEY_C)
+		mlx->selected_quad->disruption ^= 0b1;
 	else if (keycode == KEY_Q)
 	{
 		mlx->selected_quad->dir = rotate_vec3_deg(axis, -1, \

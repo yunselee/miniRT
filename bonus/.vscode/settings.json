@@ -10,6 +10,9 @@
         "transform.h": "c",
         "matrix44.h": "c",
         "mlx_part.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "ray_cast.h": "c",
+        "print_info.h": "c",
+        "color.h": "c"
     }
 }

@@ -7,4 +7,4 @@ C    30,0,0         -1,0,0      90
 
 # |TYPE||origin| |direction(unit)| 	|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
 #SPHERE 
- qd	    0,0,0			0,0,1		   1	   1		1		0	  -9		-3		3		 255,0,100	    0.5                         54
+ qd	    0,0,0			0,0,1		   1	   1		1		0	  -81		-9		3		 255,0,100	    0.5                         14

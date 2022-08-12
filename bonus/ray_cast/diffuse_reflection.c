@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:22:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 04:30:07 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 12:18:52 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static float	diffuse_helper(t_quadrics *objlst, \
 
 t_color	diffuse_light(t_scene *scene, \
 					t_quadrics *hit_obj, \
-					t_vec3 normal, t_vec3 \
-					intersection)
+					t_vec3 normal, \
+					t_vec3 intersection)
 {
 	t_light	*light;
 	t_color	color;
@@ -56,18 +56,18 @@ t_color	diffuse_light(t_scene *scene, \
 
 	intersection = v3_add(intersection, v3_mul(normal, EPSILON));
 	color = rgb_color(0, 0, 0);
+	clr_tmp = color_disruption(hit_obj, intersection);
 	light = scene->light;
 	while (light != NULL)
 	{
 		diffuse = diffuse_helper(scene->quads, light, normal, intersection);
 		if (diffuse > EPSILON)
 		{
-			clr_tmp.red = roundf((float)light->color.red / 255 \
-									* hit_obj->color.red);
+			clr_tmp.red = roundf((float)light->color.red / 255 * clr_tmp.red);
 			clr_tmp.green = roundf((float)light->color.green / 255 \
-									* hit_obj->color.green);
+									* clr_tmp.green);
 			clr_tmp.blue = roundf((float)light->color.blue / 255 \
-									* hit_obj->color.blue);
+									* clr_tmp.blue);
 			clr_tmp = color_scale(clr_tmp, diffuse * (1 - hit_obj->spec_rs));
 			color = color_add(color, clr_tmp);
 		}

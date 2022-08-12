@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 05:41:08 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 12:22:35 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include <mlx.h>
 #include <stdio.h>
 #include "libft.h"
-#include "scene.h"
 #include "mlx_part.h"
 #include "print_info.h"
 #include "timer.h"
+#include "scene.h"
 
 // #include <stdlib.h>
 static t_mat33	get_transformation_mat(t_vec3 k)

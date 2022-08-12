@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   quadrics_type.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/30 22:52:54 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 12:30:21 by dkim2            ###   ########.fr       */
+/*   Created: 2022/08/12 12:24:30 by dkim2             #+#    #+#             */
+/*   Updated: 2022/08/12 12:29:17 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
-# include "quadrics_type.h"
+#ifndef QUADRICS_TYPE_H
+# define QUADRICS_TYPE_H
 # include "color_type.h"
+# include "matrix44.h"
 
-t_color			rgb_color(unsigned int r, unsigned int g, unsigned int b);
+typedef enum e_qtype
+{
+	Q_PLANE = 0,
+	Q_QUADRICS
+}	t_qtype;
 
-t_color			color_add(t_color c1, t_color c2);
+typedef struct s_quadrics
+{
+	t_qtype				type;
+	t_mat44				coefs;
+	t_vec4				org;
+	t_vec4				dir;
+	t_vec4				tan;
+	t_color				color;
+	float				spec_rs;
+	int					spec_ns;
+	float				range_z[2];
+	int					disruption;
+	struct s_quadrics	*next;
+}	t_quadrics;
 
-t_color			color_scale(t_color c1, double s);
-
-unsigned int	color_to_hex(t_color color);
-
-t_color			color_disruption(const t_quadrics	*Q, t_vec3 point_from_cam);
 
 #endif

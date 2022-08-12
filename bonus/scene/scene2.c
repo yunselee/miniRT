@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:05:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 02:02:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/12 14:13:05 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	transform_quadrics(t_quadrics *obj, \
 		curr->org = v3_sub(curr->org, campos);
 		curr->org = transform_by_mat33(transform, (curr->org));
 		curr->dir = transform_by_mat33(transform, (curr->dir));
-		curr->tan = transform_by_mat33(transform, (curr->dir));
+		curr->tan = transform_by_mat33(transform, (curr->tan));
 		curr->coefs = mul_mat44(transt, curr->coefs);
 		curr->coefs = mul_mat44(curr->coefs, trans);
 		curr = curr->next;

@@ -41,6 +41,7 @@ SRCS			= 	main.c \
 					ray_thread.c \
 					\
 					color.c \
+					color_disruption.c \
 					\
 					print_scene.c \
 					print_scene2.c \
