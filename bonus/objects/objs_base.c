@@ -28,8 +28,6 @@ double	intersect(t_ray ray, const t_obj_base *obj)
 
 t_vec3	get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos)
 {
-	const t_vec3	a = {0, 0, 0, 0};
-
 	if (obj->type == E_CONE)
 		return (cone_get_normal_vector(obj, point, cam_pos));
 	if (obj->type == E_PLAIN)
@@ -38,7 +36,7 @@ t_vec3	get_normal_vector(const t_obj_base *obj, t_vec3 point, t_vec3 cam_pos)
 		return (sphere_get_normal_vector(obj, point, cam_pos));
 	if (obj->type == E_CYLINDER)
 		return (cylinder_get_normal_vector(obj, point, cam_pos));
-	return (a);
+	return (make_v3(0, 0, 0));
 }
 
 // wrapper function

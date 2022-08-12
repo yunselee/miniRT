@@ -32,15 +32,15 @@ typedef struct s_ray
 
 typedef struct s_object_base
 {
-	enum e_type					type;
-	t_color						color;
-	double						r;
-	double						h;
-	double						rs;
-	int							alpha;
 	t_vec3						o;
 	t_vec3						n;
 	t_vec3						tangential;
+	double						r;
+	double						h;
+	double						rs;
+	t_color						color;
+	enum e_type					type;
+	int							alpha;
 	struct s_object_base		*next;
 	const struct s_obj_vtable_	*vtable_;
 }				t_obj_base;

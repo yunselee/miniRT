@@ -44,13 +44,10 @@ t_vec3	sphere_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
 
 static void	obj_print_info(const t_obj_base *obj)
 {
-	int	red;
-	int	green;
-	int	blue;
+	const int	red = obj->color.red;
+	const int	green = obj->color.green;
+	const int	blue = obj->color.blue;
 
-	red = obj->color.red;
-	green = obj->color.green;
-	blue = obj->color.blue;
 	printf("\ttype : SPHERE\n");
 	printf("\torg : [%3.4f, %3.4f, %3.4f]\n", obj->o.x \
 											, obj->o.y \
@@ -69,7 +66,7 @@ static void	obj_print_info(const t_obj_base *obj)
 
 struct s_obj_vtable_	*get_sphere(void)
 {
-	static struct s_obj_vtable_	sphere[5];
+	static struct s_obj_vtable_	sphere[4];
 
 	sphere->obj_interstion = obj_interstion;
 	sphere->obj_print_info = obj_print_info;

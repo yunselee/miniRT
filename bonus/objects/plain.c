@@ -19,10 +19,9 @@
 static double	obj_interstion(t_ray ray, \
 								const t_obj_base *obj)
 {
+	const t_vec3	obj_org  = v3_sub(obj->o, ray.org);;
 	double	dist;
-	t_vec3	obj_org;
 
-	obj_org = v3_sub(obj->o, ray.org);
 	if (v3_dot(ray.dir, obj->n) == 0)
 		return (NAN);
 	dist = v3_dot(obj_org, obj->n) / v3_dot(ray.dir, obj->n);
@@ -33,13 +32,10 @@ static double	obj_interstion(t_ray ray, \
 
 static void	obj_print_info(const t_obj_base *obj)
 {
-	int	red;
-	int	green;
-	int	blue;
+	const int	red = obj->color.red;
+	const int	green = obj->color.green;
+	const int	blue = obj->color.blue;
 
-	red = obj->color.red;
-	green = obj->color.green;
-	blue = obj->color.blue;
 	printf("\ttype : PLANE\n");
 	printf("\torg : [%3.4f, %3.4f, %3.4f]\n", obj->o.x \
 											, obj->o.y \
@@ -58,10 +54,9 @@ static void	obj_print_info(const t_obj_base *obj)
 t_vec3	plain_get_normal_vector(const t_obj_base *obj, \
 											t_vec3 point, t_vec3 cam_pos)
 {
-	t_vec3	org_to_cam;
+	const t_vec3	org_to_cam = v3_sub(cam_pos, obj->o);
 
 	point.x = point.x;
-	org_to_cam = v3_sub(cam_pos, obj->o);
 	if (v3_dot(org_to_cam, obj->n) > 0)
 		return (obj->n);
 	else
@@ -70,7 +65,7 @@ t_vec3	plain_get_normal_vector(const t_obj_base *obj, \
 
 struct s_obj_vtable_	*get_plain(void)
 {
-	static struct s_obj_vtable_	plain[5];
+	static struct s_obj_vtable_	plain[4];
 
 	plain->obj_interstion = obj_interstion;
 	plain->obj_print_info = obj_print_info;

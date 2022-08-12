@@ -29,14 +29,14 @@ typedef struct s_mlx
 {
 	void			*mlx;
 	void			*win;
-	unsigned int	width;
-	unsigned int	height;
 	t_image			*image;
 	t_scene			*scene;
 	t_obj_base		*selected_obj;
 	t_light			*selected_light;
-	unsigned int	edit;
 	enum e_target	target_scene;
+	unsigned int	width;
+	unsigned int	edit;
+	unsigned int	height;
 	unsigned int	clicked;
 	int				last[2];
 }					t_mlx;

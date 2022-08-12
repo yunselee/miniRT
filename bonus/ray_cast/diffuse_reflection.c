@@ -21,9 +21,9 @@ static double	diffuse_helper(t_obj_base *objlst, \
 {
 	t_obj_base	*target_obj;
 	t_vec3		dir_to_light;
-	double		dist[2];
-	double		diffuse;
 	t_ray		ray_to_light;
+	double		diffuse;
+	double		dist[3];
 
 	dist[0] = INFINITY;
 	dir_to_light = (v3_sub(target_light->o, intersection));

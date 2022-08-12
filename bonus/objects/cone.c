@@ -40,12 +40,10 @@ TODO 안밖처처리리
 t_vec3	cone_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
 									t_vec3 cam_pos)
 {
-	t_vec3	o_to_cam;
-	t_vec3	o_to_point;
+	const t_vec3	o_to_cam = v3_normalize(v3_sub(cam_pos, obj->o));;
+	const t_vec3	o_to_point = v3_sub(point, obj->o);;
 	t_vec3	normal;
 
-	o_to_cam = v3_normalize(v3_sub(cam_pos, obj->o));
-	o_to_point = v3_sub(point, obj->o);
 	normal = v3_normalize(v3_crs(o_to_point, v3_crs(o_to_point, obj->n)));
 	if (v3_dot(o_to_point, obj->n) < 0)
 		normal = v3_mul(normal, -1);
@@ -56,13 +54,10 @@ t_vec3	cone_get_normal_vector(const t_obj_base *obj, t_vec3 point, \
 
 static void	obj_print_info(const t_obj_base *obj)
 {
-	int	red;
-	int	green;
-	int	blue;
+	const int	red = obj->color.red;
+	const int	green = obj->color.green;
+	const int	blue = obj->color.blue;
 
-	red = obj->color.red;
-	green = obj->color.green;
-	blue = obj->color.blue;
 	printf("\ttype : CONE\n");
 	printf("\torg : [%3.4f, %3.4f, %3.4f]\n", obj->o.x \
 											, obj->o.y \
@@ -81,7 +76,7 @@ static void	obj_print_info(const t_obj_base *obj)
 
 struct s_obj_vtable_	*get_cone(void)
 {
-	static struct s_obj_vtable_	cone[5];
+	static struct s_obj_vtable_	cone[4];
 
 	cone->obj_interstion = obj_interstion;
 	cone->obj_print_info = obj_print_info;
