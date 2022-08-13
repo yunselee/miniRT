@@ -1,9 +1,11 @@
 
-L			0,0,10		0.7 	255,255,255
+L			-60,10,0		1 	255,255,255
 
-A 0.2					255,255,255
 
-C    15,20,0  -0.70710678,-0.70710678,0 60
+A    0.2					255,255,255
 
-cy 0,-6,-2 0,1,0 10 12 102,103,230
+C    -60,0,0         1,0,0      90
 
+# |TYPE||origin| |direction(unit)| 	|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)| |bump_map texture xpm| |texture image xpm|
+#SPHERE 
+ qd	    0,0,0			0,0,1		   1		1		0	    0	  -25		-13		13		102,255,102	       0.1                      20    ./bumpmap_texture/normal_map.xpm ./bumpmap_texture/world_map.xpm

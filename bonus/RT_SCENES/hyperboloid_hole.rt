@@ -1,6 +1,6 @@
 # |TYPE||origin| |direction(unit)| 	|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
 #Hyperbolic	Paraboloid
- qd	        0,0,-30		0,0,1		   6		2		-3		0	  -6		0		30		200,200,200			0.5						100
+ qd	        0,0,-30		0,0,1		   6		2		-3		0	  -6		0		30		200,200,200			0.5						100 ./bumpmap_texture/textile.xpm ./bumpmap_texture/world_map.xpm
 
 # |TYPE|	|pos|		|brightness(ratio)|		|color|
 	L	  0,0,30				0.6			   255,255,255

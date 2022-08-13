@@ -5,6 +5,5 @@ A    0.2					255,255,255
 
 C    30,0,10         -1,0,0      90
 
-# |TYPE||origin| |direction(unit)| 	|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
-#SPHERE 
- qd	    0,0,0			0,0,1		   4		1		0		-4	  0			0		10		200,110,200	       0.3                      73
+# |TYPE||origin| |direction(unit)| 	|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)| |bump_map texture xpm| |texture image xpm|
+ qd	    0,0,0			0,0,1		   4		1		0		-4	  0			0		10		200,110,200	       0.3                      73  ./bumpmap_texture/textile.xpm ./bumpmap_texture/world_map.xpm
