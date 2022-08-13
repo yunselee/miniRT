@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 12:22:35 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/13 16:04:11 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv)
 	transform = get_transformation_mat(get_scene()->cam->dir);
 	transform_to_cam_cord(get_scene(), transform);
 	print_info_scene();
-	mlx_start(1920, 1080, argv[1]);
+	mlx_start(1920 / 2, 1080 / 2, argv[1]);
 	scene_destroy();
 	return (0);
 }
