@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:06:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 15:42:29 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/14 00:51:48 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_vec3	v3_sub(t_vec3 a, t_vec3 b)
 	return (*p);
 }
 
-t_vec3	v3_mul(t_vec3 a, float const s)
+t_vec3	v3_mul(t_vec3 a, float s)
 {
 	const t_vec3	n = {a.x * s, a.y * s, a.z * s, 0};
 

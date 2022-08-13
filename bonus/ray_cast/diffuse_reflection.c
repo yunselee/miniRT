@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:22:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 12:18:52 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/14 01:09:49 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static float	diffuse_helper(t_quadrics *objlst, \
 							t_light *target_light, \
 							t_vec3 normal, \
-							t_vec3 intersection)
+							t_vec3 hit_point)
 {
 	t_quadrics	*target_obj;
 	t_vec3		dir_to_light;
@@ -26,9 +26,9 @@ static float	diffuse_helper(t_quadrics *objlst, \
 	double		dist[3];
 
 	dist[0] = INFINITY;
-	dir_to_light = v3_sub(target_light->o, intersection);
+	dir_to_light = v3_sub(target_light->o, hit_point);
 	ray_to_light.dir = v3_normalize(dir_to_light);
-	ray_to_light.org = intersection;
+	ray_to_light.org = hit_point;
 	target_obj = objlst;
 	while (target_obj)
 	{
@@ -47,20 +47,21 @@ static float	diffuse_helper(t_quadrics *objlst, \
 t_color	diffuse_light(const t_scene *scene, \
 					t_quadrics *hit_obj, \
 					t_vec3 normal, \
-					t_vec3 intersection)
+					t_vec3 hit_point)
 {
 	t_light	*light;
 	t_color	color;
 	t_color	clr_tmp;
 	float	diffuse;
 
-	intersection = v3_add(intersection, v3_mul(normal, EPSILON));
+	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
 	color = rgb_color(0, 0, 0);
-	clr_tmp = color_disruption(hit_obj, intersection);
+	clr_tmp = get_texture_color(hit_obj, &hit_obj->texture, hit_point);
+	clr_tmp = color_disruption(hit_obj, hit_point, clr_tmp);
 	light = scene->light;
 	while (light != NULL)
 	{
-		diffuse = diffuse_helper(scene->quads, light, normal, intersection);
+		diffuse = diffuse_helper(scene->quads, light, normal, hit_point);
 		if (diffuse > EPSILON)
 		{
 			clr_tmp.red = roundf((float)light->color.red / 255 * clr_tmp.red);

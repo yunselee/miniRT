@@ -6,14 +6,14 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:48:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 12:26:52 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/13 17:07:34 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef QUADRICS_H
 # define QUADRICS_H
 # include "quadrics_type.h"
-# include "scene.h"
+# include "scene_type.h"
 # include "ray_cast.h"
 
 typedef struct s_float_sol

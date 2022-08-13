@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 19:00:49 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/11 21:27:27 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/13 17:09:00 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@ enum e_type
 	E_CYLINDER,
 	E_CONE
 };
-
-typedef struct s_ray
-{
-	t_vec3	org;
-	t_vec3	dir;
-}	t_ray;
-
 typedef struct s_object_base
 {
 	t_vec3						o;

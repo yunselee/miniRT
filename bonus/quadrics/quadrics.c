@@ -6,12 +6,13 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 11:31:09 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/13 17:20:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <math.h>
+#include <mlx.h>
 #include "libft.h"
 #include "quadrics.h"
 #include "in_parsing.h"
@@ -90,6 +91,12 @@ void	free_quadlist(t_quadrics *quad_list)
 	while (curr)
 	{
 		next = curr -> next;
+		// if (curr->bumpmap)
+		// 	mlx_destroy_image(get_mlx(), curr->bumpmap->img);
+		// if (curr->texture)
+		// 	mlx_destroy_image(get_mlx(), curr->texture->img);
+		// free(curr->bumpmap);
+		// free(curr->texture);
 		free(curr);
 		curr = next;
 	}

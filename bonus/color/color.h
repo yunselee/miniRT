@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 22:52:54 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 12:30:21 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/14 01:08:01 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_color			color_scale(t_color c1, double s);
 
 unsigned int	color_to_hex(t_color color);
 
-t_color			color_disruption(const t_quadrics	*Q, t_vec3 point_from_cam);
+t_color			color_disruption(const t_quadrics	*Q, t_vec3 point_from_cam, t_color obj_color);
+
+t_color 		get_texture_color(const t_quadrics *Q, const t_xpm *texture, t_vec point);
 
 #endif

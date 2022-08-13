@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 17:24:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 17:28:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/13 17:14:23 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_image
 	int		line;
 	int		endian;
 }	t_image;
+
 
 typedef struct s_mlx
 {

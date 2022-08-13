@@ -6,15 +6,15 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 12:26:39 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/13 17:10:17 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
 # include "../Libft_vector/matrix33.h"
-# include "color.h"
-# include "objects.h"
+# include "scene_type.h"
+# include "color_type.h"
 # include "quadrics_type.h"
 
 # ifndef TRUE
@@ -25,34 +25,6 @@
 # endif
 
 # define EPSILON (0.001)
-
-typedef struct s_light	t_light;
-struct s_light
-{
-	t_vec3	o;
-	float	bright;
-	t_color	color;
-	t_light	*next;
-};
-
-typedef struct s_cam
-{
-	t_vec3	pos;
-	t_vec3	dir;
-	float	hfov;
-}	t_cam;
-
-typedef struct s_scene
-{
-	float		ambient_ratio;
-	t_color		ambient_color;
-	t_cam		*cam;
-	t_mat33		global;
-	t_light		*light;
-	t_obj_base	*obj;
-	t_quadrics	*quads;
-}	t_scene;
-
 
 //t_scene	*create_empty_scene(void);
 int		scene_init(const char *filename);

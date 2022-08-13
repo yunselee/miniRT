@@ -2,7 +2,6 @@
 #include "color.h"
 #include <math.h>
 #include <stdlib.h>
-#include "objects.h"
 #include "ray_cast.h"
 #include <assert.h>
 

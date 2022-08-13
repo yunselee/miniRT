@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 16:44:00 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/13 18:00:49 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,24 @@ int	init_mlx(unsigned int width, \
 	return (TRUE);
 }
 
+#include <stdio.h>
 void	destroy_mlx()
 {
 	t_mlx *mlx;
 
+	printf("\033[3;36m");
+	printf("\tdestroying mlx\n");
 	mlx = get_mlx();
 	mlx->selected_quad = NULL;
 	mlx->selected_light = NULL;
+	printf("\tdestroying scene\n");
 	scene_destroy();
+	printf("\tdestroying mlx_image\n");
 	mlx_destroy_image(mlx->mlx, mlx->image->img);
+	printf("\tdestroying mlx_window\n");
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	free(mlx->image);
+	printf("\tDone\033[0m\n");
 	system("leaks miniRT");
 }
 
@@ -76,14 +83,19 @@ void	run_mlx( void )
 {
 	t_mlx	*mlx;
 
+	printf("\033[3;32m\tRUN MLX\033[0m\n");
 	mlx = get_mlx();
+	printf("\033[3;32m\tRay Cast\033[0m\n");
 	ray_cast(mlx);
+	printf("\033[3;32m\tPut image\033[0m\n");
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
+	printf("\033[3;32m\tSetting Hooks\033[0m\n");
 	mlx_hook(mlx->win, 17, 0, destroy, mlx);
 	mlx_hook(mlx->win, 2, (1L << 0), keydown, mlx);
 	mlx_hook(mlx->win, 4, (1L << 2), mousedown, mlx);
 	mlx_hook(mlx->win, 5, (1L << 3), mouseup, mlx);
 	mlx_hook(mlx->win, 6, (1L << 6), mousemove, mlx);
+	printf("\033[3;32m\tLoop start\033[0m\n");
 	time_check_end_all();
 	mlx_loop(mlx->mlx);
 }

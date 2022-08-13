@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 16:44:26 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/13 18:01:22 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "timer.h"
 #include "scene.h"
 
-// #include <stdlib.h>
+#include <stdlib.h>
 static t_mat33	get_transformation_mat(t_vec3 k)
 {
 	t_vec3	u;
@@ -72,7 +72,7 @@ int	main(int argc, char **argv)
 		printf("Failed\n");
 		return (1);
 	}
-	printf("Done\nConfiguring miniRT scenes... : ");
+	printf("Done\nConfiguring miniRT scenes... :\n");
 	if (scene_init(argv[1]) == FALSE)
 	{
 		printf("\n\033[3;31mError\n\tFail to read file\033[0m\n");
@@ -80,12 +80,14 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	printf("Done\n");
-	printf("\033[1;33m==============MINI_RT SCENE INFOs==============\033[0m\n");
+	printf("\033[1;33m==============MINI_RT SCENE INFOs(global)==============\033[0m\n");
 	print_info_scene();
 	transform = get_transformation_mat(get_scene()->cam->dir);
 	transform_to_cam_cord(get_scene(), transform);
+	printf("\033[1;33m==============MINI_RT SCENE INFOs(camera)==============\033[0m\n");
 	print_info_scene();
 	run_mlx();
+	system("leaks miniRT");
 	scene_destroy();
 	return (0);
 }

@@ -25,6 +25,10 @@
         "memory": "c",
         "string": "c",
         "unordered_map": "c",
-        "vector": "c"
+        "vector": "c",
+        "scene_type.h": "c",
+        "quadrics_type.h": "c",
+        "color_type.h": "c",
+        "smmintrin.h": "c"
     }
 }

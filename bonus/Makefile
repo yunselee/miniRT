@@ -16,7 +16,6 @@ INCS_DIR		= 	-I ./library/LIBFT \
 					-I ./scene \
 					-I ./color \
 					-I ./ray_cast \
-					-I ./objects \
 					-I ./timer \
 					-I ./quadrics
 
@@ -26,7 +25,6 @@ SRCS_DIR		= 	./ \
 					./print_info \
 					./mlx_hook \
 					./scene \
-					./objects \
 					./timer \
 					./quadrics
 
@@ -42,6 +40,7 @@ SRCS			= 	main.c \
 					\
 					color.c \
 					color_disruption.c \
+					get_texture_color.c \
 					\
 					print_scene.c \
 					print_scene2.c \
