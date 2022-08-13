@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 16:02:41 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/13 16:43:59 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ typedef struct s_mlx
 	unsigned int	edit;
 	unsigned int	height;
 	unsigned int	clicked;
-	int				last[2];
+	int				prev_pixel[2];
 }					t_mlx;
 
-void	init_mlx(unsigned int width, \
+int		init_mlx(unsigned int width, \
 					unsigned int height, char *filename );
 
 void	destroy_mlx();
@@ -59,8 +59,7 @@ void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 
 void	ft_mlx_set_image_background(t_mlx *mlx);
 
-void	mlx_start(unsigned int width, \
-					unsigned int height, char *name);
+void	run_mlx( void );
 
 /*===MLX EVENT====*/
 void	mlx_renew_image(t_mlx *mlx);

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 01:53:50 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/13 16:44:00 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 	*(unsigned int *)dst = color;
 }
 
-void	init_mlx(unsigned int width, \
+int	init_mlx(unsigned int width, \
 					unsigned int height, char *filename )
 {
 	t_mlx	*mlx;
@@ -42,9 +42,7 @@ void	init_mlx(unsigned int width, \
 	mlx = get_mlx();
 	mlx->image = malloc(sizeof(t_image));
 	if (mlx->image == NULL)
-	{
-		return ;
-	}
+		return (FALSE);
 	mlx->mlx = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx, width, height, filename);
 	mlx->image->img = mlx_new_image(mlx->mlx, width, height);
@@ -57,6 +55,7 @@ void	init_mlx(unsigned int width, \
 	mlx->edit = 0;
 	mlx->target_scene = E_NONE;
 	mlx->clicked = 0;
+	return (TRUE);
 }
 
 void	destroy_mlx()
@@ -73,13 +72,10 @@ void	destroy_mlx()
 	system("leaks miniRT");
 }
 
-void	mlx_start(unsigned int width, \
-					unsigned int height, \
-					char *name)
+void	run_mlx( void )
 {
 	t_mlx	*mlx;
 
-	init_mlx(width, height, name);
 	mlx = get_mlx();
 	ray_cast(mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);

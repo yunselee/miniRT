@@ -1,0 +1,30 @@
+{
+    "files.associations": {
+        "__locale": "cpp",
+        "vector3.h": "c",
+        "objects.h": "c",
+        "libft.h": "c",
+        "in_parsing.h": "c",
+        "scene.h": "c",
+        "quadrics.h": "c",
+        "transform.h": "c",
+        "matrix44.h": "c",
+        "mlx_part.h": "c",
+        "stdio.h": "c",
+        "ray_cast.h": "c",
+        "print_info.h": "c",
+        "color.h": "c",
+        "mlx.h": "c",
+        "__bit_reference": "c",
+        "__hash_table": "c",
+        "algorithm": "c",
+        "bitset": "c",
+        "chrono": "c",
+        "iterator": "c",
+        "locale": "c",
+        "memory": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "vector": "c"
+    }
+}
