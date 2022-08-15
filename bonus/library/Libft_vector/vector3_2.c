@@ -6,15 +6,13 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:06:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/14 00:51:48 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/15 13:47:49 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector3.h"
 #include <stdlib.h>
 #include <math.h>
-#include <stdio.h>
-#include <assert.h>
 #include <smmintrin.h>
 
 
@@ -63,7 +61,7 @@ t_vec3	v3_crs(t_vec3 a, t_vec3 b)
 
 int	v3_isnull(t_vec3 a)
 {
-	if (a.x == 0 && a.y == 0 && a.z == 0)
+	if (fabsf(a.x) < 0.001 && fabsf(a.y) < 0.001 && fabsf(a.z) < 0.001)
 		return (TRUE);
 	return (FALSE);
 }

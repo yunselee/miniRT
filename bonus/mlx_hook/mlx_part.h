@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 16:43:59 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/15 12:29:32 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,6 @@
 # include "scene.h"
 
 # define BACKGROUND (0X222222)
-
-enum e_target
-{
-	E_NONE = 0,
-	E_LIGHT,
-	E_CAM,
-	E_OBJ
-};
-
-typedef struct s_image
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line;
-	int		endian;
-}	t_image;
-
-typedef struct s_mlx
-{
-	void			*mlx;
-	void			*win;
-	t_image			*image;
-	t_quadrics		*selected_quad;
-	t_light			*selected_light;
-	enum e_target	target_scene;
-	unsigned int	width;
-	unsigned int	edit;
-	unsigned int	height;
-	unsigned int	clicked;
-	int				prev_pixel[2];
-}					t_mlx;
 
 int		init_mlx(unsigned int width, \
 					unsigned int height, char *filename );

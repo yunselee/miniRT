@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:20:28 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 19:15:56 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/15 12:35:38 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	print_single_quadrics(const t_quadrics *Q)
 	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", red, green, blue);
 	printf(" : r: %d g: %d b: %d\n", red, green, blue);
 	printf("\tspecular factors : Rs : %.2f Ns : %d\n\n", Q->spec_rs, Q->spec_ns);
-	if (Q->bumpmap.img)
+	if (Q->bumpmap.img.img)
 		printf("\t  bump map -> width : %d, height : %d\n", Q->bumpmap.img_width, Q->bumpmap.img_height);
-	if (Q->texture.img)
+	if (Q->texture.img.img)
 		printf("\t  texture  -> width : %d, height : %d\n", Q->texture.img_width, Q->texture.img_height);
 }
 

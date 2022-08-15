@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 17:20:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/15 13:50:55 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int	init_quadrics(t_scene *outscene, char **single_scene)
 	quadric = NULL;
 	if (ft_strncmp(single_scene[0], "pl", 3) == 0)
 		quadric = case_quad_plane(single_scene);
-	else if (ft_strncmp(single_scene[0], "sp", 3) == 0)
-		quadric = case_quad_sphere(single_scene);
 	else if (ft_strncmp(single_scene[0], "qd", 3) == 0)
 		quadric = case_quadrics(single_scene);
 	else

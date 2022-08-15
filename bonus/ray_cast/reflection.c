@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/14 01:09:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/15 15:50:50 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,39 +47,29 @@ static t_color	ambient_light(const t_quadrics *hit_obj, \
 	return (c);
 }
 
-#include <stdio.h>
-static t_vec3	bump_map(const t_quadrics *Q, t_vec3 hit_point, t_vec3 normal)
+static t_vec3	apply_bump_map(const t_quadrics *Q, t_vec3 hit_point, t_vec3 normal)
 {
 	t_color	color;
 	t_vec3	bump_vec;
 	t_vec3	temp_uv[2];
 	t_vec3	temp_normal[3];
-	static int i = 0;
 
-	if (Q->bumpmap.img == NULL)
+	if (Q->bumpmap.img.img == NULL)
 		return (normal);
 	color = get_texture_color(Q, &Q->bumpmap, hit_point);
 	bump_vec = make_v3((float)color.red, (float)color.green, (float)color.blue);
-	if (i == 0)
-	{
-		printf("color : %d %d %d\n", color.red, color.green, color.blue);
-		printf("current normal : %f %f %f\n", normal.x, normal.y, normal.z);
-		printf("normal_vec : %f %f %f\n", bump_vec.x, bump_vec.y, bump_vec.z);
-	}
 	bump_vec = v3_mul(bump_vec, (float)2 / 255);
-	if (i == 0)
-		printf("normal_vec : %f %f %f\n", bump_vec.x, bump_vec.y, bump_vec.z);
 	bump_vec = v3_sub(bump_vec, make_v3(1, 1, 1));
-	if (i == 0)
-		printf("normal_vec : %f %f %f\n", bump_vec.x, bump_vec.y, bump_vec.z);
-	temp_uv[0] = v3_normalize(v3_crs(normal, Q->dir));
-	temp_uv[1] = v3_normalize(v3_crs(normal, temp_uv[1]));
+	temp_uv[0] = v3_normalize(v3_crs(Q->dir, normal));
+	if (v3_isnull(temp_uv[0]) == TRUE)
+	// if (Q->type == Q_PLANE)
+		temp_uv[0] = Q->tan;
+	temp_uv[1] = v3_normalize(v3_crs(normal, temp_uv[0]));
 	temp_normal[0] = v3_mul(temp_uv[0], bump_vec.x);
 	temp_normal[1] = v3_mul(temp_uv[1], bump_vec.y);
 	temp_normal[2] = v3_mul(normal, bump_vec.z);
 	normal = v3_add(temp_normal[0], temp_normal[1]);
 	normal = v3_normalize(v3_add(normal, temp_normal[2]));
-	i++;
 	return (normal);
 }
 
@@ -97,8 +87,8 @@ t_color	phong_reflection(t_mlx *mlx, \
 		return (ambient_light(hit_obj, scene->ambient_color, \
 								0.8, hit_point));
 	normal = quad_normal_vector(hit_obj, hit_point, view_point);
-	normal = bump_map(hit_obj, hit_point, normal);
 	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
+	normal = apply_bump_map(hit_obj, hit_point, normal);
 	radiosity[0] = ambient_light(hit_obj, \
 								scene->ambient_color, \
 								scene->ambient_ratio, \

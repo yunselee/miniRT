@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 01:46:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/14 00:37:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/15 14:30:41 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,46 +15,47 @@
 #include "quadrics.h"
 #include "in_parsing.h"
 
+static int	take_texture_files(t_quadrics *Q, char** quad_info)
+{
+	t_xpm	*xpm;
+	int		i;
+	
+	Q->bumpmap.img.img = NULL;
+	Q->texture.img.img = NULL;
+	xpm = &(Q->bumpmap);
+	i = -1;
+	while (quad_info[++i] && i < 2)
+	{
+		if (ft_strncmp(quad_info[0], "NULL", 5) == 0)
+		{
+			xpm = &(Q->texture);
+			continue ;
+		}
+		xpm->img.img = mlx_xpm_file_to_image((get_mlx())->mlx, quad_info[i], \
+										&(xpm->img_width), &(xpm->img_height));
+		if (xpm->img.img == NULL)
+			return (FALSE);
+		xpm->img.addr = mlx_get_data_addr(xpm->img.img, &xpm->img.bpp, \
+										&xpm->img.line, &xpm->img.endian);
+		if (xpm->img.addr == NULL)
+			return (FALSE);
+		xpm = &(Q->texture);
+	}
+	return (TRUE);
+}
 
-#include <stdio.h>
-// z = 0
-t_quadrics	*case_quad_plane(char **single_scene)
+t_quadrics	*case_quad_plane(char **quad_info)
 {
 	t_quadrics	*newquad;
-	int res;
 
-	res = TRUE;
-	if (ft_strsetlen(single_scene) < 6 || ft_strsetlen(single_scene) > 8)
-		return (NULL);
 	newquad = ft_calloc(1, sizeof(t_quadrics));
-	if ((str_to_vec3(single_scene[1], &newquad->org) == FALSE) \
-		|| (str_to_vec3(single_scene[2], &newquad->dir) == FALSE) \
-		|| (str_to_color(single_scene[3], &newquad->color) == FALSE) \
-		|| (ft_strtof(single_scene[4], &newquad->spec_rs) == FALSE) \
-		|| (ft_strtoi(single_scene[5], &newquad->spec_ns) == FALSE))
-		res = FALSE;
-	newquad->bumpmap.img = NULL;
-	newquad->texture.img = NULL;
-	t_mlx *mlx = get_mlx();
-	if ((res == TRUE) && (ft_strsetlen(single_scene) > 6) && (ft_strncmp(single_scene[6], "NULL", 5) != 0))
-	{
-		newquad->bumpmap.img = mlx_xpm_file_to_image(mlx->mlx, single_scene[6], &(newquad->bumpmap.img_width), &(newquad->bumpmap.img_height));
-		if (newquad->bumpmap.img == NULL)
-			res = FALSE;
-		newquad->bumpmap.addr = (int *)mlx_get_data_addr(newquad->bumpmap.img, &newquad->bumpmap.bpp, &newquad->bumpmap.line, &newquad->bumpmap.endian);
-		if (newquad->bumpmap.addr == NULL)
-			res = FALSE;
-	}
-	if ((res == TRUE) && (ft_strsetlen(single_scene) > 7))
-	{
-		newquad->texture.img = mlx_xpm_file_to_image(mlx->mlx, single_scene[7], &(newquad->texture.img_width), &(newquad->texture.img_height));
-		if (newquad->texture.img == NULL)
-			res = FALSE;
-		newquad->texture.addr = (int *)mlx_get_data_addr(newquad->texture.img, &(newquad->texture.bpp), &(newquad->texture.line), &(newquad->texture.endian));
-		if (newquad->texture.addr == NULL)
-			res = FALSE;
-	}
-	if (res == FALSE)
+	if (((ft_strsetlen(quad_info) < 6) || (ft_strsetlen(quad_info) > 8) ) \
+		|| (str_to_vec3(quad_info[1], &newquad->org) == FALSE) \
+		|| (str_to_vec3(quad_info[2], &newquad->dir) == FALSE) \
+		|| (str_to_color(quad_info[3], &newquad->color) == FALSE) \
+		|| (ft_strtof(quad_info[4], &newquad->spec_rs) == FALSE) \
+		|| (ft_strtoi(quad_info[5], &newquad->spec_ns) == FALSE) \
+		|| (take_texture_files(newquad, quad_info + 6) == FALSE))
 	{
 		free_quadlist(newquad);
 		return (NULL);
@@ -62,35 +63,6 @@ t_quadrics	*case_quad_plane(char **single_scene)
 	newquad->type = Q_PLANE;
 	newquad->coefs.col3.w = 1;
 	newquad->coefs.col4.z = 1;
-	return (newquad);
-}
-
-// x^2 + y^2 + z^2 - r^2 = 0
-t_quadrics	*case_quad_sphere(char **single_scene)
-{
-	t_quadrics	*newquad;
-
-	if (ft_strsetlen(single_scene) != 6)
-		return (NULL);
-	newquad = ft_calloc(1, sizeof(t_quadrics));
-	if ((str_to_vec3(single_scene[1], &newquad->org) == FALSE) \
-		|| (ft_strtof(single_scene[2], &newquad->coefs.col4.w) == FALSE) \
-		|| (str_to_color(single_scene[3], &newquad->color) == FALSE) \
-		|| (ft_strtof(single_scene[4], &newquad->spec_rs) == FALSE) \
-		|| (ft_strtoi(single_scene[5], &newquad->spec_ns) == FALSE))
-	{
-		free(newquad);
-		return (NULL);
-	}
-	newquad->type = Q_QUADRICS;
-	newquad->dir = make_v3(0, 0, 1);
-	newquad->coefs.col4.w /= 2;
-	newquad->range_z[0] = -newquad->coefs.col4.w;
-	newquad->range_z[1] = newquad->coefs.col4.w;
-	newquad->coefs.col4.w *= -newquad->coefs.col4.w;
-	newquad->coefs.col1.x = 1;
-	newquad->coefs.col2.y = 1;
-	newquad->coefs.col3.z = 1;
 	return (newquad);
 }
 
@@ -110,50 +82,27 @@ static void	fill_quad_matrix(t_mat44 *mat, float coef[5])
 	mat->col4 = make_v4(0, 0, coef[3], coef[4]);
 }
 
-t_quadrics	*case_quadrics(char **single_scene)
+t_quadrics	*case_quadrics(char **quad_info)
 {
 	t_quadrics	*newquad;
-	int			res;
 	float		coef[5];
 
-	res = TRUE;
 	newquad = ft_calloc(1, sizeof(t_quadrics));
 	newquad->type = Q_QUADRICS;
-	printf("strsetlen : %d\n", ft_strsetlen(single_scene));
-	if (((ft_strsetlen(single_scene) < 13) || (ft_strsetlen(single_scene) > 15) ) \
-	|| (str_to_vec3(single_scene[1], &newquad->org) == FALSE) \
-	|| (str_to_vec3(single_scene[2], &newquad->dir) == FALSE) \
-	|| (ft_strtof(single_scene[3], coef + 0) == FALSE) \
-	|| (ft_strtof(single_scene[4], coef + 1) == FALSE) \
-	|| (ft_strtof(single_scene[5], coef + 2) == FALSE) \
-	|| (ft_strtof(single_scene[6], coef + 3) == FALSE) \
-	|| (ft_strtof(single_scene[7], coef + 4) == FALSE) \
-	|| (ft_strtof(single_scene[8], newquad->range_z) == FALSE) \
-	|| (ft_strtof(single_scene[9], newquad->range_z + 1) == FALSE) \
-	|| (str_to_color(single_scene[10], &newquad->color) == FALSE) \
-	|| (ft_strtof(single_scene[11], &newquad->spec_rs) == FALSE) \
-	|| (ft_strtoi(single_scene[12], &newquad->spec_ns) == FALSE))
-		res = FALSE;
-	newquad->bumpmap.img = NULL;
-	newquad->texture.img = NULL;
-	t_mlx *mlx = get_mlx();
-	if ((res == TRUE) && (ft_strsetlen(single_scene) > 13) && (ft_strncmp(single_scene[13], "NULL", 5) != 0))
-	{
-		printf("XPM filename : <%s>\n", single_scene[13]);
-		newquad->bumpmap.img = mlx_xpm_file_to_image(mlx->mlx, single_scene[13], &(newquad->bumpmap.img_width), &(newquad->bumpmap.img_height));
-		if (newquad->bumpmap.img == NULL)
-			res = FALSE;
-		newquad->bumpmap.addr = (int *)mlx_get_data_addr(newquad->bumpmap.img, &newquad->bumpmap.bpp, &newquad->bumpmap.line, &newquad->bumpmap.endian);
-	}
-	if ((res == TRUE) && (ft_strsetlen(single_scene) > 14))
-	{
-		printf("XPM filename : <%s>\n", single_scene[14]);
-		newquad->texture.img = mlx_xpm_file_to_image(mlx->mlx, single_scene[14], &(newquad->texture.img_width), &(newquad->texture.img_height));
-		if (newquad->texture.img == NULL)
-			res = FALSE;
-		newquad->texture.addr = (int *)mlx_get_data_addr(newquad->texture.img, &(newquad->texture.bpp), &(newquad->texture.line), &(newquad->texture.endian));
-	}
-	if (res == FALSE)
+	if (((ft_strsetlen(quad_info) < 13) || (ft_strsetlen(quad_info) > 15) ) \
+		|| (str_to_vec3(quad_info[1], &newquad->org) == FALSE) \
+		|| (str_to_vec3(quad_info[2], &newquad->dir) == FALSE) \
+		|| (ft_strtof(quad_info[3], coef + 0) == FALSE) \
+		|| (ft_strtof(quad_info[4], coef + 1) == FALSE) \
+		|| (ft_strtof(quad_info[5], coef + 2) == FALSE) \
+		|| (ft_strtof(quad_info[6], coef + 3) == FALSE) \
+		|| (ft_strtof(quad_info[7], coef + 4) == FALSE) \
+		|| (ft_strtof(quad_info[8], newquad->range_z) == FALSE) \
+		|| (ft_strtof(quad_info[9], newquad->range_z + 1) == FALSE) \
+		|| (str_to_color(quad_info[10], &newquad->color) == FALSE) \
+		|| (ft_strtof(quad_info[11], &newquad->spec_rs) == FALSE) \
+		|| (ft_strtoi(quad_info[12], &newquad->spec_ns) == FALSE) \
+		|| (take_texture_files(newquad, quad_info + 13) == FALSE))
 	{
 		free_quadlist(newquad);
 		return (NULL);

@@ -6,13 +6,14 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 12:24:30 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 22:30:20 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/15 12:27:15 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef QUADRICS_TYPE_H
 # define QUADRICS_TYPE_H
 # include "color_type.h"
+# include "mlx_type.h"
 # include "matrix44.h"
 
 typedef enum e_qtype
@@ -21,16 +22,16 @@ typedef enum e_qtype
 	Q_QUADRICS
 }	t_qtype;
 
-typedef struct s_xpm
-{
-	void	*img;
-	int		img_width;
-	int		img_height;
-	int		*addr;
-	int		bpp;
-	int		line;
-	int		endian;
-}	t_xpm;
+// typedef struct s_xpm
+// {
+// 	void	*img;
+// 	int		img_width;
+// 	int		img_height;
+// 	int		*addr;
+// 	int		bpp;
+// 	int		line;
+// 	int		endian;
+// }	t_xpm;
 
 typedef struct s_quadrics
 {

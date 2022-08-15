@@ -6,15 +6,16 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 16:58:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/14 01:45:02 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/15 12:30:38 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_TYPE_H
 # define SCENE_TYPE_H
 # include "vector3.h"
+# include "matrix33.h"
 # include "color_type.h"
-# include "quadrics_type.h"
+
 # ifndef TRUE
 #  define TRUE (1)
 # endif
@@ -46,14 +47,16 @@ typedef struct s_cam
 	float	hfov;
 }	t_cam;
 
+struct s_quadrics;
+
 typedef struct s_scene
 {
-	float		ambient_ratio;
-	t_color		ambient_color;
-	t_cam		*cam;
-	t_mat33		global;
-	t_light		*light;
-	t_quadrics	*quads;
+	float				ambient_ratio;
+	t_color				ambient_color;
+	t_cam				*cam;
+	t_mat33				global;
+	t_light				*light;
+	struct s_quadrics	*quads;
 }	t_scene;
 
 
