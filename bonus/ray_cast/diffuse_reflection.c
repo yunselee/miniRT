@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:22:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/14 01:09:49 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/15 16:28:49 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_color	diffuse_light(const t_scene *scene, \
 
 	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
 	color = rgb_color(0, 0, 0);
-	clr_tmp = get_texture_color(hit_obj, &hit_obj->texture, hit_point);
+	clr_tmp = get_texture_color(hit_obj, &(hit_obj->textures[T_TEXTURE]), hit_point);
 	clr_tmp = color_disruption(hit_obj, hit_point, clr_tmp);
 	light = scene->light;
 	while (light != NULL)

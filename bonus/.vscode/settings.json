@@ -29,6 +29,8 @@
         "scene_type.h": "c",
         "quadrics_type.h": "c",
         "color_type.h": "c",
-        "smmintrin.h": "c"
+        "smmintrin.h": "c",
+        "stdlib.h": "c",
+        "math.h": "c"
     }
 }

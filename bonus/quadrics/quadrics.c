@@ -6,10 +6,11 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/15 13:50:55 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/15 17:00:08 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <mlx.h>
@@ -84,17 +85,25 @@ void	free_quadlist(t_quadrics *quad_list)
 {
 	t_quadrics	*curr;
 	t_quadrics	*next;
+	int			i;
+
 
 	curr = quad_list;
 	while (curr)
 	{
 		next = curr -> next;
-		// if (curr->bumpmap)
-		// 	mlx_destroy_image(get_mlx(), curr->bumpmap->img);
-		// if (curr->texture)
-		// 	mlx_destroy_image(get_mlx(), curr->texture->img);
-		// free(curr->bumpmap);
-		// free(curr->texture);
+		i = -1;
+		while (++i < 3)
+		{
+			if (i == T_NORMAL)
+				printf("destroying NORMAL_MAP\n");
+			if (i == T_HEIGHT)
+				printf("destroying T_HEIGHT_MAP\n");
+			if (i == T_TEXTURE)
+				printf("destroying TEXTURE_MAP\n");
+			if ((curr->textures[i]).img.img != NULL)
+				mlx_destroy_image(get_mlx()->mlx, (curr->textures[i]).img.img);
+		}
 		free(curr);
 		curr = next;
 	}

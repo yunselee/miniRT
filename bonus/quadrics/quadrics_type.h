@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 12:24:30 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/15 12:27:15 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/15 16:23:06 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ typedef enum e_qtype
 // 	int		endian;
 // }	t_xpm;
 
+typedef enum e_texturetype
+{
+	T_NORMAL = 0,
+	T_HEIGHT,
+	T_TEXTURE,
+}	t_texturetype;
 typedef struct s_quadrics
 {
 	t_qtype				type;
@@ -45,8 +51,7 @@ typedef struct s_quadrics
 	int					spec_ns;
 	float				range_z[2];
 	int					disruption;
-	t_xpm				bumpmap;
-	t_xpm				texture;
+	t_xpm				textures[3];
 	struct s_quadrics	*next;
 }	t_quadrics;
 

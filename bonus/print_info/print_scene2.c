@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:20:28 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/15 12:35:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/15 16:43:10 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,34 +28,28 @@ static void	print_mat44(const t_mat44 *M)
 
 void	print_single_quadrics(const t_quadrics *Q)
 {
-	int	red;
-	int	green;
-	int	blue;
+	const int	rgb[3] = {Q->color.red, Q->color.green, Q->color.blue};
 
-	red = Q->color.red;
-	green = Q->color.green;
-	blue = Q->color.blue;
 	if (Q->type == Q_PLANE)
 		printf("type : PLANE\n");
 	else
 		printf("type : QUADRICS\n");
-	printf("\torg : [%3.4f, %3.4f, %3.4f]\n", Q->org.x \
-											, Q->org.y \
-											, Q->org.z);
-	printf("\tnormal : [%3.4f, %3.4f, %3.4f]\n", Q->dir.x \
-												, Q->dir.y \
-												, Q->dir.z);
-	printf("\ttangential : [%3.4f, %3.4f, %3.4f]\n", Q->tan.x \
-												, Q->tan.y \
-												, Q->tan.z);
+	printf("\torg : [%.4f, %.4f, %.4f]\n", Q->org.x, Q->org.y, Q->org.z);
+	printf("\tnormal : [%.4f, %.4f, %.4f]\n", Q->dir.x, Q->dir.y, Q->dir.z);
+	printf("\ttangential : [%.4f, %.4f, %.4f]\n", Q->tan.x, Q->tan.y, Q->tan.z);
 	print_mat44(&Q->coefs);
-	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", red, green, blue);
-	printf(" : r: %d g: %d b: %d\n", red, green, blue);
+	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", rgb[0], rgb[1], rgb[2]);
+	printf(" : r: %d g: %d b: %d\n", rgb[0], rgb[1], rgb[2]);
 	printf("\tspecular factors : Rs : %.2f Ns : %d\n\n", Q->spec_rs, Q->spec_ns);
-	if (Q->bumpmap.img.img)
-		printf("\t  bump map -> width : %d, height : %d\n", Q->bumpmap.img_width, Q->bumpmap.img_height);
-	if (Q->texture.img.img)
-		printf("\t  texture  -> width : %d, height : %d\n", Q->texture.img_width, Q->texture.img_height);
+	if (Q->textures[T_NORMAL].img.img)
+		printf("\t  normal map -> width : %d, height : %d\n", \
+		Q->textures[T_NORMAL].img_width, Q->textures[T_NORMAL].img_height);
+	if (Q->textures[T_HEIGHT].img.img)
+		printf("\t  texture  -> width : %d, height : %d\n", \
+		Q->textures[T_HEIGHT].img_width, Q->textures[T_HEIGHT].img_height);
+	if (Q->textures[T_TEXTURE].img.img)
+		printf("\t  texture  -> width : %d, height : %d\n", \
+		Q->textures[T_TEXTURE].img_width, Q->textures[T_TEXTURE].img_height);
 }
 
 void	print_info_quads(const t_quadrics *Qlst)
