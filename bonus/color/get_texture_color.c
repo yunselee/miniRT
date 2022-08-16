@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "color.h"
-#include "quadrics_type.h"
+#include "quadrics.h"
 
 static t_color	int_to_color(int int_color)
 {

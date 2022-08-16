@@ -23,7 +23,7 @@ static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
 	{
 		s[1] = -1;
 		while (++s[1] < (mlx->edit + 1))
-			ft_mlx_set_pixel_color(mlx->image, x + s[0], y + s[1], color);
+			ft_mlx_set_pixel_color(&(mlx->image), x + s[0], y + s[1], color);
 	}
 }
 

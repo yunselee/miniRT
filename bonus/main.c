@@ -67,7 +67,7 @@ int	main(int argc, char **argv)
 			4. mlx와 scene이 독립적을 모두 구성되면 mlx_start혹은 run_mlx를 이용해 프로그램을 시작한다.
 	*/
 	printf("Initiating MLX... : ");
-	if (init_mlx(1920 / 2, 1080 / 2, argv[1]) == FALSE)
+	if (init_mlx(argv[1]) == FALSE)
 	{
 		printf("Failed\n");
 		return (1);

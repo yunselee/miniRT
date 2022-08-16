@@ -32,7 +32,7 @@ static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
 		dy = -1;
 		while (++dy < (mlx->edit + 1) && dy + y < WIN_HEIGHT)
 		{
-			ft_mlx_set_pixel_color(mlx->image, x + dx, y + dy, color);
+			ft_mlx_set_pixel_color(&(mlx->image), x + dx, y + dy, color);
 		}
 	}
 }
