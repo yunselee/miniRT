@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 07:05:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 17:51:52 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 21:37:03 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // return (_mm_cvtss_f32(_mm_sqrt_ps(_mm_hadd_ps(kkk, kkk))));
 t_vec3	make_v3(double const x, double const y, double const z)
 {
-	const t_vec3	new_vec3 = {x, y, z, 0};
+	const t_vec3	new_vec3 = (t_vec3){x, y, z, 0};
 
 	return (new_vec3);
 }
