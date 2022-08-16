@@ -55,8 +55,10 @@ t_vec3	v3_add(t_vec3 a, t_vec3 b)
 	const __m128			cc = *((__m128*)&a);
 	const __m128			dd = *((__m128*)&b);
 	const __m128			kk = _mm_add_ps(cc, dd);
-	const t_vec3			*p = (t_vec3*)&kk;
+	t_vec3			*p;
 
+	p = (t_vec3*)&kk;
+	p->w = 0;
 	return (*p);
 }
 

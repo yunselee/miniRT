@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "ray_cast.h"
 #include "scene.h"
-
+#include <assert.h>
 #include <stdio.h>
 
 static float	specular_helper(t_quadrics *objlst, \
@@ -30,11 +30,13 @@ static float	specular_helper(t_quadrics *objlst, \
 
 	dist[0] = INFINITY;
 	dir_to_light = v3_sub(target_light->o, hit_point);
+	dir_to_light.w = 0;
 	ray_to_light.dir = v3_normalize(dir_to_light);
 	ray_to_light.org = hit_point;
 	target_obj = objlst;
 	while (target_obj)
 	{
+		assert(ray_to_light.dir.w == 0);
 		dist[1] = find_intersection(target_obj, &ray_to_light);
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 			dist[0] = dist[1];

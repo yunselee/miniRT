@@ -13,6 +13,7 @@
 #include "quadrics.h"
 #include <math.h>
 #include <stdio.h>
+#include <assert.h>
 
 //(a)t^2 + (2b)t + (c) = 0
 static t_sols	solve_quadratic_half_eq(float a, float b, float c)
@@ -77,8 +78,9 @@ float	find_intersection(const t_quadrics *Q, const t_ray *R)
 	t_vec4	ray_org;
 	float	coefs[3];
 
-	ray_org = v4_sub(make_v4(R->org.x, R->org.y, R->org.z, 1), Q->org);
+	ray_org = v4_sub(R->org, Q->org);
 	ray_org.w = 1;
+	assert(R->dir.w == 0);
 	if (Q->type == Q_PLANE)
 		return (find_plane_intersection(Q, R));
 	coefs[0] = quadratic_form(R->dir, Q->coefs, R->dir);

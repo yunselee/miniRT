@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include "Resoloution.h"
+#include "assert.h"
 
 #define THREAD_NUM 4
 
@@ -39,6 +40,7 @@ float	get_intersect_distance(t_quadrics *objlst, \
 	target_obj = objlst;
 	while (target_obj)
 	{
+		assert(ray.org.w == 1 && ray.dir.w == 0);
 		dist[1] = find_intersection(target_obj, &ray);
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 		{

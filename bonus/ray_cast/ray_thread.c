@@ -89,7 +89,10 @@ void	*thread_routine(void *ptr)
 		{
 			ray.dir = v3_normalize(make_v3((int)(tlo->x + pixel[0] - WIN_WIDTH / 2), \
 										(int)(tlo->y + pixel[1] - WIN_HEIGHT / 2), d));
+			assert(ray.dir.w == 0);
 			ray.org = get_scene()->cam->pos;
+			ray.org.w = 1;
+			assert(ray.dir.w == 0 && ray.org.w == 1);
 			color = single_ray_cast(mlx, ray);
 			ft_fill_pixel(mlx, tlo->x + pixel[0], tlo->y + pixel[1], color_to_hex(color));
 			pixel[0] += (mlx->edit + 1);
