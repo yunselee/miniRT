@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:20:28 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/15 16:43:10 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 15:26:40 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	print_single_quadrics(const t_quadrics *Q)
 	printf("\torg : [%.4f, %.4f, %.4f]\n", Q->org.x, Q->org.y, Q->org.z);
 	printf("\tnormal : [%.4f, %.4f, %.4f]\n", Q->dir.x, Q->dir.y, Q->dir.z);
 	printf("\ttangential : [%.4f, %.4f, %.4f]\n", Q->tan.x, Q->tan.y, Q->tan.z);
+	printf("\theight_range : %f ~ %f\n", Q->range_z[0], Q->range_z[1]);
 	print_mat44(&Q->coefs);
 	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", rgb[0], rgb[1], rgb[2]);
 	printf(" : r: %d g: %d b: %d\n", rgb[0], rgb[1], rgb[2]);

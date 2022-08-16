@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:11:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:07:52 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 15:42:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	print_single_light(const t_light *light)
 
 void	print_info_light(const t_light *light)
 {
-	if (light != NULL)
+	while (light != NULL)
 	{
 		print_single_light(light);
 		light = light->next;

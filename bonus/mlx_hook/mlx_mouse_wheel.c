@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 13:24:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:01:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 15:36:30 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	wheel_object(t_quadrics *obj, int keycode)
 	double	stride;
 	t_mat44	mat;
 
-	stride = 0.05;
+	stride = 0.1;
 	if (obj == NULL || obj->type == Q_PLANE)
 		return (FALSE);
 	if (keycode == 5)
@@ -47,11 +47,12 @@ static int	wheel_object(t_quadrics *obj, int keycode)
 	else
 		stride = 1 + stride;
 	stride = 1 / stride;
-	mat.col1 = make_v4(stride, 0, 0, 0);
-	mat.col2 = make_v4(0, stride, 0, 0);
-	mat.col3 = make_v4(0, 0, stride, 0);
-	mat.col4 = make_v4(0, 0, 0, 1);
-	if (obj->range_z[0] < EPSILON || obj->range_z[1] > EPSILON)
+	mat.col1 = make_v4(1, 0, 0, 0);
+	mat.col2 = make_v4(0, 1, 0, 0);
+	mat.col3 = make_v4(0, 0, 1, 0);
+	mat.col4 = make_v4(0, 0, 0, 1 / stride);
+	
+	if (obj->range_z[1] - obj->range_z[0] > EPSILON)
 	{
 		obj->range_z[0] /= stride;
 		obj->range_z[1] /= stride;
