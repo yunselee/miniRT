@@ -17,8 +17,7 @@
 
 # define BACKGROUND (0X222222)
 
-int		init_mlx(unsigned int width, \
-					unsigned int height, char *filename );
+int		init_mlx(char *filename );
 
 void	destroy_mlx();
 

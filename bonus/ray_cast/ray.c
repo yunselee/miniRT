@@ -22,6 +22,7 @@
 #include "timer.h"
 #include <unistd.h>
 #include <pthread.h>
+#include "Resoloution.h"
 
 #define THREAD_NUM 4
 
@@ -61,8 +62,8 @@ static void	init_thread_local_object(t_thread_local_object *tlo, t_mlx *mlx)
 	while (i < THREAD_NUM)
 	{
 		(tlo + i)->mlx = mlx;
-		(tlo + i)->x = mlx->width / 2 * (i / 2);
-		(tlo + i)->y = mlx->height / 2 * (i % 2);
+		(tlo + i)->x = WIN_WIDTH / 2 * (i / 2);
+		(tlo + i)->y = WIN_HEIGHT / 2 * (i % 2);
 		i++;
 	}
 }
@@ -91,12 +92,12 @@ static void	ray_multithread(t_mlx *mlx)
 
 void	ray_cast(t_mlx *mlx)
 {
-	double			d;
+	double	cam_proportion;
 
-	d = ((float)mlx->width / 2) / tan(get_scene()->cam->hfov / 2);
+	cam_proportion = (WIN_WIDTH / 2) / tan(get_scene()->cam->hfov / 2);
 	time_check_start_sub();
 	ray_multithread(mlx);
 	if (mlx->edit != 0 && mlx->target_scene != E_NONE)
-		render_lightsource(mlx, d);
+		render_lightsource(mlx, cam_proportion);
 	time_check_end_sub("ray");
 }

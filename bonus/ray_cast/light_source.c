@@ -12,6 +12,7 @@
 
 #include <math.h>
 #include "ray_cast.h"
+#include "Resoloution.h"
 
 static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
 {
@@ -28,18 +29,17 @@ static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
 
 static void	mlx_draw_circle(t_mlx *mlx, int p[2], t_color color, int rad)
 {
+	const double	r_square = rad * rad;;
 	int		i;
 	int		j;
-	double	r_square;
 
-	r_square = rad * rad;
 	i = p[1] - rad - 1;
 	while (++i < p[1] + rad)
 	{
 		j = p[0] - rad - 1;
 		while (++j < p[0] + rad)
 		{
-			if (i < 0 || j < 0 || i >= (int)mlx->height || j >= (int)mlx->width)
+			if (i < 0 || j < 0 || i >= WIN_HEIGHT || j >= WIN_WIDTH)
 				continue ;
 			else if (pow(p[0] - j, 2) + pow((p[1] - i), 2) < (r_square * 0.8))
 				ft_fill_pixel(mlx, j, i, color_to_hex(color));
@@ -64,11 +64,11 @@ void	render_lightsource(t_mlx *mlx, double depth)
 		if (cam_to_light.z > EPSILON && dist > (1 - EPSILON))
 		{
 			cam_to_light = v3_mul(cam_to_light, depth / cam_to_light.z);
-			point[0] = round(cam_to_light.x) + mlx->width / 2;
-			point[1] = round(cam_to_light.y) + mlx->height / 2;
-			if (point[0] < (int)mlx->width && point[1] < (int)mlx->height)
+			point[0] = round(cam_to_light.x) + WIN_WIDTH / 2;
+			point[1] = round(cam_to_light.y) + WIN_HEIGHT / 2;
+			if (point[0] < WIN_WIDTH && point[1] < WIN_HEIGHT)
 				mlx_draw_circle(mlx, point, light->color, \
-				light->bright * fmin(fmax(depth / dist, 5), mlx->height / 4));
+				light->bright * fmin(fmax(depth / dist, 5), WIN_HEIGHT / 4));
 		}
 		light = light->next;
 	}

@@ -19,6 +19,7 @@
 #include "transform.h"
 #include "print_info.h"
 #include "quadrics.h"
+#include "Resoloution.h"
 
 static t_quadrics	*select_object(t_mlx *mlx, int x, int y)
 {
@@ -27,8 +28,8 @@ static t_quadrics	*select_object(t_mlx *mlx, int x, int y)
 	double	d;
 
 	mlx->selected_quad = NULL;
-	d = ((double)mlx->width / 2) / tan(scene->cam->hfov / 2);
-	ray.dir = make_v3(x - (int)mlx->width / 2, y - (int)mlx->height / 2, d);
+	d = ((double)WIN_WIDTH / 2) / tan(scene->cam->hfov / 2);
+	ray.dir = make_v3(x - WIN_WIDTH / 2, y - WIN_HEIGHT / 2, d);
 	ray.dir = v3_normalize(ray.dir);
 	ray.org = scene->cam->pos;
 	get_intersect_distance(scene->quads, &(mlx->selected_quad), ray);
@@ -38,8 +39,8 @@ static t_quadrics	*select_object(t_mlx *mlx, int x, int y)
 int	mousedown(int button, int x, int y, t_mlx *mlx)
 {
 	printf("mouse clicked\n");
-	if (!mlx || x < 0 || y < 0 || (unsigned int)x > mlx->width \
-		|| (unsigned int)y > mlx->height || mlx->edit == FALSE \
+	if (!mlx || x < 0 || y < 0 || (unsigned int)x > WIN_WIDTH \
+		|| (unsigned int)y > WIN_HEIGHT || mlx->edit == FALSE \
 		|| mlx->target_scene == E_NONE)
 		return (FALSE);
 	mlx->clicked = button;

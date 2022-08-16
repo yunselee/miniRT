@@ -16,6 +16,7 @@
 #include "scene.h"
 #include "ray_cast.h"
 #include "timer.h"
+#include "Resoloution.h"
 
 
 t_mlx *get_mlx()
@@ -34,8 +35,7 @@ void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 	*(unsigned int *)dst = color;
 }
 
-int	init_mlx(unsigned int width, \
-					unsigned int height, char *filename )
+int	init_mlx( char *filename )
 {
 	t_mlx	*mlx;
 
@@ -44,12 +44,10 @@ int	init_mlx(unsigned int width, \
 	if (mlx->image == NULL)
 		return (FALSE);
 	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, width, height, filename);
-	mlx->image->img = mlx_new_image(mlx->mlx, width, height);
+	mlx->win = mlx_new_window(mlx->mlx, WIN_WIDTH, WIN_HEIGHT, filename);
+	mlx->image->img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
 	mlx->image->addr = mlx_get_data_addr(mlx->image->img, &(mlx->image->bpp), \
 								&(mlx->image->line), &(mlx->image->endian));
-	mlx->width = width;
-	mlx->height = height;
 	mlx->selected_quad = NULL;
 	mlx->selected_light = NULL;
 	mlx->edit = 0;

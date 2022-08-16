@@ -43,10 +43,7 @@ typedef struct s_mlx
 {
 	void				*mlx;
 	void				*win;
-	unsigned int		width;
-	unsigned int		height;
 	t_image				*image;
-	t_scene				*scene;
 	struct s_quadrics	*selected_quad;
 	t_light				*selected_light;
 	unsigned int		edit;
