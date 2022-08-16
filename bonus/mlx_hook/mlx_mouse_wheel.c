@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 13:24:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 05:43:00 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:01:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 static void	wheel_camera(int keycode)
 {
-	int	stride;
-	t_scene *scene;
+	int		stride;
+	t_scene	*scene;
 
 	scene = get_scene();
 	stride = 5;

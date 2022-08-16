@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:06:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/15 13:47:49 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 08:50:43 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <smmintrin.h>
-
 
 //const t_vec3	c = {a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w};
 //return (c);

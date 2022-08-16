@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 11:55:30 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 20:22:06 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 08:53:47 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ static int	ft_abs(int a)
 	return (a);
 }
 
-static t_color	disrupt_plane_color(const t_quadrics *Q, t_vec3 point, t_color obj_color)
+static t_color	disrupt_plane_color(const t_quadrics *Q, \
+									t_vec3 point, \
+									t_color obj_color)
 {
 	const t_vec3	local_j = v3_normalize(v3_crs(Q->dir, Q->tan));
 	int				local_x;
@@ -50,7 +52,6 @@ t_color	color_disruption(const t_quadrics *Q, t_vec3 point, t_color obj_color)
 		return (obj_color);
 	if (Q->type == Q_PLANE)
 		return (disrupt_plane_color(Q, point, obj_color));
-
 	point_from_obj = v3_sub(point, Q->org);
 	local_y = lroundf(v3_dot(point_from_obj, Q->dir)) % 2;
 	point_from_obj = v3_crs(Q->dir, v3_crs(point_from_obj, Q->dir));

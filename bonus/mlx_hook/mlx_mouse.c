@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:48:44 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 16:09:31 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:00:50 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 static t_quadrics	*select_object(t_mlx *mlx, int x, int y)
 {
-	const t_scene *scene = get_scene();
-	t_ray	ray;
-	double	d;
+	const t_scene	*scene = get_scene();
+	t_ray			ray;
+	double			d;
 
 	mlx->selected_quad = NULL;
 	d = ((double)mlx->width / 2) / tan(scene->cam->hfov / 2);
@@ -95,13 +95,7 @@ int	mousemove(int x, int y, t_mlx *mlx)
 		transform_to_cam_cord(get_scene(), \
 			mat33_trans(rotation_mat33(axis, -3)));
 	else if (mlx->target_scene == E_OBJ && mlx->selected_quad != NULL)
-	{
-		mlx->selected_quad->dir = rotate_vec3_deg(axis, -3, \
-									mlx->selected_quad->dir);
-		mlx->selected_quad->tan = rotate_vec3_deg(axis, -3, \
-									mlx->selected_quad->tan);
 		rotate_quadrics(mlx->selected_quad, axis, -3);
-	}
 	print_info_camera(get_scene()->cam);
 	mlx_renew_image(mlx);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:11:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 01:43:43 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:07:52 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	print_info_camera(const t_cam *cam)
 	printf("\tHFOV : %3.4f(deg)\n", (cam->hfov) * (180 / M_PI));
 }
 
-void	print_info_scene()
+void	print_info_scene(void)
 {
-	const t_scene *scene = get_scene();
-	const int	red = scene->ambient_color.red;
-	const int	green = scene->ambient_color.green;
-	const int	blue = scene->ambient_color.blue;
+	const t_scene	*scene = get_scene();
+	const int		red = scene->ambient_color.red;
+	const int		green = scene->ambient_color.green;
+	const int		blue = scene->ambient_color.blue;
 
 	print_info_light(scene->light);
 	printf("[AMBIENT]\n");

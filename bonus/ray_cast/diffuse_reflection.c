@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:22:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/15 16:28:49 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:13:28 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static float	diffuse_helper(t_quadrics *objlst, \
 }
 
 t_color	diffuse_light(const t_scene *scene, \
-					t_quadrics *hit_obj, \
+					t_quadrics *Q, \
 					t_vec3 normal, \
 					t_vec3 hit_point)
 {
@@ -56,20 +56,19 @@ t_color	diffuse_light(const t_scene *scene, \
 
 	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
 	color = rgb_color(0, 0, 0);
-	clr_tmp = get_texture_color(hit_obj, &(hit_obj->textures[T_TEXTURE]), hit_point);
-	clr_tmp = color_disruption(hit_obj, hit_point, clr_tmp);
+	clr_tmp = get_texture_color(Q, &(Q->textures[T_TEXTURE]), hit_point);
+	clr_tmp = color_disruption(Q, hit_point, clr_tmp);
 	light = scene->light;
 	while (light != NULL)
 	{
 		diffuse = diffuse_helper(scene->quads, light, normal, hit_point);
 		if (diffuse > EPSILON)
 		{
-			clr_tmp.red = roundf((float)light->color.red / 255 * clr_tmp.red);
-			clr_tmp.green = roundf((float)light->color.green / 255 \
+			clr_tmp.red = (int)((float)light->color.red / 255 * clr_tmp.red);
+			clr_tmp.green = (int)((float)light->color.green / 255 \
 									* clr_tmp.green);
-			clr_tmp.blue = roundf((float)light->color.blue / 255 \
-									* clr_tmp.blue);
-			clr_tmp = color_scale(clr_tmp, diffuse * (1 - hit_obj->spec_rs));
+			clr_tmp.blue = (int)((float)light->color.blue / 255 * clr_tmp.blue);
+			clr_tmp = color_scale(clr_tmp, diffuse * (1 - Q->spec_rs));
 			color = color_add(color, clr_tmp);
 		}
 		light = light->next;

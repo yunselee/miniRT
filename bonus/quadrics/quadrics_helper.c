@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 01:46:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/15 17:13:40 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:09:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include "quadrics.h"
 #include "in_parsing.h"
 
-static int	take_texture_files(t_quadrics *Q, char** quad_info)
+static int	take_texture_files(t_quadrics *Q, char **quad_info)
 {
 	int		i;
-	
+
 	Q->textures[T_NORMAL].img.img = NULL;
 	Q->textures[T_HEIGHT].img.img = NULL;
 	Q->textures[T_TEXTURE].img.img = NULL;
@@ -28,11 +28,13 @@ static int	take_texture_files(t_quadrics *Q, char** quad_info)
 		if (ft_strncmp(quad_info[i], "NULL", 5) == 0)
 			continue ;
 		Q->textures[i].img.img = mlx_xpm_file_to_image((get_mlx())->mlx, \
-			quad_info[i], &(Q->textures[i].img_width), &(Q->textures[i].img_height));
+			quad_info[i], &(Q->textures[i].img_width), \
+			&(Q->textures[i].img_height));
 		if (Q->textures[i].img.img == NULL)
 			return (FALSE);
 		Q->textures[i].img.addr = mlx_get_data_addr(Q->textures[i].img.img, \
-			&Q->textures[i].img.bpp, &Q->textures[i].img.line, &Q->textures[i].img.endian);
+			&Q->textures[i].img.bpp, &Q->textures[i].img.line, \
+			&Q->textures[i].img.endian);
 		if (Q->textures[i].img.addr == NULL)
 			return (FALSE);
 	}
@@ -44,7 +46,7 @@ t_quadrics	*case_quad_plane(char **quad_info)
 	t_quadrics	*newquad;
 
 	newquad = ft_calloc(1, sizeof(t_quadrics));
-	if (((ft_strsetlen(quad_info) < 6) || (ft_strsetlen(quad_info) > 9) ) \
+	if (((ft_strsetlen(quad_info) < 6) || (ft_strsetlen(quad_info) > 9)) \
 		|| (str_to_vec3(quad_info[1], &newquad->org) == FALSE) \
 		|| (str_to_vec3(quad_info[2], &newquad->dir) == FALSE) \
 		|| (str_to_color(quad_info[3], &newquad->color) == FALSE) \
@@ -84,7 +86,7 @@ t_quadrics	*case_quadrics(char **quad_info)
 
 	newquad = ft_calloc(1, sizeof(t_quadrics));
 	newquad->type = Q_QUADRICS;
-	if (((ft_strsetlen(quad_info) < 13) || (ft_strsetlen(quad_info) > 16) ) \
+	if (((ft_strsetlen(quad_info) < 13) || (ft_strsetlen(quad_info) > 16)) \
 		|| (str_to_vec3(quad_info[1], &newquad->org) == FALSE) \
 		|| (str_to_vec3(quad_info[2], &newquad->dir) == FALSE) \
 		|| (ft_strtof(quad_info[3], coef + 0) == FALSE) \
@@ -110,6 +112,8 @@ void	rotate_quadrics(t_quadrics *Q, t_vec3 axis, float deg)
 {
 	t_mat44	rotation;
 
+	Q->dir = rotate_vec3_deg(axis, deg, Q->dir);
+	Q->tan = rotate_vec3_deg(axis, deg, Q->tan);
 	rotation.col1 = rotate_vec3_deg(axis, deg, make_v3(1, 0, 0));
 	rotation.col2 = rotate_vec3_deg(axis, deg, make_v3(0, 1, 0));
 	rotation.col3 = rotate_vec3_deg(axis, deg, make_v3(0, 0, 1));

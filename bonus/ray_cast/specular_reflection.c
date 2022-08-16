@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:20:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 18:58:24 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:17:37 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static float	specular_helper(t_quadrics *objlst, \
 t_color	specular_light(const t_scene *scene, t_quadrics *hit_obj, \
 						t_vec3 mirror_ray, t_vec3 hit_point)
 {
-	const t_light	*light;
+	t_light	*light;
 	t_color	color;
 	t_color	color_temp;
 	float	specular;

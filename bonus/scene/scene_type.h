@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 16:58:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/15 12:30:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:25:05 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@ typedef struct s_ray
 	t_vec3	dir;
 }	t_ray;
 
-typedef struct s_light	t_light;
-struct s_light
+typedef struct s_light
 {
-	t_vec3	o;
-	float	bright;
-	t_color	color;
-	t_light	*next;
-};
+	t_vec3			o;
+	float			bright;
+	t_color			color;
+	struct s_light	*next;
+}	t_light;
 
 typedef struct s_cam
 {
@@ -47,7 +46,7 @@ typedef struct s_cam
 	float	hfov;
 }	t_cam;
 
-struct s_quadrics;
+struct	s_quadrics;
 
 typedef struct s_scene
 {
@@ -58,6 +57,5 @@ typedef struct s_scene
 	t_light				*light;
 	struct s_quadrics	*quads;
 }	t_scene;
-
 
 #endif

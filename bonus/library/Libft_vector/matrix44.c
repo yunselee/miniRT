@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 12:53:11 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 19:31:31 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 08:48:32 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ float	quadratic_form(t_vec4 v1, t_mat44 m, t_vec4 v2)
 	return (v4_dot(temp, v2));
 }
 
-t_mat44 rotation_mat44(t_vec3 axis, double deg)
+t_mat44	rotation_mat44(t_vec3 axis, double deg)
 {
 	t_mat44	rotation;
 

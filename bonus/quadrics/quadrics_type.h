@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 12:24:30 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/15 16:23:06 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:23:28 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,6 @@ typedef enum e_qtype
 	Q_PLANE = 0,
 	Q_QUADRICS
 }	t_qtype;
-
-// typedef struct s_xpm
-// {
-// 	void	*img;
-// 	int		img_width;
-// 	int		img_height;
-// 	int		*addr;
-// 	int		bpp;
-// 	int		line;
-// 	int		endian;
-// }	t_xpm;
 
 typedef enum e_texturetype
 {
@@ -54,6 +43,5 @@ typedef struct s_quadrics
 	t_xpm				textures[3];
 	struct s_quadrics	*next;
 }	t_quadrics;
-
 
 #endif

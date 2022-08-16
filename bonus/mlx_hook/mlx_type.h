@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 17:24:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/15 12:31:33 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:23:00 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_xpm
 	int		img_height;
 }	t_xpm;
 
-struct s_quadrics;
+struct	s_quadrics;
 typedef struct s_mlx
 {
 	void				*mlx;

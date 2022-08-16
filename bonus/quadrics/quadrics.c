@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/15 17:00:08 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:08:12 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	free_quadlist(t_quadrics *quad_list)
 	t_quadrics	*curr;
 	t_quadrics	*next;
 	int			i;
-
 
 	curr = quad_list;
 	while (curr)

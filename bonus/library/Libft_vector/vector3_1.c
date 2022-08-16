@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 07:05:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 20:47:07 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 08:50:21 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ float	v3_l2norm(t_vec3 a)
 // return (*p);
 t_vec3	v3_normalize(t_vec3 a)
 {
-
 	const float		len = v3_l2norm(a);
-	const t_vec3	n = {a.x / len, a.y / len, a.z / len, a.w};
-	return (n);
 
+	if (len == 0)
+		return (make_v3(0, 0, 0));
+	return (make_v4(a.x / len, a.y / len, a.z / len, a.w));
 }
 
 // return (make_v3(a.x + b.x, a.y + b.y, a.z + b.z))

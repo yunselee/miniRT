@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 12:20:23 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 12:55:08 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 08:51:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_vec4	v4_normalize(t_vec4 a)
 {
 	const double	len = v4_l2norm(a);
 	const t_vec4	n = {a.x / len, a.y / len, a.z / len, a.w / len};
-	
+
 	return (n);
 }
 

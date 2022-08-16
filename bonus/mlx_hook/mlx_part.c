@@ -6,10 +6,11 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 18:00:49 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:03:30 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "libft.h"
 #include "mlx_part.h"
@@ -17,12 +18,11 @@
 #include "ray_cast.h"
 #include "timer.h"
 
-
-t_mlx *get_mlx()
+t_mlx	*get_mlx(void)
 {
-	static t_mlx mlx;
+	static t_mlx	mlx;
 
-	return &mlx;
+	return (&mlx);
 }
 
 void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
@@ -58,10 +58,9 @@ int	init_mlx(unsigned int width, \
 	return (TRUE);
 }
 
-#include <stdio.h>
-void	destroy_mlx()
+void	destroy_mlx(void)
 {
-	t_mlx *mlx;
+	t_mlx	*mlx;
 
 	printf("\033[3;36m");
 	printf("\tdestroying mlx\n");
@@ -79,7 +78,7 @@ void	destroy_mlx()
 	system("leaks miniRT");
 }
 
-void	run_mlx( void )
+void	run_mlx(void)
 {
 	t_mlx	*mlx;
 

@@ -6,4 +6,4 @@ A    0.2					255,255,255
 C    30,0,30         -1,0,0      90
 
 
-pl	0,0,0 0,0,1   255,0,255 0.5 74 ./bumpmap_texture/normal_map.xpm ./bumpmap_texture/textile.xpm
+pl	0,0,0 0,0,1   255,0,255 0.5 74 ./texture_images/normal_maps/brick_normal.xpm

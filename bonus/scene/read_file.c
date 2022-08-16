@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:05:07 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/15 16:43:23 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 09:19:47 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,9 @@ int	scene_init(const char *filename)
 {
 	int		fd;
 	char	*line;
-	t_scene *scene;
 
-	scene = get_scene();
 	line = NULL;
-	if (scene == NULL || !check_filename(filename))
+	if (get_scene() == NULL || !check_filename(filename))
 		return (FALSE);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -111,12 +109,12 @@ int	scene_init(const char *filename)
 			break ;
 		else if (line[0] == '#')
 			continue ;
-		else if (ft_strncmp(line, "", 1) && !parse_scene(scene, line))
+		else if (ft_strncmp(line, "", 1) && !parse_scene(get_scene(), line))
 		{
 			terminate_gnl(fd, line);
 			return (FALSE);
 		}
 	}
 	close(fd);
-	return (check_scene(scene));
+	return (check_scene(get_scene()));
 }
