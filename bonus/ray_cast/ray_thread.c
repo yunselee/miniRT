@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include "ray_cast.h"
 #include <assert.h>
+#include "Resoloution.h"
 
 static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 {
@@ -38,12 +39,12 @@ static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
 	unsigned int	dy;
 
 	dx = -1;
-	while (++dx < (mlx->edit + 1) && dx + x < mlx->width)
+	while (++dx < (mlx->edit + 1) && dx + x < WIN_WIDTH)
 	{
 		dy = -1;
-		while (++dy < (mlx->edit + 1) && dy + y < mlx->height)
+		while (++dy < (mlx->edit + 1) && dy + y < WIN_HEIGHT)
 		{
-			ft_mlx_set_pixel_color(mlx->image, x + dx, y + dy, color);
+			ft_mlx_set_pixel_color(&(mlx->image), x + dx, y + dy, color);
 		}
 	}
 }
@@ -79,15 +80,15 @@ void	*thread_routine(void *ptr)
 
 	mlx = tlo->mlx;
 	assert(mlx);
-	d = ((double)tlo->mlx->width / 2) / tan(get_scene()->cam->hfov / 2);
+	d = (WIN_WIDTH / 2) / tan(get_scene()->cam->hfov / 2);
 	pixel[1] = 0;
-	while (pixel[1] < mlx->height / 2)
+	while (pixel[1] < WIN_HEIGHT / 2)
 	{
 		pixel[0] = 0;
-		while (pixel[0] < mlx->width / 2)
+		while (pixel[0] < WIN_WIDTH / 2)
 		{
-			ray.dir = v3_normalize(make_v3((int)(tlo->x + pixel[0] - mlx->width / 2), \
-										(int)(tlo->y + pixel[1] - mlx->height / 2), d));
+			ray.dir = v3_normalize(make_v3((int)(tlo->x + pixel[0] - WIN_WIDTH / 2), \
+										(int)(tlo->y + pixel[1] - WIN_HEIGHT / 2), d));
 			ray.org = get_scene()->cam->pos;
 			color = single_ray_cast(mlx, ray);
 			ft_fill_pixel(mlx, tlo->x + pixel[0], tlo->y + pixel[1], color_to_hex(color));

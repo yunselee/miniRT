@@ -12,8 +12,18 @@
 
 #ifndef COLOR_H
 # define COLOR_H
-# include "quadrics_type.h"
-# include "color_type.h"
+
+#include "vector3.h"
+typedef struct s_quadrics t_quadrics;
+typedef struct s_xpm t_xpm;
+
+typedef struct s_color
+{
+	unsigned char	alpha;
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
+}	t_color;
 
 t_color			rgb_color(unsigned int r, unsigned int g, unsigned int b);
 

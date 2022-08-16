@@ -17,7 +17,8 @@ INCS_DIR		= 	-I ./library/LIBFT \
 					-I ./color \
 					-I ./ray_cast \
 					-I ./timer \
-					-I ./quadrics
+					-I ./quadrics \
+					-I .
 
 SRCS_DIR		= 	./ \
 					./ray_cast \

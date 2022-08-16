@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 10:57:35 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:34:43 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,25 @@ int	main(int argc, char **argv)
 		printf("Error\n\t: usage : ./miniRT <FILENAME>\n");
 		return (1);
 	}
-	if (init_mlx(1920 / 2, 1080 / 2, argv[1]) == FALSE)
+	/*
+		현재 main, mlx, scene 프로세스 : 
+			1. scene_init()에서 .rt file을 읽어와 파싱하고 scene구조체를 구성한다.
+			2. 카메라 좌표계를 기준으로 모든 scene을 변환하는 행렬을 get_transform_matrix()에서 구한다.
+			3. transform_to_cam_cord()에서 구해진 3x3변환 행렬(회전)을 이용해 scene을 변환한다.
+			4. 이렇게 구성된 scene구조체를 가지고 mlx를 구성하고 mlx_loop에 들어간다.
+		변경 될 프로세스
+			0. t_scene과 t_mlx가 완전히 분리되었다.
+			1. 우선 해상도와 .rt filename을 이용해서 빈 mlx를 구성한다.
+			2. init_scene을 이용하여 .rt파일을 파싱하고 scene을 구성한다.
+			3. transform_to_cam_cord()에서 구해진 3x3변환 행렬(회전)을 이용해 scene을 변환한다.
+			4. mlx와 scene이 독립적을 모두 구성되면 mlx_start혹은 run_mlx를 이용해 프로그램을 시작한다.
+	*/
+	printf("Initiating MLX... : ");
+	if (init_mlx(argv[1]) == FALSE)
+	{
+		printf("Failed\n");
 		return (1);
+	}
 	if (scene_init(argv[1]) == FALSE)
 	{
 		printf("\n\033[3;31mError\n\tFail to read file\033[0m\n");

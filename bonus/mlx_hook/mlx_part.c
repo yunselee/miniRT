@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:03:30 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:32:10 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 #include "scene.h"
 #include "ray_cast.h"
 #include "timer.h"
+#include "Resoloution.h"
 
-t_mlx	*get_mlx(void)
+t_mlx *get_mlx()
 {
 	static t_mlx	mlx;
 
@@ -34,22 +35,16 @@ void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 	*(unsigned int *)dst = color;
 }
 
-int	init_mlx(unsigned int width, \
-					unsigned int height, char *filename )
+int	init_mlx( char *filename )
 {
 	t_mlx	*mlx;
 
 	mlx = get_mlx();
-	mlx->image = malloc(sizeof(t_image));
-	if (mlx->image == NULL)
-		return (FALSE);
 	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, width, height, filename);
-	mlx->image->img = mlx_new_image(mlx->mlx, width, height);
-	mlx->image->addr = mlx_get_data_addr(mlx->image->img, &(mlx->image->bpp), \
-								&(mlx->image->line), &(mlx->image->endian));
-	mlx->width = width;
-	mlx->height = height;
+	mlx->win = mlx_new_window(mlx->mlx, WIN_WIDTH, WIN_HEIGHT, filename);
+	mlx->image.img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
+	mlx->image.addr = mlx_get_data_addr(mlx->image.img, &(mlx->image.bpp), \
+								&(mlx->image.line), &(mlx->image.endian));
 	mlx->selected_quad = NULL;
 	mlx->selected_light = NULL;
 	mlx->edit = 0;
@@ -70,10 +65,9 @@ void	destroy_mlx(void)
 	printf("\tdestroying scene\n");
 	scene_destroy();
 	printf("\tdestroying mlx_image\n");
-	mlx_destroy_image(mlx->mlx, mlx->image->img);
+	mlx_destroy_image(mlx->mlx, mlx->image.img);
 	printf("\tdestroying mlx_window\n");
 	mlx_destroy_window(mlx->mlx, mlx->win);
-	free(mlx->image);
 	printf("\tDone\033[0m\n");
 	system("leaks miniRT");
 }
@@ -87,7 +81,7 @@ void	run_mlx(void)
 	printf("\033[3;32m\tRay Cast\033[0m\n");
 	ray_cast(mlx);
 	printf("\033[3;32m\tPut image\033[0m\n");
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image.img, 0, 0);
 	printf("\033[3;32m\tSetting Hooks\033[0m\n");
 	mlx_hook(mlx->win, 17, 0, destroy, mlx);
 	mlx_hook(mlx->win, 2, (1L << 0), keydown, mlx);

@@ -6,16 +6,17 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:23:56 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:31:48 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
-# include "../Libft_vector/matrix33.h"
-# include "scene_type.h"
-# include "color_type.h"
-# include "quadrics_type.h"
+
+# include "matrix33.h"
+# include "vector3.h"
+# include "color.h"
+
 
 # ifndef TRUE
 #  define TRUE (1)
@@ -26,6 +27,45 @@
 
 # define EPSILON (0.001)
 
+struct s_quadrics;
+typedef struct s_color t_color;
+typedef struct s_vec t_vec;
+typedef t_vec	t_vec3;
+
+typedef struct s_ray
+{
+	t_vec3	org;
+	t_vec3	dir;
+}	t_ray;
+
+typedef struct s_light t_light;
+
+typedef struct s_light
+{
+	t_vec3	o;
+	float	bright;
+	t_color	color;
+	t_light	*next;
+} t_light;
+
+typedef struct s_cam
+{
+	t_vec3	pos;
+	t_vec3	dir;
+	float	hfov;
+}	t_cam;
+
+typedef struct s_scene
+{
+	float				ambient_ratio;
+	t_color				ambient_color;
+	t_cam				*cam;
+	t_mat33				global;
+	t_light				*light;
+	struct s_quadrics	*quads;
+}	t_scene;
+
+//t_scene	*create_empty_scene(void);
 int		scene_init(const char *filename);
 void	scene_destroy(void);
 int		transform_to_cam_cord(t_scene *scene, t_mat33 transform);

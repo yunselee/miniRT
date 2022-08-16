@@ -17,8 +17,45 @@
 
 # define BACKGROUND (0X222222)
 
-int		init_mlx(unsigned int width, \
-					unsigned int height, char *filename );
+enum e_target
+{
+	E_NONE = 0,
+	E_LIGHT,
+	E_CAM,
+	E_OBJ
+};
+
+typedef struct s_image
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line;
+	int		endian;
+}	t_image;
+
+typedef struct s_xpm
+{
+	t_image	img;
+	int		img_width;
+	int		img_height;
+}	t_xpm;
+
+struct s_quadrics;
+typedef struct s_mlx
+{
+	void				*mlx;
+	void				*win;
+	t_image				image;
+	struct s_quadrics	*selected_quad;
+	t_light				*selected_light;
+	unsigned int		edit;
+	enum e_target		target_scene;
+	unsigned int		clicked;
+	int					prev_pixel[2];
+}					t_mlx;
+
+int		init_mlx(char *filename );
 
 void	destroy_mlx(void);
 

@@ -12,9 +12,48 @@
 
 #ifndef QUADRICS_H
 # define QUADRICS_H
-# include "quadrics_type.h"
-# include "scene_type.h"
-# include "ray_cast.h"
+# include "matrix44.h"
+#include "mlx_part.h"
+#include "color.h"
+typedef enum e_qtype
+{
+	Q_PLANE = 0,
+	Q_QUADRICS
+}	t_qtype;
+
+// typedef struct s_xpm
+// {
+// 	void	*img;
+// 	int		img_width;
+// 	int		img_height;
+// 	int		*addr;
+// 	int		bpp;
+// 	int		line;
+// 	int		endian;
+// }	t_xpm;
+
+typedef enum e_texturetype
+{
+	T_NORMAL = 0,
+	T_HEIGHT,
+	T_TEXTURE,
+}	t_texturetype;
+
+typedef struct s_quadrics
+{
+	t_qtype				type;
+	t_mat44				coefs;
+	t_vec4				org;
+	t_vec4				dir;
+	t_vec4				tan;
+	float				spec_rs;
+	int					spec_ns;
+	float				range_z[2];
+	int					disruption;
+	t_color				color;
+	t_xpm				textures[3];
+	struct s_quadrics	*next;
+}	t_quadrics;
 
 typedef struct s_float_sol
 {

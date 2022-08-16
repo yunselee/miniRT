@@ -15,15 +15,16 @@
 #include "mlx_part.h"
 #include "mlx_keycode.h"
 #include "ray_cast.h"
+#include "Resoloution.h"
 
 void	mlx_renew_image(t_mlx *mlx)
 {
-	mlx_destroy_image(mlx->mlx, mlx->image->img);
-	mlx->image->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
-	mlx->image->addr = mlx_get_data_addr(mlx->image->img, &(mlx->image->bpp), \
-								&(mlx->image->line), &(mlx->image->endian));
+	mlx_destroy_image(mlx->mlx, mlx->image.img);
+	mlx->image.img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
+	mlx->image.addr = mlx_get_data_addr(mlx->image.img, &(mlx->image.bpp), \
+								&(mlx->image.line), &(mlx->image.endian));
 	ray_cast(mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image->img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image.img, 0, 0);
 }
 
 int	destroy(t_mlx *mlx)

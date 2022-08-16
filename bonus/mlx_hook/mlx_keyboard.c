@@ -18,10 +18,11 @@
 #include "ray_cast.h"
 #include "transform.h"
 #include "print_info.h"
+#include "Resoloution.h"
 
 static int	chage_to_editmode(t_mlx *mlx)
 {
-	mlx->edit = ceil(fmax(mlx->width, mlx->height) / 500);
+	mlx->edit = ceil(fmax(WIN_WIDTH, WIN_HEIGHT) / 500);
 	mlx_renew_image(mlx);
 	printf("Now in Editting mode. press R to render\n");
 	printf("Select scene to edit -> C : cam L : light O : objs\n");

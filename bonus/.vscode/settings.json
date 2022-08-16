@@ -31,6 +31,7 @@
         "color_type.h": "c",
         "smmintrin.h": "c",
         "stdlib.h": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "matrix33.h": "c"
     }
 }
