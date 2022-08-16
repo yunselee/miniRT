@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 17:30:04 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:54:14 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 
 #define THREAD_NUM 4
 
-float	get_intersect_distance(t_quadrics *objlst, \
+double	get_intersect_distance(t_quadrics *objlst, \
 								t_quadrics **out_intersecting_obj, \
 								t_ray ray)
 {
 	t_quadrics			*target_obj;
 	t_quadrics			*intersect_obj;
-	float				dist[2];
+	double				dist[2];
 
 	dist[0] = INFINITY;
 	intersect_obj = NULL;

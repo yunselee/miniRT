@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 13:01:25 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:16:20 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_vec3	get_mirror_ray(t_vec3 normal, t_vec3 ray)
 
 static t_color	ambient_light(const t_quadrics *Q, \
 								t_color amb_color, \
-								float ra, \
+								double ra, \
 								t_vec3 hit_point)
 {
 	t_color	c;
@@ -40,9 +40,9 @@ static t_color	ambient_light(const t_quadrics *Q, \
 		ra = 1;
 	obj_color = get_texture_color(Q, &(Q->textures[T_TEXTURE]), hit_point);
 	obj_color = color_disruption(Q, hit_point, obj_color);
-	c.red = round((float)obj_color.red * ((float)amb_color.red / 255));
-	c.green = round((float)obj_color.green * ((float)amb_color.green / 255));
-	c.blue = round((float)obj_color.blue * ((float)amb_color.blue / 255));
+	c.red = round((double)obj_color.red * ((double)amb_color.red / 255));
+	c.green = round((double)obj_color.green * ((double)amb_color.green / 255));
+	c.blue = round((double)obj_color.blue * ((double)amb_color.blue / 255));
 	c = color_scale(c, ra);
 	return (c);
 }
@@ -59,8 +59,8 @@ static t_vec3	apply_normal_map(const t_quadrics *Q, \
 	if ((Q->textures[T_NORMAL]).img.img == NULL)
 		return (normal);
 	color = get_texture_color(Q, &Q->textures[T_NORMAL], hit_point);
-	bump_vec = make_v3((float)color.red, (float)color.green, (float)color.blue);
-	bump_vec = v3_mul(bump_vec, (float)2 / 255);
+	bump_vec = make_v3((double)color.red, (double)color.green, (double)color.blue);
+	bump_vec = v3_mul(bump_vec, (double)2 / 255);
 	bump_vec = v3_sub(bump_vec, make_v3(1, 1, 1));
 	local_uv[0] = v3_normalize(v3_crs(Q->dir, normal));
 	if (v3_isnull(local_uv[0]) == TRUE)
@@ -83,7 +83,7 @@ static t_color	apply_height_map(const t_quadrics *Q, \
 	if ((Q->textures[T_HEIGHT]).img.img == NULL)
 		return (color);
 	gray = get_texture_color(Q, &Q->textures[T_HEIGHT], hit_point);
-	return (color_scale(color, ((float)(gray.red) / 255)));
+	return (color_scale(color, ((double)(gray.red) / 255)));
 }
 
 t_color	phong_reflection(t_mlx *mlx, \
@@ -100,7 +100,7 @@ t_color	phong_reflection(t_mlx *mlx, \
 		return (ambient_light(Q, scene->ambient_color, \
 								0.8, hit_point));
 	normal = quad_normal_vector(Q, hit_point, view_point);
-	// hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
+	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
 	normal = apply_normal_map(Q, hit_point, normal);
 	color[0] = ambient_light(Q, \
 								scene->ambient_color, \

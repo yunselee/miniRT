@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 12:20:23 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 08:51:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 19:25:15 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 #include <math.h>
 #include <smmintrin.h>
 
-t_vec4	make_v4(float x, float y, float z, float w)
+t_vec4	make_v4(double x, double y, double z, double w)
 {
 	const t_vec4	new_vec4 = {x, y, z, w};
 
 	return (new_vec4);
 }
 
-float	v4_l2norm(t_vec4 a)
+double	v4_l2norm(t_vec4 a)
 {
-	return (sqrtf(a.x * a.x + a.y * a.y + a.z * a.z));
+	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
 }
 
 t_vec4	v4_normalize(t_vec4 a)

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:32:17 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 03:37:06 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:56:41 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	free_strset(char **strset)
 	free(strset);
 }
 
-static int	fractional_part(char *str, float *frac)
+static int	fractional_part(char *str, double *frac)
 {
 	int		p;
 	int		i;
@@ -37,7 +37,7 @@ static int	fractional_part(char *str, float *frac)
 	i = 0;
 	while (ft_isdigit(str[i]))
 	{
-		*frac += (float)(str[i++] - '0') / p;
+		*frac += (double)(str[i++] - '0') / p;
 		p *= 10;
 	}
 	if (str[i] != '\0')
@@ -68,12 +68,12 @@ static char	**preprocess(const char *str, int *minus)
 	return (num);
 }
 
-int	ft_strtof(const char *str, float *out_res)
+int	ft_strtof(const char *str, double *out_res)
 {
 	char	**num;
 	int		minus;
 	int		int_part;
-	float	frac_part;
+	double	frac_part;
 
 	num = preprocess(str, &minus);
 	if (num == NULL)

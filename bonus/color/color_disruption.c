@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 11:55:30 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 08:53:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 19:25:43 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static t_color	disrupt_plane_color(const t_quadrics *Q, \
 	int				local_y;
 	int				disrupt;
 
-	local_x = lroundf(v3_dot(v3_sub(point, Q->org), Q->tan) / 10) % 2;
-	local_y = lroundf(v3_dot(v3_sub(point, Q->org), local_j) / 10) % 2;
+	local_x = lround(v3_dot(v3_sub(point, Q->org), Q->tan) / 10) % 2;
+	local_y = lround(v3_dot(v3_sub(point, Q->org), local_j) / 10) % 2;
 	disrupt = ft_abs(local_x + local_y) % 2;
 	if (disrupt == 0)
 		return (obj_color);
@@ -44,7 +44,7 @@ static t_color	disrupt_plane_color(const t_quadrics *Q, \
 t_color	color_disruption(const t_quadrics *Q, t_vec3 point, t_color obj_color)
 {
 	t_vec3	point_from_obj;
-	float	local_x;
+	double	local_x;
 	int		local_y;
 	int		disrupt;
 
@@ -53,11 +53,11 @@ t_color	color_disruption(const t_quadrics *Q, t_vec3 point, t_color obj_color)
 	if (Q->type == Q_PLANE)
 		return (disrupt_plane_color(Q, point, obj_color));
 	point_from_obj = v3_sub(point, Q->org);
-	local_y = lroundf(v3_dot(point_from_obj, Q->dir)) % 2;
+	local_y = lround(v3_dot(point_from_obj, Q->dir)) % 2;
 	point_from_obj = v3_crs(Q->dir, v3_crs(point_from_obj, Q->dir));
 	local_x = v3_dot(point_from_obj, Q->tan) / v3_l2norm(point_from_obj);
-	local_x = acosf(local_x) * 180 / M_PI / 15;
-	local_x = fabsf(roundf(local_x));
+	local_x = acos(local_x) * 180 / M_PI / 15;
+	local_x = fabs(round(local_x));
 	disrupt = ft_abs((int)(local_x) % 2 + local_y) % 2;
 	if (disrupt == 0)
 		return (obj_color);

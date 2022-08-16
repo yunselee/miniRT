@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 12:17:04 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 08:51:43 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:49:52 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 typedef struct s_vec4
 {
-	float	x;
-	float	y;
-	float	z;
-	float	w;	
+	double	x;
+	double	y;
+	double	z;
+	double	w;	
 }	t_vec4;
 
-float	v4_l2norm(t_vec4 v);
+double	v4_l2norm(t_vec4 v);
 t_vec4	v4_normalize(t_vec4 a);
 
 t_vec4	v4_add(t_vec4 a, t_vec4 b);

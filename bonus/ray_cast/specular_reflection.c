@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:20:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:17:37 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 19:26:10 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 #include <stdio.h>
 
-static float	specular_helper(t_quadrics *objlst, \
+static double	specular_helper(t_quadrics *objlst, \
 								const t_light *target_light, \
 								t_vec3 mirror_ray, \
 								t_vec3 hit_point)
@@ -25,8 +25,8 @@ static float	specular_helper(t_quadrics *objlst, \
 	t_quadrics		*target_obj;
 	t_vec3			dir_to_light;
 	t_ray			ray_to_light;
-	float			dist[2];
-	float			specular;
+	double			dist[2];
+	double			specular;
 
 	dist[0] = INFINITY;
 	dir_to_light = v3_sub(target_light->o, hit_point);
@@ -52,7 +52,7 @@ t_color	specular_light(const t_scene *scene, t_quadrics *hit_obj, \
 	t_light	*light;
 	t_color	color;
 	t_color	color_temp;
-	float	specular;
+	double	specular;
 
 	color = rgb_color(0, 0, 0);
 	light = scene->light;
@@ -62,11 +62,11 @@ t_color	specular_light(const t_scene *scene, t_quadrics *hit_obj, \
 		specular = (hit_obj->spec_rs) * pow(specular, hit_obj->spec_ns);
 		if (specular > EPSILON)
 		{
-			color_temp.red = roundf((float)light->color.red / 255 \
+			color_temp.red = round((double)light->color.red / 255 \
 									* light->color.red);
-			color_temp.green = roundf((float)light->color.green / 255 \
+			color_temp.green = round((double)light->color.green / 255 \
 									* light->color.green);
-			color_temp.blue = roundf((float)light->color.blue / 255 \
+			color_temp.blue = round((double)light->color.blue / 255 \
 									* light->color.blue);
 			color_temp = color_scale(color_temp, specular);
 			color = color_add(color, color_temp);

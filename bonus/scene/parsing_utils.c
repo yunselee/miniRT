@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:33:16 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 05:42:14 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:57:27 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	str_to_vec3(char *str, t_vec3 *out_vec)
 {
 	char	**pos_str;
 	int		res;
-	float	a[3];
+	double	a[3];
 
 	if (str[ft_strlen(str) - 1] == ',')
 		return (FALSE);

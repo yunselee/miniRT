@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 12:53:11 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 08:48:32 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:52:18 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_mat44	mul_mat44(t_mat44 a, t_mat44 b)
 	return (new);
 }
 
-float	quadratic_form(t_vec4 v1, t_mat44 m, t_vec4 v2)
+double	quadratic_form(t_vec4 v1, t_mat44 m, t_vec4 v2)
 {
 	t_vec4	temp;
 

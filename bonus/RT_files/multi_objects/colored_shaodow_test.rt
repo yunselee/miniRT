@@ -7,6 +7,7 @@ L 0,102,102 1 0,0,255
 C 500,0,100 -1,0,0 60
 
 pl 0,0,0 0,0,1 255,255,255 0 2
+#  ./texture_images/normal_maps/brick_normal.xpm ./texture_images/textures/brick.xpm
 
 
 qd  0,0,120   0,0,-1   1   1   1   0   -100  -10 5 255,255,255     0.2     74

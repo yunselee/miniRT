@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 23:40:10 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 13:48:18 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:57:07 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 char	*ft_strnstr(const void *haystack, const void *needle, size_t len);
 int		ft_atoi(const char *str);
 int		ft_strtoi(const char *str, int *nbr);
-int		ft_strtof(const char *str, float *nbr);
+int		ft_strtof(const char *str, double *nbr);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 char	*ft_strndup(const char *s1, size_t size);

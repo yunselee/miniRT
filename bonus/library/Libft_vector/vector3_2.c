@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:06:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 08:50:43 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:11:45 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,18 @@
 //return (c);
 t_vec3	v3_sub(t_vec3 a, t_vec3 b)
 {
-	const __m128			cc = *((__m128*)&a);
-	const __m128			dd = *((__m128*)&b);
-	const __m128			kk = _mm_sub_ps(cc, dd);
-	const t_vec3			*p = (t_vec3*)&kk;
+	// const __m128			cc = *((__m128*)&a);
+	// const __m128			dd = *((__m128*)&b);
+	// const __m128			kk = _mm_sub_ps(cc, dd);
+	// const t_vec3			*p = (t_vec3*)&kk;
 
-	return (*p);
+	// return (*p);
+	const t_vec3	c = {a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w};
+	return (c);
+
 }
 
-t_vec3	v3_mul(t_vec3 a, float s)
+t_vec3	v3_mul(t_vec3 a, double s)
 {
 	const t_vec3	n = {a.x * s, a.y * s, a.z * s, 0};
 
@@ -42,7 +45,7 @@ t_vec3	v3_mul(t_vec3 a, float s)
 	// const __m128			kkk = _mm_hadd_ps(kk, kk);
 
 	// return (_mm_cvtss_f32(_mm_hadd_ps(kkk, kkk)));
-float	v3_dot(t_vec3	a, t_vec3 b)
+double	v3_dot(t_vec3	a, t_vec3 b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
@@ -60,7 +63,7 @@ t_vec3	v3_crs(t_vec3 a, t_vec3 b)
 
 int	v3_isnull(t_vec3 a)
 {
-	if (fabsf(a.x) < 0.001 && fabsf(a.y) < 0.001 && fabsf(a.z) < 0.001)
+	if (fabs(a.x) < 0.001 && fabs(a.y) < 0.001 && fabs(a.z) < 0.001)
 		return (TRUE);
 	return (FALSE);
 }

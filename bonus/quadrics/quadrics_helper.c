@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 01:46:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:09:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:53:21 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_quadrics	*case_quad_plane(char **quad_info)
 	return (newquad);
 }
 
-static void	fill_quad_matrix(t_mat44 *mat, float coef[5])
+static void	fill_quad_matrix(t_mat44 *mat, double coef[5])
 {
 	if (coef[0] < 0)
 	{
@@ -82,7 +82,7 @@ static void	fill_quad_matrix(t_mat44 *mat, float coef[5])
 t_quadrics	*case_quadrics(char **quad_info)
 {
 	t_quadrics	*newquad;
-	float		coef[5];
+	double		coef[5];
 
 	newquad = ft_calloc(1, sizeof(t_quadrics));
 	newquad->type = Q_QUADRICS;
@@ -108,7 +108,7 @@ t_quadrics	*case_quadrics(char **quad_info)
 	return (newquad);
 }
 
-void	rotate_quadrics(t_quadrics *Q, t_vec3 axis, float deg)
+void	rotate_quadrics(t_quadrics *Q, t_vec3 axis, double deg)
 {
 	t_mat44	rotation;
 

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 11:31:05 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 19:26:02 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	init_quadrics(t_scene *outscene, char **single_scene)
 	else
 		return (FALSE);
 	if ((quadric == NULL) \
-		|| roundf(v3_l2norm(quadric->dir) * 10000) / 10000 != 1.0
+		|| round(v3_l2norm(quadric->dir) * 10000) / 10000 != 1.0
 		|| quadric->spec_rs < 0 || quadric->spec_rs >= 1 \
 		|| quadric->spec_ns < 1)
 	{

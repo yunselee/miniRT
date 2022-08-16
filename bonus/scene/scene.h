@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 17:31:48 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:18:40 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #  define FALSE (0)
 # endif
 
-# define EPSILON (0.001)
+# define EPSILON (1e-5)
 
 struct s_quadrics;
 typedef struct s_color t_color;
@@ -43,7 +43,7 @@ typedef struct s_light t_light;
 typedef struct s_light
 {
 	t_vec3	o;
-	float	bright;
+	double	bright;
 	t_color	color;
 	t_light	*next;
 } t_light;
@@ -52,12 +52,12 @@ typedef struct s_cam
 {
 	t_vec3	pos;
 	t_vec3	dir;
-	float	hfov;
+	double	hfov;
 }	t_cam;
 
 typedef struct s_scene
 {
-	float				ambient_ratio;
+	double				ambient_ratio;
 	t_color				ambient_color;
 	t_cam				*cam;
 	t_mat33				global;

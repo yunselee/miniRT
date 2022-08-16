@@ -6,7 +6,7 @@
 #    By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 07:53:55 by dkim2             #+#    #+#              #
-#    Updated: 2022/08/11 12:52:50 by dkim2            ###   ########.fr        #
+#    Updated: 2022/08/16 17:43:48 by dkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = libvector.a
 NAME_DYN = libvector_dny.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O2
+# CFLAGS = -Wall -Wextra -Werror -O2
 
 AR = ar
 ARFLAGS = -rs
