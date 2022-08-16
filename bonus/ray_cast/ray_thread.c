@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 09:13:38 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 15:47:34 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 15:52:18 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 		return (rgb_color(0, 0, 0));
 	else
 	{
-		// intersect = v3_mul(ray.dir, dist - EPSILON);
-		intersect = v3_mul(ray.dir, dist);
+		intersect = v3_mul(ray.dir, dist - EPSILON);
 		intersect = v3_add(intersect, ray.org);
 		c = phong_reflection(mlx, intersect_obj, intersect, ray.org);
 		return (intensity_attenuation(c, intersect, ray.org));
