@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 13:12:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 04:24:34 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 12:58:13 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ float	find_intersection(const t_quadrics *Q, const t_ray *R)
 	coefs[1] = quadratic_form(R->dir, Q->coefs, ray_org);
 	coefs[2] = quadratic_form(ray_org, Q->coefs, ray_org);
 	sols = solve_quadratic_half_eq(coefs[0], coefs[1], coefs[2]);
-	if (sols.sol1 > EPSILON && isnan(sols.sol1) == FALSE)
+	if (sols.sol1 > 0 && isnan(sols.sol1) == FALSE)
 	{
 		if (isnan(z_range_check_or_nan(Q, R, sols.sol1)) == FALSE)
 			return (sols.sol1);

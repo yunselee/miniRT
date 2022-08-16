@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:08:12 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 11:31:05 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	rotate_to_quad_dir(t_quadrics *Q)
 	mat.col3 = Q->dir;
 	mat.col2 = v3_normalize(v3_crs(Q->dir, Q->tan));
 	mat.col4 = make_v4(0, 0, 0, 1);
-	Q->coefs = mul_mat44(mat, mul_mat44(Q->coefs, trans_mat44(mat)));
+	Q->coefs = mul_mat44(trans_mat44(mat), mul_mat44(Q->coefs, mat));
 }
 
 int	init_quadrics(t_scene *outscene, char **single_scene)

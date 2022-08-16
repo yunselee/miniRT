@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 08:56:18 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 12:56:00 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	keydown(int keycode, t_mlx *mlx)
 {
 	if (keycode == ESC)
 	{
-		destroy_mlx(mlx);
+		destroy_mlx();
 		exit(0);
 	}
 	else if (mlx->edit == 0 && keycode == KEY_E)

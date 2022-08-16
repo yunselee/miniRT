@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:22:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:13:28 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 12:04:49 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,25 @@ t_color	diffuse_light(const t_scene *scene, \
 	t_light	*light;
 	t_color	color;
 	t_color	clr_tmp;
+	t_color	obj_color;
 	float	diffuse;
 
 	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
 	color = rgb_color(0, 0, 0);
-	clr_tmp = get_texture_color(Q, &(Q->textures[T_TEXTURE]), hit_point);
-	clr_tmp = color_disruption(Q, hit_point, clr_tmp);
+	obj_color = get_texture_color(Q, &(Q->textures[T_TEXTURE]), hit_point);
+	obj_color = color_disruption(Q, hit_point, obj_color);
 	light = scene->light;
 	while (light != NULL)
 	{
 		diffuse = diffuse_helper(scene->quads, light, normal, hit_point);
 		if (diffuse > EPSILON)
 		{
-			clr_tmp.red = (int)((float)light->color.red / 255 * clr_tmp.red);
-			clr_tmp.green = (int)((float)light->color.green / 255 \
-									* clr_tmp.green);
-			clr_tmp.blue = (int)((float)light->color.blue / 255 * clr_tmp.blue);
+			clr_tmp.red = (int)((float)light->color.red / 255 * obj_color.red);
+			clr_tmp.green = (int)((float)light->color.green / 255 
+									* obj_color.green);
+			clr_tmp.blue = (int)((float)light->color.blue / 255 * obj_color.blue);
 			clr_tmp = color_scale(clr_tmp, diffuse * (1 - Q->spec_rs));
+			clr_tmp = color_scale(clr_tmp, diffuse);
 			color = color_add(color, clr_tmp);
 		}
 		light = light->next;

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:16:58 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 13:01:25 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_color	phong_reflection(t_mlx *mlx, \
 		return (ambient_light(Q, scene->ambient_color, \
 								0.8, hit_point));
 	normal = quad_normal_vector(Q, hit_point, view_point);
-	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
+	// hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
 	normal = apply_normal_map(Q, hit_point, normal);
 	color[0] = ambient_light(Q, \
 								scene->ambient_color, \

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:52:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:01:31 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 11:28:19 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	mlx_move_obj(t_mlx *mlx, int keycode)
 		return (FALSE);
 	else if (keycode == KEY_C)
 		mlx->selected_quad->disruption ^= 0b1;
-	else if (keycode == KEY_Q || keycode == KEY_E)
+	else if (keycode == KEY_Q)
 		rotate_quadrics(mlx->selected_quad, axis, -3);
 	else if (keycode == KEY_E)
 		rotate_quadrics(mlx->selected_quad, axis, 3);
