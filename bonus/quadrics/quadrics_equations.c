@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 13:12:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 19:24:30 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 21:05:46 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static t_sols	solve_quadratic_half_eq(double a, double b, double c)
 	t_sols	sol;
 	double	discriminant;
 
+	
 	sol.sol2 = NAN;
 	sol.sol1 = NAN;
 	if (a < EPSILON && a > -EPSILON)
@@ -40,6 +41,11 @@ static t_sols	solve_quadratic_half_eq(double a, double b, double c)
 			sol.sol1 = (-b - sqrt(discriminant)) / a;
 		if (discriminant > 0)
 			sol.sol2 = (-b + sqrt(discriminant)) / a;
+	}
+	if (get_mlx()->debug)
+	{
+		printf("\t\t 2nd eq Coefficients -> A : %f B : %f C : %f\n", a, b, c);
+		printf("\t\t solutions : %f, %f\n", sol.sol1, sol.sol2);
 	}
 	return (sol);
 }
@@ -81,9 +87,15 @@ double	find_intersection(const t_quadrics *Q, const t_ray *R)
 	ray_org.w = 1;
 	if (Q->type == Q_PLANE)
 		return (find_plane_intersection(Q, R));
-	coefs[0] = quadratic_form(R->dir, Q->coefs, R->dir);
-	coefs[1] = quadratic_form(R->dir, Q->coefs, ray_org);
-	coefs[2] = quadratic_form(ray_org, Q->coefs, ray_org);
+#ifdef DEBUG
+	if (get_mlx()->debug)
+	{
+		printf("ray -> dir : %f %f %f %f, org %f %f %f %f\n", R->dir.x, R->dir.y, R->dir.z, R->dir.w, ray_org.x, ray_org.y, ray_org.z, ray_org.w);
+	}
+#endif
+	coefs[0] = quadratic_form(R->dir, &Q->coefs, R->dir);
+	coefs[1] = quadratic_form(R->dir, &Q->coefs, ray_org);
+	coefs[2] = quadratic_form(ray_org, &Q->coefs, ray_org);
 	sols = solve_quadratic_half_eq(coefs[0], coefs[1], coefs[2]);
 	if (sols.sol1 > EPSILON && isnan(sols.sol1) == FALSE)
 	{

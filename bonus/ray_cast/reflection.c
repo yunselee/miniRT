@@ -6,15 +6,17 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 18:16:20 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 19:46:34 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "vector3.h"
 #include "quadrics.h"
 #include "ray_cast.h"
+#include "print_info.h"
 
 static t_vec3	get_mirror_ray(t_vec3 normal, t_vec3 ray)
 {
@@ -44,6 +46,14 @@ static t_color	ambient_light(const t_quadrics *Q, \
 	c.green = round((double)obj_color.green * ((double)amb_color.green / 255));
 	c.blue = round((double)obj_color.blue * ((double)amb_color.blue / 255));
 	c = color_scale(c, ra);
+	if (get_mlx()->debug == TRUE)
+	{
+		printf("\t||----<AMBIENT>----||\n");
+		print_single_quadrics(Q);
+		printf("\tobj color : %d %d %d\n", Q->color.red, Q->color.green, Q->color.blue);
+		printf("\tambient ratio : %f\n", ra);
+		printf("\t||-----------------||\n");
+	}
 	return (c);
 }
 
@@ -74,18 +84,6 @@ static t_vec3	apply_normal_map(const t_quadrics *Q, \
 	return (normal);
 }
 
-static t_color	apply_height_map(const t_quadrics *Q, \
-								t_vec3 hit_point, \
-								t_color color)
-{
-	t_color	gray;
-
-	if ((Q->textures[T_HEIGHT]).img.img == NULL)
-		return (color);
-	gray = get_texture_color(Q, &Q->textures[T_HEIGHT], hit_point);
-	return (color_scale(color, ((double)(gray.red) / 255)));
-}
-
 t_color	phong_reflection(t_mlx *mlx, \
 						t_quadrics *Q, \
 						t_vec3 hit_point, \
@@ -102,6 +100,14 @@ t_color	phong_reflection(t_mlx *mlx, \
 	normal = quad_normal_vector(Q, hit_point, view_point);
 	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
 	normal = apply_normal_map(Q, hit_point, normal);
+	if (mlx->debug == TRUE)
+	{
+		printf("||========[DEBUG]===========||\n");
+		print_single_quadrics(Q);
+		printf("\thit point : %f %f %f\n", hit_point.x, hit_point.y, hit_point.z);
+		printf("\tnormal vector : %f %f %f\n", normal.x, normal.y, normal.z);
+		printf("||========[-----]===========||\n");
+	}
 	color[0] = ambient_light(Q, \
 								scene->ambient_color, \
 								scene->ambient_ratio, \
@@ -109,6 +115,5 @@ t_color	phong_reflection(t_mlx *mlx, \
 	color[1] = diffuse_light(scene, Q, normal, hit_point);
 	mirror_ray = get_mirror_ray(normal, v3_sub(hit_point, view_point));
 	color[2] = specular_light(scene, Q, mirror_ray, hit_point);
-	color[0] = color_add(color_add(color[0], color[1]), color[2]);
-	return (apply_height_map(Q, hit_point, color[0]));
+	return (color_add(color_add(color[0], color[1]), color[2]));
 }

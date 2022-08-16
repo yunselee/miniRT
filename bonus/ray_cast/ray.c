@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 17:54:14 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 21:03:47 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,20 @@ double	get_intersect_distance(t_quadrics *objlst, \
 	while (target_obj)
 	{
 		dist[1] = find_intersection(target_obj, &ray);
+		if (get_mlx()->debug)
+		{
+			printf("\tcurrent target obj : \n");
+			print_single_quadrics(target_obj);
+			printf("intersect dist : %f\n", dist[1]);
+		}
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 		{
 			dist[0] = dist[1];
-			*out_intersecting_obj = target_obj;
+			if (out_intersecting_obj != NULL)
+				*out_intersecting_obj = target_obj;
 		}
 		target_obj = target_obj->next;
 	}
-	if (*out_intersecting_obj == NULL)
-		return (INFINITY);
 	if (dist[0] < EPSILON)
 		return (NAN);
 	return (dist[0]);

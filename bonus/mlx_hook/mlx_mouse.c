@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:48:44 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:00:50 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/16 19:44:46 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,26 @@
 #include "print_info.h"
 #include "quadrics.h"
 #include "Resoloution.h"
+
+static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
+{
+	t_quadrics	*intersect_obj;
+	t_vec3		intersect;
+	t_color		c;
+	float		dist;
+
+	intersect_obj = NULL;
+	dist = get_intersect_distance(get_scene()->quads, &intersect_obj, ray);
+	if (isinf(dist) == TRUE || isnan(dist) == TRUE)
+		return (rgb_color(0, 0, 0));
+	else
+	{
+		intersect = v3_mul(ray.dir, dist - EPSILON);
+		intersect = v3_add(intersect, ray.org);
+		c = phong_reflection(mlx, intersect_obj, intersect, ray.org);
+		return (c);
+	}
+}
 
 static t_quadrics	*select_object(t_mlx *mlx, int x, int y)
 {
@@ -38,6 +58,18 @@ static t_quadrics	*select_object(t_mlx *mlx, int x, int y)
 
 int	mousedown(int button, int x, int y, t_mlx *mlx)
 {
+	printf("mouse clicked\n");
+	if (button == MOUSE_RIGHT)
+	{
+		mlx->debug = TRUE;
+		t_ray			ray;
+		float d = (WIN_WIDTH / 2) / tan(get_scene()->cam->hfov / 2);
+		ray.dir = make_v3(x - WIN_WIDTH / 2, y - WIN_HEIGHT / 2, d);
+		ray.dir = v3_normalize(ray.dir);
+		ray.org = get_scene()->cam->pos;
+		single_ray_cast(mlx, ray);
+		mlx->debug = FALSE;
+	}
 	printf("mouse clicked\n");
 	if (!mlx || x < 0 || y < 0 || (unsigned int)x > WIN_WIDTH \
 		|| (unsigned int)y > WIN_HEIGHT || mlx->edit == FALSE \

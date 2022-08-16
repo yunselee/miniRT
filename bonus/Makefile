@@ -1,7 +1,7 @@
 NAME			= miniRT
 
 CC				= gcc
-CFLAGS			=  -Wall -Werror -Wextra -O2
+CFLAGS			=  -Wall -Werror -Wextra -O2 -D DEBUG
 # -g -fsanitize=address  -Wall -Werror -Wextra
 
 LIBS = ./library/LIBFT/libft.a
