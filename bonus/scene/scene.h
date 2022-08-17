@@ -58,7 +58,6 @@ typedef struct s_cam
 
 typedef struct s_scene
 {
-	t_mat33				global;
 	struct s_quadrics	*quads;
 	float				ambient_ratio;
 	t_color				ambient_color;

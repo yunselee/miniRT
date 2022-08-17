@@ -62,6 +62,5 @@ int	transform_to_cam_cord(t_scene *scene, t_mat33 transform)
 	scene->cam->pos = v3_sub(scene->cam->pos, scene->cam->pos);
 	scene->cam->pos = transform_by_mat33(transform, (scene->cam->pos));
 	scene->cam->dir = transform_by_mat33(transform, (scene->cam->dir));
-	scene->global = mul_mat33(scene->global, transform);
 	return (TRUE);
 }
