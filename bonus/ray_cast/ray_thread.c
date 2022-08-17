@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 09:13:38 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 17:53:11 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 20:36:27 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "ray_cast.h"
 #include <assert.h>
 #include "Resoloution.h"
+#include "debug_msgs.h"
 
 static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 {
@@ -59,16 +60,19 @@ t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 
 	intersect_obj = NULL;
 	dist = get_intersect_distance(get_scene()->quads, &intersect_obj, ray);
+	debug_single_ray_cast(intersect_obj, &dist, NULL, NULL);
 	if (isinf(dist) == TRUE || isnan(dist) == TRUE)
-		return (rgb_color(0, 0, 0));
+		c = rgb_color(0, 0, 0);
 	else
 	{
 		intersect = v3_mul(ray.dir, dist - EPSILON);
 		intersect = v3_mul(ray.dir, dist);
 		intersect = v3_add(intersect, ray.org);
 		c = phong_reflection(mlx, intersect_obj, intersect, ray.org);
-		return (intensity_attenuation(c, intersect, ray.org));
+		c = intensity_attenuation(c, intersect, ray.org);
 	}
+	debug_single_ray_cast(NULL, NULL, NULL, &c);
+	return (c);
 }
 
 void	*thread_routine(void *ptr)

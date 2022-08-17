@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:20:28 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 15:26:40 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 20:21:11 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	print_single_quadrics(const t_quadrics *Q)
 {
 	const int	rgb[3] = {Q->color.red, Q->color.green, Q->color.blue};
 
+	if (Q == NULL)
+		printf("type : NONE\n");
 	if (Q->type == Q_PLANE)
 		printf("type : PLANE\n");
 	else

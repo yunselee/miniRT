@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 12:56:00 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 21:51:16 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,22 @@
 #include "transform.h"
 #include "print_info.h"
 #include "Resoloution.h"
+#include "debug_msgs.h"
 
-static int	chage_to_editmode(t_mlx *mlx)
+static int	chage_to_editmode(t_mlx *mlx, int keycode)
 {
+	if (keycode == KEY_D)
+	{
+		mlx->debug = (mlx->debug + 1) % 3;
+		if (mlx->debug == D_NONE)
+			printf("DEBUG MODE OFF\n");
+		else if (mlx->debug == D_SIMPLE)
+			printf("DEBUG MODE ON : SIMPLE mode\n");
+		else if (mlx->debug == D_DETAIL)
+			printf("DEBUG MODE ON : DETAIL mode\n");
+		return (TRUE);
+	}
+	mlx->debug = FALSE;
 	mlx->edit = ceil(fmax(WIN_WIDTH, WIN_HEIGHT) / 500);
 	mlx_renew_image(mlx);
 	printf("Now in Editting mode. press R to render\n");
@@ -31,7 +44,7 @@ static int	chage_to_editmode(t_mlx *mlx)
 
 static int	change_to_rendermode(t_mlx *mlx)
 {
-	mlx->edit = 0;
+	mlx->edit = FALSE;
 	mlx->target_scene = E_NONE;
 	mlx->selected_light = NULL;
 	mlx->selected_quad = NULL;
@@ -84,8 +97,8 @@ int	keydown(int keycode, t_mlx *mlx)
 		destroy_mlx();
 		exit(0);
 	}
-	else if (mlx->edit == 0 && keycode == KEY_E)
-		return (chage_to_editmode(mlx));
+	else if (mlx->edit == 0 && (keycode == KEY_E || keycode == KEY_D))
+		return (chage_to_editmode(mlx, keycode));
 	else if (mlx->edit != 0 && keycode == KEY_R)
 		return (change_to_rendermode(mlx));
 	else if (mlx->edit != 0 && mlx->target_scene == E_NONE)

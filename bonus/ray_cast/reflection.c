@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 17:52:59 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 21:22:40 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "quadrics.h"
 #include "ray_cast.h"
 #include <stdio.h>
-#include "print_info.h"
+#include "debug_msgs.h"
 
 static t_vec3	get_mirror_ray(t_vec3 normal, t_vec3 ray)
 {
@@ -36,6 +36,7 @@ static t_color	ambient_light(const t_quadrics *Q, \
 	t_color	c;
 	t_color	obj_color;
 
+	debug_ambient(NULL);
 	ra = fmin(1.0, fmax(0, ra));
 	obj_color = get_texture_color(Q, &(Q->textures[T_TEXTURE]), hit_point);
 	obj_color = color_disruption(Q, hit_point, obj_color);
@@ -43,6 +44,8 @@ static t_color	ambient_light(const t_quadrics *Q, \
 	c.green = round((float)obj_color.green * ((float)amb_color.green / 255));
 	c.blue = round((float)obj_color.blue * ((float)amb_color.blue / 255));
 	c = color_scale(c, ra);
+	debug_ambient(Q);
+	debug_color(&c);
 	return (c);
 }
 
@@ -88,6 +91,7 @@ t_color	phong_reflection(t_mlx *mlx, \
 								0.8, hit_point));
 	normal = quad_normal_vector(Q, hit_point, view_point);
 	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
+	debug_phong_reflection(&normal, &hit_point);
 	normal = apply_normal_map(Q, hit_point, normal);
 	color[0] = ambient_light(Q, \
 								scene->ambient_color, \

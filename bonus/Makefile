@@ -18,6 +18,7 @@ INCS_DIR		= 	-I ./library/LIBFT \
 					-I ./ray_cast \
 					-I ./timer \
 					-I ./quadrics \
+					-I ./debug_msgs \
 					-I .
 
 SRCS_DIR		= 	./ \
@@ -27,7 +28,8 @@ SRCS_DIR		= 	./ \
 					./mlx_hook \
 					./scene \
 					./timer \
-					./quadrics
+					./quadrics \
+					./debug_msgs \
 
 
 SRCS			= 	main.c \
@@ -64,7 +66,11 @@ SRCS			= 	main.c \
 					\
 					quadrics.c \
 					quadrics_helper.c \
-					quadrics_equations.c
+					quadrics_equations.c\
+					\
+					debug_quadrics.c \
+					debug_raycast.c \
+					debug_reflection.c
 
 OBJS_DIR		= ./OBJS
 OBJS			= $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
