@@ -6,14 +6,15 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 13:12:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 12:58:13 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 21:44:22 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "quadrics.h"
 #include <math.h>
 #include <stdio.h>
 #include <assert.h>
+#include "quadrics.h"
+#include "debug_msgs.h"
 
 //(a)t^2 + (2b)t + (c) = 0
 static t_sols	solve_quadratic_half_eq(float a, float b, float c)
@@ -21,9 +22,8 @@ static t_sols	solve_quadratic_half_eq(float a, float b, float c)
 	t_sols	sol;
 	float	discriminant;
 
-	sol.sol2 = NAN;
-	sol.sol1 = NAN;
-	if (a < EPSILON && a > -EPSILON)
+	sol = (t_sols){NAN, NAN};
+	if (a == 0)
 	{
 		if (b != 0)
 			sol.sol1 = -c / (2 * b);
@@ -42,6 +42,7 @@ static t_sols	solve_quadratic_half_eq(float a, float b, float c)
 		if (discriminant > 0)
 			sol.sol2 = (-b + sqrtf(discriminant)) / a;
 	}
+	debug_solve_equation(NULL, &discriminant, &sol.sol1, &sol.sol2);
 	return (sol);
 }
 
@@ -52,10 +53,14 @@ static float	find_plane_intersection(const t_quadrics *Q, const t_ray *R)
 
 	obj_org = v3_sub(Q->org, R->org);
 	if (v3_dot(R->dir, Q->dir) == 0)
-		return (NAN);
-	dist = v3_dot(obj_org, Q->dir) / v3_dot(R->dir, Q->dir);
-	if (dist <= 0)
-		return (NAN);
+		dist = NAN;
+	else
+	{
+		dist = v3_dot(obj_org, Q->dir) / v3_dot(R->dir, Q->dir);
+		if (dist <= 0)
+			dist = NAN;
+	}
+	debug_solve_equation(NULL, NULL, &dist, NULL);
 	return (dist);
 }
 
@@ -64,10 +69,13 @@ static float	z_range_check_or_nan(const t_quadrics *Q, \
 										float sol)
 {
 	t_vec3	intersection;
+	float	z_value;
 
 	intersection = v3_sub(v3_add(v3_mul(R->dir, sol), R->org), Q->org);
-	if (v3_dot(intersection, Q->dir) >= Q->range_z[0] - EPSILON \
-			&& v3_dot(intersection, Q->dir) <= Q->range_z[1] + EPSILON)
+	z_value = v3_dot(intersection, Q->dir);
+	debug_z_range(Q->range_z, &sol, &z_value);
+	if (z_value >= Q->range_z[0] - EPSILON \
+			&& z_value <= Q->range_z[1] + EPSILON)
 		return (sol);
 	return (NAN);
 }
@@ -81,13 +89,14 @@ float	find_intersection(const t_quadrics *Q, const t_ray *R)
 	ray_org = v4_sub(R->org, Q->org);
 	ray_org.w = 1;
 	assert(R->dir.w == 0);
+	debug_find_intersection(Q, R);
 	if (Q->type == Q_PLANE)
 		return (find_plane_intersection(Q, R));
 	coefs[0] = quadratic_form(R->dir, Q->coefs, R->dir);
 	coefs[1] = quadratic_form(R->dir, Q->coefs, ray_org);
 	coefs[2] = quadratic_form(ray_org, Q->coefs, ray_org);
 	sols = solve_quadratic_half_eq(coefs[0], coefs[1], coefs[2]);
-	if (sols.sol1 > 0 && isnan(sols.sol1) == FALSE)
+	if (sols.sol1 > EPSILON && isnan(sols.sol1) == FALSE)
 	{
 		if (isnan(z_range_check_or_nan(Q, R, sols.sol1)) == FALSE)
 			return (sols.sol1);

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 17:30:04 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 15:10:17 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,16 @@ float	get_intersect_distance(t_quadrics *objlst, \
 	target_obj = objlst;
 	while (target_obj)
 	{
-		assert(ray.org.w == 1 && ray.dir.w == 0);
+		assert(ray.dir.w == 0);
 		dist[1] = find_intersection(target_obj, &ray);
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 		{
 			dist[0] = dist[1];
-			*out_intersecting_obj = target_obj;
+			if (out_intersecting_obj != NULL)
+				*out_intersecting_obj = target_obj;
 		}
 		target_obj = target_obj->next;
 	}
-	if (*out_intersecting_obj == NULL)
-		return (INFINITY);
 	if (dist[0] < EPSILON)
 		return (NAN);
 	return (dist[0]);

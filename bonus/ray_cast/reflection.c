@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 13:01:25 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 21:22:40 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "quadrics.h"
 #include "ray_cast.h"
 #include "scene_editer.h"
+#include <stdio.h>
+#include "debug_msgs.h"
 
 static t_vec3	get_mirror_ray(t_vec3 normal, t_vec3 ray)
 {
@@ -35,10 +37,8 @@ static t_color	ambient_light(const t_quadrics *Q, \
 	t_color	c;
 	t_color	obj_color;
 
-	if (ra < 0)
-		ra = 0;
-	else if (ra > 1)
-		ra = 1;
+	debug_ambient(NULL);
+	ra = fmin(1.0, fmax(0, ra));
 	obj_color = get_texture_color(Q, &(Q->textures[T_TEXTURE]), hit_point);
 	obj_color = color_disruption(Q, hit_point, obj_color);
 	c.red = round((float)obj_color.red * ((float)amb_color.red / 255));
@@ -46,6 +46,8 @@ static t_color	ambient_light(const t_quadrics *Q, \
 	c.blue = round((float)obj_color.blue * ((float)amb_color.blue / 255));
 	c.alpha = 0;
 	c = color_scale(c, ra);
+	debug_ambient(Q);
+	debug_color(&c);
 	return (c);
 }
 
@@ -101,7 +103,8 @@ t_color	phong_reflection(t_quadrics *Q, \
 		return (ambient_light(Q, scene->ambient_color, \
 								0.8, hit_point));
 	normal = quad_normal_vector(Q, hit_point, view_point);
-	// hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
+	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
+	debug_phong_reflection(&normal, &hit_point);
 	normal = apply_normal_map(Q, hit_point, normal);
 	color[0] = ambient_light(Q, \
 								scene->ambient_color, \
@@ -110,6 +113,5 @@ t_color	phong_reflection(t_quadrics *Q, \
 	color[1] = diffuse_light(scene, Q, normal, hit_point);
 	mirror_ray = get_mirror_ray(normal, v3_sub(hit_point, view_point));
 	color[2] = specular_light(scene, Q, mirror_ray, hit_point);
-	color[0] = color_add(color_add(color[0], color[1]), color[2]);
-	return (apply_height_map(Q, hit_point, color[0]));
+	return (color_add(color_add(color[0], color[1]), color[2]));
 }

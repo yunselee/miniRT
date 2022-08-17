@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 09:13:38 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 15:52:18 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 20:36:27 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 #include "color.h"
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "ray_cast.h"
 #include <assert.h>
 #include "resolution.h"
 #include "scene_editer.h"
+#include "debug_msgs.h"
+
 
 static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 {
@@ -54,16 +57,23 @@ static t_color	single_ray_cast(t_ray ray)
 	t_quadrics	*intersect_obj;
 	t_vec3		intersect;
 	t_color		c;
-	double		dist;
+	float		dist;
 
 	intersect_obj = NULL;
 	dist = get_intersect_distance(get_scene()->quads, &intersect_obj, ray);
-	if (isinf(dist)|| isnan(dist))
-		return (rgb_color(0, 0, 0));
-	intersect = v3_mul(ray.dir, dist - EPSILON);
-	intersect = v3_add(intersect, ray.org);
-	c = phong_reflection(intersect_obj, intersect, ray.org);
-	return (intensity_attenuation(c, intersect, ray.org));
+	debug_single_ray_cast(intersect_obj, &dist, NULL, NULL);
+	if (isinf(dist) == TRUE || isnan(dist) == TRUE)
+		c = rgb_color(0, 0, 0);
+	else
+	{
+		intersect = v3_mul(ray.dir, dist - EPSILON);
+		intersect = v3_mul(ray.dir, dist);
+		intersect = v3_add(intersect, ray.org);
+		c = phong_reflection(mlx, intersect_obj, intersect, ray.org);
+		c = intensity_attenuation(c, intersect, ray.org);
+	}
+	debug_single_ray_cast(NULL, NULL, NULL, &c);
+	return (c);
 }
 
 void	*thread_routine(void *ptr)

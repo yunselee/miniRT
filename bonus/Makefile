@@ -19,6 +19,7 @@ INCS_DIR		= 	-I ./library/LIBFT \
 					-I ./timer \
 					-I ./quadrics \
 					-I ./scene_editer \
+					-I ./debug_msgs \
 					-I .
 
 SRCS_DIR		= 	./ \
@@ -30,7 +31,7 @@ SRCS_DIR		= 	./ \
 					./timer \
 					./quadrics \
 					./scene_editer \
-
+					./debug_msgs \
 
 
 SRCS			= 	main.c \
@@ -70,7 +71,10 @@ SRCS			= 	main.c \
 					quadrics_equations.c \
 					\
 					scene_editer.c \
-
+					\
+					debug_quadrics.c \
+					debug_raycast.c \
+					debug_reflection.c
 
 OBJS_DIR		= ./OBJS
 OBJS			= $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))

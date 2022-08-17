@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 12:56:00 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 21:51:16 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,27 @@
 #include "print_info.h"
 #include "resolution.h"
 #include "scene_editer.h"
+
+static int	chage_to_editmode(int keycode)
+{
+	t_scene_editer *editer;
+
+	editer = get_scene_editer();
+	if (keycode == KEY_D)
+	{
+		editer->debug = (editer->debug + 1) % 3;
+		if (editer->debug == D_NONE)
+			printf("DEBUG MODE OFF\n");
+		else if (editer->debug == D_SIMPLE)
+			printf("DEBUG MODE ON : SIMPLE mode\n");
+		else if (editer->debug == D_DETAIL)
+			printf("DEBUG MODE ON : DETAIL mode\n");
+		return (TRUE);
+	}
+	editer->debug = FALSE;
+	editer->edit = ceil(fmax(WIN_WIDTH, WIN_HEIGHT) / 500);
+	mlx_renew_image();
+}
 
 static int	chage_to_editmode()
 {
@@ -96,8 +117,8 @@ int	keydown(int keycode)
 		destroy_mlx(NULL);
 		exit(0);
 	}
-	else if (editer->edit == 0 && keycode == KEY_E)
-		return (chage_to_editmode());
+	else if (editer->edit == 0 && (keycode == KEY_E || keycode == KEY_D))
+		return (chage_to_editmode(keycode));
 	else if (editer->edit != 0 && keycode == KEY_R)
 		return (change_to_rendermode());
 	else if (editer->edit != 0 && editer->target_scene == E_NONE)
