@@ -69,7 +69,6 @@ static int	wheel_light(t_light *light, int keycode)
 {
 	double	stride;
 
-	stride = 0.05;
 	if (light == NULL)
 		return (FALSE);
 	if (keycode == 5)

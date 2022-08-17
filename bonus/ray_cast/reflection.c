@@ -44,6 +44,7 @@ static t_color	ambient_light(const t_quadrics *Q, \
 	c.red = round((float)obj_color.red * ((float)amb_color.red / 255));
 	c.green = round((float)obj_color.green * ((float)amb_color.green / 255));
 	c.blue = round((float)obj_color.blue * ((float)amb_color.blue / 255));
+	c.alpha = 0;
 	c = color_scale(c, ra);
 	return (c);
 }

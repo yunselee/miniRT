@@ -70,6 +70,7 @@ t_color	specular_light(const t_scene *scene, t_quadrics *hit_obj, \
 									* light->color.green);
 			color_temp.blue = roundf((float)light->color.blue / 255 \
 									* light->color.blue);
+			color_temp.alpha = 0;
 			color_temp = color_scale(color_temp, specular);
 			color = color_add(color, color_temp);
 		}

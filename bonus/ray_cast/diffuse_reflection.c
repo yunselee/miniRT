@@ -72,6 +72,7 @@ t_color	diffuse_light(const t_scene *scene, \
 			clr_tmp.green = (int)((float)light->color.green / 255 
 									* obj_color.green);
 			clr_tmp.blue = (int)((float)light->color.blue / 255 * obj_color.blue);
+			clr_tmp.alpha = 0;
 			clr_tmp = color_scale(clr_tmp, diffuse * (1 - Q->spec_rs));
 			clr_tmp = color_scale(clr_tmp, diffuse);
 			color = color_add(color, clr_tmp);

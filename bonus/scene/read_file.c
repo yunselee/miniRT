@@ -27,7 +27,6 @@ static int	parse_scene(t_scene *out_scene, char *line)
 	element = ft_split(line, " \t\v\r\f\n");
 	if (!element)
 		return (FALSE);
-	res = FALSE;
 	if (ft_strncmp(element[0], "A", 2) == 0)
 		res = case_ambient(out_scene, element);
 	else if (ft_strncmp(element[0], "C", 2) == 0)
