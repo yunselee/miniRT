@@ -24,13 +24,15 @@ typedef struct s_thread_local_object
 	int		y;
 }			t_thread_local_object;
 
+void	ray_cast();
+
 float	get_intersect_distance(t_quadrics *objlst, \
 								t_quadrics **intersecting_obj_out, \
 								t_ray ray);
 
 void	render_lightsource(double depth);
 
-t_color	single_ray_cast(t_mlx *mlx, t_ray ray);
+t_color	single_ray_cast(t_ray ray);
 
 t_color	phong_reflection(t_quadrics *hit_obj, \
 							t_vec3 intersection, \

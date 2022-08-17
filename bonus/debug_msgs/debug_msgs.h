@@ -12,7 +12,6 @@
 
 #ifndef DEBUG_MSGS_H
 # define DEBUG_MSGS_H
-# include "mlx_part.h"
 # include "quadrics.h"
 
 typedef enum e_debugmode

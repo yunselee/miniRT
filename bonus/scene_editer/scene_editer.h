@@ -19,6 +19,7 @@ typedef struct s_scene_editer
 	enum e_target		target_scene;
 	unsigned int		clicked;
 	int					prev_pixel[2];
+	int					debug;
 }t_scene_editer;
 
 t_scene_editer *get_scene_editer();

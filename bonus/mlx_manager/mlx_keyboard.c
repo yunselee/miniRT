@@ -20,6 +20,7 @@
 #include "print_info.h"
 #include "resolution.h"
 #include "scene_editer.h"
+#include "debug_msgs.h"
 
 static int	chage_to_editmode(int keycode)
 {
@@ -40,14 +41,6 @@ static int	chage_to_editmode(int keycode)
 	editer->debug = FALSE;
 	editer->edit = ceil(fmax(WIN_WIDTH, WIN_HEIGHT) / 500);
 	mlx_renew_image();
-}
-
-static int	chage_to_editmode()
-{
-	get_scene_editer()->edit = ceil(fmax(WIN_WIDTH, WIN_HEIGHT) / 500);
-	mlx_renew_image();
-	printf("Now in Editting mode. press R to render\n");
-	printf("Select scene to edit -> C : cam L : light O : objs\n");
 	return (TRUE);
 }
 

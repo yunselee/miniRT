@@ -23,7 +23,7 @@
 #include "scene_editer.h"
 #include "debug_msgs.h"
 
-static int	debug_single_raycast(t_mlx *mlx, int x, int y)
+static int	debug_single_raycast(int x, int y)
 {
 	const	t_cam	*cam = get_scene()->cam;
 	t_ray	ray;
@@ -34,7 +34,7 @@ static int	debug_single_raycast(t_mlx *mlx, int x, int y)
 	ray.dir = make_v3(x - WIN_WIDTH / 2, y - WIN_HEIGHT / 2, d);
 	ray.dir = v3_normalize(ray.dir);
 	ray.org = cam->pos;
-	single_ray_cast(mlx, ray);
+	single_ray_cast(ray);
 	return (TRUE);
 }
 
@@ -58,22 +58,21 @@ int	mousedown(int button, int x, int y)
 	t_scene_editer *editer;
 
 	editer= get_scene_editer();
-
 	if (x < 0 || y < 0 || (unsigned int)x > WIN_WIDTH \
 		|| (unsigned int)y > WIN_HEIGHT \
-		|| (((mlx->edit == FALSE) || (mlx->target_scene == E_NONE)) && (mlx->debug == FALSE)))
+		|| (((editer->edit == FALSE) || (editer->target_scene == E_NONE)) && (editer->debug == FALSE)))
 		return (FALSE);
 	printf("mouse clicked\n");
-	mlx->clicked = button;
-	mlx->prev_pixel[0] = x;
-	mlx->prev_pixel[1] = y;
-	if (mlx->debug != D_NONE && button == MOUSE_RIGHT)
-		return (debug_single_raycast(mlx, x, y));
-	if (button == MOUSE_LEFT && mlx->target_scene == E_OBJ)
+	editer->clicked = button;
+	editer->prev_pixel[0] = x;
+	editer->prev_pixel[1] = y;
+	if (editer->debug != D_NONE && button == MOUSE_RIGHT)
+		return (debug_single_raycast(x, y));
+	if (button == MOUSE_LEFT && editer->target_scene == E_OBJ)
 	{
-		select_object(mlx, x, y);
+		select_object(x, y);
 		printf("selected object : \n");
-		print_single_quadrics(mlx->selected_quad);
+		print_single_quadrics(editer->selected_quad);
 	}
 	else if (button == MOUSE_WHELL_DOWN || button == MOUSE_WHELL_UP)
 	{

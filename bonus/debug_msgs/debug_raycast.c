@@ -14,6 +14,7 @@
 #include <math.h>
 #include "debug_msgs.h"
 #include "print_info.h"
+#include "scene_editer.h"
 
 void	debug_single_ray_cast(const t_quadrics *Q, \
 								const float *dist, \
@@ -22,7 +23,7 @@ void	debug_single_ray_cast(const t_quadrics *Q, \
 {
 	t_vec3	point_from_obj;
 	
-	if (get_mlx()->debug == D_NONE)
+	if (get_scene_editer()->debug == D_NONE)
 		return;
 	if (Q  && dist && !hit_point && !color)
 	{
@@ -46,7 +47,7 @@ void	debug_single_ray_cast(const t_quadrics *Q, \
 
 void	debug_phong_reflection(const t_vec3 *normal, const t_vec3 *point)
 {
-	if (get_mlx()->debug == D_NONE)
+	if (get_scene_editer()->debug == D_NONE)
 		return;
 	if (normal && point)
 	{

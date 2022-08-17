@@ -52,7 +52,7 @@ static void	ft_fill_pixel(int x, int y, unsigned int color)
 	}
 }
 
-static t_color	single_ray_cast(t_ray ray)
+t_color	single_ray_cast(t_ray ray)
 {
 	t_quadrics	*intersect_obj;
 	t_vec3		intersect;
@@ -69,7 +69,7 @@ static t_color	single_ray_cast(t_ray ray)
 		intersect = v3_mul(ray.dir, dist - EPSILON);
 		intersect = v3_mul(ray.dir, dist);
 		intersect = v3_add(intersect, ray.org);
-		c = phong_reflection(mlx, intersect_obj, intersect, ray.org);
+		c = phong_reflection(intersect_obj, intersect, ray.org);
 		c = intensity_attenuation(c, intersect, ray.org);
 	}
 	debug_single_ray_cast(NULL, NULL, NULL, &c);

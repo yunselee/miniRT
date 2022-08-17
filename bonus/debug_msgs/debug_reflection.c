@@ -13,10 +13,11 @@
 #include <stdio.h>
 #include "debug_msgs.h"
 #include "print_info.h"
+#include "scene_editer.h"
 
 void	debug_light(const t_light *light)
 {
-	if (get_mlx()->debug == D_NONE)
+	if (get_scene_editer()->debug == D_NONE)
 		return;
 	if (light)
 	{
@@ -27,7 +28,7 @@ void	debug_light(const t_light *light)
 
 void	debug_color(const t_color *color)
 {
-	if (get_mlx()->debug == D_NONE)
+	if (get_scene_editer()->debug == D_NONE)
 		return;
 	else if (color)
 		printf("\tcolor :\033[38;2;%d;%d;%dm◉(%d, %d, %d)\033[0m\n", \
@@ -37,7 +38,7 @@ void	debug_color(const t_color *color)
 
 void	debug_ambient(const t_quadrics *Q)
 {
-	if (get_mlx()->debug == D_NONE)
+	if (get_scene_editer()->debug == D_NONE)
 		return;
 	if (Q)
 	{
@@ -52,7 +53,7 @@ void	debug_diffuse(const float *to_obj, \
 						const float *to_light, \
 						const float *diffuse)
 {
-	if (get_mlx()->debug == D_NONE)
+	if (get_scene_editer()->debug == D_NONE)
 		return;
 	if (to_obj && to_light && !diffuse)
 	{
@@ -71,7 +72,7 @@ void	debug_specular(const float *to_obj, \
 						const float *to_light, \
 						const float *specular)
 {
-	if (get_mlx()->debug == D_NONE)
+	if (get_scene_editer()->debug == D_NONE)
 		return;
 	if (to_obj && to_light && !specular)
 	{

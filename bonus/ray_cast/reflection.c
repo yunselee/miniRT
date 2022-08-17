@@ -78,18 +78,6 @@ static t_vec3	apply_normal_map(const t_quadrics *Q, \
 	return (normal);
 }
 
-static t_color	apply_height_map(const t_quadrics *Q, \
-								t_vec3 hit_point, \
-								t_color color)
-{
-	t_color	gray;
-
-	if ((Q->textures[T_HEIGHT]).img.img == NULL)
-		return (color);
-	gray = get_texture_color(Q, &Q->textures[T_HEIGHT], hit_point);
-	return (color_scale(color, ((float)(gray.red) / 255)));
-}
-
 t_color	phong_reflection(t_quadrics *Q, \
 						t_vec3 hit_point, \
 						t_vec3 view_point)

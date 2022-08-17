@@ -12,13 +12,14 @@
 
 #include <stdio.h>
 #include "debug_msgs.h"
+#include "scene_editer.h"
 
 void	debug_find_intersection(const t_quadrics *Q, \
 									const t_ray *ray)
 {
 	const char	*type[2] = {"Q_PLANE", "Q_QUADRICS"};
 
-	if (get_mlx()->debug != D_DETAIL)
+	if (get_scene_editer()->debug != D_DETAIL)
 		return ;
 	else if(Q && ray)
 	{
@@ -32,7 +33,7 @@ void	debug_z_range(const float zrange[2], \
 						const float *sol, \
 						const float *z)
 {
-	if (get_mlx()->debug != D_DETAIL)
+	if (get_scene_editer()->debug != D_DETAIL)
 		return ;
 	if (zrange && sol && z)
 	{
@@ -50,7 +51,7 @@ void	debug_solve_equation(const float coefs[3], \
 							const float *sol1, \
 							const float *sol2)
 {
-	if (get_mlx()->debug != D_DETAIL)
+	if (get_scene_editer()->debug != D_DETAIL)
 		return ;
 	if (coefs && !D && !sol1 && !sol2)
 		printf("\tEquation : (%f)t^2 + (%f)t + (%f) = 0\n", \
