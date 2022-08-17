@@ -30,8 +30,6 @@ float	get_intersect_distance(t_quadrics *objlst, \
 
 void	render_lightsource(double depth);
 
-// t_color	single_ray_cast(t_mlx_manager *mlx, t_ray ray);
-
 void	ray_cast();
 
 t_color	phong_reflection(t_quadrics *hit_obj, \

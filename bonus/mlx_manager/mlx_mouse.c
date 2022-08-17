@@ -39,21 +39,24 @@ static t_quadrics	*select_object(int x, int y)
 
 int	mousedown(int button, int x, int y)
 {
+	t_scene_editer *editer;
+
+	editer= get_scene_editer();
 	printf("mouse clicked\n");
 	if (x < 0 || y < 0 || (unsigned int)x > WIN_WIDTH \
-		|| (unsigned int)y > WIN_HEIGHT || get_scene_editer()->edit == FALSE \
-		|| get_scene_editer()->target_scene == E_NONE)
+		|| (unsigned int)y > WIN_HEIGHT || editer->edit == FALSE \
+		|| editer->target_scene == E_NONE)
 		return (FALSE);
-	get_scene_editer()->clicked = button;
-	get_scene_editer()->prev_pixel[0] = x;
-	get_scene_editer()->prev_pixel[1] = y;
-	if (button == MOUSE_LEFT && get_scene_editer()->target_scene == E_OBJ)
+	editer->clicked = button;
+	editer->prev_pixel[0] = x;
+	editer->prev_pixel[1] = y;
+	if (button == MOUSE_LEFT && editer->target_scene == E_OBJ)
 	{
 		printf("selected object : \n");
 		if (select_object(x, y) == NULL)
 			printf("\tNONE\n");
 		else
-			print_single_quadrics(get_scene_editer()->selected_quad);
+			print_single_quadrics(editer->selected_quad);
 	}
 	else if (button == MOUSE_WHELL_DOWN || button == MOUSE_WHELL_UP)
 	{
@@ -62,7 +65,7 @@ int	mousedown(int button, int x, int y)
 	}
 	else
 		return (FALSE);
-	mlx_renew_image(get_mlx());
+	mlx_renew_image();
 	return (TRUE);
 }
 
@@ -81,23 +84,25 @@ int	mousemove(int x, int y)
 	double	dx;
 	double	dy;
 	t_vec3	axis;
-
-	if (get_scene_editer()->edit == FALSE || get_scene_editer()->clicked != 1)
+	t_scene_editer *editer;
+	
+	editer = get_scene_editer();
+	if (editer->edit == FALSE || editer->clicked != 1)
 		return (FALSE);
-	dx = x - get_scene_editer()->prev_pixel[0];
-	dy = y - get_scene_editer()->prev_pixel[1];
-	get_scene_editer()->prev_pixel[0] = x;
-	get_scene_editer()->prev_pixel[1] = y;
+	dx = x - editer->prev_pixel[0];
+	dy = y - editer->prev_pixel[1];
+	editer->prev_pixel[0] = x;
+	editer->prev_pixel[1] = y;
 	if (dx == 0 && dy == 0)
 		return (0);
 	axis = v3_normalize(make_v3(-dy, dx, 0));
 	if (fabs(dx) > fabs(dy))
 		axis = v3_normalize(make_v3(0, dx, 0));
-	if (get_scene_editer()->target_scene == E_CAM)
+	if (editer->target_scene == E_CAM)
 		transform_to_cam_cord(get_scene(), \
 			mat33_trans(rotation_mat33(axis, -3)));
-	else if (get_scene_editer()->target_scene == E_OBJ && get_scene_editer()->selected_quad != NULL)
-		rotate_quadrics(get_scene_editer()->selected_quad, axis, -3);
+	else if (editer->target_scene == E_OBJ && editer->selected_quad != NULL)
+		rotate_quadrics(editer->selected_quad, axis, -3);
 	print_info_camera(get_scene()->cam);
 	mlx_renew_image(get_mlx());
 	return (1);

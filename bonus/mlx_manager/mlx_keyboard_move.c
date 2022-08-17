@@ -76,27 +76,32 @@ int	mlx_move_light(int keycode)
 int	mlx_move_obj(int keycode)
 {
 	const t_vec3	axis = make_v3(0, 0, 1);
+	t_quadrics *selected_quad;
 
-	if (get_scene_editer()->selected_quad == NULL)
+	selected_quad = get_scene_editer()->selected_quad;
+	if (selected_quad == NULL)
 		return (FALSE);
 	else if (keycode == KEY_C)
-		get_scene_editer()->selected_quad->disruption ^= 0b1;
+		selected_quad->disruption ^= 0b1;
 	else if (keycode == KEY_Q)
-		rotate_quadrics(get_scene_editer()->selected_quad, axis, -3);
+		rotate_quadrics(selected_quad, axis, -3);
 	else if (keycode == KEY_E)
-		rotate_quadrics(get_scene_editer()->selected_quad, axis, 3);
-	else if (move_pos(&(get_scene_editer()->selected_quad->org), keycode) == FALSE)
+		rotate_quadrics(selected_quad, axis, 3);
+	else if (move_pos(&(selected_quad->org), keycode) == FALSE)
 		return (FALSE);
-	print_single_quadrics(get_scene_editer()->selected_quad);
+	print_single_quadrics(selected_quad);
 	mlx_renew_image();
 	return (TRUE);
 }
 
 void	mlx_replace_light()
 {
-	get_scene_editer()->selected_light = get_scene_editer()->selected_light->next;
-	if (get_scene_editer()->selected_light == NULL)
-		get_scene_editer()->selected_light = get_scene()->light;
+	t_light *selected_light;
+	
+	selected_light = get_scene_editer()->selected_light;
+	selected_light = selected_light->next;
+	if (selected_light == NULL)
+		selected_light = get_scene()->light;
 	printf("light changed\n");
-	print_single_light(get_scene_editer()->selected_light);
+	print_single_light(selected_light);
 }

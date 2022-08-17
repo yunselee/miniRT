@@ -22,4 +22,5 @@ typedef struct s_scene_editer
 }t_scene_editer;
 
 t_scene_editer *get_scene_editer();
+
 #endif

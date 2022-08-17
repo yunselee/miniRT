@@ -32,10 +32,13 @@ static int	chage_to_editmode()
 
 static int	change_to_rendermode()
 {
-	get_scene_editer()->edit = 0;
-	get_scene_editer()->target_scene = E_NONE;
-	get_scene_editer()->selected_light = NULL;
-	get_scene_editer()->selected_quad = NULL;
+	t_scene_editer *scene_editer;
+
+	scene_editer = get_scene_editer();
+	scene_editer->edit = 0;
+	scene_editer->target_scene = E_NONE;
+	scene_editer->selected_light = NULL;
+	scene_editer->selected_quad = NULL;
 	printf("REDERING.....\n");
 	mlx_renew_image();
 	printf("DONE\n");
@@ -71,13 +74,13 @@ static int	set_edit_scene(int keycode)
 
 static int	move_target_scene(int keycode)
 {
-	const t_scene_editer *editer = get_scene_editer();
+	const enum e_target target_scene = get_scene_editer()->target_scene;
 
-	if (editer->target_scene == E_CAM)
+	if (target_scene == E_CAM)
 		return (mlx_move_cam(keycode));
-	else if (editer->target_scene == E_LIGHT)
+	else if (target_scene == E_LIGHT)
 		return (mlx_move_light(keycode));
-	else if (editer->target_scene == E_OBJ)
+	else if (target_scene == E_OBJ)
 		return (mlx_move_obj(keycode));
 	else
 		return (FALSE);
