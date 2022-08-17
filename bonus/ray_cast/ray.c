@@ -22,8 +22,9 @@
 #include "timer.h"
 #include <unistd.h>
 #include <pthread.h>
-#include "Resoloution.h"
+#include "resolution.h"
 #include "assert.h"
+#include "scene_editer.h"
 
 #define THREAD_NUM 4
 
@@ -56,27 +57,26 @@ float	get_intersect_distance(t_quadrics *objlst, \
 	return (dist[0]);
 }
 
-static void	init_thread_local_object(t_thread_local_object *tlo, t_mlx *mlx)
+static void	init_thread_local_object(t_thread_local_object *tlo)
 {
 	int	i;
 
 	i = 0;
 	while (i < THREAD_NUM)
 	{
-		(tlo + i)->mlx = mlx;
 		(tlo + i)->x = WIN_WIDTH / 2 * (i / 2);
 		(tlo + i)->y = WIN_HEIGHT / 2 * (i % 2);
 		i++;
 	}
 }
 
-static void	ray_multithread(t_mlx *mlx)
+static void	ray_multithread()
 {
 	static pthread_t				thread_data[THREAD_NUM];
 	static t_thread_local_object	tlo[THREAD_NUM];
 	int								i;
 
-	init_thread_local_object(tlo, mlx);
+	init_thread_local_object(tlo);
 	i = 0;
 	while (i < THREAD_NUM)
 	{
@@ -92,14 +92,14 @@ static void	ray_multithread(t_mlx *mlx)
 	}
 }
 
-void	ray_cast(t_mlx *mlx)
+void	ray_cast()
 {
 	double	cam_proportion;
 
 	cam_proportion = (WIN_WIDTH / 2) / tan(get_scene()->cam->hfov / 2);
 	time_check_start_sub();
-	ray_multithread(mlx);
-	if (mlx->edit != 0 && mlx->target_scene != E_NONE)
-		render_lightsource(mlx, cam_proportion);
+	ray_multithread();
+	if (get_scene_editer()->edit != 0 && get_scene_editer()->target_scene != E_NONE)
+		render_lightsource(cam_proportion);
 	time_check_end_sub("ray");
 }

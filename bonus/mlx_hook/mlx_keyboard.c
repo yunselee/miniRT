@@ -18,37 +18,41 @@
 #include "ray_cast.h"
 #include "transform.h"
 #include "print_info.h"
-#include "Resoloution.h"
+#include "resolution.h"
+#include "scene_editer.h"
 
-static int	chage_to_editmode(t_mlx *mlx)
+static int	chage_to_editmode()
 {
-	mlx->edit = ceil(fmax(WIN_WIDTH, WIN_HEIGHT) / 500);
-	mlx_renew_image(mlx);
+	get_scene_editer()->edit = ceil(fmax(WIN_WIDTH, WIN_HEIGHT) / 500);
+	mlx_renew_image();
 	printf("Now in Editting mode. press R to render\n");
 	printf("Select scene to edit -> C : cam L : light O : objs\n");
 	return (TRUE);
 }
 
-static int	change_to_rendermode(t_mlx *mlx)
+static int	change_to_rendermode()
 {
-	mlx->edit = 0;
-	mlx->target_scene = E_NONE;
-	mlx->selected_light = NULL;
-	mlx->selected_quad = NULL;
+	get_scene_editer()->edit = 0;
+	get_scene_editer()->target_scene = E_NONE;
+	get_scene_editer()->selected_light = NULL;
+	get_scene_editer()->selected_quad = NULL;
 	printf("REDERING.....\n");
-	mlx_renew_image(mlx);
+	mlx_renew_image();
 	printf("DONE\n");
 	return (TRUE);
 }
 
-static int	set_edit_scene(t_mlx *mlx, int keycode)
+static int	set_edit_scene(int keycode)
 {
+	t_scene_editer *editer;
+
+	editer = get_scene_editer();
 	if (keycode == KEY_C)
-		mlx->target_scene = E_CAM;
+		editer->target_scene = E_CAM;
 	else if (keycode == KEY_L)
-		mlx->target_scene = E_LIGHT;
+		editer->target_scene = E_LIGHT;
 	else if (keycode == KEY_O)
-		mlx->target_scene = E_OBJ;
+		editer->target_scene = E_OBJ;
 	else
 		return (FALSE);
 	if (keycode == KEY_C)
@@ -56,49 +60,54 @@ static int	set_edit_scene(t_mlx *mlx, int keycode)
 	else if (keycode == KEY_L)
 	{
 		printf("mode : LIGHT\n");
-		mlx->selected_light = get_scene()->light;
-		print_single_light(mlx->selected_light);
+		editer->selected_light = get_scene()->light;
+		print_single_light(editer->selected_light);
 	}
 	else if (keycode == KEY_O)
 		printf("mode : OBJECTS\n");
-	mlx_renew_image(mlx);
+	mlx_renew_image();
 	return (TRUE);
 }
 
-static int	move_target_scene(t_mlx *mlx, int keycode)
+static int	move_target_scene(int keycode)
 {
-	if (mlx->target_scene == E_CAM)
-		return (mlx_move_cam(mlx, keycode));
-	else if (mlx->target_scene == E_LIGHT)
-		return (mlx_move_light(mlx, keycode));
-	else if (mlx->target_scene == E_OBJ)
-		return (mlx_move_obj(mlx, keycode));
+	const t_scene_editer *editer = get_scene_editer();
+
+	if (editer->target_scene == E_CAM)
+		return (mlx_move_cam(keycode));
+	else if (editer->target_scene == E_LIGHT)
+		return (mlx_move_light(keycode));
+	else if (editer->target_scene == E_OBJ)
+		return (mlx_move_obj(keycode));
 	else
 		return (FALSE);
 }
 
-int	keydown(int keycode, t_mlx *mlx)
+int	keydown(int keycode)
 {
+	t_scene_editer *editer;
+
+	editer = get_scene_editer();
 	if (keycode == ESC)
 	{
-		destroy_mlx();
+		destroy_mlx(NULL);
 		exit(0);
 	}
-	else if (mlx->edit == 0 && keycode == KEY_E)
-		return (chage_to_editmode(mlx));
-	else if (mlx->edit != 0 && keycode == KEY_R)
-		return (change_to_rendermode(mlx));
-	else if (mlx->edit != 0 && mlx->target_scene == E_NONE)
-		return (set_edit_scene(mlx, keycode));
-	else if (mlx->edit != 0 && keycode == ENTER)
+	else if (editer->edit == 0 && keycode == KEY_E)
+		return (chage_to_editmode());
+	else if (editer->edit != 0 && keycode == KEY_R)
+		return (change_to_rendermode());
+	else if (editer->edit != 0 && editer->target_scene == E_NONE)
+		return (set_edit_scene(keycode));
+	else if (editer->edit != 0 && keycode == ENTER)
 	{
-		mlx->target_scene = E_NONE;
+		editer->target_scene = E_NONE;
 		printf("SCENE EDITING DONE! press R to render\n");
 		printf("or Select scene to edit -> C : cam L : light O : objs\n");
-		mlx_renew_image(mlx);
+		mlx_renew_image();
 		return (1);
 	}
-	else if (mlx->edit != 0 && mlx->target_scene == E_LIGHT && keycode == SPACE)
-		mlx_switch_light(mlx);
-	return (move_target_scene(mlx, keycode));
+	else if (editer->edit != 0 && editer->target_scene == E_LIGHT && keycode == SPACE)
+		mlx_switch_light();
+	return (move_target_scene(keycode));
 }

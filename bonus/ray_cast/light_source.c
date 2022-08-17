@@ -12,22 +12,23 @@
 
 #include <math.h>
 #include "ray_cast.h"
-#include "Resoloution.h"
+#include "resolution.h"
+#include "scene_editer.h"
 
-static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
+static void	ft_fill_pixel(int x, int y, unsigned int color)
 {
 	unsigned int	s[2];
 
 	s[0] = -1;
-	while (++s[0] < (mlx->edit + 1))
+	while (++s[0] < (get_scene_editer()->edit + 1))
 	{
 		s[1] = -1;
-		while (++s[1] < (mlx->edit + 1))
-			ft_mlx_set_pixel_color(&(mlx->image), x + s[0], y + s[1], color);
+		while (++s[1] < (get_scene_editer()->edit + 1))
+			ft_mlx_set_pixel_color(&(get_mlx()->image), x + s[0], y + s[1], color);
 	}
 }
 
-static void	mlx_draw_circle(t_mlx *mlx, int p[2], t_color color, int rad)
+static void	mlx_draw_circle(int p[2], t_color color, int rad)
 {
 	const double	r_square = rad * rad;;
 	int		i;
@@ -42,14 +43,14 @@ static void	mlx_draw_circle(t_mlx *mlx, int p[2], t_color color, int rad)
 			if (i < 0 || j < 0 || i >= WIN_HEIGHT || j >= WIN_WIDTH)
 				continue ;
 			else if (pow(p[0] - j, 2) + pow((p[1] - i), 2) < (r_square * 0.8))
-				ft_fill_pixel(mlx, j, i, color_to_hex(color));
+				ft_fill_pixel(j, i, color_to_hex(color));
 			else if (pow(p[0] - j, 2) + pow((p[1] - i), 2) < r_square)
-				ft_fill_pixel(mlx, j, i, 0x000000);
+				ft_fill_pixel(j, i, 0x000000);
 		}
 	}
 }
 
-void	render_lightsource(t_mlx *mlx, double depth)
+void	render_lightsource(double depth)
 {
 	t_vec3		cam_to_light;
 	int			point[2];
@@ -67,7 +68,7 @@ void	render_lightsource(t_mlx *mlx, double depth)
 			point[0] = round(cam_to_light.x) + WIN_WIDTH / 2;
 			point[1] = round(cam_to_light.y) + WIN_HEIGHT / 2;
 			if (point[0] < WIN_WIDTH && point[1] < WIN_HEIGHT)
-				mlx_draw_circle(mlx, point, light->color, \
+				mlx_draw_circle(point, light->color, \
 				light->bright * fmin(fmax(depth / dist, 5), WIN_HEIGHT / 4));
 		}
 		light = light->next;

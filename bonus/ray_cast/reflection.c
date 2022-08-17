@@ -15,6 +15,7 @@
 #include "vector3.h"
 #include "quadrics.h"
 #include "ray_cast.h"
+#include "scene_editer.h"
 
 static t_vec3	get_mirror_ray(t_vec3 normal, t_vec3 ray)
 {
@@ -86,8 +87,7 @@ static t_color	apply_height_map(const t_quadrics *Q, \
 	return (color_scale(color, ((float)(gray.red) / 255)));
 }
 
-t_color	phong_reflection(t_mlx *mlx, \
-						t_quadrics *Q, \
+t_color	phong_reflection(t_quadrics *Q, \
 						t_vec3 hit_point, \
 						t_vec3 view_point)
 {
@@ -96,7 +96,7 @@ t_color	phong_reflection(t_mlx *mlx, \
 	t_vec3			mirror_ray;
 	t_color			color[3];
 
-	if (mlx->edit != FALSE)
+	if (get_scene_editer()->edit != FALSE)
 		return (ambient_light(Q, scene->ambient_color, \
 								0.8, hit_point));
 	normal = quad_normal_vector(Q, hit_point, view_point);

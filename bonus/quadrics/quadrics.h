@@ -21,17 +21,6 @@ typedef enum e_qtype
 	Q_QUADRICS
 }	t_qtype;
 
-// typedef struct s_xpm
-// {
-// 	void	*img;
-// 	int		img_width;
-// 	int		img_height;
-// 	int		*addr;
-// 	int		bpp;
-// 	int		line;
-// 	int		endian;
-// }	t_xpm;
-
 typedef enum e_texturetype
 {
 	T_NORMAL = 0,
@@ -41,11 +30,11 @@ typedef enum e_texturetype
 
 typedef struct s_quadrics
 {
-	t_qtype				type;
 	t_mat44				coefs;
 	t_vec4				org;
 	t_vec4				dir;
 	t_vec4				tan;
+	t_qtype				type;
 	float				spec_rs;
 	int					spec_ns;
 	float				range_z[2];

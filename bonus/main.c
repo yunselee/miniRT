@@ -46,6 +46,7 @@ static t_mat33	get_transformation_mat(t_vec3 k)
 int	main(int argc, char **argv)
 {
 	t_mat33	transform;
+	char *file_name;
 
 	time_check_start_all();
 	if (argc != 2 || argv == NULL)
@@ -66,16 +67,13 @@ int	main(int argc, char **argv)
 			3. transform_to_cam_cord()에서 구해진 3x3변환 행렬(회전)을 이용해 scene을 변환한다.
 			4. mlx와 scene이 독립적을 모두 구성되면 mlx_start혹은 run_mlx를 이용해 프로그램을 시작한다.
 	*/
+	file_name = argv[1];
 	printf("Initiating MLX... : ");
-	if (init_mlx(argv[1]) == FALSE)
-	{
-		printf("Failed\n");
-		return (1);
-	}
-	if (scene_init(argv[1]) == FALSE)
+	init_mlx(file_name);
+	if (scene_init(file_name) == FALSE)
 	{
 		printf("\n\033[3;31mError\n\tFail to read file\033[0m\n");
-		destroy_mlx();
+		destroy_mlx(NULL);
 		return (1);
 	}
 	printf("\033[1;33m======MINI_RT SCENE INFOs(global)=====\033[0m\n");

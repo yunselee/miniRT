@@ -16,7 +16,8 @@
 #include <stdlib.h>
 #include "ray_cast.h"
 #include <assert.h>
-#include "Resoloution.h"
+#include "resolution.h"
+#include "scene_editer.h"
 
 static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 {
@@ -33,23 +34,25 @@ static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 	return (color_scale(color, attenuation));
 }
 
-static void	ft_fill_pixel(t_mlx *mlx, int x, int y, unsigned int color)
+
+// TODO opt
+static void	ft_fill_pixel(int x, int y, unsigned int color)
 {
 	unsigned int	dx;
 	unsigned int	dy;
 
 	dx = -1;
-	while (++dx < (mlx->edit + 1) && dx + x < WIN_WIDTH)
+	while (++dx < (get_scene_editer()->edit + 1) && dx + x < WIN_WIDTH)
 	{
 		dy = -1;
-		while (++dy < (mlx->edit + 1) && dy + y < WIN_HEIGHT)
+		while (++dy < (get_scene_editer()->edit + 1) && dy + y < WIN_HEIGHT)
 		{
-			ft_mlx_set_pixel_color(&(mlx->image), x + dx, y + dy, color);
+			ft_mlx_set_pixel_color(&(get_mlx()->image), x + dx, y + dy, color);
 		}
 	}
 }
 
-static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
+static t_color	single_ray_cast(t_ray ray)
 {
 	t_quadrics	*intersect_obj;
 	t_vec3		intersect;
@@ -64,7 +67,7 @@ static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 	{
 		intersect = v3_mul(ray.dir, dist - EPSILON);
 		intersect = v3_add(intersect, ray.org);
-		c = phong_reflection(mlx, intersect_obj, intersect, ray.org);
+		c = phong_reflection(intersect_obj, intersect, ray.org);
 		return (intensity_attenuation(c, intersect, ray.org));
 	}
 }
@@ -72,14 +75,11 @@ static t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 void	*thread_routine(void *ptr)
 {
 	const t_thread_local_object	*tlo = ptr;
-	t_mlx						*mlx;
 	double						d;
 	unsigned int				pixel[2];
 	t_color						color;
 	t_ray						ray;
 
-	mlx = tlo->mlx;
-	assert(mlx);
 	d = (WIN_WIDTH / 2) / tan(get_scene()->cam->hfov / 2);
 	pixel[1] = 0;
 	while (pixel[1] < WIN_HEIGHT / 2)
@@ -93,11 +93,11 @@ void	*thread_routine(void *ptr)
 			ray.org = get_scene()->cam->pos;
 			ray.org.w = 1;
 			assert(ray.dir.w == 0 && ray.org.w == 1);
-			color = single_ray_cast(mlx, ray);
-			ft_fill_pixel(mlx, tlo->x + pixel[0], tlo->y + pixel[1], color_to_hex(color));
-			pixel[0] += (mlx->edit + 1);
+			color = single_ray_cast(ray);
+			ft_fill_pixel(tlo->x + pixel[0], tlo->y + pixel[1], color_to_hex(color));
+			pixel[0] += (get_scene_editer()->edit + 1);
 		}
-		pixel[1] += (mlx->edit + 1);
+		pixel[1] += (get_scene_editer()->edit + 1);
 	}
 	return (NULL);
 }

@@ -20,7 +20,6 @@
 
 typedef struct s_thread_local_object
 {
-	t_mlx	*mlx;
 	int		x;
 	int		y;
 }			t_thread_local_object;
@@ -29,14 +28,13 @@ float	get_intersect_distance(t_quadrics *objlst, \
 								t_quadrics **intersecting_obj_out, \
 								t_ray ray);
 
-void	render_lightsource(t_mlx *mlx, double depth);
+void	render_lightsource(double depth);
 
-// t_color	single_ray_cast(t_mlx *mlx, t_ray ray);
+// t_color	single_ray_cast(t_mlx_manager *mlx, t_ray ray);
 
-void	ray_cast(t_mlx *mlx);
+void	ray_cast();
 
-t_color	phong_reflection(t_mlx *mlx, \
-							t_quadrics *hit_obj, \
+t_color	phong_reflection(t_quadrics *hit_obj, \
 							t_vec3 intersection, \
 							t_vec3 view_point);
 

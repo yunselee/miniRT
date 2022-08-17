@@ -43,8 +43,8 @@ typedef struct s_light t_light;
 typedef struct s_light
 {
 	t_vec3	o;
-	float	bright;
 	t_color	color;
+	float	bright;
 	t_light	*next;
 } t_light;
 
@@ -57,12 +57,12 @@ typedef struct s_cam
 
 typedef struct s_scene
 {
+	t_mat33				global;
+	struct s_quadrics	*quads;
 	float				ambient_ratio;
 	t_color				ambient_color;
 	t_cam				*cam;
-	t_mat33				global;
 	t_light				*light;
-	struct s_quadrics	*quads;
 }	t_scene;
 
 //t_scene	*create_empty_scene(void);

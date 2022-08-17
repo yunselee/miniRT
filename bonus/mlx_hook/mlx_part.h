@@ -17,14 +17,6 @@
 
 # define BACKGROUND (0X222222)
 
-enum e_target
-{
-	E_NONE = 0,
-	E_LIGHT,
-	E_CAM,
-	E_OBJ
-};
-
 typedef struct s_image
 {
 	void	*img;
@@ -42,44 +34,37 @@ typedef struct s_xpm
 }	t_xpm;
 
 struct s_quadrics;
-typedef struct s_mlx
+typedef struct s_mlx_manager
 {
 	void				*mlx;
 	void				*win;
 	t_image				image;
-	struct s_quadrics	*selected_quad;
-	t_light				*selected_light;
-	unsigned int		edit;
-	enum e_target		target_scene;
-	unsigned int		clicked;
-	int					prev_pixel[2];
-}					t_mlx;
+}					t_mlx_manager;
 
-int		init_mlx(char *filename );
+void		init_mlx(char *filename );
 
-void	destroy_mlx(void);
+int	destroy_mlx(void* null);
 
 void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 							unsigned int y, unsigned int color);
 
-void	ft_mlx_set_image_background(t_mlx *mlx);
+void	ft_mlx_set_image_background(t_mlx_manager *mlx);
 
 void	run_mlx(void);
 
 /*===MLX EVENT====*/
-void	mlx_renew_image(t_mlx *mlx);
-int		destroy(t_mlx *mlx);
+void	mlx_renew_image();
 
 //	keydown && move
-int		keydown(int keycode, t_mlx *mlx);
-int		mlx_move_obj(t_mlx *mlx, int keycode);
-int		mlx_move_light(t_mlx *mlx, int keycode);
-int		mlx_move_cam(t_mlx *mlx, int keycode);
-int		mousedown(int button, int x, int y, t_mlx *mlx);
-int		mlx_mouse_wheel(t_mlx *mlx, int keycode);
-int		mouseup(int button, int x, int y, t_mlx *mlx);
-int		mousemove(int x, int y, t_mlx *mlx);
-void	mlx_switch_light(t_mlx *mlx);
-t_mlx	*get_mlx(void);
+int		keydown(int keycode);
+int		mlx_move_obj(int keycode);
+int		mlx_move_light(int keycode);
+int		mlx_move_cam(int keycode);
+int		mousedown(int button, int x, int y);
+int		mlx_mouse_wheel(int keycode);
+int		mouseup(int button, int x, int y);
+int		mousemove(int x, int y);
+void	mlx_switch_light();
+t_mlx_manager	*get_mlx(void);
 
 #endif

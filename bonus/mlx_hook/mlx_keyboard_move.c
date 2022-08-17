@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include "print_info.h"
 #include "quadrics.h"
+#include "scene_editer.h"
 
 static int	move_pos(t_vec3 *pos, int keycode)
 {
@@ -36,7 +37,7 @@ static int	move_pos(t_vec3 *pos, int keycode)
 	return (TRUE);
 }
 
-int	mlx_move_cam(t_mlx *mlx, int keycode)
+int	mlx_move_cam(int keycode)
 {
 	t_mat33		transform;
 	t_scene		*scene;
@@ -59,43 +60,43 @@ int	mlx_move_cam(t_mlx *mlx, int keycode)
 	else if (move_pos(&(scene->cam->pos), keycode) == FALSE)
 		return (FALSE);
 	print_info_camera(scene->cam);
-	mlx_renew_image(mlx);
+	mlx_renew_image();
 	return (TRUE);
 }
 
-int	mlx_move_light(t_mlx *mlx, int keycode)
+int	mlx_move_light(int keycode)
 {
-	if (move_pos(&(mlx->selected_light->o), keycode) == FALSE)
+	if (move_pos(&(get_scene_editer()->selected_light->o), keycode) == FALSE)
 		return (FALSE);
-	print_info_light(mlx->selected_light);
-	mlx_renew_image(mlx);
+	print_info_light(get_scene_editer()->selected_light);
+	mlx_renew_image();
 	return (TRUE);
 }
 
-int	mlx_move_obj(t_mlx *mlx, int keycode)
+int	mlx_move_obj(int keycode)
 {
 	const t_vec3	axis = make_v3(0, 0, 1);
 
-	if (mlx->selected_quad == NULL)
+	if (get_scene_editer()->selected_quad == NULL)
 		return (FALSE);
 	else if (keycode == KEY_C)
-		mlx->selected_quad->disruption ^= 0b1;
+		get_scene_editer()->selected_quad->disruption ^= 0b1;
 	else if (keycode == KEY_Q)
-		rotate_quadrics(mlx->selected_quad, axis, -3);
+		rotate_quadrics(get_scene_editer()->selected_quad, axis, -3);
 	else if (keycode == KEY_E)
-		rotate_quadrics(mlx->selected_quad, axis, 3);
-	else if (move_pos(&(mlx->selected_quad->org), keycode) == FALSE)
+		rotate_quadrics(get_scene_editer()->selected_quad, axis, 3);
+	else if (move_pos(&(get_scene_editer()->selected_quad->org), keycode) == FALSE)
 		return (FALSE);
-	print_single_quadrics(mlx->selected_quad);
-	mlx_renew_image(mlx);
+	print_single_quadrics(get_scene_editer()->selected_quad);
+	mlx_renew_image();
 	return (TRUE);
 }
 
-void	mlx_switch_light(t_mlx *mlx)
+void	mlx_switch_light()
 {
-	mlx->selected_light = mlx->selected_light->next;
-	if (mlx->selected_light == NULL)
-		mlx->selected_light = get_scene()->light;
+	get_scene_editer()->selected_light = get_scene_editer()->selected_light->next;
+	if (get_scene_editer()->selected_light == NULL)
+		get_scene_editer()->selected_light = get_scene()->light;
 	printf("light changed\n");
-	print_single_light(mlx->selected_light);
+	print_single_light(get_scene_editer()->selected_light);
 }

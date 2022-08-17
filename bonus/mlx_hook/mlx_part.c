@@ -17,11 +17,11 @@
 #include "scene.h"
 #include "ray_cast.h"
 #include "timer.h"
-#include "Resoloution.h"
+#include "resolution.h"
 
-t_mlx *get_mlx()
+t_mlx_manager *get_mlx()
 {
-	static t_mlx	mlx;
+	static t_mlx_manager	mlx;
 
 	return (&mlx);
 }
@@ -35,9 +35,9 @@ void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 	*(unsigned int *)dst = color;
 }
 
-int	init_mlx( char *filename )
+void	init_mlx(char *filename)
 {
-	t_mlx	*mlx;
+	t_mlx_manager	*mlx;
 
 	mlx = get_mlx();
 	mlx->mlx = mlx_init();
@@ -45,23 +45,16 @@ int	init_mlx( char *filename )
 	mlx->image.img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
 	mlx->image.addr = mlx_get_data_addr(mlx->image.img, &(mlx->image.bpp), \
 								&(mlx->image.line), &(mlx->image.endian));
-	mlx->selected_quad = NULL;
-	mlx->selected_light = NULL;
-	mlx->edit = 0;
-	mlx->target_scene = E_NONE;
-	mlx->clicked = 0;
-	return (TRUE);
 }
 
-void	destroy_mlx(void)
+int	destroy_mlx(void* null)
 {
-	t_mlx	*mlx;
+	t_mlx_manager	*mlx;
 
+	mlx = null;
 	printf("\033[3;36m");
 	printf("\tdestroying mlx\n");
 	mlx = get_mlx();
-	mlx->selected_quad = NULL;
-	mlx->selected_light = NULL;
 	printf("\tdestroying scene\n");
 	scene_destroy();
 	printf("\tdestroying mlx_image\n");
@@ -70,11 +63,12 @@ void	destroy_mlx(void)
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	printf("\tDone\033[0m\n");
 	system("leaks miniRT");
+	exit(0);
 }
 
 void	run_mlx(void)
 {
-	t_mlx	*mlx;
+	t_mlx_manager	*mlx;
 
 	printf("\033[3;32m\tRUN MLX\033[0m\n");
 	mlx = get_mlx();
@@ -83,7 +77,7 @@ void	run_mlx(void)
 	printf("\033[3;32m\tPut image\033[0m\n");
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image.img, 0, 0);
 	printf("\033[3;32m\tSetting Hooks\033[0m\n");
-	mlx_hook(mlx->win, 17, 0, destroy, mlx);
+	mlx_hook(mlx->win, 17, 0, destroy_mlx, NULL);
 	mlx_hook(mlx->win, 2, (1L << 0), keydown, mlx);
 	mlx_hook(mlx->win, 4, (1L << 2), mousedown, mlx);
 	mlx_hook(mlx->win, 5, (1L << 3), mouseup, mlx);

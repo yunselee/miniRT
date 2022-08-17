@@ -16,6 +16,7 @@
 #include "mlx_part.h"
 #include "matrix44.h"
 #include "print_info.h"
+#include "scene_editer.h"
 
 static void	wheel_camera(int keycode)
 {
@@ -86,16 +87,16 @@ static int	wheel_light(t_light *light, int keycode)
 	return (TRUE);
 }
 
-int	mlx_mouse_wheel(t_mlx *mlx, int keycode)
+int	mlx_mouse_wheel(int keycode)
 {
 	if (keycode < 4)
 		return (FALSE);
-	else if (mlx->target_scene == E_CAM)
+	else if (get_scene_editer()->target_scene == E_CAM)
 		wheel_camera(keycode);
-	else if (mlx->target_scene == E_OBJ)
-		return (wheel_object(mlx->selected_quad, keycode));
-	else if (mlx->target_scene == E_LIGHT)
-		return (wheel_light(mlx->selected_light, keycode));
+	else if (get_scene_editer()->target_scene == E_OBJ)
+		return (wheel_object(get_scene_editer()->selected_quad, keycode));
+	else if (get_scene_editer()->target_scene == E_LIGHT)
+		return (wheel_light(get_scene_editer()->selected_light, keycode));
 	else
 		return (FALSE);
 	return (TRUE);
