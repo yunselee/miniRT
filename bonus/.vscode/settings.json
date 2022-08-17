@@ -9,7 +9,7 @@
         "quadrics.h": "c",
         "transform.h": "c",
         "matrix44.h": "c",
-        "mlx_part.h": "c",
+        "mlx_manager.h": "c",
         "stdio.h": "c",
         "ray_cast.h": "c",
         "print_info.h": "c",
@@ -32,6 +32,22 @@
         "smmintrin.h": "c",
         "stdlib.h": "c",
         "math.h": "c",
-        "matrix33.h": "c"
-    }
+        "matrix33.h": "c",
+        "assert.h": "c",
+        "scene_manager.h": "c",
+        "pthread.h": "c",
+        "scene_editer.h": "c",
+        "__functional_03": "c",
+        "memory_resource": "c",
+        "functional": "c",
+        "resolution.h": "c",
+        "mlx_manager.h": "c"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/Users/yunselee/miniRT/bonus",
+            "binaryPath": "/Users/yunselee/miniRT/bonus/miniRT",
+            "binaryArgs": ["RT_files/multi_objects/colored_shaodow_test.rt"]
+        }
+    ]
 }

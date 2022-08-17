@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "libft.h"
-#include "mlx_part.h"
+#include "mlx_manager.h"
 #include "scene.h"
 #include "ray_cast.h"
 #include "timer.h"
@@ -35,13 +35,13 @@ void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 	*(unsigned int *)dst = color;
 }
 
-void	init_mlx(char *filename)
+void	init_mlx(char *title_name)
 {
 	t_mlx_manager	*mlx;
 
 	mlx = get_mlx();
 	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, WIN_WIDTH, WIN_HEIGHT, filename);
+	mlx->win = mlx_new_window(mlx->mlx, WIN_WIDTH, WIN_HEIGHT, title_name);
 	mlx->image.img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
 	mlx->image.addr = mlx_get_data_addr(mlx->image.img, &(mlx->image.bpp), \
 								&(mlx->image.line), &(mlx->image.endian));

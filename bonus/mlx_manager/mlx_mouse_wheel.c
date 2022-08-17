@@ -13,26 +13,28 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "mlx_part.h"
+#include "mlx_manager.h"
 #include "matrix44.h"
 #include "print_info.h"
 #include "scene_editer.h"
+#include "resolution.h"
 
 static void	wheel_camera(int keycode)
 {
 	int		stride;
-	t_scene	*scene;
+	t_cam	*cam;
 
-	scene = get_scene();
+	cam = get_scene()->cam;
 	stride = 5;
-	scene->cam->hfov *= (180 / M_PI);
+	cam->hfov *= (180 / M_PI);
 	if (keycode == 5)
 		stride = -5;
-	if (scene->cam->hfov + stride > 20 \
-		&& scene->cam->hfov + stride < 160)
-		scene->cam->hfov += stride;
-	printf("FOV : %.2f(deg)\n", (scene->cam->hfov));
-	scene->cam->hfov /= (180 / M_PI);
+	if (cam->hfov + stride > 20 \
+		&& cam->hfov + stride < 160)
+		cam->hfov += stride;
+	printf("FOV : %.2f(deg)\n", (cam->hfov));
+	cam->hfov /= (180 / M_PI);
+	cam->cam_proportion = (WIN_WIDTH / 2) / tan(cam->hfov / 2);
 }
 
 static int	wheel_object(t_quadrics *obj, int keycode)

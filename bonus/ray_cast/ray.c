@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include "../Libft_vector/vector3.h"
 #include "scene.h"
-#include "mlx_part.h"
+#include "mlx_manager.h"
 #include "ray_cast.h"
 #include "quadrics.h"
 #include "print_info.h"

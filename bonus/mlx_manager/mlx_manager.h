@@ -13,7 +13,6 @@
 #ifndef MLX_PART_H
 # define MLX_PART_H
 # include <mlx.h>
-# include "scene.h"
 
 # define BACKGROUND (0X222222)
 
@@ -41,7 +40,7 @@ typedef struct s_mlx_manager
 	t_image				image;
 }					t_mlx_manager;
 
-void		init_mlx(char *filename );
+void		init_mlx(char *title_name );
 
 int	destroy_mlx(void* null);
 
@@ -64,7 +63,7 @@ int		mousedown(int button, int x, int y);
 int		mlx_mouse_wheel(int keycode);
 int		mouseup(int button, int x, int y);
 int		mousemove(int x, int y);
-void	mlx_switch_light();
+void	mlx_replace_light();
 t_mlx_manager	*get_mlx(void);
 
 #endif

@@ -13,13 +13,16 @@
 #ifndef QUADRICS_H
 # define QUADRICS_H
 # include "matrix44.h"
-#include "mlx_part.h"
 #include "color.h"
+#include "scene.h"
+#include "mlx_manager.h"
+
 typedef enum e_qtype
 {
 	Q_PLANE = 0,
 	Q_QUADRICS
 }	t_qtype;
+
 
 typedef enum e_texturetype
 {

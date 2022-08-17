@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include "mlx_part.h"
+#include "mlx_manager.h"
 #include "mlx_keycode.h"
 #include "ray_cast.h"
 #include "transform.h"
@@ -108,6 +108,6 @@ int	keydown(int keycode)
 		return (1);
 	}
 	else if (editer->edit != 0 && editer->target_scene == E_LIGHT && keycode == SPACE)
-		mlx_switch_light();
+		mlx_replace_light();
 	return (move_target_scene(keycode));
 }

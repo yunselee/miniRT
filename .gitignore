@@ -4,3 +4,9 @@ miniRT
 *.a
 .vscode/*
 .DS_Store
+./*/.vscode/*
+./*/.DS_Store
+bonus/.DS_Store
+*.log
+*.json
+bonus/.DS_Store

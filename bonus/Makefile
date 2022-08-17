@@ -11,7 +11,7 @@ MLX = -Llibrary/mlx -lmlx -framework OpenGL -framework AppKit
 INCS_DIR		= 	-I ./library/LIBFT \
 					-I ./library/mlx \
 					-I ./library/Libft_vector \
-					-I ./mlx_hook \
+					-I ./mlx_manager \
 					-I ./print_info \
 					-I ./scene \
 					-I ./color \
@@ -25,7 +25,7 @@ SRCS_DIR		= 	./ \
 					./ray_cast \
 					./color \
 					./print_info \
-					./mlx_hook \
+					./mlx_manager \
 					./scene \
 					./timer \
 					./quadrics \
@@ -54,7 +54,7 @@ SRCS			= 	main.c \
 					mlx_mouse_wheel.c \
 					mlx_keyboard_move.c \
 					mlx_keyboard.c \
-					mlx_part.c \
+					mlx_manager.c \
 					\
 					camera.c \
 					light.c \

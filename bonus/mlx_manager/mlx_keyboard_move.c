@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx_part.h"
+#include "mlx_manager.h"
 #include "mlx_keycode.h"
 #include "transform.h"
 #include <stdio.h>
@@ -92,7 +92,7 @@ int	mlx_move_obj(int keycode)
 	return (TRUE);
 }
 
-void	mlx_switch_light()
+void	mlx_replace_light()
 {
 	get_scene_editer()->selected_light = get_scene_editer()->selected_light->next;
 	if (get_scene_editer()->selected_light == NULL)

@@ -1,3 +1,5 @@
+#ifndef SCENE_EDITER_H
+# define SCENE_EDITER_H
 
 typedef struct s_light t_light;
 enum e_target
@@ -20,3 +22,4 @@ typedef struct s_scene_editer
 }t_scene_editer;
 
 t_scene_editer *get_scene_editer();
+#endif

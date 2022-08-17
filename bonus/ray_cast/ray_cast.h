@@ -14,7 +14,7 @@
 # define RAY_CAST_H
 # include "scene.h"
 # include "quadrics.h"
-# include "mlx_part.h"
+# include "mlx_manager.h"
 # include "vector3.h"
 # include "color.h"
 

@@ -14,7 +14,7 @@
 #include <mlx.h>
 #include <stdio.h>
 #include "libft.h"
-#include "mlx_part.h"
+#include "mlx_manager.h"
 #include "print_info.h"
 #include "timer.h"
 #include "scene.h"
@@ -43,18 +43,7 @@ static t_mat33	get_transformation_mat(t_vec3 k)
 	return (mat33_trans(mat));
 }
 
-int	main(int argc, char **argv)
-{
-	t_mat33	transform;
-	char *file_name;
-
-	time_check_start_all();
-	if (argc != 2 || argv == NULL)
-	{
-		printf("Error\n\t: usage : ./miniRT <FILENAME>\n");
-		return (1);
-	}
-	/*
+/*
 		현재 main, mlx, scene 프로세스 : 
 			1. scene_init()에서 .rt file을 읽어와 파싱하고 scene구조체를 구성한다.
 			2. 카메라 좌표계를 기준으로 모든 scene을 변환하는 행렬을 get_transform_matrix()에서 구한다.
@@ -67,6 +56,18 @@ int	main(int argc, char **argv)
 			3. transform_to_cam_cord()에서 구해진 3x3변환 행렬(회전)을 이용해 scene을 변환한다.
 			4. mlx와 scene이 독립적을 모두 구성되면 mlx_start혹은 run_mlx를 이용해 프로그램을 시작한다.
 	*/
+
+int	main(int argc, char **argv)
+{
+	t_mat33	transform;
+	char *file_name;
+
+	time_check_start_all();
+	if (argc != 2 || argv == NULL)
+	{
+		printf("Error\n\t: usage : ./miniRT <FILENAME>\n");
+		return (1);
+	}
 	file_name = argv[1];
 	printf("Initiating MLX... : ");
 	init_mlx(file_name);

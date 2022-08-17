@@ -15,6 +15,7 @@
 #include "libft.h"
 #include "scene.h"
 #include "in_parsing.h"
+#include "resolution.h"
 
 int	case_camera(t_scene *scene, char **single_scene)
 {
@@ -35,6 +36,7 @@ int	case_camera(t_scene *scene, char **single_scene)
 	if (scene->cam->hfov <= 0 || scene->cam->hfov >= 180)
 		return (FALSE);
 	scene->cam->hfov = scene->cam->hfov * M_PI / 180;
+	scene->cam->cam_proportion = (WIN_WIDTH / 2) / tan(get_scene()->cam->hfov / 2);
 	scene->global.r1 = make_v3(1, 0, 0);
 	scene->global.r2 = make_v3(0, 1, 0);
 	scene->global.r3 = make_v3(0, 0, 1);

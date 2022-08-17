@@ -53,6 +53,7 @@ typedef struct s_cam
 	t_vec3	pos;
 	t_vec3	dir;
 	float	hfov;
+	double	cam_proportion;
 }	t_cam;
 
 typedef struct s_scene

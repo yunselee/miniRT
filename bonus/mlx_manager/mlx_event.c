@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "mlx_part.h"
+#include "mlx_manager.h"
 #include "mlx_keycode.h"
 #include "ray_cast.h"
 #include "resolution.h"
