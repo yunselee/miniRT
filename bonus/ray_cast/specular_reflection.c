@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:20:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 17:20:17 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 17:52:50 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,6 @@ static float	specular_helper(t_quadrics *objlst, \
 	ray_to_light.dir = v3_normalize(dir_to_light);
 	ray_to_light.org = hit_point;
 	distance = get_intersect_distance(objlst, NULL, ray_to_light);
-	if (get_mlx()->debug)
-	{
-		printf("\t{{{nearest intersecting distance : %f}}}\n", distance);
-		printf("distance to light source : %f\n", v3_l2norm(dir_to_light) + EPSILON);
-		if (distance < v3_l2norm(dir_to_light) + EPSILON)
-			printf("light source is blocked\n");
-	}
 	if (isnan(distance) == FALSE && distance < v3_l2norm(dir_to_light) + EPSILON)
 		return (0);
 	specular = fmax(0, v3_dot(v3_normalize(dir_to_light), mirror_ray));
@@ -55,15 +48,8 @@ t_color	specular_light(const t_scene *scene, t_quadrics *hit_obj, \
 
 	color = rgb_color(0, 0, 0);
 	light = scene->light;
-	if (get_mlx()->debug)
-		printf("\t||----<SPECULAR>----||\n");
 	while (light)
 	{
-		if (get_mlx()->debug)
-		{
-			printf("\t curr light source :\n");
-			print_single_light(light);
-		}
 		specular = specular_helper(scene->quads, light, mirror_ray, hit_point);
 		specular = (hit_obj->spec_rs) * pow(specular, hit_obj->spec_ns);
 		if (specular > EPSILON)

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:48:44 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 16:37:12 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 17:52:14 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,6 @@ static t_quadrics	*select_object(t_mlx *mlx, int x, int y)
 
 int	mousedown(int button, int x, int y, t_mlx *mlx)
 {
-	printf("mouse clicked\n");
-	if (button == MOUSE_RIGHT)
-	{
-		mlx->debug = TRUE;
-		t_ray			ray;
-		float d = (WIN_WIDTH / 2) / tan(get_scene()->cam->hfov / 2);
-		ray.dir = make_v3(x - WIN_WIDTH / 2, y - WIN_HEIGHT / 2, d);
-		ray.dir = v3_normalize(ray.dir);
-		ray.org = get_scene()->cam->pos;
-		single_ray_cast(mlx, ray);
-		mlx->debug = FALSE;
-	}
 	if (!mlx || x < 0 || y < 0 || (unsigned int)x > WIN_WIDTH \
 		|| (unsigned int)y > WIN_HEIGHT || mlx->edit == FALSE \
 		|| mlx->target_scene == E_NONE)

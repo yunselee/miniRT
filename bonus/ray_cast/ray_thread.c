@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 09:13:38 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 17:26:46 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 17:53:11 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,6 @@ t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 
 	intersect_obj = NULL;
 	dist = get_intersect_distance(get_scene()->quads, &intersect_obj, ray);
-	if (mlx->debug)
-	{
-		printf("dist : %f\n", dist);
-		const char *string[2] = {"Q_PLANE", "Q_QUADRICS"};
-		printf("intersecting obj type : %s\n", string[intersect_obj->type]);
-	}
 	if (isinf(dist) == TRUE || isnan(dist) == TRUE)
 		return (rgb_color(0, 0, 0));
 	else
@@ -72,14 +66,7 @@ t_color	single_ray_cast(t_mlx *mlx, t_ray ray)
 		intersect = v3_mul(ray.dir, dist - EPSILON);
 		intersect = v3_mul(ray.dir, dist);
 		intersect = v3_add(intersect, ray.org);
-		if (mlx->debug)
-		{
-			t_vec3	point_from_obj = v3_sub(intersect, intersect_obj->org);
-			printf("intersecting point in obj : %f %f %f\n", point_from_obj.x, point_from_obj.y, point_from_obj.z);
-		}
 		c = phong_reflection(mlx, intersect_obj, intersect, ray.org);
-		if (mlx->debug)
-			printf("res pixel color: %d %d %d \033[38;2;%d;%d;%dm▣\033[0m\n", c.red, c.green, c.blue, c.red, c.green, c.blue);
 		return (intensity_attenuation(c, intersect, ray.org));
 	}
 }

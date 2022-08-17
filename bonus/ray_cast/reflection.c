@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 17:33:33 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 17:52:59 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ static t_color	ambient_light(const t_quadrics *Q, \
 	c.green = round((float)obj_color.green * ((float)amb_color.green / 255));
 	c.blue = round((float)obj_color.blue * ((float)amb_color.blue / 255));
 	c = color_scale(c, ra);
-	if (get_mlx()->debug == TRUE)
-	{
-		printf("\t||----<AMBIENT>----||\n");
-		print_single_quadrics(Q);
-		printf("\tobj color : %d %d %d\n", Q->color.red, Q->color.green, Q->color.blue);
-		printf("\tambient ratio : %f\n", ra);
-		printf("\t||-----------------||\n");
-	}
 	return (c);
 }
 
@@ -97,14 +89,6 @@ t_color	phong_reflection(t_mlx *mlx, \
 	normal = quad_normal_vector(Q, hit_point, view_point);
 	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
 	normal = apply_normal_map(Q, hit_point, normal);
-	if (mlx->debug)
-	{
-		printf("||========[DEBUG]===========||\n");
-		print_single_quadrics(Q);
-		printf("\thit point : %f %f %f\n", hit_point.x, hit_point.y, hit_point.z);
-		printf("\tnormal vector : %f %f %f\n", normal.x, normal.y, normal.z);
-		printf("||========[-----]===========||\n");
-	}
 	color[0] = ambient_light(Q, \
 								scene->ambient_color, \
 								scene->ambient_ratio, \

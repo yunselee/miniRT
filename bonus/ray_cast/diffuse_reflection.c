@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:22:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 17:33:52 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 17:52:33 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,10 @@ static float	diffuse_helper(t_quadrics *objlst, \
 	ray_to_light.dir = v3_normalize(dir_to_light);
 	ray_to_light.org = hit_point;
 	distance = get_intersect_distance(objlst, NULL, ray_to_light);
-	if (get_mlx()->debug)
-	{
-		printf("\t{{{nearest intersecting distance : %f}}}\n", distance);
-		printf("distance to light source : %f\n", v3_l2norm(dir_to_light) + EPSILON);
-		if (distance < v3_l2norm(dir_to_light) + EPSILON)
-			printf("light source is blocked\n");
-	}
 	if (isnan(distance) == FALSE && distance < v3_l2norm(dir_to_light) + EPSILON)
 		return (0);
 	diffuse = fmax(0, v3_dot(v3_normalize(dir_to_light), normal));
 	diffuse *= target_light->bright;
-	if (get_mlx()->debug)
-	{
-		printf("\t diffuse : %f", diffuse);
-	}
 	return (diffuse);
 }
 
@@ -65,18 +54,8 @@ t_color	diffuse_light(const t_scene *scene, \
 	obj_color = get_texture_color(Q, &(Q->textures[T_TEXTURE]), hit_point);
 	obj_color = color_disruption(Q, hit_point, obj_color);
 	light = scene->light;
-	if (get_mlx()->debug)
-	{
-		printf("\t||----<DIFFUSE>----||\n");
-		printf("\t initial surface color : %d %d %d\n", obj_color.red, obj_color.green, obj_color.blue);
-	}
 	while (light != NULL)
 	{
-		if (get_mlx()->debug)
-		{
-			printf("\t curr light source :\n");
-			print_single_light(light);
-		}
 		diffuse = diffuse_helper(scene->quads, light, normal, hit_point);
 		if (diffuse > EPSILON)
 		{
@@ -89,10 +68,6 @@ t_color	diffuse_light(const t_scene *scene, \
 			color = color_add(color, clr_tmp);
 		}
 		light = light->next;
-	}
-	if (get_mlx()->debug)
-	{
-		printf("diffuse color: %d %d %d \033[38;2;%d;%d;%dm◉\033[0m\n", color.red, color.green, color.blue, color.red, color.green, color.blue);
 	}
 	return (color);
 }
