@@ -19,6 +19,7 @@
 #include "timer.h"
 #include "scene.h"
 #include <stdlib.h>
+#include <scene_editer.h>
 
 static t_mat33	get_transformation_mat(t_vec3 k)
 {
@@ -43,6 +44,13 @@ static t_mat33	get_transformation_mat(t_vec3 k)
 	return (mat33_trans(mat));
 }
 
+static void print_size_of()
+{
+	printf("scene size :  %d\n", (int)sizeof(t_scene));
+	printf("mlx manager size :  %d\n", (int)sizeof(t_mlx_manager));
+	printf("scene editer  size :  %d\n", (int)sizeof(t_scene_editer));
+}
+
 /*
 		현재 main, mlx, scene 프로세스 : 
 			1. scene_init()에서 .rt file을 읽어와 파싱하고 scene구조체를 구성한다.
@@ -61,7 +69,7 @@ int	main(int argc, char **argv)
 {
 	t_mat33	transform;
 	char *file_name;
-
+	print_size_of();
 	time_check_start_all();
 	if (argc != 2 || argv == NULL)
 	{
