@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:22:48 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 15:08:23 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_mlx
 	enum e_target		target_scene;
 	unsigned int		clicked;
 	int					prev_pixel[2];
+	int					debug;
 }					t_mlx;
 
 int		init_mlx(char *filename );

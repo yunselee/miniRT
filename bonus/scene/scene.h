@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 17:31:48 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 17:07:44 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ typedef struct s_scene
 	struct s_quadrics	*quads;
 }	t_scene;
 
-//t_scene	*create_empty_scene(void);
 int		scene_init(const char *filename);
 void	scene_destroy(void);
 int		transform_to_cam_cord(t_scene *scene, t_mat33 transform);

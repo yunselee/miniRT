@@ -32,6 +32,8 @@
         "smmintrin.h": "c",
         "stdlib.h": "c",
         "math.h": "c",
-        "matrix33.h": "c"
+        "matrix33.h": "c",
+        "assert.h": "c",
+        "complex": "c"
     }
 }

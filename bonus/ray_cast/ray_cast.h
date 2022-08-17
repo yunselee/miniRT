@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:07:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/12 12:21:54 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 16:36:13 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ float	get_intersect_distance(t_quadrics *objlst, \
 
 void	render_lightsource(t_mlx *mlx, double depth);
 
-// t_color	single_ray_cast(t_mlx *mlx, t_ray ray);
+t_color	single_ray_cast(t_mlx *mlx, t_ray ray);
 
 void	ray_cast(t_mlx *mlx);
 
