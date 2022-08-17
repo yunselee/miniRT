@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 13:12:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 17:04:45 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/17 17:56:54 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,10 @@ static t_sols	solve_quadratic_half_eq(float a, float b, float c)
 			c = -c;
 		}
 		discriminant = b * b - a * c;
-		if (get_mlx()->debug)
-			printf("discriminant : %f\n", discriminant);
 		if (discriminant >= 0)
 			sol.sol1 = (-b - sqrtf(discriminant)) / a;
 		if (discriminant > 0)
 			sol.sol2 = (-b + sqrtf(discriminant)) / a;
-	}
-	if (get_mlx()->debug)
-	{
-		printf("\t\t 2nd eq Coefficients -> A : %f B : %f C : %f\n", a, b, c);
-		printf("\t\t solutions : %f, %f\n", sol.sol1, sol.sol2);
 	}
 	return (sol);
 }
@@ -59,20 +52,10 @@ static float	find_plane_intersection(const t_quadrics *Q, const t_ray *R)
 
 	obj_org = v3_sub(Q->org, R->org);
 	if (v3_dot(R->dir, Q->dir) == 0)
-	{
-		if (get_mlx()->debug)
-			printf("solution : NAN\n");
 		return (NAN);
-	}
 	dist = v3_dot(obj_org, Q->dir) / v3_dot(R->dir, Q->dir);
 	if (dist <= 0)
-	{
-		if (get_mlx()->debug)
-			printf("solution : NAN\n");
 		return (NAN);
-	}
-	if (get_mlx()->debug)
-		printf("solution : %f\n", dist);
 	return (dist);
 }
 
@@ -83,12 +66,6 @@ static float	z_range_check_or_nan(const t_quadrics *Q, \
 	t_vec3	intersection;
 
 	intersection = v3_sub(v3_add(v3_mul(R->dir, sol), R->org), Q->org);
-	if (get_mlx()->debug)
-	{
-		printf("z range : %f ~ %f, z_value : %f\n", Q->range_z[0] - EPSILON, \
-										Q->range_z[1] + EPSILON, \
-										v3_dot(intersection, Q->dir));
-	}
 	if (v3_dot(intersection, Q->dir) >= Q->range_z[0] - EPSILON \
 			&& v3_dot(intersection, Q->dir) <= Q->range_z[1] + EPSILON)
 		return (sol);
@@ -104,12 +81,6 @@ float	find_intersection(const t_quadrics *Q, const t_ray *R)
 	ray_org = v4_sub(R->org, Q->org);
 	ray_org.w = 1;
 	assert(R->dir.w == 0);
-	if (get_mlx()->debug)
-	{
-		const char *string[2] = {"Q_PLANE", "Q_QUADRIC"};
-		printf("target obj type : %s\n", string[Q->type]);
-		printf("ray -> dir : %f %f %f %f, org %f %f %f %f\n", R->dir.x, R->dir.y, R->dir.z, R->dir.w, ray_org.x, ray_org.y, ray_org.z, ray_org.w);
-	}
 	if (Q->type == Q_PLANE)
 		return (find_plane_intersection(Q, R));
 	coefs[0] = quadratic_form(R->dir, Q->coefs, R->dir);
@@ -118,32 +89,14 @@ float	find_intersection(const t_quadrics *Q, const t_ray *R)
 	sols = solve_quadratic_half_eq(coefs[0], coefs[1], coefs[2]);
 	if (sols.sol1 > 0 && isnan(sols.sol1) == FALSE)
 	{
-		if (get_mlx()->debug)
-			printf("fisrt solution is %f\n checking height\n", sols.sol1);
 		if (isnan(z_range_check_or_nan(Q, R, sols.sol1)) == FALSE)
-		{
-			if (get_mlx()->debug)
-				printf("valid. return %f\n", sols.sol1);
 			return (sols.sol1);
-		}
-		if (get_mlx()->debug)
-			printf("invalid : check next value\n");
 	}
 	if (sols.sol2 > EPSILON && isnan(sols.sol2) == FALSE)
 	{
-		if (get_mlx()->debug)
-			printf("second solution is %f\n checking height", sols.sol2);
 		if (isnan(z_range_check_or_nan(Q, R, sols.sol2)) == FALSE)
-		{
-			if (get_mlx()->debug)
-				printf("valid. return %f\n", sols.sol2);
 			return (sols.sol2);
-		}
-		if (get_mlx()->debug)
-			printf("invalid\n");
 	}
-	if (get_mlx()->debug)
-		printf("return NAN\n");
 	return (NAN);
 }
 
