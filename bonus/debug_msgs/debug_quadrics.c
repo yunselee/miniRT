@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:30:42 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 22:07:38 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:26:54 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	debug_find_intersection(const t_quadrics *Q, \
 
 	if (get_scene_editer()->debug != D_DETAIL)
 		return ;
-	else if(Q && ray)
+	else if (Q && ray)
 	{
 		printf("\t qudrics type : %s\n", type[Q->type]);
 		printf("\tray dir : <%f %f %f>\n", ray->dir.x, ray->dir.y, ray->dir.z);

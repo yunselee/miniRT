@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:11:01 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/11 13:48:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:57:48 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	case_camera(t_scene *scene, char **single_scene)
 	if (scene->cam->hfov <= 0 || scene->cam->hfov >= 180)
 		return (FALSE);
 	scene->cam->hfov = scene->cam->hfov * M_PI / 180;
-	scene->cam->cam_proportion = (WIN_WIDTH / 2) / tan(get_scene()->cam->hfov / 2);
+	scene->cam->cam_proportion = (WIN_WIDTH / 2) / \
+								tan(get_scene()->cam->hfov / 2);
 	return (TRUE);
 }

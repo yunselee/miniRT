@@ -6,16 +6,16 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:48:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 12:54:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:50:21 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef QUADRICS_H
 # define QUADRICS_H
 # include "matrix44.h"
-#include "color.h"
-#include "scene.h"
-#include "mlx_manager.h"
+# include "color.h"
+# include "scene.h"
+# include "mlx_manager.h"
 
 typedef enum e_qtype
 {
@@ -23,11 +23,9 @@ typedef enum e_qtype
 	Q_QUADRICS
 }	t_qtype;
 
-
 typedef enum e_texturetype
 {
 	T_NORMAL = 0,
-	T_HEIGHT,
 	T_TEXTURE,
 }	t_texturetype;
 
@@ -43,7 +41,7 @@ typedef struct s_quadrics
 	float				range_z[2];
 	int					disruption;
 	t_color				color;
-	t_xpm				textures[3];
+	t_xpm				textures[2];
 	struct s_quadrics	*next;
 }	t_quadrics;
 

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:06:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 08:50:43 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:30:04 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_vec3	v3_sub(t_vec3 a, t_vec3 b)
 	const __m128			cc = *((__m128*)&a);
 	const __m128			dd = *((__m128*)&b);
 	const __m128			kk = _mm_sub_ps(cc, dd);
-	t_vec3			*p;
+	t_vec3					*p;
 
-	p = (t_vec3*)&kk;
+	p = (t_vec3 *)&kk;
 	p->w = 0;
 	return (*p);
 }

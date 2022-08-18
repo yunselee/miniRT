@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:09:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 08:54:45 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:26:26 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,14 @@ t_color	get_texture_color(const t_quadrics *Q, \
 	else if (Q->type == Q_PLANE)
 		return (get_plane_texture_color(Q, texture, point));
 	point_from_obj = v3_sub(point, Q->org);
-	local_pnt[1] = (v3_dot(point_from_obj, Q->dir) - Q->range_z[0]) / (Q->range_z[1] - Q->range_z[0]);
+	local_pnt[1] = (v3_dot(point_from_obj, Q->dir) - Q->range_z[0]) / \
+					(Q->range_z[1] - Q->range_z[0]);
 	local_pnt[1] *= texture->img_height;
 	pixel[1] = ((int)local_pnt[1] % texture->img_height);
 	pixel[1] = texture->img_height - pixel[1] - 1;
 	point_from_obj = v3_crs(Q->dir, v3_crs(point_from_obj, Q->dir));
-	local_pnt[0] = atan2f(v3_dot(point_from_obj, binormal), v3_dot(point_from_obj, Q->tan)) * 180 / M_PI + 360;
+	local_pnt[0] = atan2f(v3_dot(point_from_obj, binormal), \
+					v3_dot(point_from_obj, Q->tan)) * 180 / M_PI + 360;
 	local_pnt[0] = fmodf(local_pnt[0] + 360, 360);
 	local_pnt[0] = local_pnt[0] / 360 * (texture->img_width);
 	pixel[0] = ((int)(local_pnt[0])) % (texture->img_width);

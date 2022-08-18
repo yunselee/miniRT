@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:20:28 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 20:21:11 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:45:37 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ void	print_single_quadrics(const t_quadrics *Q)
 	if (Q->textures[T_NORMAL].img.img)
 		printf("\t  normal map -> width : %d, height : %d\n", \
 		Q->textures[T_NORMAL].img_width, Q->textures[T_NORMAL].img_height);
-	if (Q->textures[T_HEIGHT].img.img)
-		printf("\t  texture  -> width : %d, height : %d\n", \
-		Q->textures[T_HEIGHT].img_width, Q->textures[T_HEIGHT].img_height);
 	if (Q->textures[T_TEXTURE].img.img)
 		printf("\t  texture  -> width : %d, height : %d\n", \
 		Q->textures[T_TEXTURE].img_width, Q->textures[T_TEXTURE].img_height);

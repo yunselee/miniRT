@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:07:04 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 22:02:35 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:29:11 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	debug_light(const t_light *light)
 {
 	if (get_scene_editer()->debug == D_NONE)
-		return;
+		return ;
 	if (light)
 	{
 		printf("\t  current light source: \n");
@@ -29,7 +29,7 @@ void	debug_light(const t_light *light)
 void	debug_color(const t_color *color)
 {
 	if (get_scene_editer()->debug == D_NONE)
-		return;
+		return ;
 	else if (color)
 		printf("\tcolor :\033[38;2;%d;%d;%dm◉(%d, %d, %d)\033[0m\n", \
 			color->red, color->green, color->blue, \
@@ -39,7 +39,7 @@ void	debug_color(const t_color *color)
 void	debug_ambient(const t_quadrics *Q)
 {
 	if (get_scene_editer()->debug == D_NONE)
-		return;
+		return ;
 	if (Q)
 	{
 		printf("\t  target object :\n");
@@ -54,7 +54,7 @@ void	debug_diffuse(const float *to_obj, \
 						const float *diffuse)
 {
 	if (get_scene_editer()->debug == D_NONE)
-		return;
+		return ;
 	if (to_obj && to_light && !diffuse)
 	{
 		printf("\t  shortest intersecting distance : %f\n", *to_obj);
@@ -73,7 +73,7 @@ void	debug_specular(const float *to_obj, \
 						const float *specular)
 {
 	if (get_scene_editer()->debug == D_NONE)
-		return;
+		return ;
 	if (to_obj && to_light && !specular)
 	{
 		printf("\t  shortest intersecting distance : %f\n", *to_obj);

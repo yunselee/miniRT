@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:07:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 16:36:13 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:53:37 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_thread_local_object
 	int		y;
 }			t_thread_local_object;
 
-void	ray_cast();
+void	ray_cast(void);
 
 float	get_intersect_distance(t_quadrics *objlst, \
 								t_quadrics **intersecting_obj_out, \

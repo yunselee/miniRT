@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 15:10:17 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:54:01 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	init_thread_local_object(t_thread_local_object *tlo)
 	}
 }
 
-static void	ray_multithread()
+static void	ray_multithread(void)
 {
 	static pthread_t				thread_data[THREAD_NUM];
 	static t_thread_local_object	tlo[THREAD_NUM];
@@ -91,14 +91,15 @@ static void	ray_multithread()
 	}
 }
 
-void	ray_cast()
+void	ray_cast(void)
 {
 	double	cam_proportion;
 
 	cam_proportion = (WIN_WIDTH / 2) / tan(get_scene()->cam->hfov / 2);
 	time_check_start_sub();
 	ray_multithread();
-	if (get_scene_editer()->edit != 0 && get_scene_editer()->target_scene != E_NONE)
+	if (get_scene_editer()->edit != 0 \
+		&& get_scene_editer()->target_scene != E_NONE)
 		render_lightsource(cam_proportion);
 	time_check_end_sub("ray");
 }

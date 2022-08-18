@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_part.c                                         :+:      :+:    :+:   */
+/*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 17:32:10 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:35:34 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "timer.h"
 #include "resolution.h"
 
-t_mlx_manager *get_mlx()
+t_mlx_manager	*get_mlx(void)
 {
 	static t_mlx_manager	mlx;
 
@@ -47,7 +47,7 @@ void	init_mlx(char *title_name)
 								&(mlx->image.line), &(mlx->image.endian));
 }
 
-int	destroy_mlx(void* null)
+int	terminate_mlx(void *null)
 {
 	t_mlx_manager	*mlx;
 
@@ -77,7 +77,7 @@ void	run_mlx(void)
 	printf("\033[3;32m\tPut image\033[0m\n");
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image.img, 0, 0);
 	printf("\033[3;32m\tSetting Hooks\033[0m\n");
-	mlx_hook(mlx->win, 17, 0, destroy_mlx, NULL);
+	mlx_hook(mlx->win, 17, 0, terminate_mlx, NULL);
 	mlx_hook(mlx->win, 2, (1L << 0), keydown, mlx);
 	mlx_hook(mlx->win, 4, (1L << 2), mousedown, mlx);
 	mlx_hook(mlx->win, 5, (1L << 3), mouseup, mlx);

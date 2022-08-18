@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_part.h                                         :+:      :+:    :+:   */
+/*   mlx_manager.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 18:12:03 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:36:36 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_PART_H
-# define MLX_PART_H
+#ifndef MLX_MANAGER_H
+# define MLX_MANAGER_H
 # include <mlx.h>
-
-# define BACKGROUND (0X222222)
 
 typedef struct s_image
 {
@@ -32,7 +30,7 @@ typedef struct s_xpm
 	int		img_height;
 }	t_xpm;
 
-struct s_quadrics;
+struct	s_quadrics;
 typedef struct s_mlx_manager
 {
 	void				*mlx;
@@ -40,30 +38,30 @@ typedef struct s_mlx_manager
 	t_image				image;
 }					t_mlx_manager;
 
-void		init_mlx(char *title_name );
+void			init_mlx(char *title_name );
 
-int	destroy_mlx(void* null);
+int				terminate_mlx(void *null);
 
-void	ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
+void			ft_mlx_set_pixel_color(t_image *img, unsigned int x, \
 							unsigned int y, unsigned int color);
 
-void	ft_mlx_set_image_background(t_mlx_manager *mlx);
+void			ft_mlx_set_image_background(t_mlx_manager *mlx);
 
-void	run_mlx(void);
+void			run_mlx(void);
 
 /*===MLX EVENT====*/
-void	mlx_renew_image();
+void			mlx_renew_image(void);
 
 //	keydown && move
-int		keydown(int keycode);
-int		mlx_move_obj(int keycode);
-int		mlx_move_light(int keycode);
-int		mlx_move_cam(int keycode);
-int		mousedown(int button, int x, int y);
-int		mlx_mouse_wheel(int keycode);
-int		mouseup(int button, int x, int y);
-int		mousemove(int x, int y);
-void	mlx_replace_light();
+int				keydown(int keycode);
+int				mlx_move_obj(int keycode);
+int				mlx_move_light(int keycode);
+int				mlx_move_cam(int keycode);
+int				mousedown(int button, int x, int y);
+int				mlx_mouse_wheel(int keycode);
+int				mouseup(int button, int x, int y);
+int				mousemove(int x, int y);
+void			mlx_replace_light(void);
 t_mlx_manager	*get_mlx(void);
 
 #endif

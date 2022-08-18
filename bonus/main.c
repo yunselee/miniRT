@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 17:34:43 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:33:45 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	main(int argc, char **argv)
 	if (scene_init(file_name) == FALSE)
 	{
 		printf("\n\033[3;31mError\n\tFail to read file\033[0m\n");
-		destroy_mlx(NULL);
+		terminate_mlx(NULL);
 		return (1);
 	}
 	printf("\033[1;33m======MINI_RT SCENE INFOs(global)=====\033[0m\n");

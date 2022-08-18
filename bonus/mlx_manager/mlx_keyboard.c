@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 21:51:16 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:33:54 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 static int	chage_to_editmode(int keycode)
 {
-	t_scene_editer *editer;
+	t_scene_editer	*editer;
 
 	editer = get_scene_editer();
 	if (keycode == KEY_D)
@@ -44,9 +44,9 @@ static int	chage_to_editmode(int keycode)
 	return (TRUE);
 }
 
-static int	change_to_rendermode()
+static int	change_to_rendermode(void)
 {
-	t_scene_editer *scene_editer;
+	t_scene_editer	*scene_editer;
 
 	scene_editer = get_scene_editer();
 	scene_editer->edit = 0;
@@ -61,7 +61,7 @@ static int	change_to_rendermode()
 
 static int	set_edit_scene(int keycode)
 {
-	t_scene_editer *editer;
+	t_scene_editer	*editer;
 
 	editer = get_scene_editer();
 	if (keycode == KEY_C)
@@ -88,7 +88,7 @@ static int	set_edit_scene(int keycode)
 
 static int	move_target_scene(int keycode)
 {
-	const enum e_target target_scene = get_scene_editer()->target_scene;
+	const enum e_target	target_scene = get_scene_editer()->target_scene;
 
 	if (target_scene == E_CAM)
 		return (mlx_move_cam(keycode));
@@ -102,14 +102,11 @@ static int	move_target_scene(int keycode)
 
 int	keydown(int keycode)
 {
-	t_scene_editer *editer;
+	t_scene_editer	*editer;
 
 	editer = get_scene_editer();
 	if (keycode == ESC)
-	{
-		destroy_mlx(NULL);
-		exit(0);
-	}
+		terminate_mlx(NULL);
 	else if (editer->edit == 0 && (keycode == KEY_E || keycode == KEY_D))
 		return (chage_to_editmode(keycode));
 	else if (editer->edit != 0 && keycode == KEY_R)
@@ -124,7 +121,8 @@ int	keydown(int keycode)
 		mlx_renew_image();
 		return (1);
 	}
-	else if (editer->edit != 0 && editer->target_scene == E_LIGHT && keycode == SPACE)
+	else if (editer->edit != 0 && editer->target_scene == E_LIGHT \
+			&& keycode == SPACE)
 		mlx_replace_light();
 	return (move_target_scene(keycode));
 }

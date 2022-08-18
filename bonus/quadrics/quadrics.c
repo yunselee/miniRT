@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 11:31:05 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:47:08 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,19 @@ void	free_quadlist(t_quadrics *quad_list)
 	curr = quad_list;
 	while (curr)
 	{
+		printf("\tdestroying QUADRIC SURFACE\n");
 		next = curr -> next;
 		i = -1;
-		while (++i < 3)
+		while (++i < 2)
 		{
-			if (i == T_NORMAL)
-				printf("destroying NORMAL_MAP\n");
-			if (i == T_HEIGHT)
-				printf("destroying T_HEIGHT_MAP\n");
-			if (i == T_TEXTURE)
-				printf("destroying TEXTURE_MAP\n");
 			if ((curr->textures[i]).img.img != NULL)
+			{
+				if (i == T_NORMAL)
+					printf("\t  ->destroying NORMAL_MAP\n");
+				if (i == T_TEXTURE)
+					printf("\t  ->destroying TEXTURE_MAP\n");
 				mlx_destroy_image(get_mlx()->mlx, (curr->textures[i]).img.img);
+			}
 		}
 		free(curr);
 		curr = next;

@@ -6,16 +6,16 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 22:52:54 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:22:07 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:27:34 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLOR_H
 # define COLOR_H
+# include "vector3.h"
 
-#include "vector3.h"
-typedef struct s_quadrics t_quadrics;
-typedef struct s_xpm t_xpm;
+typedef struct s_quadrics	t_quadrics;
+typedef struct s_xpm		t_xpm;
 
 typedef struct s_color
 {

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 19:11:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 21:55:14 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:28:42 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	debug_single_ray_cast(const t_quadrics *Q, \
 								const t_color *color)
 {
 	t_vec3	point_from_obj;
-	
+
 	if (get_scene_editer()->debug == D_NONE)
-		return;
-	if (Q  && dist && !hit_point && !color)
+		return ;
+	if (Q && dist && !hit_point && !color)
 	{
 		printf("\ttarget obj info : \n");
 		print_single_quadrics(Q);
@@ -48,7 +48,7 @@ void	debug_single_ray_cast(const t_quadrics *Q, \
 void	debug_phong_reflection(const t_vec3 *normal, const t_vec3 *point)
 {
 	if (get_scene_editer()->debug == D_NONE)
-		return;
+		return ;
 	if (normal && point)
 	{
 		printf("\t  hit point : [%f, %f, %f]\n", point->x, point->y, point->z);

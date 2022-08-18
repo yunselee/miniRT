@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:48:44 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 21:59:20 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:49:56 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 
 static int	debug_single_raycast(int x, int y)
 {
-	const	t_cam	*cam = get_scene()->cam;
-	t_ray	ray;
-	float	d;
+	const t_cam	*cam = get_scene()->cam;
+	t_ray		ray;
+	float		d;
 
 	printf("DEBUG MODE\n");
 	d = ((float)WIN_WIDTH / 2) / tan(cam->hfov / 2);
@@ -49,31 +49,30 @@ static t_quadrics	*select_object(int x, int y)
 	ray.dir = make_v3(x - WIN_WIDTH / 2, y - WIN_HEIGHT / 2, d);
 	ray.dir = v3_normalize(ray.dir);
 	ray.org = scene->cam->pos;
-	get_intersect_distance(scene->quads, &(get_scene_editer()->selected_quad), ray);
+	get_intersect_distance(scene->quads, \
+						&(get_scene_editer()->selected_quad), ray);
+	printf("selected object : \n");
+	print_single_quadrics(get_scene_editer()->selected_quad);
 	return (get_scene_editer()->selected_quad);
 }
 
 int	mousedown(int button, int x, int y)
 {
-	t_scene_editer *editer;
+	t_scene_editer	*editer;
 
-	editer= get_scene_editer();
-	if (x < 0 || y < 0 || (unsigned int)x > WIN_WIDTH \
-		|| (unsigned int)y > WIN_HEIGHT \
-		|| (((editer->edit == FALSE) || (editer->target_scene == E_NONE)) && (editer->debug == FALSE)))
-		return (FALSE);
 	printf("mouse clicked\n");
+	editer = get_scene_editer();
+	if (x < 0 || y < 0 || x > WIN_WIDTH || y > WIN_HEIGHT || \
+		(((editer->edit == FALSE) || (editer->target_scene == E_NONE)) \
+		&& (editer->debug == FALSE)))
+		return (FALSE);
 	editer->clicked = button;
 	editer->prev_pixel[0] = x;
 	editer->prev_pixel[1] = y;
 	if (editer->debug != D_NONE && button == MOUSE_RIGHT)
 		return (debug_single_raycast(x, y));
 	if (button == MOUSE_LEFT && editer->target_scene == E_OBJ)
-	{
 		select_object(x, y);
-		printf("selected object : \n");
-		print_single_quadrics(editer->selected_quad);
-	}
 	else if (button == MOUSE_WHELL_DOWN || button == MOUSE_WHELL_UP)
 	{
 		if (mlx_mouse_wheel(button) == FALSE)
@@ -97,11 +96,11 @@ int	mouseup(int button, int x, int y)
 
 int	mousemove(int x, int y)
 {
-	double	dx;
-	double	dy;
-	t_vec3	axis;
-	t_scene_editer *editer;
-	
+	double			dx;
+	double			dy;
+	t_vec3			axis;
+	t_scene_editer	*editer;
+
 	editer = get_scene_editer();
 	if (editer->edit == FALSE || editer->clicked != 1)
 		return (FALSE);
@@ -120,6 +119,6 @@ int	mousemove(int x, int y)
 	else if (editer->target_scene == E_OBJ && editer->selected_quad != NULL)
 		rotate_quadrics(editer->selected_quad, axis, -3);
 	print_info_camera(get_scene()->cam);
-	mlx_renew_image(get_mlx());
+	mlx_renew_image();
 	return (1);
 }

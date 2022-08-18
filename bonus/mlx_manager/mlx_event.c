@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:31:17 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 12:55:35 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:34:04 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 #include "ray_cast.h"
 #include "resolution.h"
 
-void	mlx_renew_image()
+void	mlx_renew_image(void)
 {
-	t_mlx_manager *mlx;
+	t_mlx_manager	*mlx;
 
 	mlx = get_mlx();
 	mlx_destroy_image(mlx->mlx, mlx->image.img);

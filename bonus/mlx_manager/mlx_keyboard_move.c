@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:52:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:19:46 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:34:39 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,20 @@
 
 static int	move_pos(t_vec3 *pos, int keycode)
 {
+	const int	move_stride = 1;
+
 	if (keycode == KEY_D)
-		pos->x += 1;
+		pos->x += move_stride;
 	else if (keycode == KEY_A)
-		pos->x -= 1;
+		pos->x -= move_stride;
 	else if (keycode == KEY_W)
-		pos->z += 1;
+		pos->z += move_stride;
 	else if (keycode == KEY_S)
-		pos->z -= 1;
+		pos->z -= move_stride;
 	else if (keycode == UARROW)
-		pos->y -= 1;
+		pos->y -= move_stride;
 	else if (keycode == DARROW)
-		pos->y += 1;
+		pos->y += move_stride;
 	else
 		return (FALSE);
 	return (TRUE);
@@ -76,7 +78,7 @@ int	mlx_move_light(int keycode)
 int	mlx_move_obj(int keycode)
 {
 	const t_vec3	axis = make_v3(0, 0, 1);
-	t_quadrics *selected_quad;
+	t_quadrics		*selected_quad;
 
 	selected_quad = get_scene_editer()->selected_quad;
 	if (selected_quad == NULL)
@@ -94,22 +96,10 @@ int	mlx_move_obj(int keycode)
 	return (TRUE);
 }
 
-// void	mlx_replace_light()
-// {
-// 	t_light *selected_light;
-	
-// 	selected_light = get_scene_editer()->selected_light;
-// 	selected_light = selected_light->next;
-// 	if (selected_light == NULL)
-// 		selected_light = get_scene()->light;
-// 	printf("light changed\n");
-// 	print_single_light(selected_light);
-// }
-
-void	mlx_replace_light()
+void	mlx_replace_light(void)
 {
-	t_light **selected_light;
-	
+	t_light	**selected_light;
+
 	selected_light = &(get_scene_editer()->selected_light);
 	*selected_light = (*selected_light)->next;
 	if (*selected_light == NULL)

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 17:07:44 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:58:27 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "vector3.h"
 # include "color.h"
 
-
 # ifndef TRUE
 #  define TRUE (1)
 # endif
@@ -27,10 +26,10 @@
 
 # define EPSILON (0.001)
 
-struct s_quadrics;
-typedef struct s_color t_color;
-typedef struct s_vec t_vec;
-typedef t_vec	t_vec3;
+struct					s_quadrics;
+typedef struct s_color	t_color;
+typedef struct s_vec	t_vec;
+typedef t_vec			t_vec3;
 
 typedef struct s_ray
 {
@@ -38,7 +37,7 @@ typedef struct s_ray
 	t_vec3	dir;
 }	t_ray;
 
-typedef struct s_light t_light;
+typedef struct s_light	t_light;
 
 typedef struct s_light
 {
@@ -46,7 +45,7 @@ typedef struct s_light
 	t_color	color;
 	float	bright;
 	t_light	*next;
-} t_light;
+}	t_light;
 
 typedef struct s_cam
 {

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 18:25:18 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 20:18:28 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:53:29 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,16 @@ static void	ft_fill_pixel(int x, int y, unsigned int color)
 	{
 		s[1] = -1;
 		while (++s[1] < (get_scene_editer()->edit + 1))
-			ft_mlx_set_pixel_color(&(get_mlx()->image), x + s[0], y + s[1], color);
+			ft_mlx_set_pixel_color(&(get_mlx()->image), \
+									x + s[0], y + s[1], color);
 	}
 }
 
 static void	mlx_draw_circle(int p[2], t_color color, int rad)
 {
-	const double	r_square = rad * rad;;
-	int		i;
-	int		j;
+	int				i;
+	int				j;
+	const double	r_square = rad * rad;
 
 	i = p[1] - rad - 1;
 	while (++i < p[1] + rad)
@@ -65,8 +66,8 @@ void	render_lightsource(double depth)
 		if (cam_to_light.z > EPSILON && dist > (1 - EPSILON))
 		{
 			cam_to_light = v3_mul(cam_to_light, depth / cam_to_light.z);
-			point[0] = round(cam_to_light.x) + WIN_WIDTH / 2;
-			point[1] = round(cam_to_light.y) + WIN_HEIGHT / 2;
+			point[0] = roundf(cam_to_light.x) + WIN_WIDTH / 2;
+			point[1] = roundf(cam_to_light.y) + WIN_HEIGHT / 2;
 			if (point[0] < WIN_WIDTH && point[1] < WIN_HEIGHT)
 				mlx_draw_circle(point, light->color, \
 				light->bright * fmin(fmax(depth / dist, 5), WIN_HEIGHT / 4));

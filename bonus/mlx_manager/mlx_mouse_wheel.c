@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 13:24:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:09:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:37:28 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static int	wheel_object(t_quadrics *obj, int keycode)
 	mat.col2 = make_v4(0, 1, 0, 0);
 	mat.col3 = make_v4(0, 0, 1, 0);
 	mat.col4 = make_v4(0, 0, 0, 1 / stride);
-	
 	if (obj->range_z[1] - obj->range_z[0] > EPSILON)
 	{
 		obj->range_z[0] /= stride;

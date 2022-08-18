@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 01:46:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:09:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:44:54 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ static int	take_texture_files(t_quadrics *Q, char **quad_info)
 	int		i;
 
 	Q->textures[T_NORMAL].img.img = NULL;
-	Q->textures[T_HEIGHT].img.img = NULL;
 	Q->textures[T_TEXTURE].img.img = NULL;
 	i = -1;
-	while (quad_info[++i] && i < 3)
+	while (quad_info[++i] && i < 2)
 	{
 		if (ft_strncmp(quad_info[i], "NULL", 5) == 0)
 			continue ;
@@ -46,7 +45,7 @@ t_quadrics	*case_quad_plane(char **quad_info)
 	t_quadrics	*newquad;
 
 	newquad = ft_calloc(1, sizeof(t_quadrics));
-	if (((ft_strsetlen(quad_info) < 6) || (ft_strsetlen(quad_info) > 9)) \
+	if (((ft_strsetlen(quad_info) < 6) || (ft_strsetlen(quad_info) > 8)) \
 		|| (str_to_vec3(quad_info[1], &newquad->org) == FALSE) \
 		|| (str_to_vec3(quad_info[2], &newquad->dir) == FALSE) \
 		|| (str_to_color(quad_info[3], &newquad->color) == FALSE) \
@@ -86,7 +85,7 @@ t_quadrics	*case_quadrics(char **quad_info)
 
 	newquad = ft_calloc(1, sizeof(t_quadrics));
 	newquad->type = Q_QUADRICS;
-	if (((ft_strsetlen(quad_info) < 13) || (ft_strsetlen(quad_info) > 16)) \
+	if (((ft_strsetlen(quad_info) < 13) || (ft_strsetlen(quad_info) > 15)) \
 		|| (str_to_vec3(quad_info[1], &newquad->org) == FALSE) \
 		|| (str_to_vec3(quad_info[2], &newquad->dir) == FALSE) \
 		|| (ft_strtof(quad_info[3], coef + 0) == FALSE) \

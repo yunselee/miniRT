@@ -41,7 +41,7 @@
         "memory_resource": "c",
         "functional": "c",
         "resolution.h": "c",
-        "mlx_manager.h": "c"
+        "debug_msgs.h": "c"
     },
     "makefile.launchConfigurations": [
         {

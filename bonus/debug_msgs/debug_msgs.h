@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:06:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 21:47:32 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:28:03 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	debug_color(const t_color *color);
 void	debug_ambient(const t_quadrics *Q);
 
 void	debug_diffuse(const float *to_obj, \
-						const float *to_light,\
+						const float *to_light, \
 						const float *diffuse);
 
 void	debug_specular(const float *to_obj, \
 						const float *to_light, \
 						const float *specular);
 
-# endif
+#endif
