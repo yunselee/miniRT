@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:54:01 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 16:13:03 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ float	get_intersect_distance(t_quadrics *objlst, \
 								t_ray ray)
 {
 	t_quadrics			*target_obj;
-	t_quadrics			*intersect_obj;
 	float				dist[2];
 
 	dist[0] = INFINITY;
-	intersect_obj = NULL;
+	if (out_intersecting_obj != NULL)
+		*out_intersecting_obj = NULL;
 	target_obj = objlst;
 	while (target_obj)
 	{

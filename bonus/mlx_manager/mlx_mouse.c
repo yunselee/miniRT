@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:48:44 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:49:56 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 16:16:37 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,20 @@ static int	debug_single_raycast(int x, int y)
 static t_quadrics	*select_object(int x, int y)
 {
 	const t_scene	*scene = get_scene();
+	t_scene_editer	*editor;
 	t_ray			ray;
 	float			d;
 
-	get_scene_editer()->selected_quad = NULL;
+	editor = get_scene_editer();
+	editor->selected_quad = NULL;
 	d = ((float)WIN_WIDTH / 2) / tan(scene->cam->hfov / 2);
 	ray.dir = make_v3(x - WIN_WIDTH / 2, y - WIN_HEIGHT / 2, d);
 	ray.dir = v3_normalize(ray.dir);
 	ray.org = scene->cam->pos;
 	get_intersect_distance(scene->quads, \
-						&(get_scene_editer()->selected_quad), ray);
-	printf("selected object : \n");
-	print_single_quadrics(get_scene_editer()->selected_quad);
-	return (get_scene_editer()->selected_quad);
+						&(editor->selected_quad), ray);
+	print_single_quadrics(editor->selected_quad);
+	return (editor->selected_quad);
 }
 
 int	mousedown(int button, int x, int y)

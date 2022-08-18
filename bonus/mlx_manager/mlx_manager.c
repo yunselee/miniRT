@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:35:34 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 15:44:02 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	run_mlx(void)
 	printf("\033[3;32m\tRUN MLX\033[0m\n");
 	mlx = get_mlx();
 	printf("\033[3;32m\tRay Cast\033[0m\n");
-	ray_cast(mlx);
+	ray_cast();
 	printf("\033[3;32m\tPut image\033[0m\n");
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image.img, 0, 0);
 	printf("\033[3;32m\tSetting Hooks\033[0m\n");
