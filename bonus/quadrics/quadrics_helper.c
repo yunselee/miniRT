@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 01:46:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 15:42:56 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 16:47:51 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,12 @@ t_quadrics	*case_quad_sphere(char **single_scene)
 {
 	t_quadrics	*newquad;
 
-	if (ft_strsetlen(single_scene) != 6)
+	if (ft_strsetlen(single_scene) != 4)
 		return (NULL);
 	newquad = ft_calloc(1, sizeof(t_quadrics));
 	if ((str_to_vec3(single_scene[1], &newquad->org) == FALSE) \
 		|| (ft_strtof(single_scene[2], &newquad->coefs.col4.w) == FALSE) \
-		|| (str_to_color(single_scene[3], &newquad->color) == FALSE) \
-		|| (ft_strtof(single_scene[4], &newquad->spec_rs) == FALSE) \
-		|| (ft_strtoi(single_scene[5], &newquad->spec_ns) == FALSE))
+		|| (str_to_color(single_scene[3], &newquad->color) == FALSE))
 	{
 		free(newquad);
 		return (NULL);
@@ -88,6 +86,8 @@ t_quadrics	*case_quad_sphere(char **single_scene)
 	newquad->coefs.col1.x = 1;
 	newquad->coefs.col2.y = 1;
 	newquad->coefs.col3.z = 1;
+	newquad->spec_rs = 0.2;
+	newquad->spec_ns = 54;
 	return (newquad);
 }
 
@@ -166,7 +166,7 @@ t_quadrics	*case_quad_cylinder(char **cylinder_info)
 	coef[1] = 1;
 	coef[2] = 0;
 	coef[3] = 0;
-	coef[4] = -(coef[4] * coef[4]);
+	coef[4] = -(coef[4] * coef[4]) / 4;
 	newquad->spec_rs = 0.2;
 	newquad->spec_ns = 54;
 	newquad->range_z[0] = 0;
