@@ -7,7 +7,6 @@
 	A	  0.2      255,255,255
 
 # |TYPE| |origin| |direction(unit)| |HFOV|
-# C    55,0,50     -0.6,0,-0.8 			 70
 C    15,0,60    	 0,0,-1			 90
 
 # |TYPE| |origin| |direction(unit)|   |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|

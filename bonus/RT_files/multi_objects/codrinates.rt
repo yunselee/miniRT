@@ -1,0 +1,23 @@
+
+# |TYPE|	|pos|		|brightness(ratio)|		|color|
+    L		0,10,10	            1         	255,255,255
+    L		0,-10,10	        1         	255,255,255
+
+# |TYPE| |ratio| 	|color|
+    A       0.2		255,255,255
+
+# |TYPE| |origin| |direction(unit)|             |HFOV|
+    C 10,4,8 -0.80178372,-0.267261,-0.5345224        90
+
+# |TYPE||origin| |direction(unit)| 	|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
+#   simple cylinder format(Diameter : 2*R, height : H) -> A,B : 1 C,D : 0, E = -R^2, z_min = 0, z_max = H
+    qd  0,0,0       1,0,0              1       1       0       0     -0.0625      0       6       102,103,171          0.2                    32
+    qd  0,0,0       0,1,0              1       1       0       0     -0.0625      0       6       171,102,103          0.2                    32
+    qd  0,0,0       0,0,1              1       1       0       0     -0.0625      0       6       103,171,102          0.2                    32
+
+    qd  0,0,0       -1,0,0             1       1       0       0     -0.0625      0       6       102,103,171          0.2                    32
+    qd  0,0,0       0,-1,0             1       1       0       0     -0.0625      0       6       171,102,103          0.2                    32
+    qd  0,0,0       0,0,-1             1       1       0       0     -0.0625      0       6       103,171,102          0.2                    32
+
+# |TYPE| |origin| |diameter|   |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
+    sp      0,0,0    2		  172,171,0          0.5                          100
