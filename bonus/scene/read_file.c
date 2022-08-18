@@ -18,12 +18,14 @@
 #include "in_parsing.h"
 #include "quadrics.h"
 
-static int	parse_scene(t_scene *out_scene, char *line)
+static int	parse_scene(const char *line)
 {
+	t_scene *out_scene;
 	char	**element;
 	int		res;
 	int		i;
 
+	out_scene = get_scene();
 	element = ft_split(line, " \t\v\r\f\n");
 	if (!element)
 		return (FALSE);
@@ -57,8 +59,10 @@ static void	terminate_gnl(int fd, char *last_line)
 	close(fd);
 }
 
-static int	check_scene(const t_scene *scene)
+static int	check_scene()
 {
+	const t_scene *scene = get_scene();
+
 	if (scene->ambient_ratio == 0)
 	{
 		printf("no amb\n");
@@ -95,7 +99,7 @@ int	scene_init(const char *filename)
 	char	*line;
 
 	line = NULL;
-	if (get_scene() == NULL || !check_filename(filename))
+	if (!check_filename(filename))
 		return (FALSE);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -108,12 +112,12 @@ int	scene_init(const char *filename)
 			break ;
 		else if (line[0] == '#')
 			continue ;
-		else if (ft_strncmp(line, "", 1) && !parse_scene(get_scene(), line))
+		else if (ft_strncmp(line, "", 1) && !parse_scene(line))
 		{
 			terminate_gnl(fd, line);
 			return (FALSE);
 		}
 	}
 	close(fd);
-	return (check_scene(get_scene()));
+	return (check_scene());
 }

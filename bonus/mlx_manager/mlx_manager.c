@@ -73,7 +73,7 @@ void	run_mlx(void)
 	printf("\033[3;32m\tRUN MLX\033[0m\n");
 	mlx = get_mlx();
 	printf("\033[3;32m\tRay Cast\033[0m\n");
-	ray_cast(mlx);
+	ray_cast();
 	printf("\033[3;32m\tPut image\033[0m\n");
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->image.img, 0, 0);
 	printf("\033[3;32m\tSetting Hooks\033[0m\n");
