@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 13:24:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 15:36:30 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:09:22 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ static int	wheel_light(t_light *light, int keycode)
 		stride = -0.1;
 	else
 		stride = 0.1;
-	if (light->bright + stride > 0 \
-		&& light->bright + stride < 1)
+	if (light->bright + stride >= 0 \
+		&& light->bright + stride <= 1)
 	{
 		light->bright += stride;
 		printf("\tbrightness : \033[2;38;2;%d;%d;%dm%.2f\033[0m\n", \

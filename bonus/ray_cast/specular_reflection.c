@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:20:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 21:17:46 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 14:14:56 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ t_color	specular_light(const t_scene *scene, t_quadrics *hit_obj, \
 		if (specular > EPSILON)
 		{
 			color_temp.red = roundf((float)light->color.red / 255 \
-									* light->color.red);
+									* light->color.red * light->bright);
 			color_temp.green = roundf((float)light->color.green / 255 \
-									* light->color.green);
+									* light->color.green * light->bright);
 			color_temp.blue = roundf((float)light->color.blue / 255 \
-									* light->color.blue);
+									* light->color.blue * light->bright);
 			color_temp.alpha = 0;
 			color_temp = color_scale(color_temp, specular);
 			color = color_add(color, color_temp);
