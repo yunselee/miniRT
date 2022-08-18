@@ -64,6 +64,8 @@ int	init_quadrics(t_scene *outscene, char **single_scene)
 		quadric = case_quad_plane(single_scene);
 	else if (ft_strncmp(single_scene[0], "qd", 3) == 0)
 		quadric = case_quadrics(single_scene);
+	else if (ft_strncmp(single_scene[0], "cy", 3)  == 0)
+		quadric = case_quad_cylinder(single_scene);
 	else
 		return (FALSE);
 	if ((quadric == NULL) \

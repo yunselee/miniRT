@@ -54,6 +54,7 @@ typedef struct s_float_sol
 int			init_quadrics(t_scene *outscene, char **singlescene);
 void		free_quadlist(t_quadrics *quad_list);
 
+t_quadrics	*case_quad_cylinder(char **cylinder_info);
 t_quadrics	*case_quad_plane(char **single_scene);
 t_quadrics	*case_quad_sphere(char **single_scene);
 t_quadrics	*case_quadrics(char **single_scene);

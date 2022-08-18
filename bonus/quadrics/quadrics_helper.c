@@ -78,6 +78,38 @@ static void	fill_quad_matrix(t_mat44 *mat, float coef[5])
 	mat->col4 = make_v4(0, 0, coef[3], coef[4]);
 }
 
+t_quadrics	*case_quad_cylinder(char **cylinder_info)
+{
+	t_quadrics	*newquad;
+	float		coef[5];
+
+	newquad = ft_calloc(1, sizeof(t_quadrics));
+	newquad->type = Q_QUADRICS;
+	if(
+		(ft_strsetlen(cylinder_info) < 6)
+		|| (str_to_vec3(cylinder_info[1], &newquad->org) == FALSE) 
+		|| (str_to_vec3(cylinder_info[2], &newquad->dir) == FALSE) 
+		|| (ft_strtof(cylinder_info[3], coef + 4) == FALSE) 
+		|| (ft_strtof(cylinder_info[4], newquad->range_z + 1) == FALSE)
+		|| (str_to_color(cylinder_info[5], &newquad->color) == FALSE) \
+	)
+	{
+		free_quadlist(newquad);
+		return (NULL);
+	}
+	coef[0] = 1;
+	coef[1] = 1;
+	coef[2] = 0;
+	coef[3] = 0;
+	coef[4] = -(coef[4] * coef[4]);
+	newquad->spec_rs = 0.2;
+	newquad->spec_ns = 54;
+	newquad->range_z[0] = 0;
+	fill_quad_matrix(&newquad->coefs, coef);
+	return (newquad);
+
+}
+
 t_quadrics	*case_quadrics(char **quad_info)
 {
 	t_quadrics	*newquad;
