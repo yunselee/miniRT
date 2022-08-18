@@ -1,9 +1,13 @@
 
-L			20,20,20		1 	255,255,255
+# |TYPE|	|pos|		|brightness(ratio)|		|color|
+    L	 30,30,50		    1 	            255,255,255
 
-A 0.5					255,255,255
+# |TYPE| |ratio| 	|color|
+    A       0.5		255,255,255
 
-C    0,100,0         0,-1,0      90
+# |TYPE| |origin| |direction(unit)| |HFOV|
+C    50,30,0         -1,0,0      90
 
-
-co 0,0,0        0.0,1.0,0         45      255,0,0
+# |TYPE||origin| |direction(unit)| 	|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
+#   simple cone format (Diameter : 2R, height : H) -> A,B = H^2, C = -R^2 D,E = 0 z_min : 0, z_max = H 
+qd      0,0,0      0,0.8,0.6         400     400     -100   0       0       0       20          255,0,0         0.2     43
