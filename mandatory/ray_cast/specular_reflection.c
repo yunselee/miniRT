@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:20:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 22:21:24 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/18 15:13:22 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ t_color	specular_light(t_scene *scene, t_vec3 mirror_ray, t_vec3 intersection)
 		{
 			specular = R_S * pow(specular, ALPHA);
 			color_temp.red = round((double)light->color.red / 255 \
-									* light->color.red);
+									* light->color.red * light->bright);
 			color_temp.green = round((double)light->color.green / 255 \
-									* light->color.green);
+									* light->color.green * light->bright);
 			color_temp.blue = round((double)light->color.blue / 255 \
-									* light->color.blue);
+									* light->color.blue * light->bright);
 			color_temp = color_scale(color_temp, specular);
 			color = color_add(color, color_temp);
 		}
