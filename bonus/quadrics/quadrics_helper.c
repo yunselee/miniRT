@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "quadrics.h"
 #include "in_parsing.h"
+#include <math.h>
 
 static int	take_texture_files(t_quadrics *Q, char **quad_info)
 {
@@ -106,6 +107,42 @@ static void	fill_quad_matrix(t_mat44 *mat, float coef[5])
 	mat->col4 = make_v4(0, 0, coef[3], coef[4]);
 }
 
+t_quadrics	*case_quad_cone(char **cylinder_info)
+{
+	t_quadrics	*newquad;
+	float		coef[5];
+	float		degree;
+
+	newquad = ft_calloc(1, sizeof(t_quadrics));
+	newquad->type = Q_QUADRICS;
+	if(
+		(ft_strsetlen(cylinder_info) < 5)
+		|| (str_to_vec3(cylinder_info[1], &newquad->org) == FALSE) 
+		|| (str_to_vec3(cylinder_info[2], &newquad->dir) == FALSE) 
+		|| (ft_strtof(cylinder_info[3], &degree) == FALSE)
+		|| (str_to_color(cylinder_info[4], &newquad->color) == FALSE) \
+	)
+	{
+		free_quadlist(newquad);
+		return (NULL);
+	}
+
+	newquad->spec_rs = 0.2;
+	newquad->spec_ns = 54;
+	newquad->range_z[0] = 0;
+	newquad->range_z[1] = 40;
+	
+	coef[0] = 1600;
+	coef[1] = 1600;
+	coef[2] = -((tan(degree * M_PI / 180) * newquad->range_z[1])* (tan(degree * M_PI / 180) * newquad->range_z[1] ));
+	coef[3] = 0;
+	coef[4] = 0;
+	
+	fill_quad_matrix(&newquad->coefs, coef);
+	return (newquad);
+}
+
+
 t_quadrics	*case_quad_cylinder(char **cylinder_info)
 {
 	t_quadrics	*newquad;
@@ -135,7 +172,6 @@ t_quadrics	*case_quad_cylinder(char **cylinder_info)
 	newquad->range_z[0] = 0;
 	fill_quad_matrix(&newquad->coefs, coef);
 	return (newquad);
-
 }
 
 t_quadrics	*case_quadrics(char **quad_info)
