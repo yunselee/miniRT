@@ -6,10 +6,11 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 22:56:50 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/13 18:38:18 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/19 14:29:22 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "color.h"
 
 static unsigned char	ft_min(unsigned int a, unsigned int b)
@@ -38,13 +39,13 @@ t_color	color_add(t_color c1, t_color c2)
 	return (c1);
 }
 
-t_color	color_scale(t_color c1, double s)
+t_color	color_scale(t_color c1, float s)
 {
-	if (s <= 0.0 || s >= 1.0)
+	if (s < 0.0 || s > 1.0)
 		return (c1);
-	c1.red *= s;
-	c1.green *= s;
-	c1.blue *= s;
+	c1.red = roundf((float)c1.red * s);
+	c1.green = roundf((float)c1.green * s);
+	c1.blue = roundf((float)c1.blue * s);
 	return (c1);
 }
 

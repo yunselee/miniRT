@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:48:44 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 16:16:37 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/19 13:22:02 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	debug_single_raycast(int x, int y)
 	ray.dir = make_v3(x - WIN_WIDTH / 2, y - WIN_HEIGHT / 2, d);
 	ray.dir = v3_normalize(ray.dir);
 	ray.org = cam->pos;
-	single_ray_cast(ray);
+	single_ray_cast(ray, RECURSE);
 	return (TRUE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:07:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:53:37 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/19 14:22:33 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "mlx_manager.h"
 # include "vector3.h"
 # include "color.h"
+# define RECURSE 2
 
 typedef struct s_thread_local_object
 {
@@ -32,21 +33,22 @@ float	get_intersect_distance(t_quadrics *objlst, \
 
 void	render_lightsource(double depth);
 
-t_color	single_ray_cast(t_ray ray);
+t_color	single_ray_cast(t_ray ray, int recurse);
 
 t_color	phong_reflection(t_quadrics *hit_obj, \
 							t_vec3 intersection, \
-							t_vec3 view_point);
+							t_vec3 view_point, \
+							int recurse);
 
 t_color	diffuse_light(const t_scene *scene, \
 						t_quadrics *hit_obj, \
 						t_vec3 normal, \
 						t_vec3 intersection);
 
-t_color	specular_light(const t_scene *scene, \
-					t_quadrics *hit_obj, \
+t_color	specular_light(t_quadrics *hit_obj, \
 					t_vec3 mirror_ray, \
-					t_vec3 intersection);
+					t_vec3 intersection, \
+					int recurse);
 
 void	*thread_routine(void *ptr);
 

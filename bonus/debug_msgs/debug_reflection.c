@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:07:04 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:29:11 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/19 14:00:29 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,22 @@ void	debug_diffuse(const float *to_obj, \
 		printf("\n\t--<DIFFUSE LIGHTING>--\n");
 }
 
-void	debug_specular(const float *to_obj, \
+void	debug_specular(const int *recurse,
+						const float *to_obj, \
 						const float *to_light, \
 						const float *specular)
 {
 	if (get_scene_editer()->debug == D_NONE)
 		return ;
-	if (to_obj && to_light && !specular)
+	if (!recurse && to_obj && to_light && !specular)
 	{
 		printf("\t  shortest intersecting distance : %f\n", *to_obj);
 		printf("\t  distance to light source : %f\n", *to_light);
 		if (*to_obj < *to_light)
 			printf("\t  the light source is blocked\n");
 	}
-	else if (!to_obj && !to_light && specular)
+	else if (!recurse && !to_obj && !to_light && specular)
 		printf("\tspecular : %f\n", *specular);
-	else if (!to_obj && !to_light && !specular)
-		printf("\n\t--<SPECULAR LIGHTING>--\n");
+	else if (recurse && !to_obj && !to_light && !specular)
+		printf("\n\t--<SPECULAR LIGHTING>--\n\trecurse : %d\n", *recurse);
 }

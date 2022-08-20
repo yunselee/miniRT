@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/17 21:22:40 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/19 13:13:04 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ static t_vec3	apply_normal_map(const t_quadrics *Q, \
 
 t_color	phong_reflection(t_quadrics *Q, \
 						t_vec3 hit_point, \
-						t_vec3 view_point)
+						t_vec3 view_point, \
+						int recurse)
 {
 	const t_scene	*scene = get_scene();
 	t_vec3			normal;
@@ -100,6 +101,6 @@ t_color	phong_reflection(t_quadrics *Q, \
 								hit_point);
 	color[1] = diffuse_light(scene, Q, normal, hit_point);
 	mirror_ray = get_mirror_ray(normal, v3_sub(hit_point, view_point));
-	color[2] = specular_light(scene, Q, mirror_ray, hit_point);
+	color[2] = specular_light(Q, mirror_ray, hit_point, recurse);
 	return (color_add(color_add(color[0], color[1]), color[2]));
 }

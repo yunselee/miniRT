@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 22:52:54 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:27:34 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/19 14:19:20 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_color			rgb_color(unsigned int r, unsigned int g, unsigned int b);
 
 t_color			color_add(t_color c1, t_color c2);
 
-t_color			color_scale(t_color c1, double s);
+t_color			color_scale(t_color c1, float s);
 
 unsigned int	color_to_hex(t_color color);
 
