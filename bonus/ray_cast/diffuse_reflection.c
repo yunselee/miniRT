@@ -31,7 +31,7 @@ static float	diffuse_helper(t_quadrics *objlst, \
 	dir_to_light = v3_sub(target_light->o, hit_point);
 	ray_to_light.dir = v3_normalize(dir_to_light);
 	ray_to_light.org = hit_point;
-	diffuse = v3_dot(v3_normalize(dir_to_light), normal);
+	diffuse = v3_dot(ray_to_light.dir, normal);
 	if(diffuse <= 0)
 		return (0);
 	distance[0] = get_intersect_distance(objlst, NULL, ray_to_light);

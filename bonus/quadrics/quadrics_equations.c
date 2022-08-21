@@ -30,17 +30,12 @@ static t_sols	solve_quadratic_half_eq(float a, float b, float c)
 	}
 	else
 	{
-		if (a < 0)
-		{
-			a = -a;
-			b = -b;
-			c = -c;
-		}
 		discriminant = b * b - a * c;
 		if (discriminant >= 0)
+		{
 			sol.sol1 = (-b - sqrtf(discriminant)) / a;
-		if (discriminant > 0)
 			sol.sol2 = (-b + sqrtf(discriminant)) / a;
+		}
 	}
 	debug_solve_equation(NULL, &discriminant, &sol.sol1, &sol.sol2);
 	return (sol);
@@ -50,13 +45,14 @@ static float	find_plane_intersection(const t_quadrics *Q, const t_ray *R)
 {
 	float	dist;
 	t_vec3	obj_org;
+	const float	cos  = v3_dot(R->dir, Q->dir);;
 
 	obj_org = v3_sub(Q->org, R->org);
-	if (v3_dot(R->dir, Q->dir) == 0)
+	if (cos == 0)
 		dist = NAN;
 	else
 	{
-		dist = v3_dot(obj_org, Q->dir) / v3_dot(R->dir, Q->dir);
+		dist = v3_dot(obj_org, Q->dir) / cos;
 		if (dist <= 0)
 			dist = NAN;
 	}
@@ -64,7 +60,7 @@ static float	find_plane_intersection(const t_quadrics *Q, const t_ray *R)
 	return (dist);
 }
 
-static float	z_range_check_or_nan(const t_quadrics *Q, \
+static int	is_z_range(const t_quadrics *Q, \
 										const t_ray *R, \
 										float sol)
 {
@@ -74,10 +70,8 @@ static float	z_range_check_or_nan(const t_quadrics *Q, \
 	intersection = v3_sub(v3_add(v3_mul(R->dir, sol), R->org), Q->org);
 	z_value = v3_dot(intersection, Q->dir);
 	debug_z_range(Q->range_z, &sol, &z_value);
-	if (z_value >= Q->range_z[0] - EPSILON \
-			&& z_value <= Q->range_z[1] + EPSILON)
-		return (sol);
-	return (NAN);
+	return (z_value >= Q->range_z[0] - EPSILON \
+			&& z_value <= Q->range_z[1] + EPSILON);
 }
 
 float	find_intersection(const t_quadrics *Q, const t_ray *R)
@@ -85,6 +79,7 @@ float	find_intersection(const t_quadrics *Q, const t_ray *R)
 	t_sols	sols;
 	t_vec4	ray_org;
 	float	coefs[3];
+	t_vec4	tmp;
 
 	if (Q->type == Q_PLANE)
 		return (find_plane_intersection(Q, R));
@@ -92,18 +87,20 @@ float	find_intersection(const t_quadrics *Q, const t_ray *R)
 	ray_org.w = 1;
 	assert(R->dir.w == 0);
 	debug_find_intersection(Q, R);
-	coefs[0] = quadratic_form(R->dir, Q->coefs, R->dir);
-	coefs[1] = quadratic_form(R->dir, Q->coefs, ray_org);
+	tmp = make_v4(v4_dot(R->dir, Q->coefs.col1), v4_dot(R->dir, Q->coefs.col2), \
+					v4_dot(R->dir, Q->coefs.col3), v4_dot(R->dir, Q->coefs.col4));
+	coefs[0] = v4_dot( tmp, R->dir);
+	coefs[1] = v4_dot( tmp,  ray_org);
 	coefs[2] = quadratic_form(ray_org, Q->coefs, ray_org);
 	sols = solve_quadratic_half_eq(coefs[0], coefs[1], coefs[2]);
 	if (sols.sol1 > EPSILON && isnan(sols.sol1) == FALSE)
 	{
-		if (isnan(z_range_check_or_nan(Q, R, sols.sol1)) == FALSE)
+		if ((is_z_range(Q, R, sols.sol1)))
 			return (sols.sol1);
 	}
 	if (sols.sol2 > EPSILON && isnan(sols.sol2) == FALSE)
 	{
-		if (isnan(z_range_check_or_nan(Q, R, sols.sol2)) == FALSE)
+		if ((is_z_range(Q, R, sols.sol2)))
 			return (sols.sol2);
 	}
 	return (NAN);

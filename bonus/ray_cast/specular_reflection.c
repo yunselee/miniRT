@@ -39,8 +39,7 @@ static t_color	specular_helper(t_quadrics *hit_obj, \
 	dir_to_light = v3_sub(target_light->o, hit_point);
 	ray_to_light.dir = v3_normalize(dir_to_light);
 	ray_to_light.org = hit_point;
-
-	specular = v3_dot(v3_normalize(dir_to_light), mirror_ray);
+	specular = v3_dot(ray_to_light.dir, mirror_ray);
 	if (specular <= 0)
 	{
 		return (rgb_color(0, 0, 0));
