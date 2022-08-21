@@ -39,12 +39,17 @@ static t_color	specular_helper(t_quadrics *hit_obj, \
 	dir_to_light = v3_sub(target_light->o, hit_point);
 	ray_to_light.dir = v3_normalize(dir_to_light);
 	ray_to_light.org = hit_point;
+
+	specular = v3_dot(v3_normalize(dir_to_light), mirror_ray);
+	if (specular <= 0)
+	{
+		return (rgb_color(0, 0, 0));
+	}
 	distance[0] = get_intersect_distance(get_scene()->quads, NULL, ray_to_light);
 	distance[1] = v3_l2norm(dir_to_light);
-	specular = fmax(0, v3_dot(v3_normalize(dir_to_light), mirror_ray));
-	specular = (hit_obj->spec_rs) * pow(specular, hit_obj->spec_ns);
 	debug_specular(&distance[0], &distance[1], NULL);
 	debug_specular(NULL, NULL, &specular);
+	specular = (hit_obj->spec_rs) * pow(specular, hit_obj->spec_ns);
 	if (isnan(distance[0]) == FALSE && distance[0] < distance[1] + EPSILON)
 		return (rgb_color(0, 0, 0));
 	else if (specular < EPSILON)

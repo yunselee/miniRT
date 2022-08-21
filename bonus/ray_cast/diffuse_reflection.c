@@ -31,12 +31,14 @@ static float	diffuse_helper(t_quadrics *objlst, \
 	dir_to_light = v3_sub(target_light->o, hit_point);
 	ray_to_light.dir = v3_normalize(dir_to_light);
 	ray_to_light.org = hit_point;
+	diffuse = v3_dot(v3_normalize(dir_to_light), normal);
+	if(diffuse <= 0)
+		return (0);
 	distance[0] = get_intersect_distance(objlst, NULL, ray_to_light);
 	distance[1] = v3_l2norm(dir_to_light);
 	debug_diffuse(&distance[0], &distance[1], NULL);
 	if (isnan(distance[0]) == FALSE && distance[0] < distance[1] + EPSILON)
 		return (0);
-	diffuse = fmax(0, v3_dot(v3_normalize(dir_to_light), normal));
 	diffuse *= target_light->bright;
 	debug_diffuse(NULL, NULL, &diffuse);
 	return (diffuse);
