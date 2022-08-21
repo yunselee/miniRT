@@ -86,12 +86,12 @@ float	find_intersection(const t_quadrics *Q, const t_ray *R)
 	t_vec4	ray_org;
 	float	coefs[3];
 
+	if (Q->type == Q_PLANE)
+		return (find_plane_intersection(Q, R));
 	ray_org = v4_sub(R->org, Q->org);
 	ray_org.w = 1;
 	assert(R->dir.w == 0);
 	debug_find_intersection(Q, R);
-	if (Q->type == Q_PLANE)
-		return (find_plane_intersection(Q, R));
 	coefs[0] = quadratic_form(R->dir, Q->coefs, R->dir);
 	coefs[1] = quadratic_form(R->dir, Q->coefs, ray_org);
 	coefs[2] = quadratic_form(ray_org, Q->coefs, ray_org);
