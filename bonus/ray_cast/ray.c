@@ -25,6 +25,7 @@
 #include "resolution.h"
 #include "assert.h"
 #include "scene_editer.h"
+#include "anti.h"
 
 #define THREAD_NUM 4
 
@@ -102,4 +103,8 @@ void	ray_cast(void)
 		&& get_scene_editer()->target_scene != E_NONE)
 		render_lightsource(cam_proportion);
 	time_check_end_sub("ray");
+	time_check_start_sub();
+	//antialiasing();
+	time_check_end_sub("anti aliasing");
+
 }

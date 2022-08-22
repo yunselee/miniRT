@@ -20,7 +20,8 @@ INCS_DIR		= 	-I ./library/LIBFT \
 					-I ./quadrics \
 					-I ./scene_editer \
 					-I ./debug_msgs \
-					-I .
+					-I . \
+					-I ./antialiasing \
 
 SRCS_DIR		= 	./ \
 					./ray_cast \
@@ -32,6 +33,7 @@ SRCS_DIR		= 	./ \
 					./quadrics \
 					./scene_editer \
 					./debug_msgs \
+					./antialiasing \
 
 
 SRCS			= 	main.c \
@@ -74,7 +76,8 @@ SRCS			= 	main.c \
 					\
 					debug_quadrics.c \
 					debug_raycast.c \
-					debug_reflection.c
+					debug_reflection.c \
+					anti.c
 
 OBJS_DIR		= ./OBJS
 OBJS			= $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))

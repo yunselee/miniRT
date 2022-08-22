@@ -35,7 +35,6 @@ static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 }
 
 
-// TODO opt
 static void	ft_fill_pixel(int x, int y, unsigned int color)
 {
 	unsigned int	dx;
