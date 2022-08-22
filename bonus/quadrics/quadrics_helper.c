@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 01:46:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 16:47:51 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/22 16:27:57 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,29 +115,26 @@ t_quadrics	*case_quad_cone(char **cylinder_info)
 
 	newquad = ft_calloc(1, sizeof(t_quadrics));
 	newquad->type = Q_QUADRICS;
-	if(
-		(ft_strsetlen(cylinder_info) < 5)
-		|| (str_to_vec3(cylinder_info[1], &newquad->org) == FALSE) 
-		|| (str_to_vec3(cylinder_info[2], &newquad->dir) == FALSE) 
-		|| (ft_strtof(cylinder_info[3], &degree) == FALSE)
+	if (
+		(ft_strsetlen(cylinder_info) < 5) \
+		|| (str_to_vec3(cylinder_info[1], &newquad->org) == FALSE) \
+		|| (str_to_vec3(cylinder_info[2], &newquad->dir) == FALSE) \
+		|| (ft_strtof(cylinder_info[3], &degree) == FALSE) \
 		|| (str_to_color(cylinder_info[4], &newquad->color) == FALSE) \
 	)
 	{
 		free_quadlist(newquad);
 		return (NULL);
 	}
-
 	newquad->spec_rs = 0.2;
 	newquad->spec_ns = 54;
 	newquad->range_z[0] = 0;
 	newquad->range_z[1] = 40;
-	
 	coef[0] = 1600;
 	coef[1] = 1600;
-	coef[2] = -((tan(degree * M_PI / 180) * newquad->range_z[1])* (tan(degree * M_PI / 180) * newquad->range_z[1] ));
+	coef[2] = -((tan(degree * M_PI / 180) * newquad->range_z[1]) * (tan(degree * M_PI / 180) * newquad->range_z[1]));
 	coef[3] = 0;
 	coef[4] = 0;
-	
 	fill_quad_matrix(&newquad->coefs, coef);
 	return (newquad);
 }
@@ -150,11 +147,11 @@ t_quadrics	*case_quad_cylinder(char **cylinder_info)
 
 	newquad = ft_calloc(1, sizeof(t_quadrics));
 	newquad->type = Q_QUADRICS;
-	if(
+	if (
 		(ft_strsetlen(cylinder_info) < 6)
-		|| (str_to_vec3(cylinder_info[1], &newquad->org) == FALSE) 
-		|| (str_to_vec3(cylinder_info[2], &newquad->dir) == FALSE) 
-		|| (ft_strtof(cylinder_info[3], coef + 4) == FALSE) 
+		|| (str_to_vec3(cylinder_info[1], &newquad->org) == FALSE)
+		|| (str_to_vec3(cylinder_info[2], &newquad->dir) == FALSE)
+		|| (ft_strtof(cylinder_info[3], coef + 4) == FALSE)
 		|| (ft_strtof(cylinder_info[4], newquad->range_z + 1) == FALSE)
 		|| (str_to_color(cylinder_info[5], &newquad->color) == FALSE) \
 	)

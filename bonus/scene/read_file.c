@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:05:07 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 09:19:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/22 16:15:10 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 static int	parse_scene(const char *line)
 {
-	t_scene *out_scene;
+	t_scene	*out_scene;
 	char	**element;
 	int		res;
 	int		i;
@@ -29,14 +29,17 @@ static int	parse_scene(const char *line)
 	element = ft_split(line, " \t\v\r\f\n");
 	if (!element)
 		return (FALSE);
-	if (ft_strncmp(element[0], "A", 2) == 0)
-		res = case_ambient(out_scene, element);
-	else if (ft_strncmp(element[0], "C", 2) == 0)
-		res = case_camera(out_scene, element);
-	else if (ft_strncmp(element[0], "L", 2) == 0)
-		res = case_light(out_scene, element);
-	else
-		res = init_quadrics(out_scene, element);
+	if (ft_strsetlen(element) > 0)
+	{
+		if (ft_strncmp(element[0], "A", 2) == 0)
+			res = case_ambient(out_scene, element);
+		else if (ft_strncmp(element[0], "C", 2) == 0)
+			res = case_camera(out_scene, element);
+		else if (ft_strncmp(element[0], "L", 2) == 0)
+			res = case_light(out_scene, element);
+		else
+			res = init_quadrics(out_scene, element);
+	}
 	i = 0;
 	while (element[i])
 		free (element[i++]);
@@ -59,9 +62,9 @@ static void	terminate_gnl(int fd, char *last_line)
 	close(fd);
 }
 
-static int	check_scene()
+static int	check_scene( void )
 {
-	const t_scene *scene = get_scene();
+	const t_scene	*scene = get_scene();
 
 	if (scene->ambient_ratio == 0)
 	{

@@ -1,8 +1,12 @@
 
-L			20,0,0		1 	255,255,255
+L			15,10,0		1 	255,255,255
 
-A 0.2					255,255,255
 
-C    50,0,0         -1,0,0      90
+A    0.1					255,255,255
 
-qd	    0,0,0			0,0,1		   1		1		1	    0	  -81		-9		9		102,103,171	       0.1                      20    ./bumpmap_texture/damaged_concrete.xpm
+C    30,0,0         -1,0,0      90
+
+# |TYPE||origin| |direction(unit)| 	|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)| |bump_map texture xpm| |texture image xpm|
+#SPHERE 
+
+ qd 0,0,0	0,0,1	1	1	1   0	-81	-9	9	102,103,171		0.1 	20	./texture_images/normal_maps/brick_normal.xpm ./texture_images/textures/brick.xpm

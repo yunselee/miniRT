@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:05:07 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 22:24:02 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/22 16:17:34 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,19 @@ static int	parse_scene(t_scene *out_scene, char *line)
 	single_scene = ft_split(line, " \t\v\r\f\n");
 	if (!single_scene)
 		return (FALSE);
-	res = FALSE;
-	if (ft_strncmp(single_scene[0], "A", 2) == 0)
-		res = case_ambient(out_scene, single_scene);
-	else if (ft_strncmp(single_scene[0], "C", 2) == 0)
-		res = case_camera(out_scene, single_scene);
-	else if (ft_strncmp(single_scene[0], "L", 2) == 0)
-		res = case_light(out_scene, single_scene);
-	else
-		res = init_object(out_scene, single_scene);
+	res = TRUE;
+	if (ft_strsetlen(single_scene))
+	{
+		res = TRUE;
+		if (ft_strncmp(single_scene[0], "A", 2) == 0)
+			res = case_ambient(out_scene, single_scene);
+		else if (ft_strncmp(single_scene[0], "C", 2) == 0)
+			res = case_camera(out_scene, single_scene);
+		else if (ft_strncmp(single_scene[0], "L", 2) == 0)
+			res = case_light(out_scene, single_scene);
+		else
+			res = init_object(out_scene, single_scene);
+	}
 	i = 0;
 	while (single_scene[i])
 		free (single_scene[i++]);

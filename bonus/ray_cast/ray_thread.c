@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 09:13:38 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/20 14:45:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/22 17:06:03 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 #include "scene_editer.h"
 #include "debug_msgs.h"
 
-
 static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 {
 	const int	unit = 128;
@@ -33,7 +32,6 @@ static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 	attenuation = fmin(1, 1 / (a[0] + a[1] * dist + a[2] * dist * dist));
 	return (color_scale(color, attenuation));
 }
-
 
 // TODO opt
 static void	ft_fill_pixel(int x, int y, unsigned int color)

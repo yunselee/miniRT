@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/19 13:13:04 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/22 17:02:21 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static t_color	ambient_light(const t_quadrics *Q, \
 	c.alpha = 0;
 	c = color_scale(c, ra);
 	debug_ambient(Q);
-	debug_color(&c);
 	return (c);
 }
 
@@ -99,8 +98,11 @@ t_color	phong_reflection(t_quadrics *Q, \
 								scene->ambient_color, \
 								scene->ambient_ratio, \
 								hit_point);
+	debug_color(&color[0]);
 	color[1] = diffuse_light(scene, Q, normal, hit_point);
+	debug_color(&color[1]);
 	mirror_ray = get_mirror_ray(normal, v3_sub(hit_point, view_point));
 	color[2] = specular_light(Q, mirror_ray, hit_point, recurse);
+	debug_color(&color[2]);
 	return (color_add(color_add(color[0], color[1]), color[2]));
 }

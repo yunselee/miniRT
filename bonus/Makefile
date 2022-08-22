@@ -1,9 +1,9 @@
 NAME			= miniRT
 
 CC				= gcc
-CFLAGS			=  -Wall -Werror -Wextra -O2
+CFLAGS			=  -Wall -Werror -Wextra  -O3 -mavx2 
 # -g -fsanitize=address  -Wall -Werror -Wextra
-
+#-mavx512f -mavx512dq -mavx512bw -mavx512vbmi -mavx512vbmi2 -mavx512vl
 LIBS = ./library/LIBFT/libft.a
 LIBV = ./library/Libft_vector/libvector.a
 MLX = -Llibrary/mlx -lmlx -framework OpenGL -framework AppKit
