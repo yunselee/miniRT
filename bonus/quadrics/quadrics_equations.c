@@ -43,9 +43,15 @@ static t_sols	solve_quadratic_half_eq(float a, float b, float c)
 
 static float	find_plane_intersection(const t_quadrics *Q, const t_ray *R)
 {
+<<<<<<< HEAD
 	float		dist;
 	t_vec3		obj_org;
 	const float	cos = v3_dot(R->dir, Q->dir);
+=======
+	float	dist;
+	t_vec3	obj_org;
+	const float	cos  = v3_dot(R->dir, Q->dir);;
+>>>>>>> main
 
 	obj_org = v3_sub(Q->org, R->org);
 	if (cos == 0)
@@ -87,9 +93,15 @@ float	find_intersection(const t_quadrics *Q, const t_ray *R)
 	ray_org.w = 1;
 	debug_find_intersection(Q, R);
 	tmp = make_v4(v4_dot(R->dir, Q->coefs.col1), v4_dot(R->dir, Q->coefs.col2), \
+<<<<<<< HEAD
 				v4_dot(R->dir, Q->coefs.col3), v4_dot(R->dir, Q->coefs.col4));
 	coefs[0] = v4_dot(tmp, R->dir);
 	coefs[1] = v4_dot(tmp, ray_org);
+=======
+					v4_dot(R->dir, Q->coefs.col3), v4_dot(R->dir, Q->coefs.col4));
+	coefs[0] = v4_dot( tmp, R->dir);
+	coefs[1] = v4_dot( tmp,  ray_org);
+>>>>>>> main
 	coefs[2] = quadratic_form(ray_org, Q->coefs, ray_org);
 	sols = solve_quadratic_half_eq(coefs[0], coefs[1], coefs[2]);
 	if (sols.sol1 > EPSILON && isnan(sols.sol1) == FALSE)
