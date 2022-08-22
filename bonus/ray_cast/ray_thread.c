@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 09:13:38 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/22 17:06:03 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/22 17:36:24 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 	return (color_scale(color, attenuation));
 }
 
-<<<<<<< HEAD
-// TODO opt
-=======
-
->>>>>>> main
 static void	ft_fill_pixel(int x, int y, unsigned int color)
 {
 	unsigned int	dx;

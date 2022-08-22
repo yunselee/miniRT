@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:22:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/22 17:02:17 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/22 17:36:22 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ static float	diffuse_helper(t_quadrics *objlst, \
 	ray_to_light.dir = v3_normalize(dir_to_light);
 	ray_to_light.org = hit_point;
 	diffuse = v3_dot(ray_to_light.dir, normal);
-<<<<<<< HEAD
 	if (diffuse <= 0)
-=======
-	if(diffuse <= 0)
->>>>>>> main
 		return (0);
 	distance[0] = get_intersect_distance(objlst, NULL, ray_to_light);
 	distance[1] = v3_l2norm(dir_to_light);

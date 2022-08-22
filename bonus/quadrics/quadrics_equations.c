@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 13:12:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/22 16:25:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/22 17:36:23 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,9 @@ static t_sols	solve_quadratic_half_eq(float a, float b, float c)
 
 static float	find_plane_intersection(const t_quadrics *Q, const t_ray *R)
 {
-<<<<<<< HEAD
 	float		dist;
 	t_vec3		obj_org;
 	const float	cos = v3_dot(R->dir, Q->dir);
-=======
-	float	dist;
-	t_vec3	obj_org;
-	const float	cos  = v3_dot(R->dir, Q->dir);;
->>>>>>> main
 
 	obj_org = v3_sub(Q->org, R->org);
 	if (cos == 0)
