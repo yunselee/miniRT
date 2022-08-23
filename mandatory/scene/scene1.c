@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:05:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 21:19:09 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/23 19:50:07 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_scene	*create_empty_scene(void)
 void	free_scene(t_scene *pscene)
 {
 	free(pscene->cam);
-	free_lightlst(pscene->light);
+	free(pscene->light);
 	free_objectlst(pscene->obj);
 	free(pscene);
 }

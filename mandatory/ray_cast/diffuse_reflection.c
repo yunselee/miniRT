@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:22:41 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/10 22:21:17 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/23 19:52:57 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,17 @@ t_color	diffuse_light(t_scene *scene, \
 
 	color = rgb_color(0, 0, 0);
 	light = scene->light;
-	while (light != NULL)
+	diffuse = diffuse_helper(scene->obj, light, normal, intersection);
+	if (diffuse > EPSILON)
 	{
-		diffuse = diffuse_helper(scene->obj, light, normal, intersection);
-		if (diffuse > EPSILON)
-		{
-			color_temp.red = round((double)light->color.red / 255 \
-									* hit_obj->color.red);
-			color_temp.green = round((double)light->color.green / 255 \
-									* hit_obj->color.green);
-			color_temp.blue = round((double)light->color.blue / 255 \
-									* hit_obj->color.blue);
-			color_temp = color_scale(color_temp, diffuse);
-			color = color_add(color, color_temp);
-		}
-		light = light->next;
+		color_temp.red = round((double)light->color.red / 255 \
+								* hit_obj->color.red);
+		color_temp.green = round((double)light->color.green / 255 \
+								* hit_obj->color.green);
+		color_temp.blue = round((double)light->color.blue / 255 \
+								* hit_obj->color.blue);
+		color_temp = color_scale(color_temp, diffuse);
+		color = color_add(color, color_temp);
 	}
 	return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 18:29:21 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/23 19:48:00 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ struct s_light
 	t_vec3	o;
 	double	bright;
 	t_color	color;
-	t_light	*next;
 };
 
 typedef struct s_cam

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:11:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 19:26:06 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/23 19:54:49 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ void	print_single_light(const t_light *light)
 
 void	print_info_light(const t_light *light)
 {
-	if (light != NULL)
-	{
-		print_single_light(light);
-		light = light->next;
-	}
+	print_single_light(light);
 }
 
 void	print_info_camera(const t_cam *cam)

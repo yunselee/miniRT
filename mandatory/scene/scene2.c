@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 05:05:37 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/07 18:28:30 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/23 19:56:02 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,7 @@
 
 static void	transform_lights(t_light *light, t_mat33 transform)
 {
-	t_light	*curr;
-
-	curr = light;
-	while (curr)
-	{
-		curr->o = transform_by_mat33(transform, (curr->o));
-		curr = curr->next;
-	}
+	light->o = transform_by_mat33(transform, (light->o));
 }
 
 static void	transform_objects(t_obj_base *obj, t_mat33 transform)

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 19:41:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/23 19:55:16 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,5 @@ int		mousedown(int button, int x, int y, t_mlx *mlx);
 int		mlx_mouse_wheel(t_mlx *mlx, int keycode);
 int		mouseup(int button, int x, int y, t_mlx *mlx);
 int		mousemove(int x, int y, t_mlx *mlx);
-void	mlx_switch_light(t_mlx *mlx);
 
 #endif

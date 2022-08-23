@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 18:25:18 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/08 20:18:28 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/23 19:52:41 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,15 @@ void	render_lightsource(t_mlx *mlx, double depth)
 	t_light		*light;
 
 	light = mlx->scene->light;
-	while (light)
+	cam_to_light = v3_sub(light->o, mlx->scene->cam->pos);
+	dist = v3_l2norm(cam_to_light);
+	if (cam_to_light.z > EPSILON && dist > (1 - EPSILON))
 	{
-		cam_to_light = v3_sub(light->o, mlx->scene->cam->pos);
-		dist = v3_l2norm(cam_to_light);
-		if (cam_to_light.z > EPSILON && dist > (1 - EPSILON))
-		{
-			cam_to_light = v3_mul(cam_to_light, depth / cam_to_light.z);
-			point[0] = round(cam_to_light.x) + mlx->width / 2;
-			point[1] = round(cam_to_light.y) + mlx->height / 2;
-			if (point[0] < (int)mlx->width && point[1] < (int)mlx->height)
-				mlx_draw_circle(mlx, point, light->color, \
-				light->bright * fmin(fmax(depth / dist, 5), mlx->height / 4));
-		}
-		light = light->next;
+		cam_to_light = v3_mul(cam_to_light, depth / cam_to_light.z);
+		point[0] = round(cam_to_light.x) + mlx->width / 2;
+		point[1] = round(cam_to_light.y) + mlx->height / 2;
+		if (point[0] < (int)mlx->width && point[1] < (int)mlx->height)
+			mlx_draw_circle(mlx, point, light->color, \
+			light->bright * fmin(fmax(depth / dist, 5), mlx->height / 4));
 	}
 }

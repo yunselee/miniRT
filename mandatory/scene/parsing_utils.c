@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:33:16 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/03 17:33:20 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/23 20:08:12 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	str_to_vec3(char *str, t_vec3 *vec_out)
 	char	**pos_str;
 	int		res;
 
+	if (str[ft_strlen(str) - 1] == ',')
+		return (FALSE);
 	pos_str = ft_split(str, ",");
 	if (pos_str == NULL)
 		return (FALSE);
@@ -37,6 +39,8 @@ int	str_to_color(char *str, t_color *color_out)
 	int		rgb[3];
 	int		res;
 
+	if (str[ft_strlen(str) - 1] == ',')
+		return (FALSE);
 	pos_str = ft_split(str, ",");
 	if (pos_str == NULL)
 		return (FALSE);
@@ -53,8 +57,6 @@ int	str_to_color(char *str, t_color *color_out)
 		return (FALSE);
 	if (0 > rgb[2] || 255 < rgb[2])
 		return (FALSE);
-	color_out->red = rgb[0];
-	color_out->green = rgb[1];
-	color_out->blue = rgb[2];
+	(*color_out) = rgb_color(rgb[0], rgb[1], rgb[2]);
 	return (res);
 }
