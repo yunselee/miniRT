@@ -11,7 +11,8 @@ C    30,0,3    	 -0.8,0,-0.6			 90
 
 # |TYPE||origin| |direction(unit)| 	|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
 #Hyperbolic	Paraboloid
- qd	        0,0,-32		0,0,1		   1		1		-1		0	  -4		0		30		50,100,255			0.05						100 NULL ./texture_images/textures/galaxy.xpm
+ qd	        0,0,-32		0,0,1		   1		1		-1		0	  -4		0		30		50,100,255			0.5						100 NULL ./texture_images/textures/galaxy.xpm
+# ./texture_images/normal_maps/aerial_beach.xpm ./texture_images/textures/galaxy.xpm
 
 # |TYPE||origin| |direction(unit)| 			|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs(0.0, 1.0)| |specular_alpha[2~)|
 #Sphere
@@ -40,30 +41,30 @@ C    30,0,3    	 -0.8,0,-0.6			 90
  qd	        -10,5,-10		0,0,1		  	   1		1		1		0	  -1		-1		1		204,255,241			0.3						10
  qd	        -10,10,-6.6		0,0,1		  	   1		1		1		0	  -1		-1		1		255,253,184			0.5						2
  qd	        -10,16,-5		0,0,1		  	   1		1		1		0	  -1		-1		1		255,205,204			0.9						2
- qd	        -10,22.5,-4		0,0,1		  	   1		1		1		0	  -1		-1		1		158,255,180			0						2
+ qd	        -10,22.5,-4		0,0,1		  	   1		1		1		0	  -4		-2		2		158,255,180			0						2	 ./texture_images/normal_maps/mud_cracked_dry.xpm ./texture_images/textures/mud_cracked_dry.xpm
  qd	        6,-5,-15		0,0,1		  	   1		1		1		0	  -1		-1		1		138,190,255		    0						2
  qd	        6.5,-10,-12		0,0,1		  	   1		1		1		0	  -1		-1		1		128,255,248			0.3						94
  qd	        5.5,-15,-10		0,0,1		  	   1		1		1		0	  -1		-1		1		255,140,138			0						2
  qd	        6,-20,-8.5		0,0,1		  	   1		1		1		0	  -1		-1		1		189,255,228			0.6						2
  qd	        3,-3,-22		0,0,1		  	   1		1		1		0	  -1		-1		1		255,184,249			0.4						2
- qd	        3,-6.5,-20		0,0,1		  	   1		1		1		0	  -1		-1		1		235,255,168			0						2
- qd	        3,-9,-16		0,0,1		  	   1		1		1		0	  -1		-1		1		222,138,255			0						2
- qd	        3.5,-12,-12		0,0,1		  	   1		1		1		0	  -1		-1		1		255,165,153			0.3						2
- qd	        3.5,-16,-10		0,0,1		  	   1		1		1		0	  -4		-2		2		255,128,184			0						2
+ qd	        3,-6.5,-20		0,0,1		  	   1		1		1		0	  -1		-1		1		235,255,168			0						2	./texture_images/normal_maps/coast_sand_rocks.xpm ./texture_images/textures/coast_sand_rocks.xpm
+ qd	        3,-9,-16		0,0,1		  	   1		1		1		0	  -1		-1		1		222,138,255			0						2	./texture_images/normal_maps/cobblestone_floor.xpm ./texture_images/textures/cobblestone_floor.xpm
+ qd	        3.5,-12,-12		0,0,1		  	   1		1		1		0	  -1		-1		1		255,165,153			0.3						2	
+ qd	        3.5,-16,-10		0,0,1		  	   1		1		1		0	  -4		-2		2		255,128,184			0						2	./texture_images/normal_maps/stone_wall.xpm ./texture_images/textures/stone_wall.xpm
  qd	        3,-20,-9		0,0,1		  	   1		1		1		0	  -1		-1		1		255,174,245			0.1						2
  qd	        -3,-3,-22		0,0,1		  	   1		1		1		0	  -1		-1		1		163,221,255			0						2
  qd	        -3,-6,-20		0,0,1		  	   1		1		1		0	  -1		-1		1		184,211,255			0.9						2
  qd	        -3,-9,-16		0,0,1		  	   1		1		1		0	  -1		-1		1		133,255,221			0.9						2
- qd	        -3,-12,-12		0,0,1		  	   1		1		1		0	  -1		-1		1		255,229,204			0						2
+ qd	        -3,-12,-12		0,0,1		  	   1		1		1		0	  -1		-1		1		255,229,204			0						2	./texture_images/normal_maps/coast_sand_rocks.xpm ./texture_images/textures/coast_sand_rocks.xpm
  qd	        -3,-16.5,-10	0,0,1		  	   1		1		1		0	  -1		-1		1		224,255,133			0.3						12
  qd	        -3.5,-20,-9		0,0,1		  	   1		1		1		0	  -1		-1		1		207,199,255			0						2
  qd	        -6,-5,-15		0,0,1		  	   1		1		1		0	  -1		-1		1		199,250,255			0.1						2
- qd	        -6,-10,-12		0,0,1		  	   1		1		1		0	  -1		-1		1		255,231,143			0						2
+ qd	        -6,-10,-12		0,0,1		  	   1		1		1		0	  -1		-1		1		255,231,143			0						2	./texture_images/normal_maps/cobblestone_floor.xpm ./texture_images/textures/cobblestone_floor.xpm
  qd	        -6.5,-15,-10	0,0,1		  	   1		1		1		0	  -1		-1		1		255,191,168			0.6						100
  qd	        -6,-20.5,-8.5	0,0,1		  	   1		1		1		0	  -1		-1		1		253,255,133			0						2
  qd	        -11,-5,-10		0,0,1		  	   1		1		1		0	  -1		-1		1		133,255,215			0.3						42
- qd	        -10,-11,-7		0,0,1		  	   1		1		1		0	  -9		-3		3		255,220,204			0						2
- qd	        -12,-16,-5		0,0,1		  	   1		1		1		0	  -1		-1		1		148,185,255			0						2
+ qd	        -10,-11,-7		0,0,1		  	   1		1		1		0	  -9		-3		3		255,220,204			0						2	./texture_images/normal_maps/coast_sand_rocks.xpm ./texture_images/textures/coast_sand_rocks.xpm
+ qd	        -12,-16,-5		0,0,1		  	   1		1		1		0	  -1		-1		1		148,185,255			0						2	
  qd	        -10,-22,-4		0,0,1		  	   1		1		1		0	  -1		-1		1		219,255,189			0.3						10
  qd	        12,-3,-15		0,0,1			   1		1		1		0	  -1		-1		1		156,255,133			0.99					2
  qd	        13,-7,-11		0,0,1		 	   1		1		1		0	  -1		-1		1		255,179,210			0.9						100

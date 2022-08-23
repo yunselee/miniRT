@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/22 16:22:13 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/23 20:24:28 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,19 @@ int	init_quadrics(t_scene *outscene, char **single_scene)
 	quadric = NULL;
 	if (ft_strncmp(single_scene[0], "pl", 3) == 0)
 		quadric = case_quad_plane(single_scene);
-	else if (ft_strncmp(single_scene[0], "qd", 3) == 0)
-		quadric = case_quadrics(single_scene);
 	else if (ft_strncmp(single_scene[0], "cy", 3) == 0)
 		quadric = case_quad_cylinder(single_scene);
 	else if (ft_strncmp(single_scene[0], "sp", 3) == 0)
 		quadric = case_quad_sphere(single_scene);
 	else if (ft_strncmp(single_scene[0], "co", 3) == 0)
 		quadric = case_quad_cone(single_scene);
+	else if (ft_strncmp(single_scene[0], "qd", 3) == 0)
+		quadric = case_quadrics(single_scene);
 	else
 		return (FALSE);
 	if ((quadric == NULL) \
 		|| roundf(v3_l2norm(quadric->dir) * 10000) / 10000 != 1.0
-		|| quadric->spec_rs < 0 || quadric->spec_rs >= 1 \
+		|| quadric->spec_rs < 0 || quadric->spec_rs > 1 \
 		|| quadric->spec_ns < 1)
 	{
 		free(quadric);

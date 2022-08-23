@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 01:25:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/22 19:05:46 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/23 20:21:56 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void	print_size_of(void)
 
 int	main(int argc, char **argv)
 {
-	char	*file_name;
 	t_mat33	transform;
 
 	print_size_of();
@@ -63,14 +62,11 @@ int	main(int argc, char **argv)
 		printf("Error\n\t: usage : ./miniRT <FILENAME>\n");
 		return (1);
 	}
-	file_name = argv[1];
-	printf("Initiating MLX... : ");
-	init_mlx(file_name);
-	if (scene_init(file_name) == FALSE)
+	init_mlx(argv[1]);
+	if (scene_init(argv[1]) == FALSE)
 	{
 		printf("\n\033[3;31mError\n\tFail to read file\033[0m\n");
 		terminate_mlx(NULL);
-		return (1);
 	}
 	printf("\033[1;33m======MINI_RT SCENE INFOs(global)=====\033[0m\n");
 	print_info_scene();

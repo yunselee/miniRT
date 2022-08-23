@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/22 19:12:36 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/23 20:20:04 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,4 @@ void	ray_cast(void)
 		&& get_scene_editer()->target_scene != E_NONE)
 		render_lightsource(cam_proportion);
 	time_check_end_sub("ray");
-	// time_check_start_sub();
-	// antialiasing();
-	// time_check_end_sub("anti aliasing");
 }

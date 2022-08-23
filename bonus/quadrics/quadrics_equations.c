@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 13:12:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/22 17:37:00 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/23 20:25:16 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static float	find_plane_intersection(const t_quadrics *Q, const t_ray *R)
 	return (dist);
 }
 
-static int	is_z_range(const t_quadrics *Q, \
+static int	check_z_range(const t_quadrics *Q, \
 										const t_ray *R, \
 										float sol)
 {
@@ -94,12 +94,12 @@ float	find_intersection(const t_quadrics *Q, const t_ray *R)
 	sols = solve_quadratic_half_eq(coefs[0], coefs[1], coefs[2]);
 	if (sols.sol1 > EPSILON && isnan(sols.sol1) == FALSE)
 	{
-		if ((is_z_range(Q, R, sols.sol1)))
+		if ((check_z_range(Q, R, sols.sol1)))
 			return (sols.sol1);
 	}
 	if (sols.sol2 > EPSILON && isnan(sols.sol2) == FALSE)
 	{
-		if ((is_z_range(Q, R, sols.sol2)))
+		if ((check_z_range(Q, R, sols.sol2)))
 			return (sols.sol2);
 	}
 	return (NAN);
