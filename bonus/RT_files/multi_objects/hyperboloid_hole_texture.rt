@@ -11,7 +11,7 @@ C    30,0,3    	 -0.8,0,-0.6			 90
 
 # |TYPE||origin| |direction(unit)| 	|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
 #Hyperbolic	Paraboloid
- qd	        0,0,-32		0,0,1		   1		1		-1		0	  -4		0		30		50,100,255			0.05						100
+ qd	        0,0,-32		0,0,1		   1		1		-1		0	  -4		0		30		50,100,255			0.05						100 NULL ./texture_images/textures/galaxy.xpm
 
 # |TYPE||origin| |direction(unit)| 			|  A  | |  B  | |  C  | |  D  | |  E  |  |z_min| |z_max|      |color|   |specular_rs(0.0, 1.0)| |specular_alpha[2~)|
 #Sphere
