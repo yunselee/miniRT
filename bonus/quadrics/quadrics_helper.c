@@ -6,7 +6,7 @@
 /*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 01:46:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/24 15:20:46 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:44:10 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_quadrics	*case_quad_plane(char **quad_info)
 		|| (str_to_color(quad_info[3], &newquad->color) == FALSE) \
 		)
 		return (free_return(newquad));
-	if ((ft_strsetlen(quad_info) > 6) && (ft_strsetlen(quad_info) <= 8))
+	if ((ft_strsetlen(quad_info) > 4) && (ft_strsetlen(quad_info) <= 8))
 	{
 		if (ft_strtof(quad_info[4], &newquad->spec_rs) == FALSE \
 		|| ft_strtoi(quad_info[5], &newquad->spec_ns) == FALSE \

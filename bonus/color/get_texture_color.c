@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:09:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:26:26 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 13:09:11 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ static t_color	get_plane_texture_color(const t_quadrics *Q, \
 										t_vec3 point)
 {
 	const t_vec3	binormal = v3_normalize(v3_crs(Q->dir, Q->tan));
+	const float		scaler = 20 * v3_l2norm(Q->coefs.col4);
 	float			local_pnt[2];
 	int				pixel[2];
 
-	local_pnt[0] = v3_dot(v3_sub(point, Q->org), Q->tan);
-	local_pnt[1] = v3_dot(v3_sub(point, Q->org), binormal);
+	local_pnt[0] = scaler * v3_dot(v3_sub(point, Q->org), Q->tan);
+	local_pnt[1] = scaler * v3_dot(v3_sub(point, Q->org), binormal);
 	pixel[0] = (int)local_pnt[0] % texture->img_width + texture->img_width;
 	pixel[1] = (int)local_pnt[1] % texture->img_height + texture->img_height;
 	pixel[0] %= texture->img_width;

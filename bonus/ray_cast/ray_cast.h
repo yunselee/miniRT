@@ -6,7 +6,7 @@
 /*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:07:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/24 14:46:55 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:49:55 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "mlx_manager.h"
 # include "vector3.h"
 # include "color.h"
-# define RECURSE 2
+# define RECURSE 0
 
 typedef struct s_thread_local_object
 {

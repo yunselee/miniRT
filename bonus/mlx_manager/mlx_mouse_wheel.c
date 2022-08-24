@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 13:24:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:37:28 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 13:08:18 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,35 @@ static void	wheel_camera(int keycode)
 	cam->cam_proportion = (WIN_WIDTH / 2) / tan(cam->hfov / 2);
 }
 
+static int	wheel_plane(t_quadrics *obj, float stride)
+{
+	if (obj == NULL)
+		return (FALSE);
+	if (v3_l2norm(obj->coefs.col4) < EPSILON)
+		return (TRUE);
+	obj->coefs.col4 = v4_mul(obj->coefs.col4, stride);
+	obj->coefs.col1.w *= stride;
+	obj->coefs.col2.w *= stride;
+	obj->coefs.col3.w *= stride;
+	print_single_quadrics(obj);
+	return (TRUE);
+}
+
 static int	wheel_object(t_quadrics *obj, int keycode)
 {
 	double	stride;
 	t_mat44	mat;
 
 	stride = 0.1;
-	if (obj == NULL || obj->type == Q_PLANE)
+	if (obj == NULL)
 		return (FALSE);
 	if (keycode == 5)
 		stride = 1 - stride;
 	else
 		stride = 1 + stride;
 	stride = 1 / stride;
+	if (obj->type == Q_PLANE)
+		return (wheel_plane(obj, stride));
 	mat.col1 = make_v4(1, 0, 0, 0);
 	mat.col2 = make_v4(0, 1, 0, 0);
 	mat.col3 = make_v4(0, 0, 1, 0);

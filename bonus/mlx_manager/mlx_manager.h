@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:29:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:36:36 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 15:47:37 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,10 @@ int				mouseup(int button, int x, int y);
 int				mousemove(int x, int y);
 void			mlx_replace_light(void);
 t_mlx_manager	*get_mlx(void);
+
+// messages
+void			edit_mode_info_camera(void);
+void			edit_mode_info_object(void);
+void			edit_mode_info_light(void);
 
 #endif

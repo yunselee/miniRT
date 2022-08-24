@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 18:48:44 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/19 13:22:02 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 13:46:22 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ int	mousedown(int button, int x, int y)
 {
 	t_scene_editer	*editer;
 
-	printf("mouse clicked\n");
 	editer = get_scene_editer();
+	if (x > 0 && y > 0)
+		printf("mouse clicked\n");
 	if (x < 0 || y < 0 || x > WIN_WIDTH || y > WIN_HEIGHT || \
 		(((editer->edit == FALSE) || (editer->target_scene == E_NONE)) \
 		&& (editer->debug == FALSE)))

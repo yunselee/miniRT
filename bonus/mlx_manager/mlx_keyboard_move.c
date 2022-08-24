@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_keyboard_move.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:52:32 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:34:39 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 15:44:58 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	mlx_move_cam(int keycode)
 	}
 	else if (move_pos(&(scene->cam->pos), keycode) == FALSE)
 		return (FALSE);
-	print_info_camera(scene->cam);
 	mlx_renew_image();
 	return (TRUE);
 }
@@ -70,7 +69,6 @@ int	mlx_move_light(int keycode)
 {
 	if (move_pos(&(get_scene_editer()->selected_light->o), keycode) == FALSE)
 		return (FALSE);
-	print_info_light(get_scene_editer()->selected_light);
 	mlx_renew_image();
 	return (TRUE);
 }
@@ -91,7 +89,6 @@ int	mlx_move_obj(int keycode)
 		rotate_quadrics(selected_quad, axis, 3);
 	else if (move_pos(&(selected_quad->org), keycode) == FALSE)
 		return (FALSE);
-	print_single_quadrics(selected_quad);
 	mlx_renew_image();
 	return (TRUE);
 }

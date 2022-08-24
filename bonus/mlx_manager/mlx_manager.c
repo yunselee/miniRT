@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:25:46 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 15:44:02 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 15:46:39 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,7 @@ void	run_mlx(void)
 	mlx_hook(mlx->win, 6, (1L << 6), mousemove, mlx);
 	printf("\033[3;32m\tLoop start\033[0m\n");
 	time_check_end_all();
+	printf("\033[1;3m\tpress E to edit scene or press D \
+to change debug mode\033[0m\n");
 	mlx_loop(mlx->mlx);
 }

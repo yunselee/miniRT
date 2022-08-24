@@ -6,7 +6,7 @@
 /*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/24 15:37:05 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:44:17 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,12 @@ void	ray_cast(void)
 	double	cam_proportion;
 
 	cam_proportion = (WIN_WIDTH / 2) / tan(get_scene()->cam->hfov / 2);
-	time_check_start_sub();
+	if (get_scene_editer()->edit == 0)
+		time_check_start_sub();
 	ray_multithread();
 	if (get_scene_editer()->edit != 0 \
 		&& get_scene_editer()->target_scene != E_NONE)
 		render_lightsource(cam_proportion);
-	time_check_end_sub("ray");
+	if (get_scene_editer()->edit == 0)
+		time_check_end_sub("ray");
 }

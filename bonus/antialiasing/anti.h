@@ -6,13 +6,13 @@
 /*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 15:30:13 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/24 15:30:18 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:45:58 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ANTI_H
-# define QUADRICS_H
+# define ANTI_H
 
 void	antialiasing(void);
 
-#endif ANTI_H
+#endif

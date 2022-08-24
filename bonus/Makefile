@@ -57,6 +57,7 @@ SRCS			= 	main.c \
 					mlx_keyboard_move.c \
 					mlx_keyboard.c \
 					mlx_manager.c \
+					mlx_messages.c \
 					\
 					camera.c \
 					light.c \
