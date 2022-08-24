@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:07:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/23 21:26:28 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 12:50:31 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "mlx_manager.h"
 # include "vector3.h"
 # include "color.h"
-# define RECURSE 0
+# define RECURSE 2
 
 typedef struct s_thread_local_object
 {
