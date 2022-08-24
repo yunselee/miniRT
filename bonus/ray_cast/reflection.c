@@ -99,10 +99,12 @@ t_color	phong_reflection(t_quadrics *Q, \
 								scene->ambient_ratio, \
 								hit_point);
 	debug_color(&color[0]);
-	color[1] = diffuse_light(scene, Q, normal, hit_point);
 	debug_color(&color[1]);
 	mirror_ray = get_mirror_ray(normal, v3_sub(hit_point, view_point));
-	color[2] = specular_light(Q, mirror_ray, hit_point, recurse);
-	debug_color(&color[2]);
-	return (color_add(color_add(color[0], color[1]), color[2]));
+	// color[1] = diffuse_light(scene, Q, normal, hit_point);
+	// color[2] = specular_light(Q, mirror_ray, hit_point, recurse);
+	color[1] = diffuse_specular(	Q,normal,hit_point, mirror_ray, recurse);
+	//debug_color(&color[2]);
+	//return (color_add(color_add(color[0], color[1]), color[2]));
+	return (color_add(color[0], color[1]));
 }

@@ -46,16 +46,26 @@ t_quadrics	*case_quad_plane(char **quad_info)
 	t_quadrics	*newquad;
 
 	newquad = ft_calloc(1, sizeof(t_quadrics));
-	if (((ft_strsetlen(quad_info) < 6) || (ft_strsetlen(quad_info) > 8)) \
+	newquad->spec_rs = 0.2;
+	newquad->spec_ns = 54;
+	if (((ft_strsetlen(quad_info) < 4) || (ft_strsetlen(quad_info) > 8)) \
 		|| (str_to_vec3(quad_info[1], &newquad->org) == FALSE) \
 		|| (str_to_vec3(quad_info[2], &newquad->dir) == FALSE) \
 		|| (str_to_color(quad_info[3], &newquad->color) == FALSE) \
-		|| (ft_strtof(quad_info[4], &newquad->spec_rs) == FALSE) \
-		|| (ft_strtoi(quad_info[5], &newquad->spec_ns) == FALSE) \
-		|| (take_texture_files(newquad, quad_info + 6) == FALSE))
+		)
 	{
 		free_quadlist(newquad);
 		return (NULL);
+	}
+	if ((ft_strsetlen(quad_info) > 6) && (ft_strsetlen(quad_info) < 8))
+	{
+		if( ft_strtof(quad_info[4], &newquad->spec_rs) == FALSE \
+		|| ft_strtoi(quad_info[5], &newquad->spec_ns) == FALSE \
+		|| (take_texture_files(newquad, quad_info + 6) == FALSE))
+		{
+			free_quadlist(newquad);
+			return (NULL);
+		}
 	}
 	newquad->type = Q_PLANE;
 	newquad->coefs.col3.w = 1;

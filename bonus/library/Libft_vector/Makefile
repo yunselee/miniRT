@@ -16,7 +16,7 @@ NAME = libvector.a
 NAME_DYN = libvector_dny.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O2
+CFLAGS = -Wall -Wextra -Werror  -O3 -mavx2 
 
 AR = ar
 ARFLAGS = -rs
