@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 14:33:54 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 14:32:43 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,23 @@ static int	chage_to_editmode(int keycode)
 	{
 		editer->debug = (editer->debug + 1) % 3;
 		if (editer->debug == D_NONE)
-			printf("DEBUG MODE OFF\n");
+			printf("\033[1;3m\tDEBUG MODE OFF\033[0m\n");
 		else if (editer->debug == D_SIMPLE)
-			printf("DEBUG MODE ON : SIMPLE mode\n");
+			printf("\033[1;3m\tDEBUG MODE ON : SIMPLE mode\033[0m\n");
 		else if (editer->debug == D_DETAIL)
-			printf("DEBUG MODE ON : DETAIL mode\n");
+			printf("\033[1;3m\tDEBUG MODE ON : DETAIL mode\033[0m\n");
+		if (editer->debug != D_NONE)
+		{
+			printf("\033[1;3m\tclick pixels with mouse ");
+			printf("right button to see detail\033[0m\n");
+		}
 		return (TRUE);
 	}
 	editer->debug = FALSE;
 	editer->edit = ceil(fmax(WIN_WIDTH, WIN_HEIGHT) / 500);
+	printf("\033[1;3m\tNow in editting mode\n");
+	printf("\tSelect scene to edit -> C : cam, L : light, O : objs\n");
+	printf("\tPress R to render image\033[0m\n");
 	mlx_renew_image();
 	return (TRUE);
 }
@@ -53,9 +61,10 @@ static int	change_to_rendermode(void)
 	scene_editer->target_scene = E_NONE;
 	scene_editer->selected_light = NULL;
 	scene_editer->selected_quad = NULL;
-	printf("REDERING.....\n");
+	printf("\033[1;3m\tREDERING.....\033[0m\n");
 	mlx_renew_image();
-	printf("DONE\n");
+	printf("\033[1;3m\tDONE\n");
+	printf("\tpress E to edit scene or press D to change debug mode\033[0m\n");
 	return (TRUE);
 }
 
@@ -73,15 +82,15 @@ static int	set_edit_scene(int keycode)
 	else
 		return (FALSE);
 	if (keycode == KEY_C)
-		printf("mode : CAMERA\n");
+		edit_mode_info_camera();
 	else if (keycode == KEY_L)
 	{
-		printf("mode : LIGHT\n");
+		edit_mode_info_light();
 		editer->selected_light = get_scene()->light;
 		print_single_light(editer->selected_light);
 	}
 	else if (keycode == KEY_O)
-		printf("mode : OBJECTS\n");
+		edit_mode_info_object();
 	mlx_renew_image();
 	return (TRUE);
 }
@@ -116,8 +125,8 @@ int	keydown(int keycode)
 	else if (editer->edit != 0 && keycode == ENTER)
 	{
 		editer->target_scene = E_NONE;
-		printf("SCENE EDITING DONE! press R to render\n");
-		printf("or Select scene to edit -> C : cam L : light O : objs\n");
+		printf("\033[1;3m\tSCENE EDITING DONE! press R to render\n");
+		printf("\tor Select scene to edit -> C : cam, L : light, O : objs\033[0m\n");
 		mlx_renew_image();
 		return (1);
 	}

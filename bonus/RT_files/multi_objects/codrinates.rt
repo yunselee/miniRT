@@ -19,5 +19,5 @@
     qd  0,0,0       0,-1,0             1       1       0       0     -0.0625      0       6       171,102,103          0.2                    32
     qd  0,0,0       0,0,-1             1       1       0       0     -0.0625      0       6       103,171,102          0.2                    32
 
-# |TYPE| |origin| |diameter|   |color|   |specular_rs[0.0, 1.0]| |specular_alpha[0.0~)|
-    sp      0,0,0    2		  172,171,0          0.5                          100
+# |TYPE| |origin| |diameter|   |color|  
+    sp      0,0,0    2		  172,171,0      
