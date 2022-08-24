@@ -1,7 +1,7 @@
 NAME			= miniRT
 
 CC				= gcc
-CFLAGS			=  -Wall -Werror -Wextra  -O3 -mavx2 
+CFLAGS			=  -Wall -Werror -Wextra  -O3 -mavx2
 # -g -fsanitize=address  -Wall -Werror -Wextra
 #-mavx512f -mavx512dq -mavx512bw -mavx512vbmi -mavx512vbmi2 -mavx512vl
 LIBS = ./library/LIBFT/libft.a
@@ -77,7 +77,8 @@ SRCS			= 	main.c \
 					debug_quadrics.c \
 					debug_raycast.c \
 					debug_reflection.c \
-					anti.c
+					anti.c \
+					specular_diffuse.c
 
 OBJS_DIR		= ./OBJS
 OBJS			= $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))

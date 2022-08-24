@@ -17,7 +17,7 @@
 # include "mlx_manager.h"
 # include "vector3.h"
 # include "color.h"
-# define RECURSE 2
+# define RECURSE 0
 
 typedef struct s_thread_local_object
 {
@@ -51,5 +51,13 @@ t_color	specular_light(t_quadrics *hit_obj, \
 					int recurse);
 
 void	*thread_routine(void *ptr);
+
+t_color diffuse_specular(
+					t_quadrics *hit_obj, \
+					t_vec3 normal, \
+					t_vec3 hit_point,
+					t_vec3 mirror_ray,
+					int recurse
+					);
 
 #endif
