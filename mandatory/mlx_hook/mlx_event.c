@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_event.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 11:31:17 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/23 19:59:23 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 15:36:41 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ int	destroy(t_mlx *mlx)
 	if (!mlx)
 		return (0);
 	delete_mlx(mlx);
-	system("leaks miniRT");
 	exit(0);
 }

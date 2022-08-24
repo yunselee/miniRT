@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_disruption.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 11:55:30 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/16 08:53:47 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 12:42:44 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,15 @@ t_color	color_disruption(const t_quadrics *Q, t_vec3 point, t_color obj_color)
 	return (rgb_color(255 - obj_color.red, \
 						255 - obj_color.green, \
 						255 - obj_color.blue));
+}
+
+t_color	color_dot(t_color t1, t_color t2, float scale)
+{
+	t_color	out;
+
+	out.red = ((float)t1.red / 255 * t2.red);
+	out.green = ((float)t1.green / 255 * t2.green);
+	out.blue = ((float)t1.blue / 255 * t2.blue);
+	out = color_scale(out, scale);
+	return (out);
 }

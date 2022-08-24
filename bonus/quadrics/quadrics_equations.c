@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   quadrics_equations.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 13:12:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/23 20:25:16 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 15:36:55 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <stdio.h>
-#include <assert.h>
 #include "quadrics.h"
 #include "debug_msgs.h"
 
@@ -93,15 +92,11 @@ float	find_intersection(const t_quadrics *Q, const t_ray *R)
 	coefs[2] = quadratic_form(ray_org, Q->coefs, ray_org);
 	sols = solve_quadratic_half_eq(coefs[0], coefs[1], coefs[2]);
 	if (sols.sol1 > EPSILON && isnan(sols.sol1) == FALSE)
-	{
 		if ((check_z_range(Q, R, sols.sol1)))
 			return (sols.sol1);
-	}
 	if (sols.sol2 > EPSILON && isnan(sols.sol2) == FALSE)
-	{
 		if ((check_z_range(Q, R, sols.sol2)))
 			return (sols.sol2);
-	}
 	return (NAN);
 }
 

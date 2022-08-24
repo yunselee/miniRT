@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   anti.h                                             :+:      :+:    :+:   */
+/*   sing.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/24 15:30:13 by yunselee          #+#    #+#             */
-/*   Updated: 2022/08/24 15:30:18 by yunselee         ###   ########.fr       */
+/*   Created: 2022/08/24 14:16:37 by yunselee          #+#    #+#             */
+/*   Updated: 2022/08/24 14:16:46 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANTI_H
-# define QUADRICS_H
+#include "anti.h"
 
-void	antialiasing(void);
-
-#endif ANTI_H
+void	sing(int a[3], int x, int y, int z)
+{
+	a[0] = x;
+	a[1] = y;
+	a[2] = z;
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_keyboard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:36:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/23 19:59:37 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 15:36:24 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	keydown(int keycode, t_mlx *mlx)
 	if (keycode == ESC)
 	{
 		delete_mlx(mlx);
-		system("leaks miniRT");
 		exit(0);
 	}
 	else if (mlx->edit == 0 && keycode == KEY_E)

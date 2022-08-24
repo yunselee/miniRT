@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_thread.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 09:13:38 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/22 17:36:24 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 15:36:59 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "ray_cast.h"
-#include <assert.h>
 #include "resolution.h"
 #include "scene_editer.h"
 #include "debug_msgs.h"
 
 static t_color	intensity_attenuation(t_color color, t_vec3 pos1, t_vec3 pos2)
 {
-	const int	unit = 128;
+	const int		unit = 128;
 	const double	a[3] = {1, 0, 0};
-	double		dist;
-	double		attenuation; 
+	double			dist;
+	double			attenuation;
 
 	dist = v3_l2norm(v3_sub(pos1, pos2)) / unit;
 	attenuation = fmin(1, 1 / (a[0] + a[1] * dist + a[2] * dist * dist));
@@ -78,28 +77,27 @@ t_color	single_ray_cast(t_ray ray, int recurse)
 void	*thread_routine(void *ptr)
 {
 	const t_thread_local_object	*tlo = ptr;
-	const t_cam *cam = get_scene()->cam;
-	unsigned int				pixel[2];
+	const t_cam					*cam = get_scene()->cam;
+	unsigned int				p[2];
 	t_color						color;
 	t_ray						ray;
 
-	pixel[1] = 0;
-	while (pixel[1] < WIN_HEIGHT / 2)
+	p[1] = 0;
+	while (p[1] < WIN_HEIGHT / 2)
 	{
-		pixel[0] = 0;
-		while (pixel[0] < WIN_WIDTH / 2)
+		p[0] = 0;
+		while (p[0] < WIN_WIDTH / 2)
 		{
-			ray.dir = v3_normalize(make_v3((int)(tlo->x + pixel[0] - WIN_WIDTH / 2), \
-										(int)(tlo->y + pixel[1] - WIN_HEIGHT / 2), cam->cam_proportion));
-			assert(ray.dir.w == 0);
+			ray.dir = v3_normalize(make_v3(\
+			(int)(tlo->x + p[0] - WIN_WIDTH / 2), \
+			(int)(tlo->y + p[1] - WIN_HEIGHT / 2), cam->cam_proportion));
 			ray.org = cam->pos;
 			ray.org.w = 1;
-			assert(ray.dir.w == 0 && ray.org.w == 1);
 			color = single_ray_cast(ray, RECURSE);
-			ft_fill_pixel(tlo->x + pixel[0], tlo->y + pixel[1], color_to_hex(color));
-			pixel[0] += (get_scene_editer()->edit + 1);
+			ft_fill_pixel(tlo->x + p[0], tlo->y + p[1], color_to_hex(color));
+			p[0] += (get_scene_editer()->edit + 1);
 		}
-		pixel[1] += (get_scene_editer()->edit + 1);
+		p[1] += (get_scene_editer()->edit + 1);
 	}
 	return (NULL);
 }

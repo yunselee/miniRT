@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   specular_reflection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 15:20:20 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/22 19:01:34 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 15:37:10 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include "ray_cast.h"
 #include "scene.h"
-#include <assert.h>
 #include <stdio.h>
 #include "debug_msgs.h"
 
@@ -37,7 +36,7 @@ static t_color	object_specular(t_ray reflect_ray, \
 	return (color);
 }
 
-static t_color	specular_helper(t_quadrics *hit_obj, \
+static t_color	specular_helper(t_quadrics *h_ob, \
 								const t_light *target_light, \
 								t_ray reflect_ray)
 {
@@ -55,18 +54,18 @@ static t_color	specular_helper(t_quadrics *hit_obj, \
 	dist[0] = get_intersect_distance(get_scene()->quads, NULL, ray_to_light);
 	dist[1] = v3_l2norm(dir_to_light);
 	debug_specular(NULL, &dist[0], &dist[1], NULL);
-	specular = (hit_obj->spec_rs) * pow(specular, hit_obj->spec_ns);
+	specular = (h_ob->spec_rs) * pow(specular, h_ob->spec_ns);
 	if (isnan(dist[0]) == FALSE && dist[0] < dist[1] + EPSILON)
 		return (rgb_color(0, 0, 0));
 	specular = fmax(0, v3_dot(v3_normalize(dir_to_light), reflect_ray.dir));
-	specular = (hit_obj->spec_rs) * pow(specular, hit_obj->spec_ns);
+	specular = (h_ob->spec_rs) * pow(specular, h_ob->spec_ns);
 	debug_specular(NULL, NULL, NULL, &specular);
 	if (specular < EPSILON)
 		return (rgb_color(0, 0, 0));
 	return (light_specular(target_light, specular));
 }
 
-t_color	specular_light(t_quadrics *hit_obj, t_vec3 mirror_ray, \
+t_color	specular_light(t_quadrics *h_ob, t_vec3 mirror_ray, \
 						t_vec3 hit_point, int recurse)
 {
 	t_light	*light;
@@ -82,9 +81,9 @@ t_color	specular_light(t_quadrics *hit_obj, t_vec3 mirror_ray, \
 	while (light)
 	{
 		debug_light(light);
-		color_temp = specular_helper(hit_obj, light, reflect_ray);
+		color_temp = specular_helper(h_ob, light, reflect_ray);
 		color = color_add(color, color_temp);
-		color_temp = object_specular(reflect_ray, recurse, hit_obj->spec_rs);
+		color_temp = object_specular(reflect_ray, recurse, h_ob->spec_rs);
 		color = color_add(color, color_temp);
 		light = light->next;
 	}

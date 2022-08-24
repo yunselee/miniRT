@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quadrics.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:48:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 15:42:54 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 15:18:26 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,7 @@ void		rotate_quadrics(t_quadrics *Q, t_vec3 axis, float deg);
 void		rotate_to_quad_dir(t_quadrics *Q);
 float		find_intersection(const t_quadrics *Q, const t_ray *R);
 t_vec3		quad_normal_vector(const t_quadrics *Q, t_vec4 p, t_vec4 viewpnt);
+t_quadrics	*free_return(t_quadrics	*quadric);
+void		fill_quad_matrix(t_mat44 *mat, float coef[5]);
 
 #endif

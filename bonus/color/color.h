@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 22:52:54 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/19 14:19:20 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 12:42:53 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ t_color			color_disruption(const t_quadrics *Q, \
 t_color			get_texture_color(const t_quadrics *Q, \
 									const t_xpm *texture, \
 									t_vec point);
+
+t_color			color_dot(t_color t1, t_color t2, float scale);
 
 #endif

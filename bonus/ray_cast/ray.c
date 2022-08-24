@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/23 20:20:04 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 15:37:05 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 #include <unistd.h>
 #include <pthread.h>
 #include "resolution.h"
-#include "assert.h"
 #include "scene_editer.h"
 #include "anti.h"
 
@@ -42,7 +41,6 @@ float	get_intersect_distance(t_quadrics *objlst, \
 	target_obj = objlst;
 	while (target_obj)
 	{
-		assert(ray.dir.w == 0);
 		dist[1] = find_intersection(target_obj, &ray);
 		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
 		{

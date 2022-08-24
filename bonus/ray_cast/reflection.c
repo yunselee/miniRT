@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reflection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 21:09:26 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/22 17:02:21 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 14:45:25 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,17 @@ static t_vec3	apply_normal_map(const t_quadrics *Q, \
 	return (normal);
 }
 
+static t_arg	init(t_quadrics *Q, t_vec3 hit_p, t_vec3 normal, t_vec3 mirray)
+{
+	t_arg	a;
+
+	a.h_ob = Q;
+	a.normal = normal;
+	a.hit_point = hit_p;
+	a.mirror_ray = mirray;
+	return (a);
+}
+
 t_color	phong_reflection(t_quadrics *Q, \
 						t_vec3 hit_point, \
 						t_vec3 view_point, \
@@ -86,6 +97,7 @@ t_color	phong_reflection(t_quadrics *Q, \
 	t_vec3			normal;
 	t_vec3			mirror_ray;
 	t_color			color[3];
+	t_arg			arg;
 
 	if (get_scene_editer()->edit != FALSE)
 		return (ambient_light(Q, scene->ambient_color, \
@@ -101,10 +113,7 @@ t_color	phong_reflection(t_quadrics *Q, \
 	debug_color(&color[0]);
 	debug_color(&color[1]);
 	mirror_ray = get_mirror_ray(normal, v3_sub(hit_point, view_point));
-	// color[1] = diffuse_light(scene, Q, normal, hit_point);
-	// color[2] = specular_light(Q, mirror_ray, hit_point, recurse);
-	color[1] = diffuse_specular(	Q,normal,hit_point, mirror_ray, recurse);
-	//debug_color(&color[2]);
-	//return (color_add(color_add(color[0], color[1]), color[2]));
+	arg = init(Q, hit_point, normal, mirror_ray);
+	color[1] = diffuse_specular(&arg, recurse);
 	return (color_add(color[0], color[1]));
 }

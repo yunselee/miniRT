@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   specular_diffuse.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/24 14:31:26 by yunselee          #+#    #+#             */
+/*   Updated: 2022/08/24 15:37:07 by yunselee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <math.h>
 #include <stdlib.h>
 #include "ray_cast.h"
 #include "scene.h"
-#include <assert.h>
 #include <stdio.h>
 #include "debug_msgs.h"
 
@@ -18,26 +28,25 @@ static t_color	object_specular(t_ray reflect_ray, \
 	return (color);
 }
 
-static void zero_return(float *outDiffuse,float *outSpecular)
+static void	zero_return(float *outDiffuse, float *outSpecular)
 {
 	*outSpecular = 0;
 	*outDiffuse = 0;
 }
 
-static void helper(
-	t_quadrics *hit_obj, \
+static void	helper(
+	const t_arg *a, \
 	const t_light *target_light, \
 	t_ray reflect_ray,
-	t_vec3 normal ,
 	float out[2])
 {
 	const t_vec3	p_to_l = v3_sub(target_light->o, reflect_ray.org);
-	const float 	len = v3_l2norm(p_to_l);
-	const t_ray		ray_to_light = {reflect_ray.org, v4_mul(p_to_l, 1/len)};
+	const float		len = v3_l2norm(p_to_l);
+	const t_ray		ray_to_light = {reflect_ray.org, v4_mul(p_to_l, 1 / len)};
 	float			distance;
 
 	debug_light(target_light);
-	out[0] = v3_dot(ray_to_light.dir, normal);
+	out[0] = v3_dot(ray_to_light.dir, a->normal);
 	out[1] = v3_dot(ray_to_light.dir, reflect_ray.dir);
 	if (out[0] <= 0 && out[1] <= 0)
 		zero_return(&out[0], &out[1]);
@@ -46,7 +55,7 @@ static void helper(
 	if (isnan(distance) == FALSE && distance < len + EPSILON)
 		zero_return(&out[0], &out[1]);
 	out[0] *= target_light->bright;
-	out[1] = (hit_obj->spec_rs) * pow(out[1], hit_obj->spec_ns);
+	out[1] = (a->h_ob->spec_rs) * pow(out[1], a->h_ob->spec_ns);
 	debug_diffuse(NULL, NULL, &out[0]);
 	if (out[0] < EPSILON)
 		out[0] = 0;
@@ -54,46 +63,29 @@ static void helper(
 		out[1] = 0;
 }
 
-t_color color_dot(t_color t1, t_color t2, float scale)
+t_color	diffuse_specular(t_arg *a, int recurse)
 {
-	t_color out;
-	out.red = ((float)t1.red / 255 * t2.red);
-	out.green = ((float)t1.green / 255 * t2.green);
-	out.blue = ((float)t1.blue / 255 * t2.blue);
-	out = color_scale(out, scale);
-	return out;
-}
-
-t_color diffuse_specular(
-					t_quadrics *hit_obj, \
-					t_vec3 normal, \
-					t_vec3 hit_point,
-					t_vec3 mirror_ray,
-					int recurse
-					)
-{
-	const t_color	oclr = color_disruption(hit_obj, hit_point, \
-				get_texture_color(hit_obj, &(hit_obj->textures[T_TEXTURE]), hit_point));
-	const t_light	*light = get_scene()->light;;
+	const t_color	oclr = color_disruption(a->h_ob, a->hit_point, \
+	get_texture_color(a->h_ob, &(a->h_ob->textures[T_TEXTURE]), a->hit_point));
+	const t_light	*light = get_scene()->light;
+	const t_ray		reflect = {a->hit_point, a->mirror_ray};
 	t_color			c;
-	float			diffuse[2];
-	const t_ray		reflect_ray = {hit_point , mirror_ray};
+	float			d[2];
 
-	hit_point = v3_add(hit_point, v3_mul(normal, EPSILON));
+	a->hit_point = v3_add(a->hit_point, v3_mul(a->normal, EPSILON));
 	c = rgb_color(0, 0, 0);
 	debug_diffuse(NULL, NULL, NULL);
 	while (light != NULL)
 	{
 		debug_light(light);
-		helper(hit_obj, light, reflect_ray, normal, diffuse);
-		if (diffuse[0] > 0)
+		helper(a, light, reflect, d);
+		if (d[0] > 0)
 			c = color_add(c, color_dot(light->color, oclr, \
-					diffuse[0] * (1 - hit_obj->spec_rs)));
-		if(diffuse[1] > 0)
-			c = color_add(c, color_scale(light->color, diffuse[1] * light->bright));
-		c = color_add(c, object_specular(reflect_ray, recurse, hit_obj->spec_rs));
+					d[0] * (1 - a->h_ob->spec_rs)));
+		if (d[1] > 0)
+			c = color_add(c, color_scale(light->color, d[1] * light->bright));
+		c = color_add(c, object_specular(reflect, recurse, a->h_ob->spec_rs));
 		light = light->next;
 	}
 	return (c);
 }
-

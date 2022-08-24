@@ -41,9 +41,8 @@ SRCS			= 	main.c \
 					ray.c \
 					light_source.c \
 					reflection.c \
-					diffuse_reflection.c \
-					specular_reflection.c \
 					ray_thread.c \
+					specular_diffuse.c \
 					\
 					color.c \
 					color_disruption.c \
@@ -69,6 +68,7 @@ SRCS			= 	main.c \
 					timer.c \
 					\
 					quadrics.c \
+					quadrics_util.c \
 					quadrics_helper.c \
 					quadrics_equations.c \
 					\
@@ -78,7 +78,7 @@ SRCS			= 	main.c \
 					debug_raycast.c \
 					debug_reflection.c \
 					anti.c \
-					specular_diffuse.c
+					sing.c \
 
 OBJS_DIR		= ./OBJS
 OBJS			= $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))

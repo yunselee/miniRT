@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quadrics_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 01:46:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/22 16:27:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 15:20:46 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,67 +41,7 @@ static int	take_texture_files(t_quadrics *Q, char **quad_info)
 	return (TRUE);
 }
 
-t_quadrics	*case_quad_plane(char **quad_info)
-{
-	t_quadrics	*newquad;
-
-	newquad = ft_calloc(1, sizeof(t_quadrics));
-	newquad->spec_rs = 0.2;
-	newquad->spec_ns = 54;
-	if (((ft_strsetlen(quad_info) < 4) || (ft_strsetlen(quad_info) > 8)) \
-		|| (str_to_vec3(quad_info[1], &newquad->org) == FALSE) \
-		|| (str_to_vec3(quad_info[2], &newquad->dir) == FALSE) \
-		|| (str_to_color(quad_info[3], &newquad->color) == FALSE) \
-		)
-	{
-		free_quadlist(newquad);
-		return (NULL);
-	}
-	if ((ft_strsetlen(quad_info) > 6) && (ft_strsetlen(quad_info) <= 8))
-	{
-		if( ft_strtof(quad_info[4], &newquad->spec_rs) == FALSE \
-		|| ft_strtoi(quad_info[5], &newquad->spec_ns) == FALSE \
-		|| (take_texture_files(newquad, quad_info + 6) == FALSE))
-		{
-			free_quadlist(newquad);
-			return (NULL);
-		}
-	}
-	newquad->type = Q_PLANE;
-	newquad->coefs.col3.w = 1;
-	newquad->coefs.col4.z = 1;
-	return (newquad);
-}
-
-t_quadrics	*case_quad_sphere(char **single_scene)
-{
-	t_quadrics	*newquad;
-
-	if (ft_strsetlen(single_scene) != 4)
-		return (NULL);
-	newquad = ft_calloc(1, sizeof(t_quadrics));
-	if ((str_to_vec3(single_scene[1], &newquad->org) == FALSE) \
-		|| (ft_strtof(single_scene[2], &newquad->coefs.col4.w) == FALSE) \
-		|| (str_to_color(single_scene[3], &newquad->color) == FALSE))
-	{
-		free(newquad);
-		return (NULL);
-	}
-	newquad->type = Q_QUADRICS;
-	newquad->dir = make_v3(0, 0, 1);
-	newquad->coefs.col4.w /= 2;
-	newquad->range_z[0] = -newquad->coefs.col4.w;
-	newquad->range_z[1] = newquad->coefs.col4.w;
-	newquad->coefs.col4.w *= -newquad->coefs.col4.w;
-	newquad->coefs.col1.x = 1;
-	newquad->coefs.col2.y = 1;
-	newquad->coefs.col3.z = 1;
-	newquad->spec_rs = 0.2;
-	newquad->spec_ns = 54;
-	return (newquad);
-}
-
-static void	fill_quad_matrix(t_mat44 *mat, float coef[5])
+void	fill_quad_matrix(t_mat44 *mat, float coef[5])
 {
 	if (coef[0] < 0)
 	{
@@ -117,6 +57,32 @@ static void	fill_quad_matrix(t_mat44 *mat, float coef[5])
 	mat->col4 = make_v4(0, 0, coef[3], coef[4]);
 }
 
+t_quadrics	*case_quad_plane(char **quad_info)
+{
+	t_quadrics	*newquad;
+
+	newquad = ft_calloc(1, sizeof(t_quadrics));
+	newquad->spec_rs = 0.2;
+	newquad->spec_ns = 54;
+	if (((ft_strsetlen(quad_info) < 4) || (ft_strsetlen(quad_info) > 8)) \
+		|| (str_to_vec3(quad_info[1], &newquad->org) == FALSE) \
+		|| (str_to_vec3(quad_info[2], &newquad->dir) == FALSE) \
+		|| (str_to_color(quad_info[3], &newquad->color) == FALSE) \
+		)
+		return (free_return(newquad));
+	if ((ft_strsetlen(quad_info) > 6) && (ft_strsetlen(quad_info) <= 8))
+	{
+		if (ft_strtof(quad_info[4], &newquad->spec_rs) == FALSE \
+		|| ft_strtoi(quad_info[5], &newquad->spec_ns) == FALSE \
+		|| (take_texture_files(newquad, quad_info + 6) == FALSE))
+			return (free_return(newquad));
+	}
+	newquad->type = Q_PLANE;
+	newquad->coefs.col3.w = 1;
+	newquad->coefs.col4.z = 1;
+	return (newquad);
+}
+
 t_quadrics	*case_quad_cone(char **cylinder_info)
 {
 	t_quadrics	*newquad;
@@ -125,58 +91,22 @@ t_quadrics	*case_quad_cone(char **cylinder_info)
 
 	newquad = ft_calloc(1, sizeof(t_quadrics));
 	newquad->type = Q_QUADRICS;
-	if (
-		(ft_strsetlen(cylinder_info) < 5) \
+	if ((ft_strsetlen(cylinder_info) < 5) \
 		|| (str_to_vec3(cylinder_info[1], &newquad->org) == FALSE) \
 		|| (str_to_vec3(cylinder_info[2], &newquad->dir) == FALSE) \
 		|| (ft_strtof(cylinder_info[3], &degree) == FALSE) \
-		|| (str_to_color(cylinder_info[4], &newquad->color) == FALSE) \
-	)
-	{
-		free_quadlist(newquad);
-		return (NULL);
-	}
+		|| (str_to_color(cylinder_info[4], &newquad->color) == FALSE))
+		return (free_return(newquad));
 	newquad->spec_rs = 0.2;
 	newquad->spec_ns = 54;
 	newquad->range_z[0] = 0;
 	newquad->range_z[1] = 40;
 	coef[0] = 1600;
 	coef[1] = 1600;
-	coef[2] = -((tan(degree * M_PI / 180) * newquad->range_z[1]) * (tan(degree * M_PI / 180) * newquad->range_z[1]));
+	coef[2] = -((tan(degree * M_PI / 180) * newquad->range_z[1]) * \
+				(tan(degree * M_PI / 180) * newquad->range_z[1]));
 	coef[3] = 0;
 	coef[4] = 0;
-	fill_quad_matrix(&newquad->coefs, coef);
-	return (newquad);
-}
-
-
-t_quadrics	*case_quad_cylinder(char **cylinder_info)
-{
-	t_quadrics	*newquad;
-	float		coef[5];
-
-	newquad = ft_calloc(1, sizeof(t_quadrics));
-	newquad->type = Q_QUADRICS;
-	if (
-		(ft_strsetlen(cylinder_info) < 6)
-		|| (str_to_vec3(cylinder_info[1], &newquad->org) == FALSE)
-		|| (str_to_vec3(cylinder_info[2], &newquad->dir) == FALSE)
-		|| (ft_strtof(cylinder_info[3], coef + 4) == FALSE)
-		|| (ft_strtof(cylinder_info[4], newquad->range_z + 1) == FALSE)
-		|| (str_to_color(cylinder_info[5], &newquad->color) == FALSE) \
-	)
-	{
-		free_quadlist(newquad);
-		return (NULL);
-	}
-	coef[0] = 1;
-	coef[1] = 1;
-	coef[2] = 0;
-	coef[3] = 0;
-	coef[4] = -(coef[4] * coef[4]) / 4;
-	newquad->spec_rs = 0.2;
-	newquad->spec_ns = 54;
-	newquad->range_z[0] = 0;
 	fill_quad_matrix(&newquad->coefs, coef);
 	return (newquad);
 }
@@ -202,23 +132,7 @@ t_quadrics	*case_quadrics(char **quad_info)
 		|| (ft_strtof(quad_info[11], &newquad->spec_rs) == FALSE) \
 		|| (ft_strtoi(quad_info[12], &newquad->spec_ns) == FALSE) \
 		|| (take_texture_files(newquad, quad_info + 13) == FALSE))
-	{
-		free_quadlist(newquad);
-		return (NULL);
-	}
+		return (free_return(newquad));
 	fill_quad_matrix(&newquad->coefs, coef);
 	return (newquad);
-}
-
-void	rotate_quadrics(t_quadrics *Q, t_vec3 axis, float deg)
-{
-	t_mat44	rotation;
-
-	Q->dir = rotate_vec3_deg(axis, deg, Q->dir);
-	Q->tan = rotate_vec3_deg(axis, deg, Q->tan);
-	rotation.col1 = rotate_vec3_deg(axis, deg, make_v3(1, 0, 0));
-	rotation.col2 = rotate_vec3_deg(axis, deg, make_v3(0, 1, 0));
-	rotation.col3 = rotate_vec3_deg(axis, deg, make_v3(0, 0, 1));
-	rotation.col4 = make_v4(0, 0, 0, 1);
-	Q->coefs = mul_mat44(trans_mat44(rotation), mul_mat44(Q->coefs, rotation));
 }

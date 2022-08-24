@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quadrics.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/23 20:24:28 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/24 15:20:37 by yunselee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,7 @@ int	init_quadrics(t_scene *outscene, char **single_scene)
 		|| roundf(v3_l2norm(quadric->dir) * 10000) / 10000 != 1.0
 		|| quadric->spec_rs < 0 || quadric->spec_rs > 1 \
 		|| quadric->spec_ns < 1)
-	{
-		free(quadric);
-		return (FALSE);
-	}
+		free_return(quadric);
 	quadric->disruption = FALSE;
 	quadric->tan = get_quad_tangential(&quadric->dir);
 	rotate_to_quad_dir(quadric);
