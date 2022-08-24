@@ -57,7 +57,7 @@ t_quadrics	*case_quad_plane(char **quad_info)
 		free_quadlist(newquad);
 		return (NULL);
 	}
-	if ((ft_strsetlen(quad_info) > 6) && (ft_strsetlen(quad_info) < 8))
+	if ((ft_strsetlen(quad_info) > 6) && (ft_strsetlen(quad_info) <= 8))
 	{
 		if( ft_strtof(quad_info[4], &newquad->spec_rs) == FALSE \
 		|| ft_strtoi(quad_info[5], &newquad->spec_ns) == FALSE \
