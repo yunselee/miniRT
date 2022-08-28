@@ -15,14 +15,14 @@
 # include "vector3.h"
 # include "transform.h"
 
-typedef struct s_mat44
+typedef struct s_mat44 
 {
 	t_vec4	col1;
 	t_vec4	col2;
 	t_vec4	col3;
 	t_vec4	col4;
-}	t_mat44;
-
+}	t_mat44  ;
+//__attribute__((aligned(32 * 4))) 
 t_mat44	create_mat44(t_vec4 v1, t_vec4 v2, t_vec4 v3, t_vec4 v4);
 
 t_mat44	trans_mat44(t_mat44 a);
