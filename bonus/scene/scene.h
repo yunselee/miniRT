@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/23 21:27:15 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/30 15:25:04 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ int		scene_init(const char *filename);
 void	scene_destroy(void);
 int		transform_to_cam_cord(t_scene *scene, t_mat33 transform);
 t_scene	*get_scene(void);
+float	get_bounding_radius_square(const t_quadrics *Q);
 
 #endif

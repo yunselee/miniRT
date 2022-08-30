@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:05:07 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/22 16:15:10 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/30 15:26:47 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	terminate_gnl(int fd, char *last_line)
 
 static int	check_scene( void )
 {
-	const t_scene	*scene = get_scene();
+	t_scene	*scene = get_scene();
 
 	if (scene->ambient_ratio == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:55:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/23 20:24:28 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/30 15:26:28 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	init_quadrics(t_scene *outscene, char **single_scene)
 		return (FALSE);
 	}
 	quadric->disruption = FALSE;
+	quadric->bounding_radius_sphere = get_bounding_radius_square(quadric);
 	quadric->tan = get_quad_tangential(&quadric->dir);
 	rotate_to_quad_dir(quadric);
 	ft_addlst_back(&(outscene->quads), quadric);

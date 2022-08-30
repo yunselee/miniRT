@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/24 14:27:44 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/30 15:52:57 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@
 
 #define THREAD_NUM 4
 
+static int	is_in_bounding_sphere(const t_ray *R, const t_quadrics *Q)
+{
+	const	t_vec3 ray_org_to_obj_org = v3_sub(Q->org, R->org);
+	t_vec3	dist_vec;
+
+	dist_vec = v3_crs(R->dir, ray_org_to_obj_org);
+	dist_vec = v3_crs(dist_vec, R->dir);
+	if (v3_dot(dist_vec, dist_vec) <= Q->bounding_radius_sphere)
+		return (TRUE);
+	return (FALSE);
+}
+
 float	get_intersect_distance(t_quadrics *objlst, \
 								t_quadrics **out_intersecting_obj, \
 								t_ray ray)
@@ -43,12 +55,15 @@ float	get_intersect_distance(t_quadrics *objlst, \
 	while (target_obj)
 	{
 		assert(ray.dir.w == 0);
-		dist[1] = find_intersection(target_obj, &ray);
-		if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
+		if (is_in_bounding_sphere(&ray, target_obj) == TRUE)
 		{
-			dist[0] = dist[1];
-			if (out_intersecting_obj != NULL)
-				*out_intersecting_obj = target_obj;
+			dist[1] = find_intersection(target_obj, &ray);
+			if ((isnan(dist[1]) == FALSE) && (dist[1] < dist[0]))
+			{
+				dist[0] = dist[1];
+				if (out_intersecting_obj != NULL)
+					*out_intersecting_obj = target_obj;
+			}
 		}
 		target_obj = target_obj->next;
 	}
