@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/30 16:05:54 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/30 16:06:22 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ float	get_intersect_distance(t_quadrics *objlst, \
 	target_obj = objlst;
 	while (target_obj)
 	{
-		assert(ray.dir.w == 0);
 		if (is_in_bounding_sphere(&ray, target_obj) == TRUE)
 		{
 			dist[1] = find_intersection(target_obj, &ray);
