@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 13:24:58 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/24 13:08:18 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/30 14:08:38 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static int	wheel_object(t_quadrics *obj, int keycode)
 		obj->range_z[0] /= stride;
 		obj->range_z[1] /= stride;
 		obj->coefs = mul_mat44(mat, mul_mat44(obj->coefs, mat));
+		obj->bounding_radius_sphere /= (stride * stride);
 	}
 	print_single_quadrics(obj);
 	return (TRUE);

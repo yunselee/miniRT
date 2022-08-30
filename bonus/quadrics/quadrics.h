@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quadrics.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:48:13 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/24 15:18:26 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:05:56 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_quadrics
 	t_vec4				dir;
 	t_vec4				tan;
 	t_qtype				type;
+	float				bounding_radius_sphere;
 	float				spec_rs;
 	int					spec_ns;
 	float				range_z[2];

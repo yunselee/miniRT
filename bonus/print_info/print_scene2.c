@@ -6,11 +6,12 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:20:28 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/18 16:16:19 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/30 15:28:13 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <math.h>
 #include "../LIBFT/libft.h"
 #include "print_info.h"
 
@@ -46,7 +47,8 @@ void	print_single_quadrics(const t_quadrics *Q)
 	print_mat44(&Q->coefs);
 	printf("\t\033[38;2;%d;%d;%dmcolor\033[0m", rgb[0], rgb[1], rgb[2]);
 	printf(" : r: %d g: %d b: %d\n", rgb[0], rgb[1], rgb[2]);
-	printf("\tspecular factors : Rs : %.2f Ns : %d\n\n", Q->spec_rs, Q->spec_ns);
+	printf("\tspecular factors : Rs : %.2f Ns : %d\n", Q->spec_rs, Q->spec_ns);
+	printf("\tbounding sphere rad : %f\n\n", sqrtf(Q->bounding_radius_sphere));
 	if (Q->textures[T_NORMAL].img.img)
 		printf("\t  normal map -> width : %d, height : %d\n", \
 		Q->textures[T_NORMAL].img_width, Q->textures[T_NORMAL].img_height);

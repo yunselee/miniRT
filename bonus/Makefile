@@ -65,6 +65,7 @@ SRCS			= 	main.c \
 					read_file.c \
 					scene1.c \
 					scene2.c \
+					set_bounding_sphere.c \
 					\
 					timer.c \
 					\
