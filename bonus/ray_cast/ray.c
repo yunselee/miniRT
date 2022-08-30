@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/30 15:52:57 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/08/30 16:03:04 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static int	is_in_bounding_sphere(const t_ray *R, const t_quadrics *Q)
 	const	t_vec3 ray_org_to_obj_org = v3_sub(Q->org, R->org);
 	t_vec3	dist_vec;
 
+	if (Q->type == Q_PLANE)
+		return (TRUE);
 	dist_vec = v3_crs(R->dir, ray_org_to_obj_org);
 	dist_vec = v3_crs(dist_vec, R->dir);
 	if (v3_dot(dist_vec, dist_vec) <= Q->bounding_radius_sphere)
