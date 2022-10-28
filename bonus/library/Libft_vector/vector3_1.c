@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <smmintrin.h>
-#include <assert.h>
 
 //안한게 더 빠름 const __m128			cc = *((__m128*)&a);
 // const __m128			kk = _mm_mul_ps(cc, cc);
@@ -32,14 +31,7 @@ t_vec3	make_v3(double const x, double const y, double const z)
 // return (n);
 float	v3_l2norm(t_vec3 a)
 {
-	assert(a.w ==0);
-	const __m128			cc = *((__m128*)&a);
-	const __m128			kk = _mm_mul_ps(cc, cc);
-	const __m128			kkk = _mm_hadd_ps(kk, kk);
-
-	return (_mm_cvtss_f32(_mm_sqrt_ss(_mm_hadd_ps(kkk, kkk))));
-
-	// return (sqrtf(a.x * a.x + a.y * a.y + a.z * a.z));
+	return (sqrtf(a.x * a.x + a.y * a.y + a.z * a.z));
 }
 
 // const __m128			cc = *((__m128*)&a);
@@ -50,24 +42,11 @@ float	v3_l2norm(t_vec3 a)
 // return (*p);
 t_vec3	v3_normalize(t_vec3 a)
 {
-	//const float		len = v3_l2norm(a);
+	const float		len = v3_l2norm(a);
 
-	// if (len == 0)
-	// 	return (make_v3(0, 0, 0));
-	// return (make_v4(a.x / len, a.y / len, a.z / len, a.w));
-
-
-	//assert(a.w == 0);
-	const __m128			cc = *((__m128*)&a);
-	const __m128			kk = _mm_mul_ps(cc, cc);
-	const __m128			kkk = _mm_hadd_ps(kk, kk);
-	 //const __m128			kkkk = _mm_rsqrt_ss(_mm_hadd_ps(kkk, kkk));
-	__m128     result = _mm_sqrt_ps(_mm_hadd_ps(kkk, kkk));
-	     result = _mm_rcp_ps(result);
-
-	 const  __m128 ret = _mm_mul_ps(cc, result);
-	const t_vec4					*p = (t_vec4 *)&ret;
-	return (*p);
+	if (len == 0)
+		return (make_v3(0, 0, 0));
+	return (make_v4(a.x / len, a.y / len, a.z / len, a.w));
 }
 
 // return (make_v3(a.x + b.x, a.y + b.y, a.z + b.z))

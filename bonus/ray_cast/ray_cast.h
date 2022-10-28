@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:07:19 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/26 08:49:46 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/10/28 11:32:24 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@
 # include "mlx_manager.h"
 # include "vector3.h"
 # include "color.h"
-# define RECURSE 2
+
+# define RECURSE (3)
+# define THREAD_PARAM (3)
+# define THREAD_NUM (THREAD_PARAM * THREAD_PARAM)
+
 
 typedef struct s_thread_local_object
 {

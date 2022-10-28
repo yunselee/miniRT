@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_thread.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 09:13:38 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/24 15:36:59 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/10/28 11:15:22 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ void	*thread_routine(void *ptr)
 	t_ray						ray;
 
 	p[1] = 0;
-	while (p[1] < WIN_HEIGHT / 2)
+	while (p[1] < WIN_HEIGHT / THREAD_PARAM)
 	{
 		p[0] = 0;
-		while (p[0] < WIN_WIDTH / 2)
+		while (p[0] < WIN_WIDTH / THREAD_PARAM)
 		{
 			ray.dir = v3_normalize(make_v3(\
 			(int)(tlo->x + p[0] - WIN_WIDTH / 2), \

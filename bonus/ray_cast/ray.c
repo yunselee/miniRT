@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 08:08:24 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/30 16:06:22 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/10/28 11:29:02 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 #include "resolution.h"
 #include "scene_editer.h"
 #include "anti.h"
-
-#define THREAD_NUM 4
 
 static int	is_in_bounding_sphere(const t_ray *R, const t_quadrics *Q)
 {
@@ -79,8 +77,8 @@ static void	init_thread_local_object(t_thread_local_object *tlo)
 	i = 0;
 	while (i < THREAD_NUM)
 	{
-		(tlo + i)->x = WIN_WIDTH / 2 * (i / 2);
-		(tlo + i)->y = WIN_HEIGHT / 2 * (i % 2);
+		(tlo + i)->x = WIN_WIDTH / THREAD_PARAM * (i / THREAD_PARAM);
+		(tlo + i)->y = WIN_HEIGHT / THREAD_PARAM * (i % THREAD_PARAM);
 		i++;
 	}
 }

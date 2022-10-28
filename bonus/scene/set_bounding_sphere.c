@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 13:41:49 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/30 16:05:56 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/10/28 11:24:49 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,4 @@ float	get_bounding_radius_square(const t_quadrics *Q)
 	rad_square = fmax(rad_square, radius_square(Q, Q->range_z[1]));
 	rad_square = fmax(rad_square, 0);
 	return (rad_square);
-}
+} 

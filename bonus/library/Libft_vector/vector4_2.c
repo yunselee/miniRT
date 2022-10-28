@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector4_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yunselee <yunselee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 12:23:14 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/28 12:01:13 by yunselee         ###   ########.fr       */
+/*   Updated: 2022/08/16 08:51:55 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,7 @@ t_vec4	v4_mul(t_vec4 a, float const s)
 
 float	v4_dot(t_vec4	a, t_vec4 b)
 {
-	const __m128			cc = *((__m128*)&a);
-	const __m128			dd = *((__m128*)&b);
-	const __m128			kk = _mm_mul_ps(cc, dd);
-	const __m128			kkk = _mm_hadd_ps(kk, kk);
-
-	return (_mm_cvtss_f32(_mm_hadd_ps(kkk, kkk)));
-//	return (a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
+	return (a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
 }
 
 int	v4_isnull(t_vec4 a)

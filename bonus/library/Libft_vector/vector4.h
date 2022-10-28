@@ -13,15 +13,21 @@
 #ifndef VECTOR4_H
 # define VECTOR4_H
 
-#include "vector3.h"
+typedef struct s_vec4
+{
+	float	x;
+	float	y;
+	float	z;
+	float	w;	
+}	t_vec4;
 
-float	v4_l2norm(const t_vec4 *a)
-t_vec4	v4_normalize(const t_vec4 *a)
+float	v4_l2norm(t_vec4 v);
+t_vec4	v4_normalize(t_vec4 a);
 
 t_vec4	v4_add(t_vec4 a, t_vec4 b);
 t_vec4	v4_sub(t_vec4 a, t_vec4 b);
 t_vec4	v4_mul(t_vec4 a, double const scaler);
-float	v4_dot(t_vec4 a, t_vec4 b);
+double	v4_dot(t_vec4 a, t_vec4 b);
 t_vec4	v4_crs(t_vec4 a, t_vec4 b);
 int		v4_isnull(t_vec4 a);
 

@@ -6,7 +6,7 @@
 /*   By: dkim2 <dkim2@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 13:12:22 by dkim2             #+#    #+#             */
-/*   Updated: 2022/08/31 21:46:33 by dkim2            ###   ########.fr       */
+/*   Updated: 2022/10/28 11:01:08 by dkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ static t_sols	solve_quadratic_half_eq(float a, float b, float c)
 	float	discriminant;
 
 	sol = (t_sols){NAN, NAN};
-	if (a == 0 && b != 0)
-		sol.sol1 = -c / (2 * b);
-	else if (a != 0)
+	if (a == 0)
+	{
+		if (b != 0)
+			sol.sol1 = -c / (2 * b);
+	}
+	else
 	{
 		if (a < 0)
 		{
